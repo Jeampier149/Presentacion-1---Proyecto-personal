@@ -1,12 +1,13 @@
-<app-breadcrumb [rutas]="rutas" [titulo]="'Datos Generales'"></app-breadcrumb>
+<app-breadcrumb [rutas]="rutas" [titulo]="'Datos Gnerales'"></app-breadcrumb>
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-auto col-md-auto col-sm-auto">
-                        <button type="button" (click)="abrirNuevoMenu()"
-                                class="btn w-100 btn-sm btn-primary waves-light waves-effect btn-label">
+                        <button 
+                                class="btn w-100 btn-sm btn-primary waves-light waves-effect btn-label"
+                                [disabled]="!agregable">
                             <i class="fa fa-file label-icon"></i> Nuevo Personal
                         </button>
                     </div>
@@ -20,109 +21,119 @@
                                         <table class="table table-hover table-sm">
                                             <thead>
                                             <tr>
-                                                <th style="width: 70px; min-width: 60px">Acciones</th>
-                                                <th style="min-width: 160px">N° Documento</th>
-                                                <th style="min-width: 160px">Apellido Paterno</th>
-                                                <th style="min-width: 160px">Apellido Materno</th>
-                                                <th style="min-width: 160px">Primer Nombre</th>
-                                                <th style="min-width: 160px">Segundo Nombre</th>
-
+                                                <th *ngFor="let cabecera of cabeceras;" class="{{cabecera.clase}}"
+                                                    style="{{cabecera.estilo}}">{{ cabecera.nombre }}
+                                                </th>
                                             </tr>
                                             <tr>
-                                                <td>
-                                                    <button type="button" (click)="limpiarFiltros()"
-                                                            class="btn btn-sm w-100 btn-danger waves-effect waves-light">
-                                                        Limpiar
+                                                <th>
+                                                    <button
+                                                        class="btn w-100 btn-sm btn-danger waves-effect waves-light"
+                                                        (click)="limpiarCampos()">Limpiar
                                                     </button>
-                                                </td>
-                                                <td>
-                                                    <input #inpFocus type="text" [(ngModel)]="filtros.nombre"
-                                                           (keydown.enter)="filtrarMenu()"
-                                                           class="form-control form-control-sm text-uppercase">
-                                                </td>
-                                                <td>
-                                                    <input type="text" [(ngModel)]="filtros.padre"
-                                                           (keydown.enter)="filtrarMenu()"
-                                                           class="form-control form-control-sm text-uppercase">
-                                                </td>
-                                                <td>
-                                                    <input type="number" [(ngModel)]="filtros.orden"
-                                                           (keydown.enter)="filtrarMenu()"
-                                                           min="0" step="1"
-                                                           class="form-control form-control-sm">
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <select [(ngModel)]="filtros.estado"
-                                                            (change)="filtrarMenu()"
-                                                            class="form-control form-control-sm text-center">
-                                                        <option value="A">Activo</option>
-                                                        <option value="*">Anulado</option>
-                                                        <option value="">Todos</option>
-                                                    </select>
-                                                </td>
+                                                </th>
+                                                <th>
+                                                    <input #inpFocus
+                                                           inputmode="text"
+                                                           class="form-control form-control-sm text-uppercase"
+                                                           name="filtroDocumento" [(ngModel)]="filtroDocumento"
+                                                           (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th></th>
+                                                <th>
+                                                    <input
+                                                        inputmode="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="appPaternoFiltro"
+                                                        [(ngModel)]="filtroAppPaterno"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th>
+                                                    <input
+                                                        inputmode="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="appMaternoFiltro"
+                                                        [(ngModel)]="filtroAppMaterno"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th>
+                                                    <input
+                                                        inputmode="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="nomPrimeroFiltro"
+                                                        [(ngModel)]="filtroNomPrimer"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th>
+                                                    <input
+                                                        inputmode="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="nomSegundoFiltro"
+                                                        [(ngModel)]="filtroNomSegundo"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th><input
+                                                    inputmode="text"
+                                                    type="text" class="form-control form-control-sm text-center"
+                                                    name="filtroUnidadOrganica" [(ngModel)]="filtroUnidadOrganica"
+                                                    (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th><input
+                                                    inputmode="text"
+                                                    type="text" class="form-control form-control-sm text-center"
+                                                    name="filtroServicioEquipo" [(ngModel)]="filtroServicioEquipo"
+                                                    (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                           
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                @for (menu of menus; track menu.id) {
-                                                    <tr>
-                                                        <td>
-                                                            <div class="d-flex gap-1 flex-wrap">
-                                                                @if (menu.estado !== '*') {
-                                                                    <button bsTooltip="Editar"
-                                                                            (click)="abrirEditarMenu(menu.id)"
-                                                                            class="btn btn-sm waves-light waves-effect btn-primary">
-                                                                        <i class="fa fa-pencil"></i></button>
-                                                                    <button bsTooltip="Acciones"
-                                                                            (click)="abrirModalAccion(menu.id, menu.nombre)"
-                                                                            class="btn btn-sm waves-light waves-effect btn-dark">
-                                                                        <i class="fa fa-list"></i></button>
-                                                                    <button bsTooltip="Anular"
-                                                                            (click)="abrirAnularMenu(menu.id)"
-                                                                            class="btn btn-sm waves-light waves-effect btn-danger">
-                                                                        <i class="fa fa-trash"></i></button>
-                                                                } @else {
-                                                                    <button bsTooltip="Activar"
-                                                                            (click)="abrirActivarMenu(menu.id)"
-                                                                            class="btn btn-sm waves-light waves-effect btn-success">
-                                                                        <i class="fa fa-check"></i></button>
-                                                                }
-                                                            </div>
-                                                        </td>
-                                                        <td>{{ menu.nombre }}</td>
-                                                        <td>{{ menu.padre }}</td>
-                                                        <td class="text-center">{{ menu.orden }}</td>
-                                                        @if (menu.icono !== '') {
-                                                            <td class="text-center"><i [class]="menu.icono"></i></td>
-                                                        } @else {
-                                                            <td>{{ menu.icono }}</td>
-                                                        }
-                                                        <td>{{ menu.ruta }}</td>
-                                                        <td class="text-center">
-                                                            @if (menu.estado === 'A') {
-                                                                <span class="badge rounded-pill text-bg-success">
-                                                                    Activo</span>
+                                            <ng-template [ngIf]="datos.length !== 0" [ngIfElse]="vacio">
+                                                <tr *ngFor="let dato of datos">
+                                                    <td>
+                                                        <div class="d-flex gap-1 flex-wrap">
+                                                            @if (dato.estado !== '*') {
+                                                                <button [bsTooltip]="'Editar'"
+                                                                        class="btn btn-sm waves-light waves-effect btn-primary"
+                                                                        (click)="editarEmpleado(dato.codigo)"
+                                                                        [disabled]="!accesos?.includes(2)">
+                                                                    <i class="fa fa-pencil"></i></button>
+                                                                <button [bsTooltip]="'ver'"
+                                                                        class="btn btn-sm waves-light waves-effect btn-primary"
+                                                                 
+                                                                        [disabled]="!accesos?.includes(2)">
+                                                                <i class="fa fa-eye"></i></button>
+                                                               
                                                             } @else {
-                                                                <span class="badge rounded-pill text-bg-danger">
-                                                                    Anulado</span>
+                                                                <p></p>
                                                             }
-                                                        </td>
-                                                    </tr>
-                                                } @empty {
-                                                    <tr class="text-center">
-                                                        <td colspan="7">No hay items que mostrar</td>
-                                                    </tr>
-                                                }
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">{{ dato.numeroDocumento}}</td>
+                                                    <td class="text-center">{{ dato.tipoDocumento}}</td>
+                                                    <td>{{ dato.apellidoPaterno }}</td>
+                                                    <td>{{ dato.apellidoMaterno }}</td>
+                                                    <td>{{ dato.primerNombre }}</td>
+                                                    <td>{{ dato.segundoNombre }}</td>
+                                                    <td >{{ dato.unidadOrganica }}</td>
+                                                    <td >{{ dato.servicioEquipo }}</td>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template #vacio>
+                                                <tr>
+                                                    <td class="text-center" [colSpan]="cabeceras.length">No hay
+                                                        resultados
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                            <app-paginado [datos]="menus" [(longitud)]="longitud" [pagina]="pagina"
-                                          (cambioVer)="listarMenu()"
-                                          [ver]="true" (cambioPagina)="cambioPagina($event)">
-                            </app-paginado>
+                            <app-paginado [datos]="datos" [(longitud)]="longitud" [pagina]="pagina"
+                                          (cambioVer)="filtrarEmpleado()"
+                                          [ver]="true" (cambioPagina)="cambioPagina($event)"></app-paginado>
                         </app-loading>
                     </div>
                 </div>
@@ -130,5 +141,4 @@
         </div>
     </div>
 </div>
-<!--<app-modal-menu></app-modal-menu>
-<app-modal-accion></app-modal-accion>-->
+
