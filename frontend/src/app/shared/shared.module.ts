@@ -6,6 +6,7 @@ import {RouterOutlet} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {BsTooltipDirective} from "@shared/directives/bs-tooltip.directive";
 import { BsInvalidDirective } from './directives/bs-invalid.directive';
+import {LoadingComponent} from "@shared/components/loading/loading.component";
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { BsInvalidDirective } from './directives/bs-invalid.directive';
         NgOptimizedImage,
         FormsModule,
         RouterOutlet,
+        LoadingComponent
     ],
     providers: [],
     bootstrap: [],
@@ -29,7 +31,8 @@ import { BsInvalidDirective } from './directives/bs-invalid.directive';
         FormsModule,
         TeleportToDirective,
         BsTooltipDirective,
-        BsInvalidDirective
+        BsInvalidDirective,
+        LoadingComponent
     ]
 })
 export class SharedModule {

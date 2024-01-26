@@ -1,8 +1,8 @@
-<div #modalHC class="modal fade" tabIndex="-1" *teleportTo="'body'">
+<div #modalDatos class="modal fade" tabIndex="-1" *teleportTo="'body'">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{ tipo === 1 ? 'Nueva Historia Clínica' : 'Editar Historia Clínica (' + id + ')'}}</h5>
+                <h5 class="modal-title"></h5>
                 <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
                 </button>
             </div>
@@ -10,58 +10,7 @@
                 <app-loading [mostrar]="loading">
                     <div class="card mb-2">
                         <div class="card-body pt-1">
-                            <div class="row">
-                                <div class="col-xl-2 col-md-2 pt-2" [formGroup]="historiaForm">
-                                    <label class="form-label" for="selTFinanciador">T. Financiador</label>
-                                    <div class="input-group input-group-sm">
-                                        <select class="form-control form-control-sm text-uppercase"
-                                                name="tipoFinanciador"
-                                                formControlName="tipoFinanciador"
-                                                id="selTFinanciador">
-                                            <option *ngFor="let tipoFinanciador of tipoFinanciadores"
-                                                    [ngValue]="tipoFinanciador.id">
-                                                {{ tipoFinanciador.descripcion_corta }}
-                                            </option>
-                                        </select>
-                                        <button class="btn btn-sm btn-primary waves-light waves-effect"
-                                                (click)="abrirModalFinanciador()"
-                                                bsTooltip="Lista Financiador">
-                                            <i class="fa fa-list"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-md-2 pt-2" [formGroup]="historiaForm">
-                                    <label class="form-label">Ubicación de Archivo</label>
-                                    <select class="form-select form-select-sm" id="selUbicacionA"
-                                            formControlName="estadoSituacional"
-                                            name="estadoSituacional">
-                                        <option *ngFor="let situacionHC of situacionesHC" [value]="situacionHC.id">
-                                            {{ situacionHC.descripcion_corta | uppercase }}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-2 col-md-2 col-10 pt-2" [formGroup]="historiaForm">
-                                    <label class="form-label" tabindex="0" for="inpCUI"> CUI</label>
-                                    <input type="text" class="form-control form-control-sm" id="inpCUI"
-                                           name="cui" formControlName="cui">
-                                </div>
-                                @if (tipo === 2) {
-                                    <div class="col-xl-1 col-md-1 col-2 pt-2 align-self-end">
-                                        <button class="btn btn-sm border-1" style="width: 28px; height: 28px"
-                                                [style.background-color]="color" disabled></button>
-                                    </div>
-                                }
-                                <div class="col-xl-2 col-md-3 mt-2"
-                                     [ngClass]="tipo === 2 ? 'offset-xl-3' : 'offset-xl-4'"
-                                     [formGroup]="historiaForm">
-                                    <label class="form-label">Estado</label>
-                                    <select class="form-control form-control-sm"
-                                            name="estado" formControlName="estado">
-                                        <option value="A">ACTIVO</option>
-                                        <option value="*">ANULADO</option>
-                                    </select>
-                                </div>
-                            </div>
+                        
                         </div>
                     </div>
                     <nav>
@@ -96,47 +45,27 @@
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-personal" role="tabpanel"
-                             aria-labelledby="nav-home-tab">
-                            <app-tab-datos-personales [historiaForm]="historiaForm"
-                                                      (handleBorraDatos)="borrarFinanciador()"
-                                                      (handleObtenerHC)="editarHistoriaClinica($event)"
-                                                      (handelFinanciador)="guardarFinanciador($event)"
-                                                      (handleUbigeo)="ubigeoDireccion()">
-                            </app-tab-datos-personales>
+                              aria-labelledby="nav-home-tab">
+                        <app-tab-datos-personales></app-tab-datos-personales>
                         </div>
                         <div class="tab-pane fade" id="nav-familiar" role="tabpanel"
                              aria-labelledby="nav-home-tab">
-                            <app-tab-datos-familiares [historiaForm]="historiaForm"
-                                                [tiposFinanaciadores]="tipoFinanciadores"></app-tab-datos-familiares>
+                    
                         </div>
                         <div class="tab-pane fade" id="nav-nacimiento" role="tabpanel"
                              aria-labelledby="nav-home-tab">
-                            <app-tab-nacimiento [historiaForm]="historiaForm"
-                                                (handleUbigeo)="ubigeoNacimiento()"></app-tab-nacimiento>
+                        
                         </div>
                         <div class="tab-pane fade" id="nav-adicional" role="tabpanel"
                              aria-labelledby="nav-adicional-tab">
-                            <app-tab-adicionales [historiaForm]="historiaForm"></app-tab-adicionales>
+                      
                         </div>
                     </div>
                 </app-loading>
             </div>
             <div class="modal-footer justify-content-between">
+                
                 <div>
-                    @if (tipo === 2) {
-                        <p class="m-0" style="font-size: 12px">Creado por: {{ creado }}</p>
-                        <p class="m-0" style="font-size: 12px">Modificado por: {{ modificado }}</p>
-                    }
-                </div>
-                <div>
-                    @if (hasAtencion) {
-                        <button class="btn btn-dark waves-light waves-effect btn-label m-1"
-                                (click)="abrirModalAtencion()">
-                            Atención<i class="fa fa-user label-icon"></i></button>
-                    }
-                    <button class="btn btn-primary waves-effect waves-light btn-label m-1"
-                            (click)="guardarFormulario()" type="button">Guardar &ensp;<i
-                        class="fa-solid fa-floppy-disk label-icon"></i></button>
                     <button class="btn btn-danger waves-light waves-effect btn-label m-1" type="button"
                             (click)="closeModal()">
                         Salir &ensp;<i class="fas fa-door-open label-icon"></i></button>

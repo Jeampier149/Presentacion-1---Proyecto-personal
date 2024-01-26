@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tab-datos-profesionales',
-  standalone: true,
-  imports: [],
   templateUrl: './tab-datos-profesionales.component.html',
   styleUrl: './tab-datos-profesionales.component.scss'
 })

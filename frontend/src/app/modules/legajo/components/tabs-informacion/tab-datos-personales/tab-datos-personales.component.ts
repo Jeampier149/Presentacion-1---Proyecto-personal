@@ -1,12 +1,23 @@
-import { Component } from '@angular/core';
+
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {FormGroup, Validators} from "@angular/forms";
+import {errorAlerta, successAlerta, warningAlerta} from "@shared/utils";
+import {finalize, forkJoin} from "rxjs";
+
 
 @Component({
   selector: 'app-tab-datos-personales',
-  standalone: true,
-  imports: [],
   templateUrl: './tab-datos-personales.component.html',
-  styleUrl: './tab-datos-personales.component.scss'
+
 })
 export class TabDatosPersonalesComponent {
+
+
+
+
+
+ 
+
+
 
 }

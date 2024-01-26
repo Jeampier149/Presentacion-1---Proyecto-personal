@@ -1,11 +1,10 @@
-import { LegajoModule } from './../../legajo.module';
+import { ModalDatosComponent } from './../../components/modalsEmpleado/modal-datos/modal-datos.component';
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {rutaBreadCrumb} from "@shared/components/breadcrumb/breadcrumb.component";
 import {CabeceraTabla} from "@shared/components/tabla/tabla.component";
 import {DatoGeneralesService} from "@services/legajo/datos-generales.service";
 import {finalize} from "rxjs";
 import { ListarPersonalParams} from "@interfaces/legajo/listar-datos-g";
-import Swal from "sweetalert2";
 import {errorAlerta, successAlerta} from "@shared/utils";
 import {Session} from "@store/session.actions";
 import {SessionSelectors} from "@store/index.session";
@@ -17,8 +16,8 @@ import {Store} from "@ngrx/store";
   styleUrl: './informacion.component.scss'
 })
 export class InformacionComponent {
- // @ViewChild(ModalHistoriaClinicaComponent) modalHC?: ModalHistoriaClinicaComponent
-  @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
+@ViewChild(ModalDatosComponent) modalDatos?: any
+@ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
   rutas: rutaBreadCrumb[] = [{nombre: 'Legajo'}];
   accesos: any[] | undefined = [];
   longitud: number = 15;
@@ -56,6 +55,7 @@ export class InformacionComponent {
   constructor(private DatoGeneralesService$: DatoGeneralesService,
               private store: Store<Session>) {
       this.listarEmpleados();
+       console.log('Constructor - this.modalDatos:', this.modalDatos);
       //this.obtenerPermisos();
   }
 
@@ -127,11 +127,16 @@ obtenerPermisos() {
   //    this.modalHC?.openModal(1);
   //}
 
-  editarEmpleado(id: string) {
-   //   this.modalHC?.openModal(2, id);
+
+
+verDatos(id: string) {
+
+    this.modalDatos?.openModal(2, id);
   }
 
+  editarEmpleado(codigo:string){
 
+  }
 
 
 }
