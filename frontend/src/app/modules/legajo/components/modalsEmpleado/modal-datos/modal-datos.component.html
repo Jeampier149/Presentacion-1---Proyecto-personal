@@ -2,17 +2,13 @@
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"></h5>
+                <h5 class="modal-title">Informacion Detallada</h5>
                 <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
                 </button>
             </div>
             <div class="modal-body">
                 <app-loading [mostrar]="loading">
-                    <div class="card mb-2">
-                        <div class="card-body pt-1">
-                        
-                        </div>
-                    </div>
+                 
                     <nav>
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -31,14 +27,14 @@
                                 <a class="nav-link border-1" id="nacimiento-tab" data-bs-toggle="tab"
                                    #tabNacimiento
                                    data-bs-target="#nav-nacimiento" type="button" role="tab"
-                                   aria-controls="profile-tab-pane" aria-selected="false">Datos Nacimiento
+                                   aria-controls="profile-tab-pane" aria-selected="false">Información laboral Actual
                                 </a>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" id="adicional-tab" data-bs-toggle="tab"
                                    #tabAdicional
                                    data-bs-target="#nav-adicional" type="button" role="tab"
-                                   aria-controls="disabled-tab-pane" aria-selected="false">Datos Adicionales
+                                   aria-controls="disabled-tab-pane" aria-selected="false">Información Profesional
                                 </a>
                             </li>
                         </ul>

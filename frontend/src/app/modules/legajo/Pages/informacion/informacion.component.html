@@ -1,15 +1,14 @@
-<app-breadcrumb [rutas]="rutas" [titulo]="'Datos Gnerales'"></app-breadcrumb>
+<app-breadcrumb [rutas]="rutas" [titulo]="'Datos Generales'"></app-breadcrumb>
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-auto col-md-auto col-sm-auto">
-                        <button 
-                                class="btn w-100 btn-sm btn-primary waves-light waves-effect btn-label"
-                                [disabled]="!agregable">
+                        <button class="btn w-100 btn-sm btn-primary waves-light waves-effect btn-label"
+                                routerLink="/legajo/agregarEmpleado">
                             <i class="fa fa-file label-icon"></i> Nuevo Personal
-                        </button>
+                    </button>
                     </div>
                 </div>
                 <div class="row pt-2">
@@ -26,10 +25,10 @@
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th>
+                                                <th class="limpiar">
                                                     <button
-                                                        class="btn w-100 btn-sm btn-danger waves-effect waves-light"
-                                                        (click)="limpiarCampos()">Limpiar
+                                                        class="btn w-50 btn-sm btn-danger waves-effect waves-light "
+                                                        (click)="limpiarCampos()"><i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </th>
                                                 <th>
@@ -91,7 +90,7 @@
                                             <ng-template [ngIf]="datos.length !== 0" [ngIfElse]="vacio">
                                                 <tr *ngFor="let dato of datos">
                                                     <td>
-                                                        <div class="d-flex gap-1 flex-wrap">
+                                                        <div class="d-flex gap-1 flex-wrap justify-content-center">
                                                             @if (dato.estado !== '*') {
                                                                 <button [bsTooltip]="'Editar'"
                                                                         class="btn btn-sm waves-light waves-effect btn-primary"

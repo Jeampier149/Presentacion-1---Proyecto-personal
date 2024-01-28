@@ -12,11 +12,13 @@ import { TabDatosPersonalesComponent } from './components/tabs-informacion/tab-d
 import { TabDatosFamiliaresComponent } from './components/tabs-informacion/tab-datos-familiares/tab-datos-familiares.component';
 import { TabDatosProfesionalesComponent } from './components/tabs-informacion/tab-datos-profesionales/tab-datos-profesionales.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { RegistrarEmpleadoComponent } from './Pages/registrar-empleado/registrar-empleado.component';
 
 
 @NgModule({
   declarations: [
     InformacionComponent,
+    RegistrarEmpleadoComponent,
     ModalDatosComponent,
     TabDatosPersonalesComponent,
     TabDatosFamiliaresComponent,

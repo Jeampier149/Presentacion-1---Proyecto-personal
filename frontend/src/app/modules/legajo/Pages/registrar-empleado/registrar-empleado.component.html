@@ -1,0 +1,964 @@
+<app-breadcrumb [rutas]="rutas" [titulo]="'Registrar Datos'"></app-breadcrumb>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card p-4">
+            <div class="card-body">
+                <div class="row pt-2">
+                    <div class="col-xl-12">
+                        <app-loading [mostrar]="loading">
+                            <div class="row w-100 d-block">
+                                <div class="row">
+                                    <div class="col-xl-2">
+                                        <div class="form-group">
+                                            <div class="mb-3">
+                                                <label class="form-label">Tipo Documento</label>
+                                                <select class="form-select form-select-sm">
+                                                    <option>Select</option>
+                                                    <option>DNI</option>
+                                                    <option>Carnet Extranjeria</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-2">
+                                        <div class="form-group">
+                                            <label for="numero_doc">N° Documento</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control form-control-sm"
+                                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary btn-primary btn-sm"
+                                                        type="button"><i
+                                                            class="fa-solid fa-magnifying-glass"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row  w-100 d-block">
+                                    <fieldset>
+                                        <legend>Datos Personales</legend>
+                                        <div class="row">
+                                            <div class="col-2">
+
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="row my-2 px-3 mb-3">
+
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm">
+                                                            <div class="input-group-text ">Apll. Paterno</div>
+                                                            <input type="text" class="form-control   text-uppercase"
+                                                                id="specificSizeInputGroupUsername">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm ">
+                                                            <div class="input-group-text ">Apll. Materno</div>
+                                                            <input type="text"
+                                                                class="form-control form-control-sm text-uppercase"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm ">
+                                                            <div class="input-group-text ">Primer Nombre</div>
+                                                            <input type="text"
+                                                                class="form-control form-control-sm text-uppercase"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row my-2 px-3 mb-3">
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm ">
+                                                            <div class="input-group-text ">Segundo Nombre</div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm ">
+                                                            <div class="input-group-text ">RUC N°</div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm ">
+                                                            <div class="input-group-text ">F. Nacimiento</div>
+                                                            <input type="date" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="row my-2 px-3">
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group-text ">Telefono Fijo</div>
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group-text ">Telefono Movil</div>
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group-text ">Correo E.</div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row my-2 px-3">
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group-text "> G. Sanguineo</div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group-text ">Enf./Alergias</div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group-text ">Estado Civil</div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card border mt-3">
+                                            <div class="card-header bg-transparent p-2">
+                                                <h6 class="my-0 b-900">En caso de emergencia contactar a:</h6>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group-text ">Nombre de contacto</div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group-text ">Parentesco</div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group-text ">N° de contacto</div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row ms-1">
+                                            <div class="col-xl-4 p-4">
+                                                <div class="form-check form-switch">
+                                                    <label class="form-check-label" for="flexSwitchCheckChecked">No
+                                                        Presenta
+                                                        Discapacidad</label>
+                                                    <input class="form-check-input position-end " type="checkbox"
+                                                        id="flexSwitchCheckChecked">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-8 p-4">
+                                                <label class="me-2" for="flexSwitchCheckChecked">Tipos
+                                                    Discapacidad :</label>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                        value="option1">
+                                                    <label class="form-check-label"
+                                                        for="inlineCheckbox1">Fisicas</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                                        value="option2">
+                                                    <label class="form-check-label"
+                                                        for="inlineCheckbox2">Sensoriales</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                        value="option1">
+                                                    <label class="form-check-label"
+                                                        for="inlineCheckbox1">Mentales</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                                        value="option2">
+                                                    <label class="form-check-label"
+                                                        for="inlineCheckbox2">Intelectuales</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+                                <div class="row w-100 d-block  mt-3">
+                                    <fieldset>
+                                        <legend>Domicilio</legend>
+                                        <span>Ubicacion Geografica</span>
+                                        <div class="row mt-2">
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Departamento</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Provincia</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Distrito</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <span>Tipo de Via</span>
+                                            <div class="col-xl-12 mt-3 d-flex justify-content-between">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                    <label class="form-check-label" for="inlineRadio1">Avenida</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Jiron</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Calle</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Pasaje</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Alameda</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Malecon</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Ovalo</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Parque</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Plaza</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Carretera</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Trocha</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Nombre de la via</div>
+                                                    <input type="text" class="form-control" aria-label="Small"
+                                                        aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Numero</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Interior</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <span>Tipo de Zona</span>
+                                            <div class="col-xl-12 mt-3 d-flex justify-content-between">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                    <label class="form-check-label"
+                                                        for="inlineRadio1">Urbanización</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Pueblo
+                                                        Joven</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Unidad
+                                                        Vecinal</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Conjunto
+                                                        Habitacional</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Asentamiento
+                                                        Humano</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label"
+                                                        for="inlineRadio2">Cooperativa</label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <div class="col-xl-12 mt-3 d-flex justify-content-between">
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label"
+                                                        for="inlineRadio2">Residencial</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Zona
+                                                        Indutrial</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Grupo</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Caserio</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                    <label class="form-check-label" for="inlineRadio2">Fundos</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Nombre de la zona</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Numero</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Inteior</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-4">
+                                            <div class="col-xl-12">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Referencia(Indicar institucion
+                                                        cercana)</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row d-block w-100 mt-3">
+                                    <fieldset>
+                                        <legend>Datos Familiares</legend>
+                                        <div class="row">
+                                            <form (ngSubmit)=" submitForm">
+                                                <button type="button " class="btn btn-primary btn-sm"
+                                                    (click)="agregarFamiliar()"><i class="fa-solid fa-square-plus"></i> Agregar Familiar</button>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Apellidos y noombres</th>
+                                                            <th>F. de Nacimiento</th>
+                                                            <th>N °DNI</th>
+                                                            <th>Parentesco</th>
+                                                            <th>Institución / Entidad en la que labora</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let familiar of familiares; let i = index">
+                                                            <td>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    id="nombreC{{i}}" name="nombreC{{i}}"
+                                                                    [(ngModel)]="familiar.nombreC" required>
+                                                            </td>
+                                                            <td>
+                                                                <input type="date" class="form-control form-control-sm"
+                                                                    id="fechNaci{{i}}" name="fechNaci{{i}}"
+                                                                    [(ngModel)]="familiar.fecNaci" required>
+                                                            </td>
+                                                            <td>
+                                                                <input type="number"
+                                                                    class="form-control form-control-sm" id="dni{{i}}"
+                                                                    name="dni{{i}}" [(ngModel)]="familiar.dni" required>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    id="parentesco{{i}}" name="parentesco{{i}}"
+                                                                    [(ngModel)]="familiar.parentesco" required>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    id="centroLaboral{{i}}" name="centroLaboral{{i}}"
+                                                                    [(ngModel)]="familiar.centro" required>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class=" btn btn-danger btn-sm"
+                                                                    (click)="eliminarFamiliar(i)">Eliminar</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </form>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="row d-block w-100 mt-3">
+                                    <fieldset>
+                                        <legend>
+                                            Datos Profeionales - Academicos
+                                        </legend>
+                                        <div class="row mt-2 ">
+                                            <div class="col-xl-6">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Profesion</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">Lugar de Colegiatura</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="row"></div>
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">F. de colegiatura</div>
+                                                    <input type="date" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">F.termino de habilitacion</div>
+                                                    <input type="date" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-text ">N° Colegiatura</div>
+                                                    <input type="text" class="form-control form-control-sm"
+                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border">
+                                            <div class="card-header bg-transparent p-2">
+                                                <h6 class="my-0">Estudios Superiores (Universitarios - Tecnicos)
+                                                </h6>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <form (ngSubmit)=" submitForm">
+                                                        <button type="button " class="btn btn-primary btn-sm"
+                                                            (click)="agregarFamiliar()"> <i class="fa-solid fa-square-plus"></i> Agregar</button>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Centro de estudios</th>
+                                                                    <th>Especialidad</th>
+                                                                    <th>F.Inicio</th>
+                                                                    <th>F.Termino</th>
+                                                                    <th>Nivel alcanzado<br>(Titulado/Bachiller
+                                                                        Egresado/Estudiante)
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let familiar of familiares; let i = index">
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
+                                                                            [(ngModel)]="familiar.nombreC" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
+                                                                            [(ngModel)]="familiar.fecNaci" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="date"
+                                                                            class="form-control form-control-sm"
+                                                                            id="dni{{i}}" name="dni{{i}}"
+                                                                            [(ngModel)]="familiar.dni" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="date"
+                                                                            class="form-control form-control-sm"
+                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
+                                                                            [(ngModel)]="familiar.parentesco" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="centroLaboral{{i}}"
+                                                                            name="centroLaboral{{i}}"
+                                                                            [(ngModel)]="familiar.centro" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button"
+                                                                            class=" btn btn-danger btn-sm"
+                                                                            (click)="eliminarFamiliar(i)">Eliminar</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border">
+                                            <div class="card-header bg-transparent p-2">
+                                                <h6 class="my-0">Estudios Potgrado ( Maestria - Doctorado)
+                                                </h6>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <form (ngSubmit)=" submitForm">
+                                                        <button type="button " class="btn btn-primary btn-sm"
+                                                            (click)="agregarFamiliar()"><i class="fa-solid fa-square-plus"></i> Agregar</button>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Centro de estudios</th>
+                                                                    <th>Especialidad</th>
+                                                                    <th>F.Inicio</th>
+                                                                    <th>F.Termino</th>
+                                                                    <th>Nivel alcanzado<br>(Magister/Doctorado
+                                                                        Egresado/Estudiante)
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let familiar of familiares; let i = index">
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
+                                                                            [(ngModel)]="familiar.nombreC" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="date"
+                                                                            class="form-control form-control-sm"
+                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
+                                                                            [(ngModel)]="familiar.fecNaci" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            class="form-control form-control-sm"
+                                                                            id="dni{{i}}" name="dni{{i}}"
+                                                                            [(ngModel)]="familiar.dni" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
+                                                                            [(ngModel)]="familiar.parentesco" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="centroLaboral{{i}}"
+                                                                            name="centroLaboral{{i}}"
+                                                                            [(ngModel)]="familiar.centro" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button"
+                                                                            class=" btn btn-danger btn-sm"
+                                                                            (click)="eliminarFamiliar(i)">Eliminar</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border">
+                                            <div class="card-header bg-transparent p-2">
+                                                <h6 class="my-0">Especializacion - Diplomados
+                                                </h6>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <form (ngSubmit)=" submitForm">
+                                                        <button type="button " class="btn btn-primary btn-sm"
+                                                            (click)="agregarFamiliar()"><i class="fa-solid fa-square-plus"></i> Agregar</button>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Centro de estudios</th>
+                                                                    <th>Materia</th>
+                                                                    <th>F.Inicio</th>
+                                                                    <th>F.Termino</th>
+                                                                    <th>Certificado Obtenido
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let familiar of familiares; let i = index">
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
+                                                                            [(ngModel)]="familiar.nombreC" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="date"
+                                                                            class="form-control form-control-sm"
+                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
+                                                                            [(ngModel)]="familiar.fecNaci" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            class="form-control form-control-sm"
+                                                                            id="dni{{i}}" name="dni{{i}}"
+                                                                            [(ngModel)]="familiar.dni" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
+                                                                            [(ngModel)]="familiar.parentesco" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="centroLaboral{{i}}"
+                                                                            name="centroLaboral{{i}}"
+                                                                            [(ngModel)]="familiar.centro" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button"
+                                                                            class=" btn btn-danger btn-sm"
+                                                                            (click)="eliminarFamiliar(i)">Eliminar</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border">
+                                            <div class="card-header bg-transparent p-2">
+                                                <h6 class="my-0">Curso - Seminario
+                                                </h6>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <form (ngSubmit)=" submitForm">
+                                                        <button type="button " class="btn btn-primary btn-sm"
+                                                            (click)="agregarFamiliar()"><i class="fa-solid fa-square-plus"></i>  Agregar</button>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Centro de estudios</th>
+                                                                    <th>Materia</th>
+                                                                    <th>F.Inicio</th>
+                                                                    <th>F.Termino</th>
+                                                                    <th>Certificado Obtenido
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let familiar of familiares; let i = index">
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
+                                                                            [(ngModel)]="familiar.nombreC" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="date"
+                                                                            class="form-control form-control-sm"
+                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
+                                                                            [(ngModel)]="familiar.fecNaci" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="number"
+                                                                            class="form-control form-control-sm"
+                                                                            id="dni{{i}}" name="dni{{i}}"
+                                                                            [(ngModel)]="familiar.dni" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
+                                                                            [(ngModel)]="familiar.parentesco" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="centroLaboral{{i}}"
+                                                                            name="centroLaboral{{i}}"
+                                                                            [(ngModel)]="familiar.centro" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button"
+                                                                            class=" btn btn-danger btn-sm"
+                                                                            (click)="eliminarFamiliar(i)">Eliminar</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border">
+                                            <div class="card-header bg-transparent p-2">
+                                                <h6 class="my-0">Idiomas
+                                                </h6>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <form (ngSubmit)=" submitForm">
+                                                        <button type="button " class="btn btn-primary btn-sm"
+                                                            (click)="agregarFamiliar()"><i class="fa-solid fa-square-plus"></i>  Agregar</button>
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Lengua Extranjera</th>
+                                                                    <th>Nivel Basico</th>
+                                                                    <th>Nivel Intermedio</th>
+                                                                    <th>Nivel Avanzado</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let familiar of familiares; let i = index">
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
+                                                                            [(ngModel)]="familiar.nombreC" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
+                                                                            [(ngModel)]="familiar.fecNaci" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="dni{{i}}" name="dni{{i}}"
+                                                                            [(ngModel)]="familiar.dni" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
+                                                                            [(ngModel)]="familiar.parentesco" required>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button"
+                                                                            class=" btn btn-danger btn-sm"
+                                                                            (click)="eliminarFamiliar(i)">Eliminar</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                              
+                                        <fieldset class="mt-3">
+                                            <legend>Datos Laborales</legend>
+                                            <div class="card border">
+                                                <div class="card-header bg-transparent p-2">
+                                                    <h6 class="my-0">Experiencia Laboral
+                                                    </h6>
+                                                </div>
+                                                <div class="card-body p-3">
+                                                    <div class="row">
+                                                        <form (ngSubmit)=" submitForm">
+                                                            <button type="button " class="btn btn-primary btn-sm"
+                                                                (click)="agregarFamiliar()"><i class="fa-solid fa-square-plus"></i>  Agregar</button>
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Institucion / Empresa</th>
+                                                                        <th>Cargo -Actividad Desempeñada</th>
+                                                                        <th>F.Inicio</th>
+                                                                        <th>F.Termino</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr
+                                                                        *ngFor="let familiar of familiares; let i = index">
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="nombreC{{i}}" name="nombreC{{i}}"
+                                                                                [(ngModel)]="familiar.nombreC" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="fechNaci{{i}}" name="fechNaci{{i}}"
+                                                                                [(ngModel)]="familiar.fecNaci" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="dni{{i}}" name="dni{{i}}"
+                                                                                [(ngModel)]="familiar.dni" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="parentesco{{i}}"
+                                                                                name="parentesco{{i}}"
+                                                                                [(ngModel)]="familiar.parentesco"
+                                                                                required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="centroLaboral{{i}}"
+                                                                                name="centroLaboral{{i}}"
+                                                                                [(ngModel)]="familiar.centro" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <button type="button"
+                                                                                class=" btn btn-danger btn-sm"
+                                                                                (click)="eliminarFamiliar(i)">Eliminar</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>                                     
+                                        </fieldset>                                    
+                                </div>
+                            </div>
+
+                        </app-loading>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

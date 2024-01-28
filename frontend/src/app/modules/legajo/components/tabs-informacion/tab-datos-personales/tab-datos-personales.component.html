@@ -1,164 +1,95 @@
-<div class="row">
-    <app-loading >
-        <div class="col-xl-12">
-            <div class="row">
-                <div class="col-xl-3 col-md-4 mt-2" >
-                    <label class="form-label">Tipo Documento</label>
-                   
-                </div>
-                <div class="col-xl-4 col-md-5 mt-2">
-                    <label class="form-label">Documento</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-3 col-md-6 col-sm-6 mt-2">
-                    <label class="form-label">App. Paterno</label>
-                    <input class="form-control form-control-sm text-uppercase"
-                         
-                       
-                           name="apellidoPaterno">
-                  
-                </div>
-                <div class="col-xl-3 col-md-6 col-sm-6 mt-2" >
-                    <label class="form-label">App. Materno</label>
-                    <input class="form-control form-control-sm text-uppercase"
-                   
-                         
-                           name="apellido_materno">
-                  
-                </div>
-                <div class="col-xl-3 col-md-6 col-sm-6 mt-2" >
-                    <label class="form-label">Primer Nombre</label>
-                    <input class="form-control form-control-sm text-uppercase"
-                 
-                
-                           name="primerNombre">
-                  
-                </div>
-                <div class="col-xl-3 col-md-6 col-sm-6 mt-2" >
-                    <label class="form-label">Segundo Nombre</label>
-                    <input class="form-control form-control-sm text-uppercase"
-                     
-                           name="segundoNombre">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-3 col-md-3 mt-2" >
-                    <label class="form-label" for="inpNac">Fecha Nacimiento</label>
-                    <input type="date" class="form-control form-control-sm" id="inpNac"
-               
-                   
-                           name="fechaNacimiento">
-                    
-                </div>
-                <div class="col-xl-1 col-md-2 col-sm-4 col-4 mt-2">
-                    <label class="form-label" for="inpEdadA">Edad</label>
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-sm"
-                               id="inpEdadA"
-                      
-                               name="anios">
-                        <span class="input-group-text">A</span>
+<div class="row ">
+    <app-loading>
+        <div class="col-xl-12 mt-5 px-2">
+            <div class="row ">
+                <div class="col-xl-6 px-3">
+                    <div class="row">
+                        <div class="col-xl-6 col-md-4 mt-2">
+                            <label class="form-label">Tipo Documento</label>
+                            <input class="form-control form-control-sm text-uppercase" name="tipoDocumento">
+                        </div>
+                        <div class="col-xl-6 col-md-5 mt-2">
+                            <label class="form-label">N° Documento</label>
+                            <input class="form-control form-control-sm text-uppercase" name="numeroDcoumento">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 col-sm-6 mt-2">
+                            <label class="form-label">App. Paterno</label>
+                            <input class="form-control form-control-sm text-uppercase" name="apellidoPaterno">
+                        </div>
+                        <div class="col-xl-6 col-md-6 col-sm-6 mt-2">
+                            <label class="form-label">App. Materno</label>
+                            <input class="form-control form-control-sm text-uppercase" name="apellido_materno">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 col-sm-6 mt-2">
+                            <label class="form-label">Primer Nombre</label>
+                            <input class="form-control form-control-sm text-uppercase" name="primerNombre">
+                        </div>
+                        <div class="col-xl-6 col-md-6 col-sm-6 mt-2">
+                            <label class="form-label">Segundo Nombre</label>
+                            <input class="form-control form-control-sm text-uppercase" name="segundoNombre">
+                        </div>
                     </div>
                 </div>
-                <div class="col-xl-1 col-md-2 col-4 column-gap-sm-3 mt-2 justify-content-end" >
-                    <label class="form-label" for="inpEdadM">&nbsp;</label>
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-sm" id="inpEdadM"
-                              
-                               name="meses">
-                        <span class="input-group-text">M</span>
+                <div class="col-xl-6">
+                    <div class="row">
+                        <div class="col-xl-3 col-md-3 mt-2">
+                            <label class="form-label" for="inpNac">Fecha Nacimiento</label>
+                            <input type="date" class="form-control form-control-sm" id="inpNac" name="fechaNacimiento">
+                        </div>
+
+                        <div class="col-xl-2 mt-2">
+                            <label class="form-label" for="inpNac">Edad</label>
+                            <div class="  input-group  input-group-sm">
+                                <div class="input-group-text">A</div>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-2 mt-2">
+                            <label class="form-label" for="inpNac">&nbsp;</label>
+                            <div class="  input-group  input-group-sm">
+                                <div class="input-group-text">M</div>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-2 mt-2">
+                            <label class="form-label" for="inpNac">&nbsp;</label>
+                            <div class="  input-group  input-group-sm">
+                                <div class="input-group-text">D</div>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-md-3 mt-2">
+                            <label class="form-label">Sexo</label>
+                            <input class="form-control form-control-sm text-uppercase" name="segundoNombre">
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 col-sm-6 mt-2">
+                            <label class="form-label">Teléfono</label>
+                            <input class="form-control form-control-sm text-uppercase" name="telefono">
+                        </div>
+                        <div class="col-xl-5 col-md-6 col-sm-6 mt-2">
+                            <label class="form-label">Celular</label>
+                            <input class="form-control form-control-sm text-uppercase" name="celular">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 col-sm-6 mt-2">
+                            <label class="form-label">Direccion</label>
+                            <input class="form-control form-control-sm text-uppercase" name="telefono">
+                        </div>
+                       
                     </div>
                 </div>
-                <div class="col-xl-1 col-md-2 col-sm-4 col-4 mt-2">
-                    <label class="form-label" for="inpEdadD">&nbsp;</label>
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-sm" id="inpEdadD"
-                        
-                               name="dias">
-                        <span class="input-group-text">D</span>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-3 mt-2" >
-                    <label class="form-label" for="selSexo">Sexo</label>
-                   
-                    
-                </div>
-                <div class="col-xl-2 col-md-2 mt-2" >
-                    <label class="form-label" for="inpEmail">Email</label>
-                    <input 
-                       
-                           class="form-control form-control-sm" id="inpEmail" type="text"
-                         
-                           name="email">
-                </div>
-                <div class="col-xl-2 col-md-3 mt-2" >
-                    <label class="" for="inpMovil">Teléfono / Celular</label>
-                    <input class="form-control form-control-sm"
-                   
-                           id="inpMovil" type="text"
-                     
-                           name="telefono">
-                </div>
             </div>
-            <div class="row">
-                <div class="col-xl-2 col-md-2 mt-2">
-                    <label class="form-label" for="selTD">Tipo Dirección</label>
-                    <select class="form-select form-select-sm" id="selTD"
-                     
-                            name="tipoDireccion">
-                    </select>
-                </div>
-                <div class="col-xl-6 col-md-10 mt-2" >
-                    <label class="form-label" for="inpDireccion">Dirección</label>
-                    <input  class="form-control form-control-sm text-uppercase" id="inpDireccion"
-                 
-                           name="direccion" type="text">
-                
-                </div>
-                <div class="col-xl-1 col-md-3 col-sm-3 col-3 mt-2" >
-                    <label class="form-label" for="inpNDir">Numero</label>
-                    <input class="form-control form-control-sm" id="inpNDir" type="text"
-                     
-                           name="numero">
-                </div>
-                <div class="col-xl-1 col-md-3 col-sm-3 col-3 mt-2" >
-                    <label class="form-label" for="inpIntDir">Interior</label>
-                    <input class="form-control form-control-sm" id="inpIntDir" type="text"
-                   
-                           name="interior">
-                </div>
-                <div class="col-xl-1 col-md-3 col-sm-3 col-3 mt-2" >
-                    <label class="form-label" for="inpMzaDir">Mza</label>
-                    <input class="form-control form-control-sm" id="inpMzaDir" type="text"
-                       
-                           name="manzana">
-                </div>
-                <div class="col-xl-1 col-md-3 col-sm-3 col-3 mt-2" >
-                    <label class="form-label" for="inpLoteDir">Lote</label>
-                    <input class="form-control form-control-sm" id="inpLoteDir" type="text"
-                       
-                           name="lote">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-2 col-md-2 mt-2" >
-                    <label class="form-label" for="selTL">T. Localidad</label>
-                    <select class="form-select form-select-sm" id="selTL"
-                      
-                            name="tipoLocalidad">
-                       
-                    </select>
-                </div>
-                <div class="col-xl-10 col-md-10 mt-2" >
-                    <label class="" for="inpLocalidad">Localidad</label>
-                    <input class="form-control form-control-sm text-uppercase" id="inpLocalidad"
-                      
-                           type="text" name="localidad">
-                </div>
-            </div>
-            
         </div>
     </app-loading>
 </div>
-
