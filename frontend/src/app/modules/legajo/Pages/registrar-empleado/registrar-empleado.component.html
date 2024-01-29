@@ -8,65 +8,113 @@
                         <app-loading [mostrar]="loading">
                             <div class="row w-100 d-block">
                                 <div class="row">
-                                    <div class="col-xl-2">
-                                        <div class="form-group">
-                                            <div class="mb-3">
-                                                <label class="form-label">Tipo Documento</label>
-                                                <select class="form-select form-select-sm">
-                                                    <option>Select</option>
-                                                    <option>DNI</option>
-                                                    <option>Carnet Extranjeria</option>
-                                                </select>
+                                    <div class="col-xl-6">
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Tipo Documento</label>
+                                                        <select class="form-select form-select-sm">
+                                                            <option>Select</option>
+                                                            <option>DNI</option>
+                                                            <option>Carnet Extranjeria</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group">
+                                                    <label for="numero_doc">N° Documento</label>
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control form-control-sm"
+                                                            aria-label="Recipient's username"
+                                                            aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary btn-primary btn-sm"
+                                                                type="button"><i
+                                                                    class="fa-solid fa-magnifying-glass"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+
                                     </div>
-                                    <div class="col-xl-2">
-                                        <div class="form-group">
-                                            <label for="numero_doc">N° Documento</label>
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control form-control-sm"
-                                                    aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-secondary btn-primary btn-sm"
-                                                        type="button"><i
-                                                            class="fa-solid fa-magnifying-glass"></i></button>
+
+                                    <div class="col-xl-6">
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Regimen</label>
+                                                        <select class="form-select form-select-sm">
+                                                            <option>Select</option>
+                                                            <option>276</option>
+                                                            <option>1057</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Tipo </label>
+                                                        <select class="form-select form-select-sm">
+                                                            <option>Select</option>
+                                                            <option></option>
+                                                            <option></option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+
                                 </div>
                                 <div class="row  w-100 d-block">
                                     <fieldset>
                                         <legend>Datos Personales</legend>
-                                        <div class="row mt-4">
+                                        <div class="row mt-4 ">
                                             <div class="col-2 ">
-                                                <img src="media/logo_honadomani.pbg" alt="">
+                                                <img src="/assets/img/error-img.png" alt="">
                                             </div>
-                                            <div class="col-xl-10">
+                                            <div class="col-xl-10 ">
                                                 <div class="row my-2 px-3 mb-3">
 
-                                                    <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm">
-                                                            <div class="input-group-text ">Apll. Paterno</div>
+                                                    <div class="col-xl-4 ">
+                                                        <div class="input-group input-group-sm  ">
+                                                            <div class="input-group-text d-personales ">Apll. Paterno
+                                                            </div>
                                                             <input type="text" class="form-control   text-uppercase"
-                                                                id="specificSizeInputGroupUsername">
+                                                                   id="aPaterno" name="aPaterno"
+                                                                   [(ngModel)]="aPaterno"
+                                                                   >
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm ">
-                                                            <div class="input-group-text ">Apll. Materno</div>
+                                                            <div class="input-group-text d-personales ">Apll. Materno
+                                                            </div>
                                                             <input type="text"
                                                                 class="form-control form-control-sm text-uppercase"
+                                                                id="aMaterno"
+                                                                name="aMaterno"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="aMaterno"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm ">
-                                                            <div class="input-group-text ">Primer Nombre</div>
+                                                            <div class="input-group-text d-personales">Primer Nombre
+                                                            </div>
                                                             <input type="text"
                                                                 class="form-control form-control-sm text-uppercase"
+                                                                id="nombreP"
+                                                                name="nombreP"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="nPrimer"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -76,25 +124,30 @@
                                                 <div class="row my-2 px-3 mb-3">
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm ">
-                                                            <div class="input-group-text ">Segundo Nombre</div>
+                                                            <div class="input-group-text d-personales ">Segundo Nombre
+                                                            </div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="nSegundo"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm ">
-                                                            <div class="input-group-text ">RUC N°</div>
+                                                            <div class="input-group-text d-personales">RUC N°</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="ruc"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm ">
-                                                            <div class="input-group-text ">F. Nacimiento</div>
+                                                            <div class="input-group-text d-personales ">F. Nacimiento
+                                                            </div>
                                                             <input type="date" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="fNacimiento"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -104,25 +157,30 @@
                                                 <div class="row my-2 px-3">
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm mb-3">
-                                                            <div class="input-group-text ">Telefono Fijo</div>
+                                                            <div class="input-group-text d-personales">Telefono Fijo
+                                                            </div>
                                                             <input type="number" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="tFijo"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm mb-3">
-                                                            <div class="input-group-text ">Telefono Movil</div>
+                                                            <div class="input-group-text d-personales">Telefono Movil
+                                                            </div>
                                                             <input type="number" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="tMovil"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm mb-3">
-                                                            <div class="input-group-text ">Correo E.</div>
+                                                            <div class="input-group-text d-personales ">Correo E.</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="correoE"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -131,8 +189,10 @@
                                                 <div class="row my-2 px-3">
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm mb-3">
-                                                            <div class="input-group-text "> G. Sanguineo</div>
+                                                            <div class="input-group-text d-personales"> G. Sanguineo
+                                                            </div>
                                                             <input type="text" class="form-control form-control-sm"
+                                                               [(ngModel)]="gSanguineo"
                                                                 aria-label="Small"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
@@ -140,17 +200,21 @@
 
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm mb-3">
-                                                            <div class="input-group-text ">Enf./Alergias</div>
+                                                            <div class="input-group-text d-personales">Enf./Alergias
+                                                            </div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="enfAlergias"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm mb-3">
-                                                            <div class="input-group-text ">Estado Civil</div>
+                                                            <div class="input-group-text d-personales ">Estado Civil
+                                                            </div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="estadoCivil"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -169,6 +233,7 @@
                                                             <div class="input-group-text ">Nombre de contacto</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="nombreContacto"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -177,6 +242,7 @@
                                                             <div class="input-group-text ">Parentesco</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small"
+                                                                [(ngModel)]="parentesco"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -184,6 +250,7 @@
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text ">N° de contacto</div>
                                                             <input type="text" class="form-control form-control-sm"
+                                                            [(ngModel)]="numContacto"
                                                                 aria-label="Small"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
@@ -192,38 +259,48 @@
                                             </div>
                                         </div>
                                         <div class="row ms-1">
-                                            <div class="col-xl-4 p-4">
-                                                <div class="form-check form-switch">
-                                                    <label class="form-check-label" for="flexSwitchCheckChecked">No
+                                            <div class="col-xl-4 p-4 ">
+                                                
+                                                <div class="form-check form-switch  ">
+                                                    <label class="form-check-label" for="flexSwitchCheckChecked">
+                                                        <span>{{disca.checked?'Si':'No' }}</span>
                                                         Presenta
                                                         Discapacidad</label>
                                                     <input class="form-check-input position-end " type="checkbox"
-                                                        id="flexSwitchCheckChecked">
+                                                        id="discapacidad" 
+                                                        (change)="true" 
+                                                        [(ngModel)]="pDiscapacidad"  
+                                                        #disca>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-8 p-4">
+                                            <div *ngIf="disca.checked" class="col-xl-8 p-4">
+
                                                 <label class="me-2" for="flexSwitchCheckChecked">Tipos
                                                     Discapacidad :</label>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                    [(ngModel)]="fisicas" 
                                                         value="option1">
                                                     <label class="form-check-label"
                                                         for="inlineCheckbox1">Fisicas</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                                    [(ngModel)]="sensorial" 
                                                         value="option2">
                                                     <label class="form-check-label"
                                                         for="inlineCheckbox2">Sensoriales</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                    [(ngModel)]="mentales" 
                                                         value="option1">
                                                     <label class="form-check-label"
                                                         for="inlineCheckbox1">Mentales</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                                    [(ngModel)]="intelectual" 
                                                         value="option2">
                                                     <label class="form-check-label"
                                                         for="inlineCheckbox2">Intelectuales</label>
@@ -233,731 +310,1095 @@
                                         </div>
 
                                     </fieldset>
-                                </div>
-                                <div class="row w-100 d-block  mt-3">
-                                    <fieldset>
-                                        <legend>Domicilio</legend>
-                                        <span>Ubicacion Geografica</span>
-                                        <div class="row mt-2">
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Departamento</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Provincia</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Distrito</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <span>Tipo de Via</span>
-                                            <div class="col-xl-12 mt-3 d-flex justify-content-between">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                    <label class="form-check-label" for="inlineRadio1">Avenida</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Jiron</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Calle</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Pasaje</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Alameda</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Malecon</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Ovalo</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Parque</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Plaza</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Carretera</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Trocha</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-4">
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Nombre de la via</div>
-                                                    <input type="text" class="form-control" aria-label="Small"
-                                                        aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Numero</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Interior</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <span>Tipo de Zona</span>
-                                            <div class="col-xl-12 mt-3 d-flex justify-content-between">
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                    <label class="form-check-label"
-                                                        for="inlineRadio1">Urbanización</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Pueblo
-                                                        Joven</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Unidad
-                                                        Vecinal</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Conjunto
-                                                        Habitacional</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Asentamiento
-                                                        Humano</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label"
-                                                        for="inlineRadio2">Cooperativa</label>
-                                                </div>
+                                </div> <!-- fin de datos genrales -->
+                                <div class="row w-100 d-block">
+                                    <div class="accordion mt-4" id="accordionPanelsStayOpenExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                                                    aria-controls="panelsStayOpen-collapseOne">
+                                                    DATOS DEL DOMICILIO
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse "
+                                                aria-labelledby="panelsStayOpen-headingOne">
+                                                <div class="accordion-body text-muted">
 
-                                            </div>
-                                        </div>
 
-                                        <div class="row mt-2">
-                                            <div class="col-xl-12 mt-3 d-flex justify-content-between">
-
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label"
-                                                        for="inlineRadio2">Residencial</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Zona
-                                                        Indutrial</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Grupo</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Caserio</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio2">Fundos</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-4">
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Nombre de la zona</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Numero</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Inteior</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-4">
-                                            <div class="col-xl-12">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Referencia(Indicar institucion
-                                                        cercana)</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div class="row d-block w-100 mt-3">
-                                    <fieldset>
-                                        <legend>Datos Familiares</legend>
-                                        <div class="row">
-                                            <form (ngSubmit)=" submitForm">
-                                                <button type="button " class="btn bg-agg btn-sm"
-                                                    (click)="agregarFamiliar()"><i class="fa-solid fa-square-plus"></i>
-                                                    Agregar </button>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Apellidos y noombres</th>
-                                                            <th>F. de Nacimiento</th>
-                                                            <th>N °DNI</th>
-                                                            <th>Parentesco</th>
-                                                            <th>Institución / Entidad en la que labora</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let familiar of familiares; let i = index">
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    id="nombreC{{i}}" name="nombreC{{i}}"
-                                                                    [(ngModel)]="familiar.nombreC" required>
-                                                            </td>
-                                                            <td>
-                                                                <input type="date" class="form-control form-control-sm"
-                                                                    id="fechNaci{{i}}" name="fechNaci{{i}}"
-                                                                    [(ngModel)]="familiar.fecNaci" required>
-                                                            </td>
-                                                            <td>
-                                                                <input type="number"
-                                                                    class="form-control form-control-sm" id="dni{{i}}"
-                                                                    name="dni{{i}}" [(ngModel)]="familiar.dni" required>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    id="parentesco{{i}}" name="parentesco{{i}}"
-                                                                    [(ngModel)]="familiar.parentesco" required>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    id="centroLaboral{{i}}" name="centroLaboral{{i}}"
-                                                                    [(ngModel)]="familiar.centro" required>
-                                                            </td>
-                                                            <td>
-                                                                <button type="button" class=" btn bg-delete btn-sm"
-                                                                    (click)="eliminarFamiliar(i)"><i class="fa-solid fa-xmark"></i> </button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </form>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                                <div class="row d-block w-100 mt-3">
-                                    <fieldset>
-                                        <legend>
-                                            Datos Profeionales - Academicos
-                                        </legend>
-                                        <div class="row mt-2 ">
-                                            <div class="col-xl-6">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Profesion</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-6">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">Lugar de Colegiatura</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="row"></div>
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">F. de colegiatura</div>
-                                                    <input type="date" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">F.termino de habilitacion</div>
-                                                    <input type="date" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-4">
-                                                <div class="input-group input-group-sm mb-3">
-                                                    <div class="input-group-text ">N° Colegiatura</div>
-                                                    <input type="text" class="form-control form-control-sm"
-                                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card border">
-                                            <div class="card-header bg-transparent p-2">
-                                                <h6 class="my-0">Estudios Superiores (Universitarios - Tecnicos)
-                                                </h6>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <form (ngSubmit)=" submitForm">
-                                                        <button type="button " class="btn bg-agg btn-sm"
-                                                            (click)="agregarFamiliar()"> <i
-                                                                class="fa-solid fa-square-plus"></i> Agregar</button>
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Centro de estudios</th>
-                                                                    <th>Especialidad</th>
-                                                                    <th>F.Inicio</th>
-                                                                    <th>F.Termino</th>
-                                                                    <th>Nivel alcanzado<br>(Titulado/Bachiller
-                                                                        Egresado/Estudiante)
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr *ngFor="let familiar of familiares; let i = index">
-                                                                    <td>
+                                                    <div class="row w-100 d-block  mt-3">
+                                                        <fieldset>
+                                                            <legend>Domicilio</legend>
+                                                            <span>Ubicacion Geografica</span>
+                                                            <div class="row mt-2">
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Departamento
+                                                                        </div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
-                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
-                                                                            [(ngModel)]="familiar.nombreC" required>
-                                                                    </td>
-                                                                    <td>
+                                                                            [(ngModel)]="departamento"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Provincia</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
-                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
-                                                                            [(ngModel)]="familiar.fecNaci" required>
-                                                                    </td>
-                                                                    <td>
+                                                                            [(ngModel)]="provincia"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Distrito</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="distrito"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <span>Tipo de Via</span>
+                                                                <div
+                                                                    class="col-xl-12 mt-3 d-flex justify-content-between">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio1"
+                                                                            [(ngModel)]="via"
+                                                                            value="avenida">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio1">Avenida</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="jiron">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Jiron</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="calle">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Calle</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Pasaje</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Alameda</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Malecon</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Ovalo</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Parque</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Plaza</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Carretera</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="via"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Trocha</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-4">
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Nombre de la via
+                                                                        </div>
+                                                                        <input type="text" class="form-control"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Numero</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Interior</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <span>Tipo de Zona</span>
+                                                                <div
+                                                                    class="col-xl-12 mt-3 d-flex justify-content-between">
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio1"
+                                                                            value="option1">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio1">Urbanización</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Pueblo
+                                                                            Joven</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Unidad
+                                                                            Vecinal</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Conjunto
+                                                                            Habitacional</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Asentamiento
+                                                                            Humano</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Cooperativa</label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row mt-2">
+                                                                <div
+                                                                    class="col-xl-12 mt-3 d-flex justify-content-between">
+
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Residencial</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Zona
+                                                                            Indutrial</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Grupo</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Caserio</label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input class="form-check-input" type="radio"
+                                                                            name="inlineRadioOptions" id="inlineRadio2"
+                                                                            value="option2">
+                                                                        <label class="form-check-label"
+                                                                            for="inlineRadio2">Fundos</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-4">
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Nombre de la zona
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Numero</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Inteior</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-4">
+                                                                <div class="col-xl-12">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">
+                                                                            Referencia(Indicar
+                                                                            institucion
+                                                                            cercana)</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                                    aria-controls="panelsStayOpen-collapseTwo">
+                                                    DATOS FAMILIARES
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
+                                                aria-labelledby="panelsStayOpen-headingTwo">
+                                                <div class="accordion-body text-muted">
+
+                                                    <div class="row d-block w-100 mt-3">
+                                                        <fieldset>
+                                                            <legend>Datos Familiares</legend>
+                                                            <div class="row">
+                                                                <form (ngSubmit)=" submitForm">
+                                                                    <button type="button " class="btn bg-agg btn-sm"
+                                                                        (click)="agregarFamiliar()"><i
+                                                                            class="fa-solid fa-square-plus"></i>
+                                                                        Agregar </button>
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Apellidos y noombres</th>
+                                                                                <th>F. de Nacimiento</th>
+                                                                                <th>N °DNI</th>
+                                                                                <th>Parentesco</th>
+                                                                                <th>Institución / Entidad en la que
+                                                                                    labora
+                                                                                </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr
+                                                                                *ngFor="let familiar of familiares; let i = index">
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        class="form-control form-control-sm"
+                                                                                        id="nombreC{{i}}"
+                                                                                        name="nombreC{{i}}"
+                                                                                        [(ngModel)]="familiar.nombreC"
+                                                                                        required>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="date"
+                                                                                        class="form-control form-control-sm"
+                                                                                        id="fechNaci{{i}}"
+                                                                                        name="fechNaci{{i}}"
+                                                                                        [(ngModel)]="familiar.fecNaci"
+                                                                                        required>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="number"
+                                                                                        class="form-control form-control-sm"
+                                                                                        id="dni{{i}}" name="dni{{i}}"
+                                                                                        [(ngModel)]="familiar.dni"
+                                                                                        required>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        class="form-control form-control-sm"
+                                                                                        id="parentesco{{i}}"
+                                                                                        name="parentesco{{i}}"
+                                                                                        [(ngModel)]="familiar.parentesco"
+                                                                                        required>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        class="form-control form-control-sm"
+                                                                                        id="centroLaboral{{i}}"
+                                                                                        name="centroLaboral{{i}}"
+                                                                                        [(ngModel)]="familiar.centro"
+                                                                                        required>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button type="button"
+                                                                                        class=" btn bg-delete btn-sm"
+                                                                                        (click)="eliminarItem(i,'familiares')"><i
+                                                                                            class="fa-solid fa-xmark"></i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </form>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                                    aria-controls="panelsStayOpen-collapseThree">
+                                                    INFORMACION PROFESIONAL Y/O ACADEMICA
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse"
+                                                aria-labelledby="panelsStayOpen-headingThree">
+                                                <div class="accordion-body text-muted">
+
+                                                    <div class="row d-block w-100 mt-3">
+                                                        <fieldset>
+                                                            <legend>
+                                                                Datos Profeionales - Academicos
+                                                            </legend>
+                                                            <div class="row mt-2 ">
+                                                                <div class="col-xl-6">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Profesion</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-6">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Lugar de
+                                                                            Colegiatura
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <div class="row"></div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">F. de colegiatura
+                                                                        </div>
                                                                         <input type="date"
                                                                             class="form-control form-control-sm"
-                                                                            id="dni{{i}}" name="dni{{i}}"
-                                                                            [(ngModel)]="familiar.dni" required>
-                                                                    </td>
-                                                                    <td>
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">F.termino de
+                                                                            habilitacion</div>
                                                                         <input type="date"
                                                                             class="form-control form-control-sm"
-                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
-                                                                            [(ngModel)]="familiar.parentesco" required>
-                                                                    </td>
-                                                                    <td>
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">N° Colegiatura
+                                                                        </div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
-                                                                            id="centroLaboral{{i}}"
-                                                                            name="centroLaboral{{i}}"
-                                                                            [(ngModel)]="familiar.centro" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button"
-                                                                            class=" btn bg-delete btn-sm"
-                                                                            (click)="eliminarFamiliar(i)"><i class="fa-solid fa-xmark"></i> </button>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </form>
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card border">
+                                                                <div class="card-header bg-transparent p-2">
+                                                                    <h6 class="my-0">Estudios Superiores (Universitarios
+                                                                        -
+                                                                        Tecnicos)
+                                                                    </h6>
+                                                                </div>
+                                                                <div class="card-body p-3">
+                                                                    <div class="row">
+                                                                        <form (ngSubmit)=" submitForm">
+                                                                            <button type="button "
+                                                                                class="btn bg-agg btn-sm"
+                                                                                (click)="agregarEstudioSuperior()"> <i
+                                                                                    class="fa-solid fa-square-plus"></i>
+                                                                                Agregar</button>
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Centro de estudios</th>
+                                                                                        <th>Especialidad</th>
+                                                                                        <th>F.Inicio</th>
+                                                                                        <th>F.Termino</th>
+                                                                                        <th>Nivel
+                                                                                            alcanzado<br>(Titulado/Bachiller
+                                                                                            Egresado/Estudiante)
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr
+                                                                                        *ngFor="let superior of estudioSuperior; let i = index">
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="centro{{i}}"
+                                                                                                name="centro{{i}}"
+                                                                                                [(ngModel)]="superior.centro"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="especialidad{{i}}"
+                                                                                                name="especialidad{{i}}"
+                                                                                                [(ngModel)]="superior.especialidad"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="inicio{{i}}"
+                                                                                                name="inicio{{i}}"
+                                                                                                [(ngModel)]="superior.inicio"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="termino{{i}}"
+                                                                                                name="termino{{i}}"
+                                                                                                [(ngModel)]="superior.termino"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="nivel{{i}}"
+                                                                                                name="nivel{{i}}"
+                                                                                                [(ngModel)]="superior.nivel"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button type="button"
+                                                                                                class=" btn bg-delete btn-sm"
+                                                                                                (click)="eliminarItem(i,'estudioSuperior')"><i
+                                                                                                    class="fa-solid fa-xmark"></i>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card border">
+                                                                <div class="card-header bg-transparent p-2">
+                                                                    <h6 class="my-0">Estudios Postgrado ( Maestria -
+                                                                        Doctorado)
+                                                                    </h6>
+                                                                </div>
+                                                                <div class="card-body p-3">
+                                                                    <div class="row">
+                                                                        <form (ngSubmit)=" submitForm">
+                                                                            <button type="button "
+                                                                                class="btn bg-agg btn-sm"
+                                                                                (click)="agregarEstudioPostgrado()"><i
+                                                                                    class="fa-solid fa-square-plus"></i>
+                                                                                Agregar</button>
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Centro de estudios</th>
+                                                                                        <th>Especialidad</th>
+                                                                                        <th>F.Inicio</th>
+                                                                                        <th>F.Termino</th>
+                                                                                        <th>Nivel
+                                                                                            alcanzado<br>(Magister/Doctorado
+                                                                                            Egresado/Estudiante)
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr
+                                                                                        *ngFor="let postg of estudioPostgrado; let i = index">
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="centro{{i}}"
+                                                                                                name="centro{{i}}"
+                                                                                                [(ngModel)]="postg.centro"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="especialidad{{i}}"
+                                                                                                name="especialidad{{i}}"
+                                                                                                [(ngModel)]="postg.Especialidad"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="number"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="inicio{{i}}"
+                                                                                                name="inicio{{i}}"
+                                                                                                [(ngModel)]="postg.inicio"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="termino{{i}}"
+                                                                                                name="termino{{i}}"
+                                                                                                [(ngModel)]="postg.termino"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="nivel{{i}}"
+                                                                                                name="nivel{{i}}"
+                                                                                                [(ngModel)]="postg.nivel"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button type="button"
+                                                                                                class=" btn bg-delete btn-sm"
+                                                                                                title="Eliminar"
+                                                                                                (click)="eliminarItem(i,'estudioPostgrado')"><i
+                                                                                                    class="fa-solid fa-xmark"></i>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card border">
+                                                                <div class="card-header bg-transparent p-2">
+                                                                    <h6 class="my-0">Especializacion - Diplomados
+                                                                    </h6>
+                                                                </div>
+                                                                <div class="card-body p-3">
+                                                                    <div class="row">
+                                                                        <form (ngSubmit)=" submitForm">
+                                                                            <button type="button "
+                                                                                class="btn bg-agg btn-sm"
+                                                                                (click)="agregarEspecializacion()"><i
+                                                                                    class="fa-solid fa-square-plus"></i>
+                                                                                Agregar</button>
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Centro de estudios</th>
+                                                                                        <th>Materia</th>
+                                                                                        <th>F.Inicio</th>
+                                                                                        <th>F.Termino</th>
+                                                                                        <th>Certificado Obtenido
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr
+                                                                                        *ngFor="let espe of especializacion; let i = index">
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="centro{{i}}"
+                                                                                                name="centro{{i}}"
+                                                                                                [(ngModel)]="espe.centro"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="materia{{i}}"
+                                                                                                name="materia{{i}}"
+                                                                                                [(ngModel)]="espe.materia"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="number"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="dni{{i}}"
+                                                                                                name="dni{{i}}"
+                                                                                                [(ngModel)]="espe.inicio"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="parentesco{{i}}"
+                                                                                                name="parentesco{{i}}"
+                                                                                                [(ngModel)]="espe.termino"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="centroLaboral{{i}}"
+                                                                                                name="centroLaboral{{i}}"
+                                                                                                [(ngModel)]="espe.certificado"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button type="button"
+                                                                                                class=" btn bg-delete btn-sm"
+                                                                                                title="Eliminar"
+                                                                                                (click)="eliminarItem(i,'especializacion')"><i
+                                                                                                    class="fa-solid fa-xmark"></i>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card border">
+                                                                <div class="card-header bg-transparent p-2">
+                                                                    <h6 class="my-0">Curso - Seminario
+                                                                    </h6>
+                                                                </div>
+                                                                <div class="card-body p-3">
+                                                                    <div class="row">
+                                                                        <form (ngSubmit)=" submitForm">
+                                                                            <button type="button "
+                                                                                class="btn bg-agg btn-sm"
+                                                                                (click)="agregarCursos()"><i
+                                                                                    class="fa-solid fa-square-plus"></i>
+                                                                                Agregar</button>
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Centro de estudios</th>
+                                                                                        <th>Materia</th>
+                                                                                        <th>F.Inicio</th>
+                                                                                        <th>F.Termino</th>
+                                                                                        <th>Certificado Obtenido
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr
+                                                                                        *ngFor="let curso of cursos; let i = index">
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="centro{{i}}"
+                                                                                                name="centro{{i}}"
+                                                                                                [(ngModel)]="curso.centro"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="date"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="materia{{i}}"
+                                                                                                name="materia{{i}}"
+                                                                                                [(ngModel)]="curso.materia"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="number"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="inicio{{i}}"
+                                                                                                name="inicio{{i}}"
+                                                                                                [(ngModel)]="curso.inicio"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="termino{{i}}"
+                                                                                                name="termino{{i}}"
+                                                                                                [(ngModel)]="curso.termino"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="certificado{{i}}"
+                                                                                                name="certificado{{i}}"
+                                                                                                [(ngModel)]="curso.certificado"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button type="button"
+                                                                                                class=" btn bg-delete btn-sm"
+                                                                                                title="Eliminar"
+                                                                                                (click)="eliminarItem(i ,'cursos')"><i
+                                                                                                    class="fa-solid fa-xmark"></i>
+                                                                                            </button>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card border">
+                                                                <div class="card-header bg-transparent p-2">
+                                                                    <h6 class="my-0">Idiomas
+                                                                    </h6>
+                                                                </div>
+                                                                <div class="card-body p-3">
+                                                                    <div class="row">
+                                                                        <form (ngSubmit)=" submitForm">
+                                                                            <button type="button "
+                                                                                class="btn bg-agg btn-sm"
+                                                                                (click)="agregarIdioma()"><i
+                                                                                    class="fa-solid fa-square-plus"></i>
+                                                                                Agregar</button>
+                                                                            <table class="table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Lengua Extranjera</th>
+                                                                                        <th>Nivel Basico</th>
+                                                                                        <th>Nivel Intermedio</th>
+                                                                                        <th>Nivel Avanzado</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr
+                                                                                        *ngFor="let idioma of idiomas; let i = index">
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="nivelB{{i}}"
+                                                                                                name="nivelB{{i}}"
+                                                                                                [(ngModel)]="idioma.nivelB"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="nivelM{{i}}"
+                                                                                                name="nivelM{{i}}"
+                                                                                                [(ngModel)]="idioma.nivelM"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="nivelA{{i}}"
+                                                                                                name="nivelA{{i}}"
+                                                                                                [(ngModel)]="idioma.nivelA"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="text"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="fileID{{i}}"
+                                                                                                name="fileID{{i}}"
+                                                                                                [(ngModel)]="idioma.fileID"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <button type="button"
+                                                                                                title="Eliminar"
+                                                                                                class=" btn bg-delete btn-sm"
+                                                                                                (click)="eliminarItem(i,'idiomas')"><i
+                                                                                                    class="fa-solid fa-xmark"></i>
+                                                                                            </button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </fieldset>
+
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="card border">
-                                            <div class="card-header bg-transparent p-2">
-                                                <h6 class="my-0">Estudios Postgrado ( Maestria - Doctorado)
-                                                </h6>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <form (ngSubmit)=" submitForm">
-                                                        <button type="button " class="btn bg-agg btn-sm"
-                                                            (click)="agregarFamiliar()"><i
-                                                                class="fa-solid fa-square-plus"></i> Agregar</button>
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Centro de estudios</th>
-                                                                    <th>Especialidad</th>
-                                                                    <th>F.Inicio</th>
-                                                                    <th>F.Termino</th>
-                                                                    <th>Nivel alcanzado<br>(Magister/Doctorado
-                                                                        Egresado/Estudiante)
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr *ngFor="let familiar of familiares; let i = index">
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
-                                                                            [(ngModel)]="familiar.nombreC" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="date"
-                                                                            class="form-control form-control-sm"
-                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
-                                                                            [(ngModel)]="familiar.fecNaci" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="number"
-                                                                            class="form-control form-control-sm"
-                                                                            id="dni{{i}}" name="dni{{i}}"
-                                                                            [(ngModel)]="familiar.dni" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
-                                                                            [(ngModel)]="familiar.parentesco" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="centroLaboral{{i}}"
-                                                                            name="centroLaboral{{i}}"
-                                                                            [(ngModel)]="familiar.centro" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button"
-                                                                            class=" btn bg-delete btn-sm" title="Eliminar"
-                                                                            (click)="eliminarFamiliar(i)"><i class="fa-solid fa-xmark"></i> </button>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card border">
-                                            <div class="card-header bg-transparent p-2">
-                                                <h6 class="my-0">Especializacion - Diplomados
-                                                </h6>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <form (ngSubmit)=" submitForm">
-                                                        <button type="button " class="btn bg-agg btn-sm"
-                                                            (click)="agregarFamiliar()"><i
-                                                                class="fa-solid fa-square-plus"></i> Agregar</button>
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Centro de estudios</th>
-                                                                    <th>Materia</th>
-                                                                    <th>F.Inicio</th>
-                                                                    <th>F.Termino</th>
-                                                                    <th>Certificado Obtenido
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr *ngFor="let familiar of familiares; let i = index">
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
-                                                                            [(ngModel)]="familiar.nombreC" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="date"
-                                                                            class="form-control form-control-sm"
-                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
-                                                                            [(ngModel)]="familiar.fecNaci" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="number"
-                                                                            class="form-control form-control-sm"
-                                                                            id="dni{{i}}" name="dni{{i}}"
-                                                                            [(ngModel)]="familiar.dni" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
-                                                                            [(ngModel)]="familiar.parentesco" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="centroLaboral{{i}}"
-                                                                            name="centroLaboral{{i}}"
-                                                                            [(ngModel)]="familiar.centro" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button"
-                                                                            class=" btn bg-delete btn-sm"title="Eliminar"
-                                                                            (click)="eliminarFamiliar(i)"><i class="fa-solid fa-xmark"></i> </button>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card border">
-                                            <div class="card-header bg-transparent p-2">
-                                                <h6 class="my-0">Curso - Seminario
-                                                </h6>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <form (ngSubmit)=" submitForm">
-                                                        <button type="button " class="btn bg-agg btn-sm"
-                                                            (click)="agregarFamiliar()"><i
-                                                                class="fa-solid fa-square-plus"></i> Agregar</button>
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Centro de estudios</th>
-                                                                    <th>Materia</th>
-                                                                    <th>F.Inicio</th>
-                                                                    <th>F.Termino</th>
-                                                                    <th>Certificado Obtenido
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr *ngFor="let familiar of familiares; let i = index">
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
-                                                                            [(ngModel)]="familiar.nombreC" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="date"
-                                                                            class="form-control form-control-sm"
-                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
-                                                                            [(ngModel)]="familiar.fecNaci" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="number"
-                                                                            class="form-control form-control-sm"
-                                                                            id="dni{{i}}" name="dni{{i}}"
-                                                                            [(ngModel)]="familiar.dni" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
-                                                                            [(ngModel)]="familiar.parentesco" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="centroLaboral{{i}}"
-                                                                            name="centroLaboral{{i}}"
-                                                                            [(ngModel)]="familiar.centro" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button"
-                                                                            class=" btn bg-delete btn-sm" title="Eliminar"
-                                                                            (click)="eliminarFamiliar(i)"><i class="fa-solid fa-xmark"></i> </button>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card border">
-                                            <div class="card-header bg-transparent p-2">
-                                                <h6 class="my-0">Idiomas
-                                                </h6>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <form (ngSubmit)=" submitForm">
-                                                        <button type="button " class="btn bg-agg btn-sm"
-                                                            (click)="agregarFamiliar()"><i
-                                                                class="fa-solid fa-square-plus"></i> Agregar</button>
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Lengua Extranjera</th>
-                                                                    <th>Nivel Basico</th>
-                                                                    <th>Nivel Intermedio</th>
-                                                                    <th>Nivel Avanzado</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr *ngFor="let familiar of familiares; let i = index">
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
-                                                                            [(ngModel)]="familiar.nombreC" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
-                                                                            [(ngModel)]="familiar.fecNaci" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="dni{{i}}" name="dni{{i}}"
-                                                                            [(ngModel)]="familiar.dni" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
-                                                                            [(ngModel)]="familiar.parentesco" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button" title="Eliminar"
-                                                                            class=" btn bg-delete btn-sm"
-                                                                            (click)="eliminarFamiliar(i)"><i class="fa-solid fa-xmark"></i> </button>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </form>
+                                        </div> <!-- fin del acordtion datos profesioanles  -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingthree">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapsethree" aria-expanded="false"
+                                                    aria-controls="panelsStayOpen-collapsethree">
+                                                    DATOS LABORALES
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapsethree" class="accordion-collapse collapse "
+                                                aria-labelledby="panelsStayOpen-headingthree">
+                                                <div class="accordion-body text-muted">
+                                                    <fieldset class="mt-3">
+                                                        <legend>Datos Laborales</legend>
+                                                        <div class="card border">
+                                                            <div class="card-header bg-transparent p-2">
+                                                                <h6 class="my-0">Experiencia Laboral
+                                                                </h6>
+                                                            </div>
+                                                            <div class="card-body p-3">
+                                                                <div class="row">
+                                                                    <form (ngSubmit)=" submitForm">
+                                                                        <button type="button " class="btn bg-agg btn-sm"
+                                                                            (click)="agregarExperiencia()"><i
+                                                                                class="fa-solid fa-square-plus"></i>
+                                                                            Agregar</button>
+                                                                        <table class="table">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Institucion / Empresa</th>
+                                                                                    <th>Cargo -Actividad Desempeñada
+                                                                                    </th>
+                                                                                    <th>F.Inicio</th>
+                                                                                    <th>F.Termino</th>
+                                                                                    <th>Documento</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr
+                                                                                    *ngFor="let expL of experienciaLaboral; let i = index">
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="institucionEL{{i}}"
+                                                                                            name="institucionEL{{i}}"
+                                                                                            [(ngModel)]="expL.institucionEL"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="cargoEL{{i}}"
+                                                                                            name="cargoEL{{i}}"
+                                                                                            [(ngModel)]="expL.cargoEL"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="date"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="inicioEL{{i}}"
+                                                                                            name="inicioEL{{i}}"
+                                                                                            [(ngModel)]="expL.inicioEL"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="date"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="terminoEL{{i}}"
+                                                                                            name="terminoEL{{i}}"
+                                                                                            [(ngModel)]="expL.terminoEL"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="file"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="fileEL{{i}}"
+                                                                                            name="fileEL{{i}}"
+                                                                                            [(ngModel)]="expL.fileEL"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button type="button"
+                                                                                            class=" btn bg-delete btn-sm"
+                                                                                            data-title="Eliminar"
+                                                                                            (click)="eliminarItem(i,'experienciaLaboral')"><i
+                                                                                                class="fa-solid fa-xmark"></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card border">
+                                                            <div class="card-header bg-transparent p-2">
+                                                                <h6 class="my-0">Experiencia de Docencia
+                                                                </h6>
+                                                            </div>
+                                                            <div class="card-body p-3">
+                                                                <div class="row">
+                                                                    <form (ngSubmit)=" submitForm">
+                                                                        <button type="button " class="btn bg-agg btn-sm"
+                                                                            (click)="agregarDocencia()"><i
+                                                                                class="fa-solid fa-square-plus"></i>
+                                                                            Agregar</button>
+                                                                        <table class="table">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Centro de Enseñanza</th>
+                                                                                    <th>Curso Dictado
+                                                                                    </th>
+                                                                                    <th>F.Inicio</th>
+                                                                                    <th>F.Termino</th>
+                                                                                    <th>Documento</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr
+                                                                                    *ngFor="let expD of laborDocencia; let i = index">
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="centroD{{i}}"
+                                                                                            name="centroD{{i}}"
+                                                                                            [(ngModel)]="expD.centroD"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="cursoD{{i}}"
+                                                                                            name="cursoD{{i}}"
+                                                                                            [(ngModel)]="expD.cursoD"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="date"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="inicioD{{i}}"
+                                                                                            name="inicioD{{i}}"
+                                                                                            [(ngModel)]="expD.inicioD"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="date"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="terminoD{{i}}"
+                                                                                            name="terminoD{{i}}"
+                                                                                            [(ngModel)]="expD.terminoD"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="file"
+                                                                                            class="form-control form-control-sm"
+                                                                                            id="fileED{{i}}"
+                                                                                            name="fileED{{i}}"
+                                                                                            [(ngModel)]="expD.fileED"
+                                                                                            required>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button type="button"
+                                                                                            class=" btn bg-delete btn-sm"
+                                                                                            data-title="Eliminar"
+                                                                                            (click)="eliminarItem(i,'laborDocencia')"><i
+                                                                                                class="fa-solid fa-xmark"></i>
+                                                                                        </button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
                                                 </div>
                                             </div>
                                         </div>
 
-                                    </fieldset>
-
-                                    <fieldset class="mt-3">
-                                        <legend>Datos Laborales</legend>
-                                        <div class="card border">
-                                            <div class="card-header bg-transparent p-2">
-                                                <h6 class="my-0">Experiencia Laboral
-                                                </h6>
-                                            </div>
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <form (ngSubmit)=" submitForm">
-                                                        <button type="button " class="btn bg-agg btn-sm"
-                                                            (click)="agregarFamiliar()"><i
-                                                                class="fa-solid fa-square-plus"></i> Agregar</button>
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Institucion / Empresa</th>
-                                                                    <th>Cargo -Actividad Desempeñada</th>
-                                                                    <th>F.Inicio</th>
-                                                                    <th>F.Termino</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr *ngFor="let familiar of familiares; let i = index">
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="nombreC{{i}}" name="nombreC{{i}}"
-                                                                            [(ngModel)]="familiar.nombreC" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="fechNaci{{i}}" name="fechNaci{{i}}"
-                                                                            [(ngModel)]="familiar.fecNaci" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="date"
-                                                                            class="form-control form-control-sm"
-                                                                            id="dni{{i}}" name="dni{{i}}"
-                                                                            [(ngModel)]="familiar.dni" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="date"
-                                                                            class="form-control form-control-sm"
-                                                                            id="parentesco{{i}}" name="parentesco{{i}}"
-                                                                            [(ngModel)]="familiar.parentesco" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            id="centroLaboral{{i}}"
-                                                                            name="centroLaboral{{i}}"
-                                                                            [(ngModel)]="familiar.centro" required>
-                                                                    </td>
-                                                                    <td>
-                                                                        <button type="button"
-                                                                            class=" btn bg-delete btn-sm" data-title="Eliminar"
-                                                                            (click)="eliminarFamiliar(i)"><i class="fa-solid fa-xmark"></i> </button>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
+                                    </div><!-- fin del acordtion  -->
                                 </div>
                             </div>
-
                         </app-loading>
                     </div>
                 </div>

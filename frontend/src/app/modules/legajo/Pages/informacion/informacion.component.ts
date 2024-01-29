@@ -1,4 +1,4 @@
-import { ModalDatosComponent } from './../../components/modalsEmpleado/modal-datos/modal-datos.component';
+
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {rutaBreadCrumb} from "@shared/components/breadcrumb/breadcrumb.component";
 import {CabeceraTabla} from "@shared/components/tabla/tabla.component";
@@ -16,7 +16,7 @@ import {Store} from "@ngrx/store";
   styleUrl: './informacion.component.scss'
 })
 export class InformacionComponent {
-@ViewChild(ModalDatosComponent) modalDatos?: any
+
 @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
   rutas: rutaBreadCrumb[] = [{nombre: 'Legajo'}];
   accesos: any[] | undefined = [];
@@ -128,10 +128,7 @@ obtenerPermisos() {
 
 
 
-verDatos(id: string) {
 
-    this.modalDatos?.openModal(2, id);
-  }
 
   editarEmpleado(codigo:string){
 
