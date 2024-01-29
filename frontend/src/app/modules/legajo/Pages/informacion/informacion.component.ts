@@ -55,7 +55,6 @@ export class InformacionComponent {
   constructor(private DatoGeneralesService$: DatoGeneralesService,
               private store: Store<Session>) {
       this.listarEmpleados();
-       console.log('Constructor - this.modalDatos:', this.modalDatos);
       //this.obtenerPermisos();
   }
 
@@ -77,7 +76,7 @@ obtenerPermisos() {
           documento: this.filtroDocumento,
           longitud: this.longitud,
           unidadOrganica: this.filtroUnidadOrganica,
-          servicioEquipo: this.filtroServicioEquipo,
+          equipoServicio: this.filtroServicioEquipo,
           nomPri: this.filtroNomPrimer,
           nomSec: this.filtroNomSegundo,
           pagina: this.pagina

@@ -18,10 +18,10 @@ class LegajoController extends JSONResponseController
     public function listarEmpleados(Request $request): JsonResponse
     {
 
-        $validacion = Validator::make($request->only(['numeroDocumento', 'apellidoPaterno', 'apellidoMaterno',
+        $validacion = Validator::make($request->only(['documento', 'apellidoPaterno', 'apellidoMaterno',
             'primerNombre', 'segundoNombre', 'unidadOrganica', 'equipoServicio', 'pagina', 'longitud']), [
             'numeroDocumento' => 'nullable|string',
-            'apellidoPaterno' => 'string|nullable',
+            'apellidoPaterno' => 'nullable|string',
             'apellidoMaterno' => 'nullable|string',
             'primerNombre' => 'nullable|string',
             'segundoNombre' => 'nullable|string',
@@ -38,10 +38,10 @@ class LegajoController extends JSONResponseController
         $legajoModel = new LegajoModel();
         $paramentos = new StdClass();
         $paramentos->documento = $request->get('documento') ?? '';
-        $paramentos->apPaterno = $request->get('apellidoPaterno') ?? '';;
-        $paramentos->apMaterno = $request->get('apellidoMaterno') ?? '';;
-        $paramentos->priNombre = $request->get('primerNombre') ?? '';;
-        $paramentos->segNombre = $request->get('segundoNombre') ?? '';;
+        $paramentos->apPaterno = $request->get('apellidoPaterno') ?? '';
+        $paramentos->apMaterno = $request->get('apellidoMaterno') ?? '';
+        $paramentos->priNombre = $request->get('primerNombre') ?? '';
+        $paramentos->segNombre = $request->get('segundoNombre') ?? '';
         $paramentos->unidadOrganica = $request->get('unidadOrganica') ?? '';
         $paramentos->equipoServicio = $request->get('equipoServicio') ?? '';
         $paramentos->pagina = $request->get('pagina');

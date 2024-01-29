@@ -7,7 +7,7 @@ export interface ListarPersonalParams {
     nomPri: string,
     nomSec: string,
     unidadOrganica: string
-    servicioEquipo: string,
+    equipoServicio: string,
     pagina: number,
     longitud: number
 }

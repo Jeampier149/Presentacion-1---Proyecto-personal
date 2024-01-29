@@ -23,7 +23,7 @@ export class DatoGeneralesService {
                 primerNombre: datos.nomPri,
                 segundoNombre: datos.nomSec,
                 unidadOrganica: datos.unidadOrganica,
-                servicioEquipo: datos.servicioEquipo,
+                equipoServicio: datos.equipoServicio,
                 pagina: datos.pagina,
                 longitud: datos.longitud
             },
