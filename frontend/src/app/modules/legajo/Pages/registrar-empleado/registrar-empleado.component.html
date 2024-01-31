@@ -10,14 +10,13 @@
                                 <div class="row">
                                     <div class="col-xl-6">
                                         <div class="row">
-                                            <div class="col-xl-4">
+                                            <div class="col-xl-5">
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <label class="form-label">Tipo Documento</label>
                                                         <select class="form-select form-select-sm">
                                                             <option>Select</option>
-                                                            <option>DNI</option>
-                                                            <option>Carnet Extranjeria</option>
+                                                            <option *ngFor="let tipoD of datos" value="{{tipoD.id}}">{{tipoD.descripcion}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -27,8 +26,9 @@
                                                     <label for="numero_doc">N° Documento</label>
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Recipient's username"
-                                                            aria-describedby="basic-addon2">
+                                                            aria-label="dni"
+                                                            [(ngModel)]="numeroDocumento"
+                                                            aria-describedby="dni">
                                                         <div class="input-group-append">
                                                             <button class="btn btn-outline-secondary btn-primary btn-sm"
                                                                 type="button"><i
@@ -77,7 +77,7 @@
                                         <legend>Datos Personales</legend>
                                         <div class="row mt-4 ">
                                             <div class="col-2 ">
-                                                <img src="/assets/img/error-img.png" alt="">
+                                               
                                             </div>
                                             <div class="col-xl-10 ">
                                                 <div class="row my-2 px-3 mb-3">
@@ -278,30 +278,30 @@
                                                 <label class="me-2" for="flexSwitchCheckChecked">Tipos
                                                     Discapacidad :</label>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                    <input class="form-check-input" type="checkbox" id="fisicas"
                                                     [(ngModel)]="fisicas" 
-                                                        value="option1">
+                                                        value="fisicas">
                                                     <label class="form-check-label"
-                                                        for="inlineCheckbox1">Fisicas</label>
+                                                        for="fisicas">Fisicas</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
+                                                    <input class="form-check-input" type="checkbox" id="sensorial"
                                                     [(ngModel)]="sensorial" 
-                                                        value="option2">
+                                                        value="sensorial">
                                                     <label class="form-check-label"
-                                                        for="inlineCheckbox2">Sensoriales</label>
+                                                        for="sensorial">Sensoriales</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                                    <input class="form-check-input" type="checkbox" id="mentales"
                                                     [(ngModel)]="mentales" 
-                                                        value="option1">
+                                                        value="mentales">
                                                     <label class="form-check-label"
-                                                        for="inlineCheckbox1">Mentales</label>
+                                                        for="mentales">Mentales</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
                                                     [(ngModel)]="intelectual" 
-                                                        value="option2">
+                                                        value="intele">
                                                     <label class="form-check-label"
                                                         for="inlineCheckbox2">Intelectuales</label>
                                                 </div>
@@ -365,98 +365,17 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-2">
-                                                                <span>Tipo de Via</span>
-                                                                <div
-                                                                    class="col-xl-12 mt-3 d-flex justify-content-between">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio1"
-                                                                            [(ngModel)]="via"
-                                                                            value="avenida">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio1">Avenida</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="jiron">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Jiron</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="calle">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Calle</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Pasaje</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Alameda</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Malecon</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Ovalo</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Parque</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Plaza</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Carretera</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="via"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Trocha</label>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Tipo de Via
+                                                                        </div>
+                                                                        <input type="text" class="form-control"
+                                                                             [(ngModel)]="via"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
+                                                                   
                                                             </div>
                                                             <div class="row mt-4">
                                                                 <div class="col-xl-4">
@@ -464,6 +383,7 @@
                                                                         <div class="input-group-text ">Nombre de la via
                                                                         </div>
                                                                         <input type="text" class="form-control"
+                                                                             [(ngModel)]="nombreVia"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
@@ -473,6 +393,7 @@
                                                                         <div class="input-group-text ">Numero</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
+                                                                            [(ngModel)]="numeroVia"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
@@ -482,6 +403,7 @@
                                                                         <div class="input-group-text ">Interior</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
+                                                                            [(ngModel)]="interiorVia"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
@@ -493,7 +415,8 @@
                                                                     class="col-xl-12 mt-3 d-flex justify-content-between">
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio1"
+                                                                            name="inlineRadioOptions" id="inlineRadio1"  
+                                                                            [(ngModel)]="zona"                                                                          
                                                                             value="option1">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio1">Urbanización</label>
@@ -501,6 +424,7 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio2">Pueblo
@@ -509,6 +433,7 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio2">Unidad
@@ -517,6 +442,7 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio2">Conjunto
@@ -525,6 +451,7 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio2">Asentamiento
@@ -533,6 +460,7 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio2">Cooperativa</label>
@@ -548,6 +476,7 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio2">Residencial</label>
@@ -555,6 +484,7 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio2">Zona
@@ -563,6 +493,7 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio2">Grupo</label>
@@ -570,6 +501,7 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
                                                                             for="inlineRadio2">Caserio</label>
@@ -577,9 +509,10 @@
                                                                     <div class="form-check form-check-inline">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="inlineRadioOptions" id="inlineRadio2"
+                                                                            [(ngModel)]="zona"
                                                                             value="option2">
                                                                         <label class="form-check-label"
-                                                                            for="inlineRadio2">Fundos</label>
+                                                                            for="inlineRadio2">Fundo</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -590,6 +523,7 @@
                                                                         </div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
+                                                                            [(ngModel)]="nombreZona"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
@@ -599,6 +533,7 @@
                                                                         <div class="input-group-text ">Numero</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
+                                                                            [(ngModel)]="numeroZona"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
@@ -608,6 +543,7 @@
                                                                         <div class="input-group-text ">Inteior</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
+                                                                            [(ngModel)]="interiorZona"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
@@ -622,6 +558,7 @@
                                                                             cercana)</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
+                                                                            [(ngModel)]="referenciaDomicilio"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
