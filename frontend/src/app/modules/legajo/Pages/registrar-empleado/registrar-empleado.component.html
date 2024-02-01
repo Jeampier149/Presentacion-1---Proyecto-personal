@@ -334,7 +334,7 @@
                                                             <div class="row mt-2">
                                                                 <div class="col-xl-4">
                                                                     <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Departamento
+                                                                        <div class="input-group-text d-personales ">Departamento
                                                                         </div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
@@ -345,7 +345,7 @@
                                                                 </div>
                                                                 <div class="col-xl-4">
                                                                     <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Provincia</div>
+                                                                        <div class="input-group-text d-personales ">Provincia</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
                                                                             [(ngModel)]="provincia"
@@ -367,28 +367,27 @@
                                                             <div class="row mt-2">
                                                                 <div class="col-xl-4">
                                                                     <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Tipo de Via
+                                                                        <div class="input-group-text d-personales ">Tipo de Via
                                                                         </div>
-                                                                        <input type="text" class="form-control"
-                                                                             [(ngModel)]="via"
-                                                                            aria-label="Small"
-                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                        <select class="form-select form-select-sm">
+                                                                            <option>Select</option>
+                                                                            <option>276l</option>
+                                                                            <option>1057k</option>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
-                                                                   
-                                                            </div>
-                                                            <div class="row mt-4">
+
                                                                 <div class="col-xl-4">
                                                                     <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Nombre de la via
+                                                                        <div class="input-group-text d-personales">Nombre de la via
                                                                         </div>
                                                                         <input type="text" class="form-control"
                                                                              [(ngModel)]="nombreVia"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-xl-4">
+                                                                </div> 
+                                                                <div class="col-xl-2">
                                                                     <div class="input-group input-group-sm mb-3">
                                                                         <div class="input-group-text ">Numero</div>
                                                                         <input type="text"
@@ -398,7 +397,7 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-4">
+                                                                <div class="col-xl-2">
                                                                     <div class="input-group input-group-sm mb-3">
                                                                         <div class="input-group-text ">Interior</div>
                                                                         <input type="text"
@@ -410,125 +409,29 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-2">
-                                                                <span>Tipo de Zona</span>
-                                                                <div
-                                                                    class="col-xl-12 mt-3 d-flex justify-content-between">
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio1"  
-                                                                            [(ngModel)]="zona"                                                                          
-                                                                            value="option1">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio1">Urbanización</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Pueblo
-                                                                            Joven</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Unidad
-                                                                            Vecinal</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Conjunto
-                                                                            Habitacional</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Asentamiento
-                                                                            Humano</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Cooperativa</label>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row mt-2">
-                                                                <div
-                                                                    class="col-xl-12 mt-3 d-flex justify-content-between">
-
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Residencial</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Zona
-                                                                            Indutrial</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Grupo</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Caserio</label>
-                                                                    </div>
-                                                                    <div class="form-check form-check-inline">
-                                                                        <input class="form-check-input" type="radio"
-                                                                            name="inlineRadioOptions" id="inlineRadio2"
-                                                                            [(ngModel)]="zona"
-                                                                            value="option2">
-                                                                        <label class="form-check-label"
-                                                                            for="inlineRadio2">Fundo</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mt-4">
                                                                 <div class="col-xl-4">
                                                                     <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Nombre de la zona
+                                                                        <div class="input-group-text d-personales">Tipo de Zona
                                                                         </div>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            [(ngModel)]="nombreZona"
+                                                                        <select class="form-select form-select-sm">
+                                                                            <option>Select</option>
+                                                                            <option>276l</option>
+                                                                            <option>1057k</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales">Nombre de Zona
+                                                                        </div>
+                                                                        <input type="text" class="form-control"
+                                                                             [(ngModel)]="nombreZona"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-xl-4">
+                                                                </div> 
+                                                                <div class="col-xl-2">
                                                                     <div class="input-group input-group-sm mb-3">
                                                                         <div class="input-group-text ">Numero</div>
                                                                         <input type="text"
@@ -538,9 +441,9 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-4">
+                                                                <div class="col-xl-2">
                                                                     <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Inteior</div>
+                                                                        <div class="input-group-text ">Interior</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
                                                                             [(ngModel)]="interiorZona"
@@ -549,6 +452,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                             <div class="row mt-4">
                                                                 <div class="col-xl-12">
                                                                     <div class="input-group input-group-sm mb-3">
@@ -596,7 +500,8 @@
                                                                     <table class="table">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>Apellidos y noombres</th>
+                                                                                <th>Nombres</th>
+                                                                                <th>Apellidos</th>
                                                                                 <th>F. de Nacimiento</th>
                                                                                 <th>N °DNI</th>
                                                                                 <th>Parentesco</th>
@@ -614,6 +519,14 @@
                                                                                         id="nombreC{{i}}"
                                                                                         name="nombreC{{i}}"
                                                                                         [(ngModel)]="familiar.nombreC"
+                                                                                        required>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                        class="form-control form-control-sm"
+                                                                                        id="apeliidos{{i}}"
+                                                                                        name="apellidos{{i}}"
+                                                                                        [(ngModel)]="familiar.apellidos"
                                                                                         required>
                                                                                 </td>
                                                                                 <td>
@@ -762,8 +675,10 @@
                                                                                         <th>F.Inicio</th>
                                                                                         <th>F.Termino</th>
                                                                                         <th>Nivel
-                                                                                            alcanzado<br>(Titulado/Bachiller
+                                                                                            alcanzado(Titulado/Bachiller<br>
                                                                                             Egresado/Estudiante)
+                                                                                        </th>
+                                                                                        <th>Documento
                                                                                         </th>
                                                                                     </tr>
                                                                                 </thead>
@@ -811,6 +726,14 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
+                                                                                            <input type="file"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="filePro{{i}}"
+                                                                                                name="filePro{{i}}"
+                                                                                                [(ngModel)]="superior.file"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
                                                                                             <button type="button"
                                                                                                 class=" btn bg-delete btn-sm"
                                                                                                 (click)="eliminarItem(i,'estudioSuperior')"><i
@@ -846,9 +769,10 @@
                                                                                         <th>F.Inicio</th>
                                                                                         <th>F.Termino</th>
                                                                                         <th>Nivel
-                                                                                            alcanzado<br>(Magister/Doctorado
+                                                                                            alcanzado (Magister/Doctorado
                                                                                             Egresado/Estudiante)
                                                                                         </th>
+                                                                                        <th>Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -895,6 +819,14 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
+                                                                                            <input type="file"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="filePost{{i}}"
+                                                                                                name="filePost{{i}}"
+                                                                                                [(ngModel)]="postg.filePost"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
                                                                                             <button type="button"
                                                                                                 class=" btn bg-delete btn-sm"
                                                                                                 title="Eliminar"
@@ -931,6 +863,7 @@
                                                                                         <th>F.Termino</th>
                                                                                         <th>Certificado Obtenido
                                                                                         </th>
+                                                                                        <th>Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -945,7 +878,7 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="date"
+                                                                                            <input type="text"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="materia{{i}}"
                                                                                                 name="materia{{i}}"
@@ -953,27 +886,35 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="number"
+                                                                                            <input type="date"
                                                                                                 class="form-control form-control-sm"
-                                                                                                id="dni{{i}}"
-                                                                                                name="dni{{i}}"
+                                                                                                id="inicio{{i}}"
+                                                                                                name="inicio{{i}}"
                                                                                                 [(ngModel)]="espe.inicio"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
-                                                                                                id="parentesco{{i}}"
-                                                                                                name="parentesco{{i}}"
+                                                                                                id="termino{{i}}"
+                                                                                                name="termino{{i}}"
                                                                                                 [(ngModel)]="espe.termino"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
-                                                                                                id="centroLaboral{{i}}"
-                                                                                                name="centroLaboral{{i}}"
+                                                                                                id="certificado{{i}}"
+                                                                                                name="certificado{{i}}"
                                                                                                 [(ngModel)]="espe.certificado"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <input type="file"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="fileEs{{i}}"
+                                                                                                name="fileEs{{i}}"
+                                                                                                [(ngModel)]="espe.fileEs"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1059,6 +1000,14 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
+                                                                                            <input type="file"
+                                                                                                class="form-control form-control-sm"
+                                                                                                id="fileCurso{{i}}"
+                                                                                                name="fileCurso{{i}}"
+                                                                                                [(ngModel)]="curso.fileCurso"
+                                                                                                required>
+                                                                                        </td>
+                                                                                        <td>
                                                                                             <button type="button"
                                                                                                 class=" btn bg-delete btn-sm"
                                                                                                 title="Eliminar"
@@ -1089,9 +1038,9 @@
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th>Lengua Extranjera</th>
-                                                                                        <th>Nivel Basico</th>
-                                                                                        <th>Nivel Intermedio</th>
-                                                                                        <th>Nivel Avanzado</th>
+                                                                                        <th>Nivel </th>
+                                                                                        <th>Descripcion</th>
+                                                                                        <th>Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -1100,25 +1049,25 @@
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
-                                                                                                id="nivelB{{i}}"
-                                                                                                name="nivelB{{i}}"
-                                                                                                [(ngModel)]="idioma.nivelB"
+                                                                                                id="lengua{{i}}"
+                                                                                                name="lengua{{i}}"
+                                                                                                [(ngModel)]="idioma.lengua"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
-                                                                                                id="nivelM{{i}}"
-                                                                                                name="nivelM{{i}}"
-                                                                                                [(ngModel)]="idioma.nivelM"
+                                                                                                id="nivel{{i}}"
+                                                                                                name="nivel{{i}}"
+                                                                                                [(ngModel)]="idioma.nivel"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
-                                                                                                id="nivelA{{i}}"
-                                                                                                name="nivelA{{i}}"
-                                                                                                [(ngModel)]="idioma.nivelA"
+                                                                                                id="descripcion{{i}}"
+                                                                                                name="descripcion{{i}}"
+                                                                                                [(ngModel)]="idioma.descripcion"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1334,6 +1283,9 @@
                                         </div>
 
                                     </div><!-- fin del acordtion  -->
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-primary" (click)="registrarEmpleado">Registrar</button>
                                 </div>
                             </div>
                         </app-loading>

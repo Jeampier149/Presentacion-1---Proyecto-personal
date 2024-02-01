@@ -23,6 +23,7 @@ export class RegistrarEmpleadoComponent {
   datos: any[] = [];
   numeroDocumento:string=""
     //---DATOS PERSONALES FORM
+  tipoDoc:string="";
   aPaterno: string = "";
   aMaterno: string = "";
   nPrimer: string = "";
@@ -70,7 +71,7 @@ export class RegistrarEmpleadoComponent {
   numFamiliares: number = 0;
 
   agregarFamiliar() {
-    this.familiares.push({ nombre: '', fechaNacimiento: "", dni: '', parentesco: "", centroLaboral: "" });
+    this.familiares.push({ nombre: '', apellidos: '',fechaNacimiento: "", dni: '', parentesco: "", centroLaboral: "" });
   }
 
   agregarEstudioSuperior() {
@@ -120,19 +121,61 @@ export class RegistrarEmpleadoComponent {
       });
   }
 
-
-
-
-
-
-
-
   listarTipoRegimen() {
 
   }
-  submitForm() {
-    // Aquí puedes manejar la lógica para enviar los datos del formulario
-    console.log('Datos de familiares:', this.familiares);
+  submitForm(){
+    
+  }
+ registrarEmpleado() {
+    const datosDomicilio={
+      departamento:this.departamento,
+      provincia:this.provincia,
+      distrito:this.distrito,
+      via:this.via,
+      nombreVia:this.nombreVia,
+      numeroVia:this.numeroVia,
+      interiorVia:this.interiorVia,
+      zona:this.zona,
+      nombreZona:this.nombreZona,
+      numeroZona:this.numeroZona,
+      interiorZona:this.interiorZona,
+      referenciaDomicilio:this.referenciaDomicilio
+    }
+    const datosFamiliares={  datosProfesionales:this.familiares }
+    const datosProfesionales={ datosProsionales:this.estudioSuperior}
+    const datosPostgrado={ datosProsionales:this.estudioPostgrado}
+    const datosEspecializacion={datosProsionales:this.especializacion }
+    const datosCursos={ datosProsionales:this.cursos }
+    const datosIdiomas={  datosProsionales:this.idiomas }
+    const experienciaLaboral={ experienciaLaboral:this.experienciaLaboral }
+    const laborDocencia={ laborDocencia:this.laborDocencia}
+    const datosPersonales={
+     tipoDocumento:this.tipoDoc,
+     aPaterno:this.aPaterno,
+     aMaterno:this.aMaterno,
+     nPrimer:this.nPrimer,
+     nSegundo:this.nSegundo,
+     ruc:this.ruc,
+     fNacimiento:this.fNacimiento,
+     tFijo:this.tFijo,
+     tMovil:this.tMovil,
+     correoE:this.correoE,
+     gSanguineo:this.gSanguineo,
+     enfAlergias:this.enfAlergias,
+     estadoCivil:this.estadoCivil,
+
+     nombreContacto:this.nombreContacto,
+     parentesco:this.parentesco,
+     numContacto:this.numContacto,
+     pDiscapacidad:this.pDiscapacidad,
+     fisicas:this.fisicas,
+     mentales:this.mentales,
+     sensorial:this.sensorial,
+     intelectual:this.intelectual,     
+    }
+
+    console.log('Datos:', datosFamiliares);
   }
 }
 
