@@ -20,6 +20,7 @@ export class RegistrarEmpleadoComponent {
     this.listarTipoEmpleado()
     this.listarRegimen()
     this.listarTipoGrupo()
+      
   }
 
   files: File[] = [];
@@ -69,7 +70,7 @@ export class RegistrarEmpleadoComponent {
   nombreContacto: string = "";
   parentesco: string = "";
   numContacto: string = "";
-//--datos domiclio--//
+  //--datos domiclio--//
   departamento: string = "";
   provincia: string = "";
   distrito: string = "";
@@ -88,7 +89,7 @@ export class RegistrarEmpleadoComponent {
   sensorial: boolean = false;
   mentales: boolean = false;
   intelectuales: boolean = false;
-  datosDiscapacidad:string[] = [];
+  datosDiscapacidad: string[] = [];
   //--TABLAS DE INGRESO DE DATOS---
   familiares: any[] = [];
   estudioSuperior: any[] = [];
@@ -99,15 +100,13 @@ export class RegistrarEmpleadoComponent {
   experienciaLaboral: any[] = [];
   laborDocencia: any[] = [];
   datosContacto: string[] = [];
+  mensajeLoading: string = '';
 
-
-  mensajeLoading: string = 'Cargando...';
   buscarDocumento() {
     let tipoDocumento = this.tipoDoc;
     let documento = this.numeroDocumento;
     this.loading = true;
     this.mensajeLoading = 'Buscando Documento...';
-
     if (tipoDocumento === '1') {
       this.mensajeLoading = 'Buscando en RENIEC...';
       this.ReniecService$.buscarDni(documento)
@@ -152,16 +151,62 @@ export class RegistrarEmpleadoComponent {
   }
 
 
-  agregarFamiliar() { this.familiares.push({ nombre: '', apellidos: '', dni: '', parentesco: "", centroLaboral: "" }); }
-  agregarEstudioSuperior() { this.estudioSuperior.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "" }); }
-  agregarEstudioPostgrado() { this.estudioPostgrado.push({ centro: '', especialidad: "", fechainicio: '', termino: "", nivel: "" }); }
-  agregarEspecializacion() { this.especializacion.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "" }); }
-  agregarCursos() { this.cursos.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "" }); }
-  agregarIdioma() { this.idiomas.push({ lenguaE: '', basico: "", intermedio: '', avanzado: "" }); }
-  agregarExperiencia() { this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "" }); }
-  agregarDocencia() { this.laborDocencia.push({ centroEnseñanza: '', curso: "", inicio: '', termino: "" }); }
+  agregarFamiliar() { 
+
+    this.familiares.push({ nombre: '', apellidos: '', dni: '', parentesco: "", centroLaboral: "" }); }
+  agregarEstudioSuperior() {
+    const ruta = `${this.numeroDocumento}/estudioSuperior/`;
+    this.estudioSuperior.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: "" ,ruta:ruta}); }
+  agregarEstudioPostgrado() { 
+    const ruta = `${this.numeroDocumento}/estudioPostgrado/`;
+    this.estudioPostgrado.push({ centro: '', especialidad: "", fechainicio: '', termino: "", nivel: "", archivo: "" ,ruta:ruta}); }
+  agregarEspecializacion() { 
+    const ruta = `${this.numeroDocumento}/especializacion/`;
+    this.especializacion.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: "",ruta:ruta}); }
+  agregarCursos() { 
+    const ruta = `${this.numeroDocumento}/cursos/`;
+    this.cursos.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: "" ,ruta:ruta}); }
+  agregarIdioma() { 
+    const ruta = `${this.numeroDocumento}/idiomas/`;
+    this.idiomas.push({ lenguaE: '', basico: "", intermedio: '', avanzado: "", archivo: "",ruta:ruta }); }
+  agregarExperiencia() {
+    const ruta = `${this.numeroDocumento}/experienciaLaboral/`;
+     this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "", archivo: "",ruta:ruta }); }
+  agregarDocencia() {
+    const ruta = `${this.numeroDocumento}/experienciaDocencia/`;
+     this.laborDocencia.push({ centroEnseñanza: '', curso: "", inicio: '', termino: "", archivo: "",ruta: ruta }); 
+   }
 
   eliminarItem(index: number, nombre: keyof RegistrarEmpleadoComponent) { this[nombre].splice(index, 1); }
+
+  seleccionarArchivoEst(event: any, index: number) {
+    const fileEst: File = event.target.files[0];
+    this.estudioSuperior[index].archivo = fileEst;
+  }
+  seleccionarArchivoPg(event: any, index: number) {
+    const filePg: File = event.target.files[0];
+    this.estudioPostgrado[index].archivo = filePg;
+  }
+  seleccionarArchivoEspecialidad(event: any, index: number) {
+    const fileEsp: File = event.target.files[0];
+    this.especializacion[index].archivo = fileEsp;
+  }
+  seleccionarArchivoCurso(event: any, index: number) {
+    const fileCurso: File = event.target.files[0];
+    this.cursos[index].archivo = fileCurso;
+  }
+  seleccionarArchivoIdioma(event: any, index: number) {
+    const fileIdioma: File = event.target.files[0];
+    this.idiomas[index].archivo = fileIdioma;
+  }
+  seleccionarArchivoExpLaboral(event: any, index: number) {
+    const fileExpLaboral: File = event.target.files[0];
+    this.experienciaLaboral[index].archivo = fileExpLaboral;
+  }
+  seleccionarArchivoExpDocencia(event: any, index: number) {
+    const fileExpDocencia: File = event.target.files[0];
+    this.laborDocencia[index].archivo = fileExpDocencia;
+  }
 
   listarTipoDocumento() {
     this.DatoGeneralesService$.listarTipoDocumento()
@@ -255,26 +300,28 @@ export class RegistrarEmpleadoComponent {
         }
       });
   }
+
   onCheckboxChange() {
     if (this.fisicas) this.datosDiscapacidad.push("Fisica");
     if (this.sensorial) this.datosDiscapacidad.push("Sensorial");
     if (this.mentales) this.datosDiscapacidad.push("Mental");
     if (this.intelectuales) this.datosDiscapacidad.push("Intelectual");
   }
+
   registrarEmpleado() {
     const datosDomicilio = {
-      departamento: this.departamento,
-      provincia: this.provincia,
-      distrito: this.distrito,
-      via: this.via,
-      nombreVia: this.nombreVia,
-      numeroVia: this.numeroVia,
-      interiorVia: this.interiorVia,
-      zona: this.zona,
-      nombreZona: this.nombreZona,
-      numeroZona: this.numeroZona,
-      interiorZona: this.interiorZona,
-      referenciaDomicilio: this.referenciaDomicilio
+      departamento: this.departamento.toUpperCase(),
+      provincia: this.provincia.toUpperCase(),
+      distrito: this.distrito.toUpperCase(),
+      via: this.via.toUpperCase(),
+      nombreVia: this.nombreVia.toUpperCase(),
+      numeroVia: this.numeroVia.toUpperCase(),
+      interiorVia: this.interiorVia.toUpperCase(),
+      zona: this.zona.toUpperCase(),
+      nombreZona: this.nombreZona.toUpperCase(),
+      numeroZona: this.numeroZona.toUpperCase(),
+      interiorZona: this.interiorZona.toUpperCase(),
+      referenciaDomicilio: this.referenciaDomicilio.toUpperCase()
     }
     const datosFamiliares = { datosFamiliares: this.familiares }
     const datosProfesionales = { datosProfesionales: this.estudioSuperior }
@@ -284,31 +331,33 @@ export class RegistrarEmpleadoComponent {
     const datosIdiomas = { datosIdiomas: this.idiomas }
     const experienciaLaboral = { datosExperienciaLaboral: this.experienciaLaboral }
     const laborDocencia = { datosLaborDocencia: this.laborDocencia }
-    const tipoDiscapacidades={datosDiscapacidad:this.datosDiscapacidad}
+    const tipoDiscapacidades = { datosDiscapacidad: this.datosDiscapacidad }
     const datosPersonales = {
       tipoDocumento: this.tipoDoc,
-      aPaterno: this.aPaterno,
-      aMaterno: this.aMaterno,
-      nombres: this.nombres,
-      sexo: this.sexo,
+      aPaterno: this.aPaterno.toUpperCase(),
+      aMaterno: this.aMaterno.toUpperCase(),
+      nombres: this.nombres.toUpperCase(),
+      sexo: this.sexo.toUpperCase(),
       ruc: this.ruc,
       fNacimiento: this.fNacimiento,
       tFijo: this.tFijo,
       tMovil: this.tMovil,
-      correoE: this.correoE,
-      gSanguineo: this.gSanguineo,
-      enfAlergias: this.enfAlergias,
-      estadoCivil: this.estadoCivil,
+      correoE: this.correoE.toUpperCase(),
+      gSanguineo: this.gSanguineo.toUpperCase(),
+      enfAlergias: this.enfAlergias.toUpperCase(),
+      estadoCivil: this.estadoCivil.toUpperCase(),
 
     }
-
     const datosContacto = {
-      nombreContacto: this.nombreContacto,
-      parentesco: this.parentesco,
-      numContacto: this.numContacto,
+      nombreContacto: this.nombreContacto.toUpperCase(),
+      parentesco: this.parentesco.toUpperCase(),
+      numContacto: this.numContacto.toUpperCase(),
 
     }
-   
+
+
+
+
     this.DatoGeneralesService$.guardarDatosEmpleado(
       datosPersonales,
       datosContacto,
@@ -337,7 +386,7 @@ export class RegistrarEmpleadoComponent {
     });
 
 
-    console.log('Datos:', datosFamiliares, datosProfesionales, datosPostgrado, datosEspecializacion, datosCursos, datosIdiomas, experienciaLaboral, laborDocencia, datosPersonales);
+    console.log('Datos:',  datosProfesionales, datosPostgrado);
   }
 
 }

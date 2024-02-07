@@ -370,17 +370,17 @@
                                                                         </div>
                                                                         <select class="form-select form-select-sm">
                                                                             <option value="">Seleccionar</option>
-                                                                            <option value="">Avenida</option>
-                                                                            <option value="">Jirón</option>
-                                                                            <option value="">Calle</option>
-                                                                            <option>Pasaje</option>
-                                                                            <option>Alameda</option>
-                                                                            <option>Malecon</option>
-                                                                            <option>Ovalo</option>
-                                                                            <option>Parque</option>
-                                                                            <option>Plaza</option>
-                                                                            <option>Carretera</option>
-                                                                            <option>Trocha</option>
+                                                                            <option value="AVENIDA">Avenida</option>
+                                                                            <option value="JIRON">Jirón</option>
+                                                                            <option value="CALLE">Calle</option>
+                                                                            <option value="PASAJE">Pasaje</option>
+                                                                            <option value="ALAMEDA">Alameda</option>
+                                                                            <option value="MALECON">Malecon</option>
+                                                                            <option value="OVALO">Ovalo</option>
+                                                                            <option value="PARQUE">Parque</option>
+                                                                            <option value="PLAZA">Plaza</option>
+                                                                            <option value="CARRETERA">Carretera</option>
+                                                                            <option value="TROCHA">Trocha</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -421,9 +421,18 @@
                                                                             de Zona
                                                                         </div>
                                                                         <select class="form-select form-select-sm">
-                                                                            <option>Select</option>
-                                                                            <option>276l</option>
-                                                                            <option>1057k</option>
+                                                                            <option value="">Seleccionar</option>
+                                                                            <option value="URBANIZACION">Urbanización</option>
+                                                                            <option value="PUEBLO JOVEN">Pueblo Joven</option>
+                                                                            <option value="UNIDAD VECINAL">Unidad Vecinal</option>
+                                                                            <option value="CONJUNTO HABITACIONAL">Conjunto Habitacional</option>
+                                                                            <option value="ASENTAMIENTO HUMANO">Asentamineto Humano</option>
+                                                                            <option value="COOPERATIVA">Cooperativa</option>
+                                                                            <option value="RESIDENCIAL">Residencial</option>
+                                                                            <option value="ZONA INDUSTRIAL">Zona Industrial</option>
+                                                                            <option value="GRUPO">Grupo</option>
+                                                                            <option value="CACERIO">Cacerio</option>
+                                                                            <option value="FUNDO">Fundo</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -736,7 +745,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="filePro{{i}}"
                                                                                                 name="filePro{{i}}"
-                                                                                                [(ngModel)]="superior.file"
+                                                                                                (change)="seleccionarArchivoEst($event,i)" 
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -794,7 +803,7 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="date"
+                                                                                            <input type="text"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="especialidad{{i}}"
                                                                                                 name="especialidad{{i}}"
@@ -802,7 +811,7 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="number"
+                                                                                            <input type="date"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="inicio{{i}}"
                                                                                                 name="inicio{{i}}"
@@ -810,7 +819,7 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="text"
+                                                                                            <input type="date"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="termino{{i}}"
                                                                                                 name="termino{{i}}"
@@ -830,7 +839,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="filePost{{i}}"
                                                                                                 name="filePost{{i}}"
-                                                                                                [(ngModel)]="postg.filePost"
+                                                                                                (change)="seleccionarArchivoPg($event,i)" 
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -901,7 +910,7 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="text"
+                                                                                            <input type="date"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="termino{{i}}"
                                                                                                 name="termino{{i}}"
@@ -921,7 +930,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileEs{{i}}"
                                                                                                 name="fileEs{{i}}"
-                                                                                                [(ngModel)]="espe.fileEs"
+                                                                                                (change)="seleccionarArchivoEspecialidad($event,i)" 
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -975,7 +984,7 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="date"
+                                                                                            <input type="text"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="materia{{i}}"
                                                                                                 name="materia{{i}}"
@@ -983,7 +992,7 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="number"
+                                                                                            <input type="date"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="inicio{{i}}"
                                                                                                 name="inicio{{i}}"
@@ -991,7 +1000,7 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="text"
+                                                                                            <input type="date"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="termino{{i}}"
                                                                                                 name="termino{{i}}"
@@ -1011,7 +1020,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileCurso{{i}}"
                                                                                                 name="fileCurso{{i}}"
-                                                                                                [(ngModel)]="curso.fileCurso"
+                                                                                                (change)="seleccionarArchivoCurso($event,i)" 
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1082,7 +1091,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileID{{i}}"
                                                                                                 name="fileID{{i}}"
-                                                                                                [(ngModel)]="idioma.fileID"
+                                                                                                (change)="seleccionarArchivoIdioma($event,i)" 
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1185,7 +1194,7 @@
                                                                                             class="form-control form-control-sm"
                                                                                             id="fileEL{{i}}"
                                                                                             name="fileEL{{i}}"
-                                                                                            [(ngModel)]="expL.fileEL"
+                                                                                            (change)="seleccionarArchivoExpLaboral($event,i)" 
                                                                                             required>
                                                                                     </td>
                                                                                     <td>
@@ -1267,7 +1276,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileED{{i}}"
                                                                                                 name="fileED{{i}}"
-                                                                                                [(ngModel)]="expD.fileED"
+                                                                                                (change)="seleccionarArchivoExpDocencia($event,i)" 
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
