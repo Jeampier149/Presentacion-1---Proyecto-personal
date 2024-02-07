@@ -59,18 +59,11 @@
                                                     <input
                                                         inputmode="text"
                                                         class="form-control form-control-sm text-uppercase"
-                                                        name="nomPrimeroFiltro"
-                                                        [(ngModel)]="filtroNomPrimer"
+                                                        name="nombresFiltro"
+                                                        [(ngModel)]="filtroNombres"
                                                         (keydown.enter)="filtrarEmpleado()">
                                                 </th>
-                                                <th>
-                                                    <input
-                                                        inputmode="text"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="nomSegundoFiltro"
-                                                        [(ngModel)]="filtroNomSegundo"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
+                                    
                                                 <th><input
                                                     inputmode="text"
                                                     type="text" class="form-control form-control-sm text-center"
@@ -111,8 +104,7 @@
                                                     <td class="text-center">{{ dato.tipoDocumento}}</td>
                                                     <td>{{ dato.apellidoPaterno }}</td>
                                                     <td>{{ dato.apellidoMaterno }}</td>
-                                                    <td>{{ dato.primerNombre }}</td>
-                                                    <td>{{ dato.segundoNombre }}</td>
+                                                    <td>{{ dato.nombres }}</td>
                                                     <td >{{ dato.unidadOrganica }}</td>
                                                     <td >{{ dato.servicio}}</td>
                                                 </tr>

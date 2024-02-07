@@ -53,7 +53,7 @@ export class reniecClass {
     }
 
     obtenerSexo() {
-        return parseInt(this.sexo) === 1 ? 'M' : 'F';
+        return parseInt(this.sexo) === 1 ? 'MASCULINO' : 'FEMENINO';
     }
 
 

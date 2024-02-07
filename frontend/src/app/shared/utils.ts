@@ -35,3 +35,25 @@ export async function successAlerta(titulo: string, mensaje: string, tiempo = 30
         showConfirmButton: false
     })
 }
+export async function errorAlertaValidacion(titulo: string, errores: string) {
+    await Swal.fire({
+        icon: 'error',
+        title: titulo,
+        html: formatearMensaje(errores),
+        confirmButtonText: 'Cerrar',
+        showCloseButton: false
+    })
+}
+function formatearMensaje(mensaje: string): string {
+    let html = '';
+
+    const errores = typeof mensaje === 'object' ? mensaje : JSON.parse(mensaje);
+    for (const error in errores) {
+        const campo = errores[error];
+        campo.forEach((c: string) => {
+            html += `${c}<br>`;
+        });
+    }
+
+    return html.slice(0, -4);
+}

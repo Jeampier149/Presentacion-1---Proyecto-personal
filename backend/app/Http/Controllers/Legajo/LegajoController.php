@@ -19,12 +19,11 @@ class LegajoController extends JSONResponseController
     {
 
         $validacion = Validator::make($request->only(['documento', 'apellidoPaterno', 'apellidoMaterno',
-            'primerNombre', 'segundoNombre', 'unidadOrganica', 'equipoServicio', 'pagina', 'longitud']), [
+            'nombres', 'unidadOrganica', 'equipoServicio', 'pagina', 'longitud']), [
             'numeroDocumento' => 'nullable|string',
             'apellidoPaterno' => 'nullable|string',
             'apellidoMaterno' => 'nullable|string',
-            'primerNombre' => 'nullable|string',
-            'segundoNombre' => 'nullable|string',
+            'nombres' => 'nullable|string',
             'unidadOrganica' => 'nullable|string',
             'equipoServicio' => 'nullable|string',
             'pagina' => 'required|integer',
@@ -40,8 +39,7 @@ class LegajoController extends JSONResponseController
         $paramentos->documento = $request->get('documento') ?? '';
         $paramentos->apPaterno = $request->get('apellidoPaterno') ?? '';
         $paramentos->apMaterno = $request->get('apellidoMaterno') ?? '';
-        $paramentos->priNombre = $request->get('primerNombre') ?? '';
-        $paramentos->segNombre = $request->get('segundoNombre') ?? '';
+        $paramentos->Nombres = $request->get('nombres') ?? '';
         $paramentos->unidadOrganica = $request->get('unidadOrganica') ?? '';
         $paramentos->equipoServicio = $request->get('equipoServicio') ?? '';
         $paramentos->pagina = $request->get('pagina');
@@ -49,7 +47,41 @@ class LegajoController extends JSONResponseController
         $resultado = $legajoModel->listarEmpleado($paramentos);
         return $this->sendResponse(200, true, '', $resultado);
     }
+    public function registrarEmpleado(Request $request): JsonResponse
+    {
 
+        $validacion = Validator::make($request->only(
+            ['documento', 'apellidoPaterno', 'apellidoMaterno',
+            'nombres', 'unidadOrganica', 'equipoServicio', 'pagina', 
+            'longitud']), 
+            [
+            'numeroDocumento' => 'nullable|string',
+            'apellidoPaterno' => 'nullable|string',
+            'apellidoMaterno' => 'nullable|string',
+            'nombres' => 'nullable|string',
+            'unidadOrganica' => 'nullable|string',
+            'equipoServicio' => 'nullable|string',
+            'pagina' => 'required|integer',
+            'longitud' => 'required|integer'
+        ]);
+
+        if ($validacion->fails()) {
+            return $this->sendResponse(200, false, 'Error de validación', $validacion->errors());
+        }
+
+        $legajoModel = new LegajoModel();
+        $paramentos = new StdClass();
+        $paramentos->documento = $request->get('documento') ?? '';
+        $paramentos->apPaterno = $request->get('apellidoPaterno') ?? '';
+        $paramentos->apMaterno = $request->get('apellidoMaterno') ?? '';
+        $paramentos->Nombres = $request->get('nombres') ?? '';
+        $paramentos->unidadOrganica = $request->get('unidadOrganica') ?? '';
+        $paramentos->equipoServicio = $request->get('equipoServicio') ?? '';
+        $paramentos->pagina = $request->get('pagina');
+        $paramentos->longitud = $request->get('longitud');
+        $resultado = $legajoModel->listarEmpleado($paramentos);
+        return $this->sendResponse(200, true, '', $resultado);
+    }
   
 
 }

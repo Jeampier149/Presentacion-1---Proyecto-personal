@@ -9,7 +9,7 @@ import { LegajoRoutingModule } from './legajo-routing.module';
 import { InformacionComponent } from './Pages/informacion/informacion.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { RegistrarEmpleadoComponent } from './Pages/registrar-empleado/registrar-empleado.component';
-
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { RegistrarEmpleadoComponent } from './Pages/registrar-empleado/registrar
     LoadingComponent,
     PaginacionComponent,
     LegajoRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxDropzoneModule
   ]
 })
 export class LegajoModule { }

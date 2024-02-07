@@ -32,8 +32,8 @@ export class InformacionComponent {
   filtroUnidadOrganica: string = '';
   filtroAppPaterno: string = '';
   filtroAppMaterno: string = '';
-  filtroNomPrimer: string = '';
-  filtroNomSegundo: string = '';
+  filtroNombres: string = '';
+
 
 
 
@@ -45,8 +45,7 @@ export class InformacionComponent {
       {nombre: 'Tipo. Doc', estilo: 'width: 100px; min-width: 100px;', clase: 'text-center'},
       {nombre: 'Apellido Pat.', estilo: 'width: 120px; min-width: 110px'},
       {nombre: 'Apellido Mat.', estilo: 'width: 120px; min-width: 110px'},
-      {nombre: 'Primer Nom.', estilo: 'width: 120px; min-width: 110px'},
-      {nombre: 'Segundo Nom.', estilo: 'width: 120px; min-width: 110px'},
+      {nombre: 'Nombres.', estilo: 'width: 120px; min-width: 110px'},
       {nombre: 'Unidad Organica', estilo: 'width: 140px; min-width: 140px', clase: 'text-center'},
       {nombre: 'Servicio/Equipo', estilo: 'width: 140px; min-width: 40px', clase: 'text-center'},
 
@@ -77,8 +76,7 @@ obtenerPermisos() {
           longitud: this.longitud,
           unidadOrganica: this.filtroUnidadOrganica,
           equipoServicio: this.filtroServicioEquipo,
-          nomPri: this.filtroNomPrimer,
-          nomSec: this.filtroNomSegundo,
+          nombres: this.filtroNombres,
           pagina: this.pagina
       }
 
@@ -111,8 +109,7 @@ obtenerPermisos() {
   limpiarCampos() {
       this.filtroUnidadOrganica = ''
       this.filtroDocumento = ''
-      this.filtroNomPrimer = ''
-      this.filtroNomSegundo = '';
+      this.filtroNombres = ''
       this.filtroAppPaterno = '';
       this.filtroAppMaterno = '';
       this.filtroServicioEquipo = '';

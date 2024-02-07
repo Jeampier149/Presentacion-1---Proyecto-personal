@@ -9,10 +9,7 @@ import { FinanciadorClass, DatosClass } from "@classes/legajo/datos.class";
     providedIn: 'root'
 })
 export class DatoGeneralesService {
-
-    constructor(private http: HttpClient) {
-
-    }
+    constructor(private http: HttpClient) { }
 
     listarEmpleado(datos: ListarPersonalParams): Observable<HttpResponseApi> {
         return this.http.get<HttpResponseApi>('/api/legajo/listar-empleado', {
@@ -20,8 +17,7 @@ export class DatoGeneralesService {
                 documento: datos.documento,
                 apellidoPaterno: datos.appPat,
                 apellidoMaterno: datos.appMat,
-                primerNombre: datos.nomPri,
-                segundoNombre: datos.nomSec,
+                Nombres: datos.nombres,
                 unidadOrganica: datos.unidadOrganica,
                 equipoServicio: datos.equipoServicio,
                 pagina: datos.pagina,
@@ -36,35 +32,61 @@ export class DatoGeneralesService {
             responseType: "json"
         }).pipe(shareReplay(1));
     }
-
-    obtenerHistoriaClinica(codigo: string) {
-        return this.http.get<HttpResponseApi<DatosClass>>('/api/filiacion/obtener-historia', {
-            params: { codigo },
+    listarTipoEmpleado() {
+        return this.http.post<HttpResponseApi>('/api/general/listarTipoEmp', {
             responseType: "json"
-        }).pipe(
-            map(response => {
-                let historia = new DatosClass();
-                historia.financiador = Object.assign(new FinanciadorClass(), response.datos!.financiador);
-                return { ...response, datos: Object.assign(new DatosClass(), response.datos) }
-            }
-            )
-        );
+        }).pipe(shareReplay(1));
+    }
+    listarTipoGrupo() {
+        return this.http.post<HttpResponseApi>('/api/general/listarTipoGrupo', {
+            responseType: "json"
+        }).pipe(shareReplay(1));
+    }
+    listarRegimen() {
+        return this.http.post<HttpResponseApi>('/api/general/listarRegimen', {
+            responseType: "json"
+        }).pipe(shareReplay(1));
+    }
+    listarTipoRegimen(id: number) {
+        return this.http.post<HttpResponseApi>('/api/general/listarTipoRegimen', { id }, { responseType: "json" }).pipe(shareReplay(1));
     }
 
-    guardarHistoriaClinica(historia: DatosClass) {
-        return this.http.post<HttpResponseApi>('/api/filiacion/guardar-historia', {
-            ...historia
-        }, {
+
+    guardarDatosEmpleado(
+        datosPersonales:any,
+        datosContacto:any,
+        datosDiscapacidad:any,
+        datosDomicilio:any,
+        datosFamiliares:any,
+        datosProfesionales:any,
+        datosPostgrado:any,
+        datosEspecializacion:any,
+        datosCursos:any,
+        datosIdiomas:any,
+        experienciaLaboral:any,
+        laborDocencia:any
+        ) 
+        
+        {
+        return this.http.post<HttpResponseApi>('/api/legajo/registrar-empleado',
+            {
+                datosPersonales, 
+                datosContacto,
+                datosDiscapacidad,
+                datosDomicilio,
+                datosFamiliares,
+                datosProfesionales,
+                datosPostgrado,
+                datosEspecializacion,
+                datosCursos,
+                datosIdiomas,
+                experienciaLaboral,
+                laborDocencia
+
+            }, {
             responseType: "json"
         });
     }
 
-    editarHistoriaClinica(historia: DatosClass) {
-        return this.http.post<HttpResponseApi>('/api/filiacion/editar-historia', {
-            ...historia
-        }, {
-            responseType: "json"
-        });
-    }
-
+   
 }

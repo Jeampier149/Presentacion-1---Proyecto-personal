@@ -4,8 +4,7 @@ export interface ListarPersonalParams {
     documento: string,
     appPat: string,
     appMat: string,
-    nomPri: string,
-    nomSec: string,
+    nombres: string,
     unidadOrganica: string
     equipoServicio: string,
     pagina: number,
