@@ -49,6 +49,12 @@ export class RegistrarEmpleadoComponent {
   //--VALOR DE SELECTS----//
   valorRegimen: any = ""
   valortipRegimen: any = ""
+  valorNivel:string=""
+  valorCargo:string=""
+  valorServicio:string=""
+  valorUnidad:string=""
+
+  codigoAirhsp:string=""
   //---DATOS PERSONALES FORM
   tipoDoc: string = "";
   numeroDocumento: string = ""
@@ -334,6 +340,11 @@ export class RegistrarEmpleadoComponent {
     const tipoDiscapacidades = { datosDiscapacidad: this.datosDiscapacidad }
     const datosPersonales = {
       tipoDocumento: this.tipoDoc,
+      numeroDocumento:this.numeroDocumento,
+      tipoEmpleado:this.tipoEmp,
+      grupOcupacional:this.grupOcup,
+      regimen:this.valorRegimen,
+      tipoRegimen:this.valortipRegimen,
       aPaterno: this.aPaterno.toUpperCase(),
       aMaterno: this.aMaterno.toUpperCase(),
       nombres: this.nombres.toUpperCase(),
@@ -359,6 +370,7 @@ export class RegistrarEmpleadoComponent {
 
 
     this.DatoGeneralesService$.guardarDatosEmpleado(
+      this.numeroDocumento,
       datosPersonales,
       datosContacto,
       tipoDiscapacidades,

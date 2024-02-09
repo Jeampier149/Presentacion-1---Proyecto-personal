@@ -14,7 +14,8 @@
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <label class="form-label form-label-sm">TIPO DOCUMENTO</label>
-                                                        <select class="form-select form-select-sm" [(ngModel)]="tipoDoc" >
+                                                        <select class="form-select form-select-sm"
+                                                            [(ngModel)]="tipoDoc">
                                                             <option>Select</option>
                                                             <option *ngFor="let tipoD of datos" value="{{tipoD.id}}">
                                                                 {{tipoD.descripcion}}</option>
@@ -31,9 +32,7 @@
                                                             aria-describedby="dni">
                                                         <div class="input-group-append">
                                                             <button class="btn btn-outline-secondary btn-primary btn-sm"
-                                                                    type="button"
-                                                                    (click)=" buscarDocumento()"
-                                                                    ><i
+                                                                type="button" (click)=" buscarDocumento()"><i
                                                                     class="fa-solid fa-magnifying-glass"></i></button>
                                                         </div>
                                                     </div>
@@ -43,55 +42,6 @@
 
                                     </div>
 
-                                    <div class="col-xl-8">
-                                        <div class="row">
-                                            <div class="col-xl-3">
-                                                <div class="form-group">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">TIPO EMPLEADO</label>
-                                                        <select class="form-select form-select-sm" [(ngModel)]="tipoEmp" >
-                                                            <option>Select</option>
-                                                            <option *ngFor="let tipoE of tipoEmpleado" value="{{tipoE.idTipo}}">{{tipoE.tipo}}</option>
-                                                          
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-3">
-                                                <div class="form-group">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">G. OCUPACIONAL </label>
-                                                        <select class="form-select form-select-sm" [(ngModel)]="grupOcup">
-                                                            <option>Select</option>
-                                                            <option *ngFor="let tipoG of tipoGrupo" value="{{tipoG.id}}">{{tipoG.tipoG}}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-3">
-                                                <div class="form-group">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">REGIMEN</label>
-                                                        <select class="form-select form-select-sm" (change)="cambioTipo()"  [(ngModel)]="valorRegimen">
-                                                            <option value="">Seleccion</option>      
-                                                            <option *ngFor="let regimen of regimen" value="{{regimen.id}}">{{regimen.regimen}}</option>                                                   
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-3">
-                                                <div class="form-group">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">TIPO REGIMEN</label>
-                                                        <select class="form-select form-select-sm" [(ngModel)]="valortipRegimen">
-                                                            <option>Select</option>        
-                                                            <option *ngFor="let tipoR of tipoRegimen" value="{{tipoR.id}}">{{tipoR.tipoRegimen}}</option>                                                 
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
 
                                 </div>
@@ -101,10 +51,12 @@
                                         <div class="row mt-4 ">
                                             <div class="col-xl-2  col-8">
                                                 <ngx-dropzone (change)="onSelect($event)">
-                                                    <ngx-dropzone-label>Arraste o Elija  una imagen!</ngx-dropzone-label>
-                                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-                                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                                                      </ngx-dropzone-image-preview>
+                                                    <ngx-dropzone-label>Arraste o Elija una imagen!</ngx-dropzone-label>
+                                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                                        *ngFor="let f of files" [file]="f">
+                                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type
+                                                            }})</ngx-dropzone-label>
+                                                    </ngx-dropzone-image-preview>
                                                 </ngx-dropzone>
 
                                             </div>
@@ -285,23 +237,28 @@
 
                                                 <label class="me-2" for="flexSwitchCheckChecked">Tipos
                                                     Discapacidad :</label>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="fisicas" [(ngModel)]="fisicas" (change)="onCheckboxChange()">
-                                                        <label class="form-check-label" for="fisicas">Fisicas</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="sensorial" [(ngModel)]="sensorial" (change)="onCheckboxChange()">
-                                                        <label class="form-check-label" for="sensorial">Sensoriales</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="mentales" [(ngModel)]="mentales" (change)="onCheckboxChange()">
-                                                        <label class="form-check-label" for="mentales">Mentales</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" id="intelectuales" [(ngModel)]="intelectuales" (change)="onCheckboxChange()">
-                                                        <label class="form-check-label" for="intelectuales">Intelectuales</label>
-                                                    </div>
-                                                    
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="fisicas"
+                                                        [(ngModel)]="fisicas" (change)="onCheckboxChange()">
+                                                    <label class="form-check-label" for="fisicas">Fisicas</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="sensorial"
+                                                        [(ngModel)]="sensorial" (change)="onCheckboxChange()">
+                                                    <label class="form-check-label" for="sensorial">Sensoriales</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="mentales"
+                                                        [(ngModel)]="mentales" (change)="onCheckboxChange()">
+                                                    <label class="form-check-label" for="mentales">Mentales</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="intelectuales"
+                                                        [(ngModel)]="intelectuales" (change)="onCheckboxChange()">
+                                                    <label class="form-check-label"
+                                                        for="intelectuales">Intelectuales</label>
+                                                </div>
+
                                             </div>
 
                                         </div>
@@ -329,7 +286,7 @@
                                                             <legend>Domicilio</legend>
                                                             <span>Ubicacion Geografica</span>
                                                             <div class="row mt-2">
-                                                            
+
                                                                 <div class="col-xl-4">
                                                                     <div class="input-group input-group-sm mb-3">
                                                                         <div class="input-group-text d-personales ">
@@ -422,14 +379,22 @@
                                                                         </div>
                                                                         <select class="form-select form-select-sm">
                                                                             <option value="">Seleccionar</option>
-                                                                            <option value="URBANIZACION">Urbanización</option>
-                                                                            <option value="PUEBLO JOVEN">Pueblo Joven</option>
-                                                                            <option value="UNIDAD VECINAL">Unidad Vecinal</option>
-                                                                            <option value="CONJUNTO HABITACIONAL">Conjunto Habitacional</option>
-                                                                            <option value="ASENTAMIENTO HUMANO">Asentamineto Humano</option>
-                                                                            <option value="COOPERATIVA">Cooperativa</option>
-                                                                            <option value="RESIDENCIAL">Residencial</option>
-                                                                            <option value="ZONA INDUSTRIAL">Zona Industrial</option>
+                                                                            <option value="URBANIZACION">Urbanización
+                                                                            </option>
+                                                                            <option value="PUEBLO JOVEN">Pueblo Joven
+                                                                            </option>
+                                                                            <option value="UNIDAD VECINAL">Unidad
+                                                                                Vecinal</option>
+                                                                            <option value="CONJUNTO HABITACIONAL">
+                                                                                Conjunto Habitacional</option>
+                                                                            <option value="ASENTAMIENTO HUMANO">
+                                                                                Asentamineto Humano</option>
+                                                                            <option value="COOPERATIVA">Cooperativa
+                                                                            </option>
+                                                                            <option value="RESIDENCIAL">Residencial
+                                                                            </option>
+                                                                            <option value="ZONA INDUSTRIAL">Zona
+                                                                                Industrial</option>
                                                                             <option value="GRUPO">Grupo</option>
                                                                             <option value="CACERIO">Cacerio</option>
                                                                             <option value="FUNDO">Fundo</option>
@@ -507,7 +472,7 @@
                                                         <fieldset>
                                                             <legend>Datos Familiares</legend>
                                                             <div class="row">
-                                                                <form >
+                                                                <form>
                                                                     <button type="button " class="btn bg-agg btn-sm"
                                                                         (click)="agregarFamiliar()"><i
                                                                             class="fa-solid fa-square-plus"></i>
@@ -676,7 +641,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form >
+                                                                        <form>
                                                                             <button type="button "
                                                                                 class="btn bg-agg btn-sm"
                                                                                 (click)="agregarEstudioSuperior()"> <i
@@ -745,7 +710,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="filePro{{i}}"
                                                                                                 name="filePro{{i}}"
-                                                                                                (change)="seleccionarArchivoEst($event,i)" 
+                                                                                                (change)="seleccionarArchivoEst($event,i)"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -770,7 +735,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form >
+                                                                        <form>
                                                                             <button type="button "
                                                                                 class="btn bg-agg btn-sm"
                                                                                 (click)="agregarEstudioPostgrado()"><i
@@ -839,7 +804,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="filePost{{i}}"
                                                                                                 name="filePost{{i}}"
-                                                                                                (change)="seleccionarArchivoPg($event,i)" 
+                                                                                                (change)="seleccionarArchivoPg($event,i)"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -864,7 +829,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form >
+                                                                        <form>
                                                                             <button type="button "
                                                                                 class="btn bg-agg btn-sm"
                                                                                 (click)="agregarEspecializacion()"><i
@@ -930,7 +895,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileEs{{i}}"
                                                                                                 name="fileEs{{i}}"
-                                                                                                (change)="seleccionarArchivoEspecialidad($event,i)" 
+                                                                                                (change)="seleccionarArchivoEspecialidad($event,i)"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -955,7 +920,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form >
+                                                                        <form>
                                                                             <button type="button "
                                                                                 class="btn bg-agg btn-sm"
                                                                                 (click)="agregarCursos()"><i
@@ -1020,7 +985,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileCurso{{i}}"
                                                                                                 name="fileCurso{{i}}"
-                                                                                                (change)="seleccionarArchivoCurso($event,i)" 
+                                                                                                (change)="seleccionarArchivoCurso($event,i)"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1044,7 +1009,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form >
+                                                                        <form>
                                                                             <button type="button "
                                                                                 class="btn bg-agg btn-sm"
                                                                                 (click)="agregarIdioma()"><i
@@ -1091,7 +1056,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileID{{i}}"
                                                                                                 name="fileID{{i}}"
-                                                                                                (change)="seleccionarArchivoIdioma($event,i)" 
+                                                                                                (change)="seleccionarArchivoIdioma($event,i)"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1138,7 +1103,7 @@
                                                             </div>
                                                             <div class="card-body p-3">
                                                                 <div class="row">
-                                                                    <form >
+                                                                    <form>
                                                                         <button type="button " class="btn bg-agg btn-sm"
                                                                             (click)="agregarExperiencia()"><i
                                                                                 class="fa-solid fa-square-plus"></i>
@@ -1194,7 +1159,7 @@
                                                                                             class="form-control form-control-sm"
                                                                                             id="fileEL{{i}}"
                                                                                             name="fileEL{{i}}"
-                                                                                            (change)="seleccionarArchivoExpLaboral($event,i)" 
+                                                                                            (change)="seleccionarArchivoExpLaboral($event,i)"
                                                                                             required>
                                                                                     </td>
                                                                                     <td>
@@ -1219,7 +1184,7 @@
                                                             </div>
                                                             <div class="card-body p-3">
                                                                 <div class="row">
-                                                                    <form >
+                                                                    <form>
                                                                         <button type="button " class="btn bg-agg btn-sm"
                                                                             (click)="agregarDocencia()"><i
                                                                                 class="fa-solid fa-square-plus"></i>
@@ -1276,7 +1241,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileED{{i}}"
                                                                                                 name="fileED{{i}}"
-                                                                                                (change)="seleccionarArchivoExpDocencia($event,i)" 
+                                                                                                (change)="seleccionarArchivoExpDocencia($event,i)"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1299,19 +1264,153 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingfour">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapsefour" aria-expanded="false"
+                                                    aria-controls="panelsStayOpen-collapsefour">
+                                                    SITUACION LABORAL ACTUAL
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapsefour" class="accordion-collapse collapse "
+                                                aria-labelledby="panelsStayOpen-headingfour">
+                                                <div class="accordion-body text-muted">
+                                                    <div class="row mt-2">
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text d-personales ">
+                                                                    Condición
+                                                                </div>
+                                                                <select class="form-select form-select-sm"
+                                                                    [(ngModel)]="tipoEmp">
+                                                                    <option>Select</option>
+                                                                    <option *ngFor="let tipoE of tipoEmpleado"
+                                                                        value="{{tipoE.idTipo}}">{{tipoE.tipo}}</option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text d-personales ">
+                                                                    G.Ocupacional</div>
+                                                                <select class="form-select form-select-sm"
+                                                                    [(ngModel)]="grupOcup">
+                                                                    <option>Select</option>
+                                                                    <option *ngFor="let tipoG of tipoGrupo"
+                                                                        value="{{tipoG.id}}">{{tipoG.tipoG}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text ">Regimen</div>
+                                                                <select class="form-select form-select-sm"
+                                                                    (change)="cambioTipo()" [(ngModel)]="valorRegimen">
+                                                                    <option value="">Seleccion</option>
+                                                                    <option *ngFor="let regimen of regimen"
+                                                                        value="{{regimen.id}}">{{regimen.regimen}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text ">T.Regimen</div>
+                                                                <select class="form-select form-select-sm"
+                                                                    [(ngModel)]="valortipRegimen">
+                                                                    <option>Select</option>
+                                                                    <option *ngFor="let tipoR of tipoRegimen"
+                                                                        value="{{tipoR.id}}">{{tipoR.tipoRegimen}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text ">U.Organica/Dpto</div>
+                                                                <select class="form-select form-select-sm"
+                                                                    [(ngModel)]="valorUnidad">
+                                                                    <option value="">Seleccionar</option>
+                                                                    <option value="OFICINA PERSONAL">Oficina Personal
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text ">Servicio/Equipo</div>
+                                                                <select class="form-select form-select-sm"
+                                                                    [(ngModel)]="valorServicio">
+                                                                    <option value="">Seleccinar</option>
+                                                                    <option value="EQUIPO LEGAJO">Equipo Legajo</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text ">Cargo</div>
+                                                                <select class="form-select form-select-sm"
+                                                                    [(ngModel)]="valorCargo">
+                                                                    <option value="">Seleccionar</option>
+                                                                    <option value="TECNICO ADMINISTRATIVO">Tecnico
+                                                                        Administrativo</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-2">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text ">Nivel</div>
+                                                                <select class="form-select form-select-sm"
+                                                                    [(ngModel)]="valorNivel">
+                                                                    <option value="">Seleccionar</option>
+                                                                    <option value="TD">TD</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <DIV class="row mt-2">
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text d-personales">
+                                                                    C. AIRSHP
+                                                                </div>
+                                                                <input type="text" class="form-control"
+                                                                    [(ngModel)]="codigoAirhsp" aria-label="Small"
+                                                                    aria-describedby="inputGroup-sizing-sm">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group-text d-personales">
+                                                                    F. Ingreso
+                                                                </div>
+                                                                <input type="date" class="form-control"
+                                                                    [(ngModel)]="codigoAirhsp" aria-label="Small"
+                                                                    aria-describedby="inputGroup-sizing-sm">
+                                                            </div>
+                                                        </div>
+                                                    </DIV>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                     </div><!-- fin del acordtion  -->
                                 </div>
                                 <div class="row d-flex justify-content-center mt-4">
                                     <div class="col-xl-2">
-                                        <button type="button" class="btn bg-delete"
-                                       ><i class="fa-solid fa-circle-arrow-left"></i> Regresar</button>
+                                        <button type="button" class="btn bg-delete"><i
+                                                class="fa-solid fa-circle-arrow-left"></i> Regresar</button>
                                     </div>
                                     <div class="col-xl-2">
-                                        <button type="button" class="btn btn-primary"
-                                        (click)="registrarEmpleado()"><i class="fa-solid fa-floppy-disk"></i> Registrar</button>
+                                        <button type="button" class="btn btn-primary" (click)="registrarEmpleado()"><i
+                                                class="fa-solid fa-floppy-disk"></i> Registrar</button>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </app-loading>

@@ -49,7 +49,8 @@ class LegajoController extends JSONResponseController
         return $this->sendResponse(200, true, '', $resultado);
     }
     public function registrarEmpleado(Request $request): JsonResponse
-    {
+    {   
+        $dni=$request('dni');
         $datosPersonales=$request('datosPersonales');
         $datosContacto=$request('datosContacto');
         $tiposDiscapacidades=$request('tiposDiscapacidades');
@@ -63,7 +64,7 @@ class LegajoController extends JSONResponseController
         $experienciaLaboral=$request('experienciaLaboral');
         $laborDocencia=$request('laborDocencia');
         $legajoModel = new LegajoModel();
-        $resultado = $legajoModel->registrarEmpleado($datosPersonales,$datosContacto,$tiposDiscapacidades,$datosDomiclio,$datosFamiliares,
+        $resultado = $legajoModel->registrarEmpleado($dni,$datosPersonales,$datosContacto,$tiposDiscapacidades,$datosDomiclio,$datosFamiliares,
         $datosProfesionales,$datosPostgrado,$datosEspecializacion,$datosCursos,$datosIdiomas,
         $experienciaLaboral,$laborDocencia);
         return $this->sendResponse(200, true, '', $resultado);

@@ -53,6 +53,7 @@ export class DatoGeneralesService {
 
 
     guardarDatosEmpleado(
+        dni:string,
         datosPersonales:any,
         datosContacto:any,
         datosDiscapacidad:any,
@@ -70,6 +71,7 @@ export class DatoGeneralesService {
         {
         return this.http.post<HttpResponseApi>('/api/legajo/registrar-empleado',
             {
+                dni,
                 datosPersonales, 
                 datosContacto,
                 datosDiscapacidad,

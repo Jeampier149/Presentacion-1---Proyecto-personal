@@ -20,9 +20,9 @@ class FtpModel extends Model
 
     public function __construct()
     {
-        $this->usuario = 'hsbftp';
-        $this->contrasena = 'hsbftp';
-        $servidor = '192.168.11.206';
+        $this->usuario = 'jeampier';
+        $this->contrasena = 'root123';
+        $servidor = '192.168.8.103';
         $this->ftp = ftp_connect($servidor);
         return ftp_login($this->ftp, $this->usuario, $this->contrasena);
     }
