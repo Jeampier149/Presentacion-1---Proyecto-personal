@@ -22,7 +22,7 @@ class FtpModel extends Model
     {
         $this->usuario = 'jeampier';
         $this->contrasena = 'root123';
-        $servidor = '192.168.8.103';
+        $servidor = '192.168.11.133';
         $this->ftp = ftp_connect($servidor);
         return ftp_login($this->ftp, $this->usuario, $this->contrasena);
     }

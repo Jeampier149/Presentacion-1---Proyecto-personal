@@ -1,0 +1,188 @@
+<div class="accordion-item">
+    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+        <button class="accordion-button collapsed" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+            aria-controls="panelsStayOpen-collapseOne">
+            DATOS DEL DOMICILIO
+        </button>
+    </h2>
+    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse "
+        aria-labelledby="panelsStayOpen-headingOne">
+        <div class="accordion-body text-muted">
+
+
+            <div class="row w-100 d-block  mt-3">
+                <fieldset>
+                    <legend>Domicilio</legend>
+                    <span>Ubicacion Geografica</span>
+                    <div class="row mt-2">
+
+                        <div class="col-xl-4">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales ">
+                                    Departamento
+                                </div>
+                                <input type="text"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="departamento"
+                                    aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales ">
+                                    Provincia</div>
+                                <input type="text"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="provincia" aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">Distrito</div>
+                                <input type="text"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="distrito" aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-xl-4">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales ">Tipo
+                                    de Via
+                                </div>
+                                <select class="form-select form-select-sm"  [(ngModel)]="via">
+                                    <option value="">Seleccionar</option>
+                                    <option value="AVENIDA">Avenida</option>
+                                    <option value="JIRON">Jirón</option>
+                                    <option value="CALLE">Calle</option>
+                                    <option value="PASAJE">Pasaje</option>
+                                    <option value="ALAMEDA">Alameda</option>
+                                    <option value="MALECON">Malecon</option>
+                                    <option value="OVALO">Ovalo</option>
+                                    <option value="PARQUE">Parque</option>
+                                    <option value="PLAZA">Plaza</option>
+                                    <option value="CARRETERA">Carretera</option>
+                                    <option value="TROCHA">Trocha</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales">
+                                    Nombre de la via
+                                </div>
+                                <input type="text" class="form-control"
+                                    [(ngModel)]="nombreVia" aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-2">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">Numero</div>
+                                <input type="text"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="numeroVia" aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-2">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">Interior</div>
+                                <input type="text"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="interiorVia" aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-xl-4">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales">Tipo
+                                    de Zona
+                                </div>
+                                <select class="form-select form-select-sm"  [(ngModel)]="zona">
+                                    <option value="">Seleccionar</option>
+                                    <option value="URBANIZACION">Urbanización
+                                    </option>
+                                    <option value="PUEBLO JOVEN">Pueblo Joven
+                                    </option>
+                                    <option value="UNIDAD VECINAL">Unidad
+                                        Vecinal</option>
+                                    <option value="CONJUNTO HABITACIONAL">
+                                        Conjunto Habitacional</option>
+                                    <option value="ASENTAMIENTO HUMANO">
+                                        Asentamineto Humano</option>
+                                    <option value="COOPERATIVA">Cooperativa
+                                    </option>
+                                    <option value="RESIDENCIAL">Residencial
+                                    </option>
+                                    <option value="ZONA INDUSTRIAL">Zona
+                                        Industrial</option>
+                                    <option value="GRUPO">Grupo</option>
+                                    <option value="CACERIO">Cacerio</option>
+                                    <option value="FUNDO">Fundo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales">
+                                    Nombre de Zona
+                                </div>
+                                <input type="text" class="form-control"
+                                    [(ngModel)]="nombreZona" aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-2">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">Numero</div>
+                                <input type="text"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="numeroZona" aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-2">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">Interior</div>
+                                <input type="text"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="interiorZona"
+                                    aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-xl-12">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">
+                                    Referencia(Indicar
+                                    institucion
+                                    cercana)</div>
+                                <input type="text"
+                                    class="form-control form-control-sm"
+                                    [(ngModel)]="referenciaDomicilio"
+                                    aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+            </div>
+
+        </div>
+    </div>
+</div>

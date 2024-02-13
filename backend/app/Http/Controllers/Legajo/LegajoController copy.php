@@ -51,7 +51,7 @@ class LegajoController extends JSONResponseController
 
     public function registrarEmpleado(Request $request): JsonResponse
     {   
-        $datosPersonales=$request->input('datosPersonales');
+        $datosPersonales=json_decode($request->post('datosPersonales'),true);
         $reglasDatosEmpleado=[
             'tipoDocumento'=>"required|string",
             'numeroDocumento'=>'required',
@@ -82,7 +82,7 @@ class LegajoController extends JSONResponseController
             return $this->sendResponse(200, false, 'Error de validación', $validacionDatosEmpleado->errors());
         } 
 
-        $datosContacto=$request->input('datosContacto');
+        $datosContacto=json_decode($request->post('datosContacto'),true);
         $reglasDatosContacto=[
              'nombreContacto'=>'string',
              'parentesco'=>'string',
@@ -94,9 +94,9 @@ class LegajoController extends JSONResponseController
         if ($validacionDatosContacto->fails()) {
             return $this->sendResponse(200, false, 'Error de validación', $validacionDatosContacto->errors());
         } 
-        $datosDiscapacidad=$request->input('datosDiscapacidad');
+        $datosDiscapacidad=json_decode($request->post('datosDiscapacidad'),true);
         
-        $datosDomicilio=$request->input('datosDomicilio');
+        $datosDomicilio=json_decode($request->post('datosDomicilio'),true);
         $reglasDatosDomicilio=[
              'departamento'=>'string|required',
              'provincia'=>'string',
@@ -119,15 +119,14 @@ class LegajoController extends JSONResponseController
             return $this->sendResponse(200, false, 'Error de validación', $validacionDatosDomicilio->errors());
         } 
            
-        $datosFamiliares=$request->input('datosFamiliares');
-        $datosProfesion=$request->input('datosProfesion');
+        $datosFamiliares=json_decode($request->post('datosFamiliares'),true);
+        $datosProfesion=json_decode($request->post('datosProfesion'),true);
+        $datosEstudioSuperior=json_decode($request->post('datosEstudioSuperior'),true);
+        $archivoSuper=$request->file('archivoSuperior');
         $legajoModel = new LegajoModel();
-        $datosEstudioSuperior=$request->input('datosEstudioSuperior');
-        $ruta= $datosEstudioSuperior['ruta'];
-
-        var_dump($datosEstudioSuperior);
         $ftp=new FtpModel;
-   
+        var_dump($archivoSuper);
+        $numDoc=$datosPersonales['numeroDocumento'];
         
 
         $resultado = $legajoModel->registrarEmpleado($datosPersonales,$datosContacto,$datosDiscapacidad,$datosDomicilio,$datosFamiliares,$datosProfesion,$datosEstudioSuperior);

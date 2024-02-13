@@ -4,6 +4,7 @@ namespace App\Models\Legajo;
 
 use App\Models\Ftp\FtpModel;
 use http\QueryString;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -50,56 +51,154 @@ class LegajoModel extends Model
         return $resultados;
     }
     public function registrarEmpleado(
-        string $numero_doc,
-        object $datosPersonales,
-        object $datosContacto,
-        array $tiposDiscapacidades,
+
+        array $datosPersonales,
+        array $datosContacto,
+        array $datosDiscapacidad,
         array $datosDomicilio,
         array $datosFamiliares,
-        array $datosProfesionales,
-        array $datosPostgrado,
-        array $datosEspecializacion,
-        array $datosCursos,
-        array $datosIdiomas,
-        array $experienciaLaboral,
-        array $laborDocencia
-    ): bool {
+        array $datosProfesion,
+        array $datosEstudioSuperior
+
+    ) {
+
         // Iniciar una transacción para asegurar que todas las inserciones se realicen correctamente
         DB::beginTransaction();
 
         try {
-            // Iterar sobre los datos personales y realizar la inserción
-            foreach ($datosPersonales as $datoPersonal) {
-                DB::statement('CALL dbo.pl_sp_insertar_personal(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', [
-                    $datoPersonal->tipoDocumento,
-                    $datoPersonal->numeroDocumento,
-                    $datoPersonal->tipoEmpleado,
-                    $datoPersonal->grupOcupacional,
-                    $datoPersonal->regimen,
-                    $datoPersonal->tipoRegimen,
-                    $datoPersonal->aPaterno,
-                    $datoPersonal->aMaterno,
-                    $datoPersonal->nombres,
-                    $datoPersonal->sexo,
-                    $datoPersonal->ruc,
-                    $datoPersonal->fNacimiento,
-                    $datoPersonal->tFijo,
-                    $datoPersonal->tMovil,
-                    $datoPersonal->correoE,
-                    $datoPersonal->Sanguineo,
-                    $datoPersonal->enfAlergias,
-                    $datoPersonal->estadoCivil,
+
+            // Iterar sobre los datos personales 
+            try {
+                DB::statement('EXEC dbo.pl_sp_insertar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                    $datosPersonales['tipoDocumento'],
+                    $datosPersonales['numeroDocumento'],
+                    $datosPersonales['codigoAirhsp'],
+                    $datosPersonales['aPaterno'],
+                    $datosPersonales['aMaterno'],
+                    $datosPersonales['nombres'],
+                    $datosPersonales['ruc'],
+                    $datosPersonales['estadoCivil'],
+                    $datosPersonales['sexo'],
+                    $datosPersonales['gSanguineo'],
+                    $datosPersonales['grupOcupacional'],
+                    $datosPersonales['tipoEmpleado'],
+                    $datosPersonales['regimen'],
+                    $datosPersonales['tipoRegimen'],
+                    $datosPersonales['fNacimiento'],
+                    $datosPersonales['tFijo'],
+                    $datosPersonales['tMovil'],
+                    $datosPersonales['correoE'],
+                    $datosPersonales['enfAlergias'],
+                    $datosPersonales['fechaIngreso'],
+                    $datosPersonales['unidadOrganica'],
+                    $datosPersonales['servicio'],
+                    $datosPersonales['foto']
+
                 ]);
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_insertar_personal: ' . $e->getMessage();
             }
-            // Iterar sobre los datos de contacto y realizar la inserción
-            foreach ($datosContacto as $datoContacto) {
-                DB::statement('CALL dbo.pl_sp_insertar_datos_contacto(?,?)', [
-                    $numero_doc,
-                    $datoContacto                   
+
+            //Insertar datos de  contacto de emergencia
+            try {
+                DB::statement('EXEC dbo.pl_sp_insertar_datos_contacto_emergencia ?,?,?,?', [
+                    $datosContacto['nombreContacto'],
+                    $datosContacto['parentesco'],
+                    $datosContacto['numContacto'],
+                    $datosContacto['numDocumento']
                 ]);
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_insertar_datos_contacto_emergencia: ' . $e->getMessage();
             }
-          
-            // Confirmar la transacción si todas las inserciones se realizaron correctamente
+
+            //insertar datso de discapacidad 
+            try {
+
+                foreach ($datosDiscapacidad['tipos'] as $tipo) {
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_discapacidad ?,?', [
+                        $tipo,
+                        $datosDiscapacidad['numDocumento']
+
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_insertar_datos_discapacidad: ' . $e->getMessage();
+            }
+
+            //insertar datos domiclio
+            try {
+
+                DB::statement('EXEC dbo.pl_sp_insertar_datos_direccion ?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                    $datosDomicilio['departamento'],
+                    $datosDomicilio['provincia'],
+                    $datosDomicilio['distrito'],
+                    $datosDomicilio['via'],
+                    $datosDomicilio['nombreVia'],
+                    $datosDomicilio['numeroVia'],
+                    $datosDomicilio['interiorVia'],
+                    $datosDomicilio['zona'],
+                    $datosDomicilio['nombreZona'],
+                    $datosDomicilio['numeroZona'],
+                    $datosDomicilio['interiorZona'],
+                    $datosDomicilio['referenciaDomicilio'],
+                    $datosDomicilio['ubigeo'],
+                    $datosDomicilio['numDocumento']
+                ]);
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado  pl_sp_insertar_datos_direccion: ' . $e->getMessage();
+            }
+
+            //insertar datos familiares
+            try {
+                foreach ($datosFamiliares as $familiar) {
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_familiar ?,?,?,?,?,?,?', [
+                        $familiar['apellidos'],
+                        $familiar['nombre'],
+                        $familiar['fechaNacimiento'],
+                        $familiar['dni'],
+                        $familiar['parentesco'],
+                        $familiar['centroLaboral'],
+                        $familiar['pkEmpleado']
+
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_insertar_datos_familiar: ' . $e->getMessage();
+            }
+            //insertar datos profesion
+            try {
+
+                DB::statement('EXEC dbo.pl_sp_insertar_datos_profesion ?,?,?,?,?,?', [
+                    $datosProfesion['profesion'],
+                    $datosProfesion['lugarColeg'],
+                    $datosProfesion['fechColeg'],
+                    $datosProfesion['fechTerColeg'],
+                    $datosProfesion['numColeg'],
+                    $datosProfesion['numDocEmp'],
+
+                ]);
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_insertar_datos_profesion: ' . $e->getMessage();
+            }
+            //insertar datos estudio superior
+            try {
+
+                foreach ($datosEstudioSuperior as $superior) {
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_superior ?,?,?,?,?,?,?', [
+                        $superior['centro'],
+                        $superior['especialidad'],
+                        $superior['inicio'],
+                        $superior['termino'],
+                        $superior['nivel'],
+                        $superior['ruta'],
+                        $superior['pkEmpleado']
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_insertar_datos_estudio_superior' . $e->getMessage();
+            }
+
+            // Finalizar la transacción
             DB::commit();
 
             // Retornar true para indicar que la inserción fue exitosa

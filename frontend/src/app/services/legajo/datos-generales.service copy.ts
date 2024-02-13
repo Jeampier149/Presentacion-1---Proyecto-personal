@@ -60,6 +60,7 @@ export class DatoGeneralesService {
         datosFamiliares:any,
         datosProfesion:any,
         datosEstudioSuperior:any,
+        archivoSuper:any,
         datosPostgrado:any,
         datosEspecializacion:any,
         datosCursos:any,
@@ -70,27 +71,29 @@ export class DatoGeneralesService {
         ) 
         
         {
- 
+            const formData = new FormData();
+
             // Aquí agregamos los datos al formData
-            
+            formData.append('archivoSuperior[]',archivoSuper);
+            formData.append('datosPersonales', JSON.stringify(datosPersonales));
+            formData.append('datosContacto', JSON.stringify(datosContacto));
+            formData.append('datosDiscapacidad', JSON.stringify(datosDiscapacidad));
+            formData.append('datosDomicilio', JSON.stringify(datosDomicilio));
+            formData.append('datosFamiliares', JSON.stringify(datosFamiliares));
+            formData.append('datosProfesion', JSON.stringify(datosProfesion));
+            formData.append('datosEstudioSuperior', JSON.stringify(datosEstudioSuperior));
+            formData.append('datosPostgrado', JSON.stringify(datosPostgrado));
+            formData.append('datosEspecializacion', JSON.stringify(datosEspecializacion));
+            formData.append('datosCursos', JSON.stringify(datosCursos));
+            formData.append('datosIdiomas', JSON.stringify(datosIdiomas));
+            formData.append('experienciaLaboral', JSON.stringify(experienciaLaboral));
+            formData.append('laborDocencia', JSON.stringify(laborDocencia));
      
-        return this.http.post<HttpResponseApi>('/api/legajo/registrar-empleado', {
-            datosPersonales ,
-            datosContacto,
-            datosDiscapacidad,
-            datosDomicilio,
-            datosFamiliares,
-            datosProfesion,
-            datosEstudioSuperior,
-            datosPostgrado,
-            datosEspecializacion,
-            datosCursos,
-            datosIdiomas,
-            experienciaLaboral,
-            laborDocencia,
-        },         
-           {responseType: "json"} 
-        );
+        return this.http.post<HttpResponseApi>('/api/legajo/registrar-empleado',         
+                formData
+            , {
+            responseType: "json"
+        });
     }
 
    

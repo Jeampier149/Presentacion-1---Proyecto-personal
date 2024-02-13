@@ -239,22 +239,22 @@
                                                     Discapacidad :</label>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="fisicas"
-                                                        [(ngModel)]="fisicas" (change)="onCheckboxChange()">
+                                                        [(ngModel)]="fisicas" (change)="actualizarTipo('Fisica',this.fisicas)">
                                                     <label class="form-check-label" for="fisicas">Fisicas</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="sensorial"
-                                                        [(ngModel)]="sensorial" (change)="onCheckboxChange()">
+                                                        [(ngModel)]="sensorial"  (change)="actualizarTipo('Sensorial',this.sensorial)">
                                                     <label class="form-check-label" for="sensorial">Sensoriales</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="mentales"
-                                                        [(ngModel)]="mentales" (change)="onCheckboxChange()">
+                                                        [(ngModel)]="mentales"  (change)="actualizarTipo('Mental',this.mentales)">
                                                     <label class="form-check-label" for="mentales">Mentales</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="intelectuales"
-                                                        [(ngModel)]="intelectuales" (change)="onCheckboxChange()">
+                                                        [(ngModel)]="intelectuales"  (change)="actualizarTipo('Intelectuales',this.intelectuales)">
                                                     <label class="form-check-label"
                                                         for="intelectuales">Intelectuales</label>
                                                 </div>
@@ -325,7 +325,7 @@
                                                                         <div class="input-group-text d-personales ">Tipo
                                                                             de Via
                                                                         </div>
-                                                                        <select class="form-select form-select-sm">
+                                                                        <select class="form-select form-select-sm"  [(ngModel)]="via">
                                                                             <option value="">Seleccionar</option>
                                                                             <option value="AVENIDA">Avenida</option>
                                                                             <option value="JIRON">Jirón</option>
@@ -377,7 +377,7 @@
                                                                         <div class="input-group-text d-personales">Tipo
                                                                             de Zona
                                                                         </div>
-                                                                        <select class="form-select form-select-sm">
+                                                                        <select class="form-select form-select-sm"  [(ngModel)]="zona">
                                                                             <option value="">Seleccionar</option>
                                                                             <option value="URBANIZACION">Urbanización
                                                                             </option>
@@ -512,9 +512,9 @@
                                                                                 <td>
                                                                                     <input type="date"
                                                                                         class="form-control form-control-sm"
-                                                                                        id="fecNacimiento{{i}}"
-                                                                                        name="fecNacimiento{{i}}"
-                                                                                        [(ngModel)]="familiar.fecNacimiento"
+                                                                                        id="fechaNacimiento{{i}}"
+                                                                                        name="fechaNacimiento{{i}}"
+                                                                                        [(ngModel)]="familiar.fechaNacimiento"
                                                                                         required>
                                                                                 </td>
                                                                                 <td>
@@ -583,6 +583,7 @@
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
                                                                             aria-label="Small"
+                                                                            [(ngModel)]="profesion"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
@@ -594,6 +595,7 @@
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
                                                                             aria-label="Small"
+                                                                            [(ngModel)]="lugarColeg"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
@@ -608,6 +610,7 @@
                                                                         <input type="date"
                                                                             class="form-control form-control-sm"
                                                                             aria-label="Small"
+                                                                            [(ngModel)]="fechColeg"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
@@ -618,6 +621,7 @@
                                                                         <input type="date"
                                                                             class="form-control form-control-sm"
                                                                             aria-label="Small"
+                                                                            [(ngModel)]="fechTerColeg"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
@@ -628,6 +632,7 @@
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
                                                                             aria-label="Small"
+                                                                            [(ngModel)]="numColeg"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
@@ -654,9 +659,7 @@
                                                                                         <th>Especialidad</th>
                                                                                         <th>F.Inicio</th>
                                                                                         <th>F.Termino</th>
-                                                                                        <th>Nivel
-                                                                                            alcanzado(Titulado/Bachiller<br>
-                                                                                            Egresado/Estudiante)
+                                                                                        <th>Nivel alcanzado
                                                                                         </th>
                                                                                         <th>Documento
                                                                                         </th>
@@ -735,7 +738,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
+                                                                        <form >
                                                                             <button type="button "
                                                                                 class="btn bg-agg btn-sm"
                                                                                 (click)="agregarEstudioPostgrado()"><i
@@ -748,10 +751,8 @@
                                                                                         <th>Especialidad</th>
                                                                                         <th>F.Inicio</th>
                                                                                         <th>F.Termino</th>
-                                                                                        <th>Nivel
-                                                                                            alcanzado
-                                                                                            (Magister/Doctorado
-                                                                                            Egresado/Estudiante)
+                                                                                        <th>Nivel alcanzado
+                                                                                           
                                                                                         </th>
                                                                                         <th>Documento</th>
                                                                                     </tr>
@@ -1336,7 +1337,7 @@
                                                                 <select class="form-select form-select-sm"
                                                                     [(ngModel)]="valorUnidad">
                                                                     <option value="">Seleccionar</option>
-                                                                    <option value="OFICINA PERSONAL">Oficina Personal
+                                                                    <option value="1">Oficina Personal
                                                                     </option>
                                                                 </select>
                                                             </div>
@@ -1347,7 +1348,7 @@
                                                                 <select class="form-select form-select-sm"
                                                                     [(ngModel)]="valorServicio">
                                                                     <option value="">Seleccinar</option>
-                                                                    <option value="EQUIPO LEGAJO">Equipo Legajo</option>
+                                                                    <option value="1">Equipo Legajo</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -1390,7 +1391,7 @@
                                                                     F. Ingreso
                                                                 </div>
                                                                 <input type="date" class="form-control"
-                                                                    [(ngModel)]="codigoAirhsp" aria-label="Small"
+                                                                    [(ngModel)]="fechaIngreso" aria-label="Small"
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
