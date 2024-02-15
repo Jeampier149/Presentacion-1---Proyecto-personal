@@ -63,7 +63,7 @@ class LegajoController extends JSONResponseController
             'aPaterno' => 'required',
             'aMaterno' => 'required',
             'nombres' => 'required',
-            'ruc' => 'required',
+            'ruc' => 'string',
             'estadoCivil' => 'required',
             'sexo' => 'required',
             'gSanguineo' => 'required',
@@ -75,7 +75,7 @@ class LegajoController extends JSONResponseController
             'tFijo' => 'required',
             'tMovil' => 'required',
             'correoE' => 'required',
-            'enfAlergias' => 'required',
+            'enfAlergias' => 'string',
             'fechaIngreso' => 'string',
             'unidadOrganica' => 'required',
             'servicio' => 'required',
@@ -127,32 +127,32 @@ class LegajoController extends JSONResponseController
         $datosProfesion = json_decode($request->post('datosProfesion'), true);
         $datosEstudioSuperior = json_decode($request->post('datosEstudioSuperior'), true);
         $numeroDocumento = $datosPersonales['numeroDocumento'];
-   
-        $archivosT=$request->file();
-     
-        foreach($archivosT as $archivo){
-            var_dump($archivo);
-            $nameArchivo=str_replace(' ', '_', $archivo->getClientOriginalName());
-            $nombreArchivo=$numeroDocumento.'/'.$nameArchivo;
-            var_dump($nombreArchivo);
-            // Subir el archivo al servidor FTP
-            if (Storage::disk('ftp')->put($nombreArchivo, file_get_contents($archivo))) {
-
-                // Archivo subido exitosamente
-                return response()->json(['mensaje' => 'Archivo subido correctamente']);
-            } else {
-                // Manejar el error de subida
-                return response()->json(['error' => 'Error al subir el archivo al servidor FTP'], 500);
-            }
-         
+        $archivosT = $request->file();       
+        if (count($archivosT) === 0) {
+            return response()->json(['error' => 'No se han proporcionado archivos para subir.'], 400);
         }
-            // Obtener el archivo del request
-         
-     
+       
+  
+        foreach ($archivosT as $archivo) {
+            $nameArchivo = str_replace(' ', '_', $archivo->getClientOriginalName());
+            $destino = $numeroDocumento . '/' . $nameArchivo;
 
+            try {
+                Storage::disk('ftp')->put($destino, file_get_contents($archivo));     
+                return response()->json(['mensaje' => 'Archivo subido correctamente']);              
+            } catch (\Exception $e) {
+                // Capturar la excepción y obtener el mensaje de error
+                $errorMessage = $e->getMessage();
+                return response()->json(['error' => 'Error al subir el archivo al servidor FTP: ' . $errorMessage], 500);
+            }
+            // Subir el archivo al servidor FTP
+        }
         $legajoModel = new LegajoModel();
-
         $resultado = $legajoModel->registrarEmpleado($datosPersonales, $datosContacto, $datosDiscapacidad, $datosDomicilio, $datosFamiliares, $datosProfesion, $datosEstudioSuperior);
         return $this->sendResponse(200, true, 'Datos Registrados Correctamente', $resultado);
+  
+
+
+       
     }
 }

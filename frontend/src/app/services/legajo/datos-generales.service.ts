@@ -116,10 +116,7 @@ export class DatoGeneralesService {
             formData.append('experienciaLaboral', JSON.stringify(experienciaLaboral));
             formData.append('laborDocencia', JSON.stringify(laborDocencia));
 
-            console.log("Contenido del FormData:");
-            formData.forEach((value, key) => {
-                console.log(key, value);
-            });
+   
      
         return this.http.post<HttpResponseApi>('/api/legajo/registrar-empleado', formData,         
            {responseType: "json"} 

@@ -335,7 +335,7 @@ export class RegistrarEmpleadoComponent {
         this.tipoDiscapacidad.splice(index, 1);
       }
     }
-    console.log(this.tipoDiscapacidad)
+
   }
 
 
@@ -442,7 +442,9 @@ export class RegistrarEmpleadoComponent {
     });
 
 
-    console.log('Datos:',  datosFamiliares,datosEstudioSuperior);
+
+
+    
   }
 
 }
