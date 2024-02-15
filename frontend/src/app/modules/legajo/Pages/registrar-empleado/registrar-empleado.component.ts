@@ -178,6 +178,7 @@ export class RegistrarEmpleadoComponent {
       const ruta = `${this.numeroDocumento}/estudioSuperior/`;
       this.estudioSuperior.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:ruta ,pkEmpleado:this.numeroDocumento });
   }
+  
   agregarEstudioPostgrado() { 
     const ruta = `${this.numeroDocumento}/estudioPostgrado/`;
     this.estudioPostgrado.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:ruta ,pkEmpleado:this.numeroDocumento }); }
@@ -368,12 +369,12 @@ export class RegistrarEmpleadoComponent {
       numColeg:this.numColeg,
       numDocEmp:this.numeroDocumento
     }
-    const datosPostgrado = { datosPostgrado: this.estudioPostgrado }
-    const datosEspecializacion = { datosEspecializacion: this.especializacion }
-    const datosCursos = { datosCursos: this.cursos }
-    const datosIdiomas = { datosIdiomas: this.idiomas }
-    const experienciaLaboral = { datosExperienciaLaboral: this.experienciaLaboral }
-    const laborDocencia = { datosLaborDocencia: this.laborDocencia }
+    const datosPostgrado =  this.estudioPostgrado 
+    const datosEspecializacion = this.especializacion 
+    const datosCursos = this.cursos 
+    const datosIdiomas = this.idiomas 
+    const experienciaLaboral =  this.experienciaLaboral 
+    const laborDocencia =  this.laborDocencia 
     const datosPersonales = {     
       tipoDocumento: this.tipoDoc,
       numeroDocumento:this.numeroDocumento,

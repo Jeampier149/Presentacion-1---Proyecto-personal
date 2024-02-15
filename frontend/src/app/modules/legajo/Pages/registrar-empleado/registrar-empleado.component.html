@@ -14,12 +14,17 @@
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <label class="form-label form-label-sm">TIPO DOCUMENTO</label>
-                                                        <select class="form-select form-select-sm"
+                                                        <select class="form-select form-select-sm  "  required 
                                                             [(ngModel)]="tipoDoc">
+                                                   
                                                             <option>Select</option>
                                                             <option *ngFor="let tipoD of datos" value="{{tipoD.id}}">
                                                                 {{tipoD.descripcion}}</option>
                                                         </select>
+                                                        <div class="invalid-feedback">
+                                                            Seleccione un tipo de documento
+                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -29,12 +34,15 @@
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control form-control-sm"
                                                             aria-label="dni" [(ngModel)]="numeroDocumento"
-                                                            aria-describedby="dni">
+                                                            aria-describedby="dni" required >
                                                         <div class="input-group-append">
                                                             <button class="btn btn-outline-secondary btn-primary btn-sm"
                                                                 type="button" (click)=" buscarDocumento()"><i
                                                                     class="fa-solid fa-magnifying-glass"></i></button>
                                                         </div>
+                                                        <div class="invalid-feedback">
+                                                            El dni es un campo obligatorio
+                                                          </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,12 +72,14 @@
                                                 <div class="row my-2 px-3 mb-3">
 
                                                     <div class="col-xl-4 ">
-                                                        <div class="input-group input-group-sm  ">
+                                                        <div class="input-group input-group-sm   ">
                                                             <div class="input-group-text d-personales ">Apll. Paterno
                                                             </div>
-                                                            <input type="text" class="form-control   text-uppercase"
-                                                                id="aPaterno" name="aPaterno" [(ngModel)]="aPaterno">
-                                                        </div>
+                                                            <input  type="text" class="form-control  text-uppercase" required 
+                                                             bsInvalid   id="aPaterno" name="aPaterno" [(ngModel)]="aPaterno">
+                                                           
+                                                            </div>
+                                                        
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm ">
@@ -79,6 +89,7 @@
                                                                 class="form-control form-control-sm text-uppercase"
                                                                 id="aMaterno" name="aMaterno" aria-label="Small"
                                                                 [(ngModel)]="aMaterno"
+                                                                required 
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -89,6 +100,7 @@
                                                             <input type="text"
                                                                 class="form-control form-control-sm text-uppercase"
                                                                 id="nombres" name="nombres" aria-label="Small"
+                                                                required 
                                                                 [(ngModel)]="nombres"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
@@ -102,6 +114,7 @@
                                                             <div class="input-group-text d-personales ">Sexo
                                                             </div>
                                                             <input type="text" class="form-control form-control-sm"
+                                                                required 
                                                                 aria-label="Small" [(ngModel)]="sexo"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
@@ -111,6 +124,7 @@
                                                             <div class="input-group-text d-personales">RUC N°</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small" [(ngModel)]="ruc"
+                                                                required 
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -119,6 +133,7 @@
                                                             <div class="input-group-text d-personales ">F. Nacimiento
                                                             </div>
                                                             <input type="date" class="form-control form-control-sm"
+                                                                required 
                                                                 aria-label="Small" [(ngModel)]="fNacimiento"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
@@ -133,6 +148,7 @@
                                                             </div>
                                                             <input type="number" class="form-control form-control-sm"
                                                                 aria-label="Small" [(ngModel)]="tFijo"
+                                                                
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -142,6 +158,7 @@
                                                             </div>
                                                             <input type="number" class="form-control form-control-sm"
                                                                 aria-label="Small" [(ngModel)]="tMovil"
+                                                                
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -149,6 +166,7 @@
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text d-personales ">Correo E.</div>
                                                             <input type="text" class="form-control form-control-sm"
+                                                                required 
                                                                 aria-label="Small" [(ngModel)]="correoE"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
