@@ -61,11 +61,12 @@ class LegajoModel extends Model
         array $datosEstudioSuperior
 
     ) {
-
+       $numDocumento=$datosPersonales['numeroDocumento'];
         // Iniciar una transacción para asegurar que todas las inserciones se realicen correctamente
         DB::beginTransaction();
 
         try {
+
 
             // Iterar sobre los datos personales 
             try {
@@ -105,7 +106,7 @@ class LegajoModel extends Model
                     $datosContacto['nombreContacto'],
                     $datosContacto['parentesco'],
                     $datosContacto['numContacto'],
-                    $datosContacto['numDocumento']
+                    $numDocumento
                 ]);
             } catch (\Exception $e) {
                 echo 'Error al ejecutar el procedimiento almacenado pl_sp_insertar_datos_contacto_emergencia: ' . $e->getMessage();
@@ -117,7 +118,7 @@ class LegajoModel extends Model
                 foreach ($datosDiscapacidad['tipos'] as $tipo) {
                     DB::statement('EXEC dbo.pl_sp_insertar_datos_discapacidad ?,?', [
                         $tipo,
-                        $datosDiscapacidad['numDocumento']
+                        $numDocumento
 
                     ]);
                 }
@@ -142,7 +143,7 @@ class LegajoModel extends Model
                     $datosDomicilio['interiorZona'],
                     $datosDomicilio['referenciaDomicilio'],
                     $datosDomicilio['ubigeo'],
-                    $datosDomicilio['numDocumento']
+                    $numDocumento
                 ]);
             } catch (\Exception $e) {
                 echo 'Error al ejecutar el procedimiento almacenado  pl_sp_insertar_datos_direccion: ' . $e->getMessage();
@@ -158,7 +159,7 @@ class LegajoModel extends Model
                         $familiar['dni'],
                         $familiar['parentesco'],
                         $familiar['centroLaboral'],
-                        $familiar['pkEmpleado']
+                        $numDocumento
 
                     ]);
                 }
@@ -174,7 +175,7 @@ class LegajoModel extends Model
                     $datosProfesion['fechColeg'],
                     $datosProfesion['fechTerColeg'],
                     $datosProfesion['numColeg'],
-                    $datosProfesion['numDocEmp'],
+                    $numDocumento
 
                 ]);
             } catch (\Exception $e) {
@@ -191,7 +192,7 @@ class LegajoModel extends Model
                         $superior['termino'],
                         $superior['nivel'],
                         $superior['ruta'],
-                        $superior['pkEmpleado']
+                        $numDocumento
                     ]);
                 }
             } catch (\Exception $e) {

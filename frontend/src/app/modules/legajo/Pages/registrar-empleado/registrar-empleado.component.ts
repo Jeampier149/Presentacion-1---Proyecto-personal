@@ -172,62 +172,99 @@ export class RegistrarEmpleadoComponent {
 
  
   agregarFamiliar() { 
-    this.familiares.push({ nombre: '', apellidos: '', fechaNacimiento: '',dni: '', parentesco: "", centroLaboral: "",pkEmpleado:this.numeroDocumento }); }
+    this.familiares.push({ nombre: '', apellidos: '', fechaNacimiento: '',dni: '', parentesco: "", centroLaboral: "" }); }
    
     agregarEstudioSuperior() {  
-      const ruta = `${this.numeroDocumento}/estudioSuperior/`;
-      this.estudioSuperior.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:ruta ,pkEmpleado:this.numeroDocumento });
+      this.estudioSuperior.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:""  });
   }
   
   agregarEstudioPostgrado() { 
-    const ruta = `${this.numeroDocumento}/estudioPostgrado/`;
-    this.estudioPostgrado.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:ruta ,pkEmpleado:this.numeroDocumento }); }
+  
+    this.estudioPostgrado.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:"" }); }
   agregarEspecializacion() { 
-    const ruta = `${this.numeroDocumento}/especializacion/`;
-    this.especializacion.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: null,ruta:ruta ,pkEmpleado:this.numeroDocumento }); }
+  this.especializacion.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: null,ruta:"" }); }
   agregarCursos() { 
-    const ruta = `${this.numeroDocumento}/cursos/`;
-    this.cursos.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:ruta ,pkEmpleado:this.numeroDocumento }); }
+    this.cursos.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:""  }); }
   agregarIdioma() { 
-    const ruta = `${this.numeroDocumento}/idiomas/`;
-    this.idiomas.push({ lenguaE: '', basico: "", intermedio: '', avanzado: "", archivo: "",ruta:ruta ,pkEmpleado:this.numeroDocumento  }); }
+    this.idiomas.push({ lenguaE: '', basico: "", intermedio: '', avanzado: "", archivo: "",ruta:""  }); }
   agregarExperiencia() {
-    const ruta = `${this.numeroDocumento}/experienciaLaboral/`;
-     this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "", archivo: "",ruta:ruta ,pkEmpleado:this.numeroDocumento  }); }
+     this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "", archivo:""}); }
   agregarDocencia() {
-    const ruta = `${this.numeroDocumento}/experienciaDocencia/`;
-     this.laborDocencia.push({ centroEnseñanza: '', curso: "", inicio: '', termino: "", archivo: "",ruta: ruta ,pkEmpleado:this.numeroDocumento  }); 
+     this.laborDocencia.push({ centroEnseñanza: '', curso: "", inicio: '', termino: "", archivo: "",ruta: ""}); 
    }
 
   eliminarItem(index: number, nombre: keyof RegistrarEmpleadoComponent) { this[nombre].splice(index, 1); }
 
   seleccionarArchivoEst(event: any, index: number) {
     const fileEs: File = event.target.files[0];
-    this.estudioSuperior[index].archivo = fileEs;}
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + fileEs.name
+    const fileFinal: File = new File([fileEs], nuevoNombre);
+    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.estudioSuperior[index].archivo = fileFinal;
+    this.estudioSuperior[index].ruta=ruta
 
+  }
+    
   seleccionarArchivoPg(event: any, index: number) {
-    const filePg: File = event.target.files[0];
-    this.estudioPostgrado[index].archivo = filePg;
+    const filePost: File = event.target.files[0];
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + filePost.name
+    const fileFinal: File = new File([filePost], nuevoNombre);
+    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.estudioPostgrado[index].archivo = fileFinal;
+    this.estudioPostgrado[index].ruta=ruta
+
   }
   seleccionarArchivoEspecialidad(event: any, index: number) {
     const fileEsp: File = event.target.files[0];
-    this.especializacion[index].archivo = fileEsp;
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + fileEsp.name
+    const fileFinal: File = new File([fileEsp], nuevoNombre);
+    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.especializacion[index].archivo = fileFinal;
+    this.especializacion[index].ruta=ruta
+
   }
   seleccionarArchivoCurso(event: any, index: number) {
-    const fileCurso: File = event.target.files[0];
-    this.cursos[index].archivo = fileCurso;
+    const fileCu: File = event.target.files[0];
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + fileCu.name
+    const fileFinal: File = new File([fileCu], nuevoNombre);
+    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.cursos[index].archivo = fileFinal;
+    this.cursos[index].ruta=ruta
+
   }
   seleccionarArchivoIdioma(event: any, index: number) {
-    const fileIdioma: File = event.target.files[0];
-    this.idiomas[index].archivo = fileIdioma;
+    const fileId: File = event.target.files[0];
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + fileId.name
+    const fileFinal: File = new File([fileId], nuevoNombre);
+    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.idiomas[index].archivo = fileFinal;
+    this.idiomas[index].ruta=ruta
+
   }
   seleccionarArchivoExpLaboral(event: any, index: number) {
-    const fileExpLaboral: File = event.target.files[0];
-    this.experienciaLaboral[index].archivo = fileExpLaboral;
+    const fileLa: File = event.target.files[0];
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + fileLa.name
+    const fileFinal: File = new File([fileLa], nuevoNombre);
+    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.experienciaLaboral[index].archivo = fileFinal;
+    this.experienciaLaboral[index].ruta=ruta
+
   }
   seleccionarArchivoExpDocencia(event: any, index: number) {
-    const fileExpDocencia: File = event.target.files[0];
-    this.laborDocencia[index].archivo = fileExpDocencia;
+    const fileDo: File = event.target.files[0];
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + fileDo.name
+    const fileFinal: File = new File([fileDo], nuevoNombre);
+    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.laborDocencia[index].archivo = fileFinal;
+    this.laborDocencia[index].ruta=ruta
+
   }
 
   listarTipoDocumento() {
@@ -337,9 +374,6 @@ export class RegistrarEmpleadoComponent {
     }
 
   }
-
-
-
   registrarEmpleado() {
     const foto='ruta/foto';
 

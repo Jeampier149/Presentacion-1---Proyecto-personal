@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 use stdClass;
 
 
@@ -78,7 +79,7 @@ class LegajoController extends JSONResponseController
             'enfAlergias' => 'string',
             'fechaIngreso' => 'string',
             'unidadOrganica' => 'required',
-            'servicio' => 'required',
+            'servicio' => 'required'
 
         ];
         $validacionDatosEmpleado = Validator::make($datosPersonales, $reglasDatosEmpleado);
@@ -128,18 +129,14 @@ class LegajoController extends JSONResponseController
         $datosEstudioSuperior = json_decode($request->post('datosEstudioSuperior'), true);
         $numeroDocumento = $datosPersonales['numeroDocumento'];
         $archivosT = $request->file();       
-        if (count($archivosT) === 0) {
-            return response()->json(['error' => 'No se han proporcionado archivos para subir.'], 400);
-        }
-       
-  
         foreach ($archivosT as $archivo) {
-            $nameArchivo = str_replace(' ', '_', $archivo->getClientOriginalName());
-            $destino = $numeroDocumento . '/' . $nameArchivo;
+       
+            $nameArchivo =  $archivo->getClientOriginalName();
 
+            $destino = $numeroDocumento.'/'.$nameArchivo;
             try {
                 Storage::disk('ftp')->put($destino, file_get_contents($archivo));     
-                return response()->json(['mensaje' => 'Archivo subido correctamente']);              
+                         
             } catch (\Exception $e) {
                 // Capturar la excepción y obtener el mensaje de error
                 $errorMessage = $e->getMessage();

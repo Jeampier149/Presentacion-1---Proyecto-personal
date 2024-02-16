@@ -61,9 +61,8 @@
                                                 <ngx-dropzone (change)="onSelect($event)">
                                                     <ngx-dropzone-label>Arraste o Elija una imagen!</ngx-dropzone-label>
                                                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
-                                                        *ngFor="let f of files" [file]="f">
-                                                        <ngx-dropzone-label>{{ f.name }} ({{ f.type
-                                                            }})</ngx-dropzone-label>
+                                                        *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                                                      
                                                     </ngx-dropzone-image-preview>
                                                 </ngx-dropzone>
 
