@@ -6,6 +6,7 @@ import { ReniecService } from '@services/general/reniec.service';
 import { ExtranjeriaService } from '@services/general/extranjeria.service';
 import { reniecClass } from '@classes/servicios/reniec.class';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
+import { MigracionesClass } from '@classes/servicios/migraciones.class';
 
 @Component({
   selector: 'app-registrar-empleado',
@@ -19,24 +20,41 @@ export class RegistrarEmpleadoComponent {
     this.listarTipoEmpleado()
     this.listarRegimen()
     this.listarTipoGrupo()
+    this.listarsexo()
+    this.listarGrupoSanguineo()
+    this.listarEstadoCivil()
  
   }
 
-  files: File[] = [];
+  //DORPZONE IMAGEN
+ files: File[] = [];
+ fotoFile:any[]=[];
 
   onSelect(event: any) {
-    console.log(event);
-    this.files.push(...event.addedFiles);
+    this.files = [];
+    this.files.push(event.addedFiles[0])
+    const file = event.addedFiles[0];
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + file.name
+    const fileFinal: File = new File([file], nuevoNombre);
+    this.fotoFile.push(fileFinal)
+    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.rutaFoto=ruta
+    console.log(ruta) 
   }
 
   onRemove(event: any) {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
+  //FOTO PERSONAL
+  fotoPersonal:File []=[]
+  rutaFoto:string=""
 
-
+  //DEFAULT
   rutas: any
   loading: boolean = false;
+
   discapacidad: string = "Si"
   agregable: boolean = false;
   //---ARRAYS DE SELECTS---//
@@ -45,6 +63,9 @@ export class RegistrarEmpleadoComponent {
   tipoGrupo: any[] = []
   regimen: any[] = []
   tipoRegimen: any[] = []
+  tipoSexo:any[]=[]
+  tipoGrupoSanguineo:any[]=[]
+  tipoEstadoCivil:string[]=[]
 
   //--VALOR DE SELECTS----//
   valorRegimen: any = ""
@@ -120,10 +141,8 @@ export class RegistrarEmpleadoComponent {
   archivoCursos: any []=[]
   fechaIngreso:string=""
 
-  buscarDocumento() {
-
+  buscarDocumento(documento:string,index?:number) {
     let tipoDocumento = this.tipoDoc;
-    let documento = this.numeroDocumento;
     this.loading = true;
     this.mensajeLoading = 'Buscando Documento...';
     if (tipoDocumento === '1') {
@@ -137,18 +156,28 @@ export class RegistrarEmpleadoComponent {
         )
         .subscribe(({ estado, datos }) => {
 
-          if (estado && datos) {
-            this.setDatosRENIEC(datos);
+          if (estado && datos ) {
+            if(index == undefined){
+                this.setDatosRENIEC(datos)
+            }else{
+                this.setDatosFamiliar(datos,index)
+            }
+         
           }
         })
     } else if (tipoDocumento === '2') {
       this.mensajeLoading = 'Buscando en MIGRACIONES...';
-      this.ExtranjeriaService$.buscarMigraciones(documento)
-        .subscribe(({ estado, datos, mensaje }) => {
+      this.ExtranjeriaService$. buscarMigraciones(documento)
+        .pipe((
+          finalize(() => {
+            this.loading = false;
+            this.mensajeLoading = 'Cargando...';
+          }))
+        )
+        .subscribe(({ estado, datos }) => {
+
           if (estado && datos) {
             this.setDatosMigraciones(datos);
-          } else {
-            warningAlerta('Atención!', mensaje)
           }
         })
     } else {
@@ -161,18 +190,26 @@ export class RegistrarEmpleadoComponent {
     this.aMaterno = datos.apellidoMaterno;
     this.nombres = datos.nombres;
     this.sexo = datos.obtenerSexo()
-    this.fNacimiento = datos.obtenerFechaNacimiento()
-    this.departamento = datos.departamento
+    this.fNacimiento = datos.obtenerFechaNacimiento();
+    this.departamento = datos.departamento;
     this.provincia = datos.provincia
     this.distrito = datos.distrito
     this.ubigeo=datos.obtenerUbigeo()
   }
-  setDatosMigraciones(datos: any) {
+  setDatosMigraciones(datos:MigracionesClass) {
+    this.aPaterno = datos.apellidoPaterno;
+    this.aMaterno = datos.apellidoMaterno;
+    this.nombres = datos.nombres;
   }
-
+ setDatosFamiliar(datos:reniecClass,index:number){
+  this.familiares[index].nombre = datos.nombres;
+  this.familiares[index].apellidos =`${datos.apellidoPaterno} ${datos.apellidoMaterno} `;
+  this.familiares[index].fechaNacimiento=datos.obtenerFechaNacimiento();
+ }
  
   agregarFamiliar() { 
-    this.familiares.push({ nombre: '', apellidos: '', fechaNacimiento: '',dni: '', parentesco: "", centroLaboral: "" }); }
+    if(this.familiares.length<=5)  this.familiares.push({ nombre: '', apellidos: '', fechaNacimiento: '',dni: '', parentesco: "", centroLaboral: "" });
+   }
    
     agregarEstudioSuperior() {  
       this.estudioSuperior.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:""  });
@@ -360,6 +397,55 @@ export class RegistrarEmpleadoComponent {
       });
   }
   
+  listarsexo() {
+    this.DatoGeneralesService$.listarSexo()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (estado) {
+          datos.length > 0 ? this.agregable = false : this.agregable = true;
+          this.tipoSexo = datos;
+        } else {
+          errorAlerta('Error', mensaje).then();
+        }
+      });
+  }
+  listarGrupoSanguineo() {
+    this.DatoGeneralesService$.listarGrupoSanguineo()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (estado) {
+          datos.length > 0 ? this.agregable = false : this.agregable = true;
+          this.tipoGrupoSanguineo = datos;
+        } else {
+          errorAlerta('Error', mensaje).then();
+        }
+      });
+  }
+  listarEstadoCivil() {
+    this.DatoGeneralesService$.listarEstadoCivil()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (estado) {
+          datos.length > 0 ? this.agregable = false : this.agregable = true;
+          this.estadoCivil = datos;
+        } else {
+          errorAlerta('Error', mensaje).then();
+        }
+      });
+  }
+
   actualizarTipo(tipo: string, isChecked: boolean) {
     if (isChecked) {
       // Si está marcado, agregamos el tipo al arreglo
@@ -413,26 +499,26 @@ export class RegistrarEmpleadoComponent {
       tipoDocumento: this.tipoDoc,
       numeroDocumento:this.numeroDocumento,
       codigoAirhsp:this.codigoAirhsp,
-      aPaterno: this.aPaterno.toUpperCase(),
-      aMaterno: this.aMaterno.toUpperCase(),
+      apellidoPaterno: this.aPaterno.toUpperCase(),
+      apellidoMaterno: this.aMaterno.toUpperCase(),
       nombres: this.nombres.toUpperCase(),    
       ruc: this.ruc,
-      estadoCivil: this.estadoCivil.toUpperCase(),
-      sexo: this.sexo.toUpperCase(),
-      gSanguineo: this.gSanguineo.toUpperCase(),
+      estadoCivil: this.estadoCivil,
+      sexo: this.sexo,
+      grupoSanguineo: this.gSanguineo,
       grupOcupacional:this.grupOcup,
       tipoEmpleado:this.tipoEmp,
       regimen:this.valorRegimen,
       tipoRegimen:this.valortipRegimen,
-      fNacimiento: this.fNacimiento,
-      tFijo: this.tFijo,
-      tMovil: this.tMovil,
-      correoE: this.correoE.toUpperCase(),         
+      fechaNacimiento: this.fNacimiento,
+      telefonoFijo: this.tFijo,
+      telefonoMovil: this.tMovil,
+      correoElectronico: this.correoE.toUpperCase(),         
       enfAlergias: this.enfAlergias.toUpperCase(),
       fechaIngreso:this.fechaIngreso,
       unidadOrganica:this.valorUnidad,
       servicio:this.valorServicio,
-      foto:foto
+      rutaFoto:this.rutaFoto
 
     }
     const datosContacto = {
@@ -446,7 +532,7 @@ export class RegistrarEmpleadoComponent {
       numDocumento: this.numeroDocumento,
       tipos:this.tipoDiscapacidad
     }
-
+   const fotoPersonal=this.fotoFile
 
     this.DatoGeneralesService$.guardarDatosEmpleado(
       datosPersonales,
@@ -462,6 +548,8 @@ export class RegistrarEmpleadoComponent {
       datosIdiomas,
       experienciaLaboral,
       laborDocencia,
+     fotoPersonal
+      
     ).pipe(
       finalize(() => {
         this.loading = false

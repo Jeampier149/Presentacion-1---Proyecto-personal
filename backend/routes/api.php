@@ -37,6 +37,10 @@ Route::controller(GeneralController::class)->group(function () {
     Route::post('general/listarRegimen', 'listarRegimen');
     Route::post('general/listarTipoGrupo', 'listarGrupo');
     Route::post('general/listarTipoRegimen', 'listarTipoRegimen');
+    Route::post('general/listarSexo', 'listarSexo');
+    Route::post('general/listarGrupoSanguineo', 'listarGrupoSanguineo');
+    Route::post('general/listarEstadoCivil', 'listarEstadoCivil');
+
 });
 
 Route::controller(ReniecController::class)->group(function () {

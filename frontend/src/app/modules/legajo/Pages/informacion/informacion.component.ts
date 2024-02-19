@@ -9,6 +9,7 @@ import {errorAlerta, successAlerta} from "@shared/utils";
 import {Session} from "@store/session.actions";
 import {SessionSelectors} from "@store/index.session";
 import {Store} from "@ngrx/store";
+import { ModalVerComponent } from '@modules/legajo/components/modal-ver/modal-ver.component';
 
 @Component({
   selector: 'app-informacion',
@@ -16,7 +17,7 @@ import {Store} from "@ngrx/store";
   styleUrl: './informacion.component.scss'
 })
 export class InformacionComponent {
-
+@ViewChild(ModalVerComponent) modalDatos?: any
 @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
   rutas: rutaBreadCrumb[] = [{nombre: 'Legajo'}];
   accesos: any[] | undefined = [];
@@ -33,9 +34,6 @@ export class InformacionComponent {
   filtroAppPaterno: string = '';
   filtroAppMaterno: string = '';
   filtroNombres: string = '';
-
-
-
 
   longitudes: number[] = [15, 20, 50, 100];
 
@@ -61,12 +59,11 @@ export class InformacionComponent {
       this.inpFocus.nativeElement.focus();
   }
 
-obtenerPermisos() {
+  obtenerPermisos() {
      this.store.select(SessionSelectors.session).subscribe((e) => {
           this.accesos = e.accesos;
       });
   }
-
   listarEmpleados() {
       this.loading = true;
       let datos: ListarPersonalParams = {
@@ -123,10 +120,10 @@ obtenerPermisos() {
   //    this.modalHC?.openModal(1);
   //}
 
+  verDatos(id: string) {
 
-
-
-
+    this.modalDatos?.openModal(2, id);
+  }
   editarEmpleado(codigo:string){
 
   }

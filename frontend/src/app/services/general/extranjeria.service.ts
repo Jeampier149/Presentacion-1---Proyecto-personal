@@ -11,7 +11,7 @@ export class ExtranjeriaService {
   constructor(private http: HttpClient) { }
 
   buscarMigraciones(documento: string): Observable<HttpResponseApi<MigracionesClass>> {
-    return this.http.get<HttpResponseApi>('/api/servicio/buscar-carne-extranjeria', {
+    return this.http.get<HttpResponseApi>('/api/extranjeria/buscarExtranjeria', {
         params: {documento: documento},
         responseType: "json",
     }).pipe(

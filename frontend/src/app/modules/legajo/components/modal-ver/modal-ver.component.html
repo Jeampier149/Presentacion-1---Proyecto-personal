@@ -1,0 +1,1221 @@
+<div #modalDatos class="modal fade" tabIndex="-1" *teleportTo="'body'">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Informacion Detallada</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-loading [mostrar]="loading">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card p-4">
+                                <div class="card-body">
+                                    <div class="row pt-2">
+                                        <div class="col-xl-12">
+                                            <div class="row w-100 d-block">
+                                                <div class="row  w-100 d-block">
+
+                                                    <legend>Datos Personales</legend>
+                                                    <div class="row mt-4 ">
+                                                        <div class="col-xl-2  col-8">
+
+
+                                                        </div>
+                                                        <div class="col-xl-10 ">
+                                                            <div class="row my-2 px-3 mb-3">
+
+                                                                <div class="col-xl-4 ">
+                                                                    <div class="input-group input-group-sm   ">
+                                                                        <div class="input-group-text d-personales ">
+                                                                            Apll. Paterno
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control  text-uppercase"
+                                                                            id="aPaterno" name="aPaterno"
+                                                                            [(ngModel)]="aPaterno" disabled>
+
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm ">
+                                                                        <div class="input-group-text d-personales ">
+                                                                            Apll. Materno
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm text-uppercase"
+                                                                            id="aMaterno" name="aMaterno"
+                                                                            aria-label="Small" [(ngModel)]="aMaterno"
+                                                                            disabled
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm ">
+                                                                        <div class="input-group-text d-personales">
+                                                                            Nombres
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm text-uppercase"
+                                                                            id="nombres" name="nombres"
+                                                                            aria-label="Small" required
+                                                                            [(ngModel)]="nombres"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="row my-2 px-3 mb-3">
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm ">
+                                                                        <div class="input-group-text d-personales ">Sexo
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            required aria-label="Small"
+                                                                            [(ngModel)]="sexo"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm ">
+                                                                        <div class="input-group-text d-personales">RUC
+                                                                            N°</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small" [(ngModel)]="ruc"
+                                                                            required
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm ">
+                                                                        <div class="input-group-text d-personales ">F.
+                                                                            Nacimiento
+                                                                        </div>
+                                                                        <input type="date"
+                                                                            class="form-control form-control-sm"
+                                                                            required aria-label="Small"
+                                                                            [(ngModel)]="fNacimiento"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="row my-2 px-3">
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales">
+                                                                            Telefono Fijo
+                                                                        </div>
+                                                                        <input type="number"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small" [(ngModel)]="tFijo"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales">
+                                                                            Telefono Movil
+                                                                        </div>
+                                                                        <input type="number"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small" [(ngModel)]="tMovil"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales ">
+                                                                            Correo E.</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            required aria-label="Small"
+                                                                            [(ngModel)]="correoE"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="row my-2 px-3">
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales"> G.
+                                                                            Sanguineo
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="gSanguineo" aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales">
+                                                                            Enf./Alergias
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small" [(ngModel)]="enfAlergias"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales ">
+                                                                            Estado Civil
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small" [(ngModel)]="estadoCivil"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card border mt-3">
+                                                        <div class="card-header bg-transparent p-2">
+                                                            <h6 class="my-0 b-900">En caso de emergencia contactar a:
+                                                            </h6>
+                                                        </div>
+                                                        <div class="card-body p-3">
+                                                            <div class="row">
+                                                                <div class="col-xl-6">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Nombre de
+                                                                            contacto</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small"
+                                                                            [(ngModel)]="nombreContacto"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-3">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Parentesco</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            aria-label="Small" [(ngModel)]="parentesco"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-3">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">N° de contacto
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="numContacto" aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row ms-1">
+                                                        <div class="col-xl-4 p-4 ">
+
+                                                            <div class="form-check form-switch  ">
+                                                                <label class="form-check-label"
+                                                                    for="flexSwitchCheckChecked">
+                                                                    <span>{{disca.checked?'Si':'No' }}</span>
+                                                                    Presenta
+                                                                    Discapacidad</label>
+                                                                <input class="form-check-input position-end "
+                                                                    type="checkbox" id="discapacidad" (change)="true"
+                                                                    #disca>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="disca.checked" class="col-xl-8 p-4">
+
+                                                            <label class="me-2" for="flexSwitchCheckChecked">Tipos
+                                                                Discapacidad :</label>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="fisicas" [(ngModel)]="fisicas"
+                                                                   >
+                                                                <label class="form-check-label"
+                                                                    for="fisicas">Fisicas</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="sensorial" [(ngModel)]="sensorial"
+                                                                   >
+                                                                <label class="form-check-label"
+                                                                    for="sensorial">Sensoriales</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="mentales" [(ngModel)]="mentales"
+                                                                    >
+                                                                <label class="form-check-label"
+                                                                    for="mentales">Mentales</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    id="intelectuales" [(ngModel)]="intelectuales"
+                                                                  >
+                                                                <label class="form-check-label"
+                                                                    for="intelectuales">Intelectuales</label>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div> <!-- fin de datos genrales -->
+                                                <div class="row w-100 d-block">
+                                                    <div class="row w-100 d-block  mt-3">
+                                                        <fieldset>
+                                                            <legend>Domicilio</legend>
+                                                            <span>Ubicacion Geografica</span>
+                                                            <div class="row mt-2">
+
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales ">
+                                                                            Departamento
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="departamento"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales ">
+                                                                            Provincia</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="provincia" aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Distrito
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="distrito" aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales ">
+                                                                            Tipo
+                                                                            de Via
+                                                                        </div>
+                                                                        <select class="form-select form-select-sm"
+                                                                            [(ngModel)]="via">
+                                                                            <option value="">Seleccionar
+                                                                            </option>
+                                                                            <option value="AVENIDA">Avenida
+                                                                            </option>
+                                                                            <option value="JIRON">Jirón</option>
+                                                                            <option value="CALLE">Calle</option>
+                                                                            <option value="PASAJE">Pasaje
+                                                                            </option>
+                                                                            <option value="ALAMEDA">Alameda
+                                                                            </option>
+                                                                            <option value="MALECON">Malecon
+                                                                            </option>
+                                                                            <option value="OVALO">Ovalo</option>
+                                                                            <option value="PARQUE">Parque
+                                                                            </option>
+                                                                            <option value="PLAZA">Plaza</option>
+                                                                            <option value="CARRETERA">Carretera
+                                                                            </option>
+                                                                            <option value="TROCHA">Trocha
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales">
+                                                                            Nombre de la via
+                                                                        </div>
+                                                                        <input type="text" class="form-control"
+                                                                            [(ngModel)]="nombreVia" aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-2">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Numero
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="numeroVia" aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-2">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Interior
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="interiorVia" aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row mt-2">
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales">
+                                                                            Tipo
+                                                                            de Zona
+                                                                        </div>
+                                                                        <select class="form-select form-select-sm"
+                                                                            [(ngModel)]="zona">
+                                                                            <option value="">Seleccionar
+                                                                            </option>
+                                                                            <option value="URBANIZACION">
+                                                                                Urbanización
+                                                                            </option>
+                                                                            <option value="PUEBLO JOVEN">Pueblo
+                                                                                Joven
+                                                                            </option>
+                                                                            <option value="UNIDAD VECINAL">
+                                                                                Unidad
+                                                                                Vecinal</option>
+                                                                            <option value="CONJUNTO HABITACIONAL">
+                                                                                Conjunto Habitacional</option>
+                                                                            <option value="ASENTAMIENTO HUMANO">
+                                                                                Asentamineto Humano</option>
+                                                                            <option value="COOPERATIVA">
+                                                                                Cooperativa
+                                                                            </option>
+                                                                            <option value="RESIDENCIAL">
+                                                                                Residencial
+                                                                            </option>
+                                                                            <option value="ZONA INDUSTRIAL">Zona
+                                                                                Industrial</option>
+                                                                            <option value="GRUPO">Grupo</option>
+                                                                            <option value="CACERIO">Cacerio
+                                                                            </option>
+                                                                            <option value="FUNDO">Fundo</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-4">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text d-personales">
+                                                                            Nombre de Zona
+                                                                        </div>
+                                                                        <input type="text" class="form-control"
+                                                                            [(ngModel)]="nombreZona" aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-2">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Numero
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="numeroZona" aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-2">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">Interior
+                                                                        </div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="interiorZona"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row mt-4">
+                                                                <div class="col-xl-12">
+                                                                    <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group-text ">
+                                                                            Referencia(Indicar
+                                                                            institucion
+                                                                            cercana)</div>
+                                                                        <input type="text"
+                                                                            class="form-control form-control-sm"
+                                                                            [(ngModel)]="referenciaDomicilio"
+                                                                            aria-label="Small"
+                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="row d-block w-100 mt-3">
+                                                        <div class="row">
+                                                            <form>
+                                                               
+                                                                <table class="table table-responsive">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Nombres</th>
+                                                                            <th>Apellidos</th>
+                                                                            <th>F. de Nacimiento</th>
+                                                                            <th>N °DNI</th>
+                                                                            <th>Parentesco</th>
+                                                                            <th>Institución / Entidad en
+                                                                                la que
+                                                                                labora
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr
+                                                                            *ngFor="let familiar of familiares; let i = index">
+                                                                            <td>
+                                                                                <input type="text"
+                                                                                    class="form-control form-control-sm"
+                                                                                    id="nombre{{i}}" name="nombre{{i}}"
+                                                                                    [(ngModel)]="familiar.nombre"
+                                                                                    required>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text"
+                                                                                    class="form-control form-control-sm"
+                                                                                    id="apeliidos{{i}}"
+                                                                                    name="apellidos{{i}}"
+                                                                                    [(ngModel)]="familiar.apellidos"
+                                                                                    required>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="date"
+                                                                                    class="form-control form-control-sm"
+                                                                                    id="fechaNacimiento{{i}}"
+                                                                                    name="fechaNacimiento{{i}}"
+                                                                                    [(ngModel)]="familiar.fechaNacimiento"
+                                                                                    required>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number"
+                                                                                    class="form-control form-control-sm"
+                                                                                    id="dni{{i}}" name="dni{{i}}"
+                                                                                    [(ngModel)]="familiar.dni" required>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text"
+                                                                                    class="form-control form-control-sm"
+                                                                                    id="parentesco{{i}}"
+                                                                                    name="parentesco{{i}}"
+                                                                                    [(ngModel)]="familiar.parentesco"
+                                                                                    required>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text"
+                                                                                    class="form-control form-control-sm"
+                                                                                    id="centroLaboral{{i}}"
+                                                                                    name="centroLaboral{{i}}"
+                                                                                    [(ngModel)]="familiar.centroLaboral"
+                                                                                    required>
+                                                                            </td>
+                                                                            <td>
+                                                                                
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </form>
+                                                        </div>
+                                                  
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-block w-100 mt-3">
+                                            <div class="row mt-2 ">
+                                                <div class="col-xl-6">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group-text ">
+                                                            Profesion</div>
+                                                        <input type="text" class="form-control form-control-sm"
+                                                            aria-label="Small" [(ngModel)]="profesion"
+                                                            aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group-text ">Lugar
+                                                            de
+                                                            Colegiatura
+                                                        </div>
+                                                        <input type="text" class="form-control form-control-sm"
+                                                            aria-label="Small" [(ngModel)]="lugarColeg"
+                                                            aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="row"></div>
+                                                <div class="col-xl-4">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group-text ">F. de
+                                                            colegiatura
+                                                        </div>
+                                                        <input type="date" class="form-control form-control-sm"
+                                                            aria-label="Small" [(ngModel)]="fechColeg"
+                                                            aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group-text ">
+                                                            F.termino de
+                                                            habilitacion</div>
+                                                        <input type="date" class="form-control form-control-sm"
+                                                            aria-label="Small" [(ngModel)]="fechTerColeg"
+                                                            aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group-text ">N°
+                                                            Colegiatura
+                                                        </div>
+                                                        <input type="text" class="form-control form-control-sm"
+                                                            aria-label="Small" [(ngModel)]="numColeg"
+                                                            aria-describedby="inputGroup-sizing-sm">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card border">
+                                                <div class="card-header bg-transparent p-2">
+                                                    <h6 class="my-0">Estudios Superiores
+                                                        (Universitarios
+                                                        -
+                                                        Tecnicos)
+                                                    </h6>
+                                                </div>
+                                                <div class="card-body p-3">
+                                                    <div class="row">
+                                                        <form>
+                                                           
+                                                            <table class="table table-responsive">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Centro de
+                                                                            estudios</th>
+                                                                        <th>Especialidad
+                                                                        </th>
+                                                                        <th>F.Inicio</th>
+                                                                        <th>F.Termino</th>
+                                                                        <th>Nivel alcanzado
+                                                                        </th>
+                                                                        <th>Documento
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr
+                                                                        *ngFor="let superior of estudioSuperior; let i = index">
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="centro{{i}}" name="centro{{i}}"
+                                                                                [(ngModel)]="superior.centro" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="especialidad{{i}}"
+                                                                                name="especialidad{{i}}"
+                                                                                [(ngModel)]="superior.especialidad"
+                                                                                required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="inicio{{i}}" name="inicio{{i}}"
+                                                                                [(ngModel)]="superior.inicio" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="termino{{i}}" name="termino{{i}}"
+                                                                                [(ngModel)]="superior.termino" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="nivel{{i}}" name="nivel{{i}}"
+                                                                                [(ngModel)]="superior.nivel" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="file"
+                                                                                class="form-control form-control-sm"
+                                                                                id="filePro{{i}}" name="filePro{{i}}"
+                                                                              
+                                                                                required>
+                                                                        </td>
+                                                                        <td>
+                                                                            
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card border">
+                                                <div class="card-header bg-transparent p-2">
+                                                    <h6 class="my-0">Estudios Postgrado (
+                                                        Maestria -
+                                                        Doctorado)
+                                                    </h6>
+                                                </div>
+                                                <div class="card-body p-3">
+                                                    <div class="row">
+                                                        <form>
+                                                            
+                                                            <table class="table table-responsive">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Centro de
+                                                                            estudios</th>
+                                                                        <th>Especialidad
+                                                                        </th>
+                                                                        <th>F.Inicio</th>
+                                                                        <th>F.Termino</th>
+                                                                        <th>Nivel alcanzado
+
+                                                                        </th>
+                                                                        <th>Documento</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr
+                                                                        *ngFor="let postg of estudioPostgrado; let i = index">
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="centro{{i}}" name="centro{{i}}"
+                                                                                [(ngModel)]="postg.centro" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="especialidad{{i}}"
+                                                                                name="especialidad{{i}}"
+                                                                                [(ngModel)]="postg.Especialidad"
+                                                                                required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="inicio{{i}}" name="inicio{{i}}"
+                                                                                [(ngModel)]="postg.inicio" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="termino{{i}}" name="termino{{i}}"
+                                                                                [(ngModel)]="postg.termino" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="nivel{{i}}" name="nivel{{i}}"
+                                                                                [(ngModel)]="postg.nivel" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="file"
+                                                                                class="form-control form-control-sm"
+                                                                                id="filePost{{i}}" name="filePost{{i}}"
+                                                                               
+                                                                                >
+                                                                        </td>
+                                                                        <td>
+                                                                           
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card border">
+                                                <div class="card-header bg-transparent p-2">
+                                                    <h6 class="my-0">Especializacion -
+                                                        Diplomados
+                                                    </h6>
+                                                </div>
+                                                <div class="card-body p-3">
+                                                    <div class="row">
+                                                        <form>
+                                                          
+                                                            <table class="table table-responsive">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Centro de
+                                                                            estudios</th>
+                                                                        <th>Materia</th>
+                                                                        <th>F.Inicio</th>
+                                                                        <th>F.Termino</th>
+                                                                        <th>Certificado
+                                                                            Obtenido
+                                                                        </th>
+                                                                        <th>Documento</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr
+                                                                        *ngFor="let espe of especializacion; let i = index">
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="centro{{i}}" name="centro{{i}}"
+                                                                                [(ngModel)]="espe.centro" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="materia{{i}}" name="materia{{i}}"
+                                                                                [(ngModel)]="espe.materia" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="inicio{{i}}" name="inicio{{i}}"
+                                                                                [(ngModel)]="espe.inicio" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="termino{{i}}" name="termino{{i}}"
+                                                                                [(ngModel)]="espe.termino" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="certificado{{i}}"
+                                                                                name="certificado{{i}}"
+                                                                                [(ngModel)]="espe.certificado" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="file"
+                                                                                class="form-control form-control-sm"
+                                                                                id="fileEs{{i}}" name="fileEs{{i}}"
+                                                                               
+                                                                                required>
+                                                                        </td>
+                                                                        <td>
+                                                                           
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card border">
+                                                <div class="card-header bg-transparent p-2">
+                                                    <h6 class="my-0">Curso - Seminario
+                                                    </h6>
+                                                </div>
+                                                <div class="card-body p-3">
+                                                    <div class="row">
+                                                        <form>
+                                                            
+                                                            <table class="table table-responsive">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Centro de
+                                                                            estudios</th>
+                                                                        <th>Materia</th>
+                                                                        <th>F.Inicio</th>
+                                                                        <th>F.Termino</th>
+                                                                        <th>Certificado
+                                                                            Obtenido
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let curso of cursos; let i = index">
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="centro{{i}}" name="centro{{i}}"
+                                                                                [(ngModel)]="curso.centro" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="materia{{i}}" name="materia{{i}}"
+                                                                                [(ngModel)]="curso.materia" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="inicio{{i}}" name="inicio{{i}}"
+                                                                                [(ngModel)]="curso.inicio" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                id="termino{{i}}" name="termino{{i}}"
+                                                                                [(ngModel)]="curso.termino" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="certificado{{i}}"
+                                                                                name="certificado{{i}}"
+                                                                                [(ngModel)]="curso.certificado"
+                                                                                required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="file"
+                                                                                class="form-control form-control-sm"
+                                                                                id="fileCurso{{i}}"
+                                                                                name="fileCurso{{i}}"
+                                                                                
+                                                                                required>
+                                                                        </td>
+                                                                        <td>
+                                                                           
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card border">
+                                                <div class="card-header bg-transparent p-2">
+                                                    <h6 class="my-0">Idiomas
+                                                    </h6>
+                                                </div>
+                                                <div class="card-body p-3">
+                                                    <div class="row">
+                                                        <form>
+                                                            
+                                                            <table class="table table-responsive">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Lengua
+                                                                            Extranjera</th>
+                                                                        <th>Nivel </th>
+                                                                        <th>Descripcion</th>
+                                                                        <th>Documento</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let idioma of idiomas; let i = index">
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="lengua{{i}}" name="lengua{{i}}"
+                                                                                [(ngModel)]="idioma.lengua" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="nivel{{i}}" name="nivel{{i}}"
+                                                                                [(ngModel)]="idioma.nivel" required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="descripcion{{i}}"
+                                                                                name="descripcion{{i}}"
+                                                                                [(ngModel)]="idioma.descripcion"
+                                                                                required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                id="fileID{{i}}" name="fileID{{i}}"
+                                                                             
+                                                                                required>
+                                                                        </td>
+                                                                        <td>
+                                                                            <
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                       
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- fin del acordtion datos profesioanles  -->
+
+                            <div class="card border">
+                                <div class="card-header bg-transparent p-2">
+                                    <h6 class="my-0">Experiencia Laboral
+                                    </h6>
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <form>
+                                          
+                                            <table class="table table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Institucion /
+                                                            Empresa</th>
+                                                        <th>Cargo -Actividad
+                                                            Desempeñada
+                                                        </th>
+                                                        <th>F.Inicio</th>
+                                                        <th>F.Termino</th>
+                                                        <th>Documento</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let expL of experienciaLaboral; let i = index">
+                                                        <td>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                id="institucionEL{{i}}" name="institucionEL{{i}}"
+                                                                [(ngModel)]="expL.institucionEL" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                id="cargoEL{{i}}" name="cargoEL{{i}}"
+                                                                [(ngModel)]="expL.cargoEL" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="date" class="form-control form-control-sm"
+                                                                id="inicioEL{{i}}" name="inicioEL{{i}}"
+                                                                [(ngModel)]="expL.inicioEL" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="date" class="form-control form-control-sm"
+                                                                id="terminoEL{{i}}" name="terminoEL{{i}}"
+                                                                [(ngModel)]="expL.terminoEL" required>
+                                                        </td>
+                                                        <td>
+                                                            <input type="file" class="form-control form-control-sm"
+                                                                id="fileEL{{i}}" name="fileEL{{i}}"
+                                                              
+                                                                required>
+                                                        </td>
+                                                        <td>
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card border">
+                                <div class="card-header bg-transparent p-2">
+                                    <h6 class="my-0">Experiencia de Docencia
+                                    </h6>
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <form>
+                                            
+                                            <div class="table-responsive">
+                                                <table class="table ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Centro de
+                                                                Enseñanza</th>
+                                                            <th>Curso Dictado
+                                                            </th>
+                                                            <th>F.Inicio</th>
+                                                            <th>F.Termino</th>
+                                                            <th>Documento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let expD of laborDocencia; let i = index">
+                                                            <td>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    id="centroD{{i}}" name="centroD{{i}}"
+                                                                    [(ngModel)]="expD.centroD" required>
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    id="cursoD{{i}}" name="cursoD{{i}}"
+                                                                    [(ngModel)]="expD.cursoD" required>
+                                                            </td>
+                                                            <td>
+                                                                <input type="date" class="form-control form-control-sm"
+                                                                    id="inicioD{{i}}" name="inicioD{{i}}"
+                                                                    [(ngModel)]="expD.inicioD" required>
+                                                            </td>
+                                                            <td>
+                                                                <input type="date" class="form-control form-control-sm"
+                                                                    id="terminoD{{i}}" name="terminoD{{i}}"
+                                                                    [(ngModel)]="expD.terminoD" required>
+                                                            </td>
+                                                            <td>
+                                                                <input type="file" class="form-control form-control-sm"
+                                                                    id="fileED{{i}}" name="fileED{{i}}"
+                                                                 
+                                                                    required>
+                                                            </td>
+                                                            <td>
+                                                               
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-xl-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales ">
+                                    Condición
+                                </div>
+                                <select class="form-select form-select-sm" [(ngModel)]="tipoEmp">
+                                    <option>Select</option>
+                                    <option *ngFor="let tipoE of tipoEmpleado" value="{{tipoE.idTipo}}">
+                                        {{tipoE.tipo}}</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales ">
+                                    G.Ocupacional</div>
+                                <select class="form-select form-select-sm" [(ngModel)]="grupOcup">
+                                    <option>Select</option>
+                                    <option *ngFor="let tipoG of tipoGrupo" value="{{tipoG.id}}">{{tipoG.tipoG}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">Regimen</div>
+                              
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">T.Regimen
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+
+                        <div class="col-xl-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">
+                                    U.Organica/Dpto</div>
+                                <select class="form-select form-select-sm" [(ngModel)]="valorUnidad">
+                                    <option value="">Seleccionar</option>
+                                    <option value="1">Oficina Personal
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">
+                                    Servicio/Equipo</div>
+                                <select class="form-select form-select-sm" [(ngModel)]="valorServicio">
+                                    <option value="">Seleccinar</option>
+                                    <option value="1">Equipo Legajo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">Cargo</div>
+                                <select class="form-select form-select-sm" [(ngModel)]="valorCargo">
+                                    <option value="">Seleccionar</option>
+                                    <option value="TECNICO ADMINISTRATIVO">
+                                        Tecnico
+                                        Administrativo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-2">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text ">Nivel</div>
+                                <select class="form-select form-select-sm" [(ngModel)]="valorNivel">
+                                    <option value="">Seleccionar</option>
+                                    <option value="TD">TD</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-xl-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales">
+                                    C. AIRSHP
+                                </div>
+                                <input type="text" class="form-control" [(ngModel)]="codigoAirhsp" aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                        <div class="col-xl-3">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-text d-personales">
+                                    F. Ingreso
+                                </div>
+                                <input type="date" class="form-control" [(ngModel)]="fechaIngreso" aria-label="Small"
+                                    aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                </app-loading>
+
+                <div class="modal-footer justify-content-between">
+
+                    <div>
+                        <button class="btn btn-danger waves-light waves-effect btn-label m-1" type="button"
+                            (click)="closeModal()">
+                            Salir &ensp;<i class="fas fa-door-open label-icon"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

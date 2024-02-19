@@ -10,11 +10,13 @@ import { InformacionComponent } from './Pages/informacion/informacion.component'
 import {ReactiveFormsModule} from "@angular/forms";
 import { RegistrarEmpleadoComponent } from './Pages/registrar-empleado/registrar-empleado.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ModalVerComponent } from './components/modal-ver/modal-ver.component';
 
 @NgModule({
   declarations: [
     InformacionComponent,
     RegistrarEmpleadoComponent,
+    ModalVerComponent
 
   
   ],

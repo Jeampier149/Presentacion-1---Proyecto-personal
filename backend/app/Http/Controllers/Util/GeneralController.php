@@ -39,4 +39,19 @@ class GeneralController extends JSONResponseController
         return $this->sendResponse(200, true, '', $resultado);
 
     }
+    public function listarSexo(Request $request){
+        $sexo =new GeneralModel();
+        $resultado=$sexo->listarSexo();
+        return $this->sendResponse(200, true, '', $resultado);
+    }
+    public function listarGrupoSanguineo(Request $request){
+        $sexo =new GeneralModel();
+        $resultado=$sexo->listarGrupoSanguineo();
+        return $this->sendResponse(200, true, '', $resultado);
+    }
+    public function listarEstadoCivil(Request $request){
+        $sexo =new GeneralModel();
+        $resultado=$sexo->listarEstadoCivil();
+        return $this->sendResponse(200, true, '', $resultado);
+    }
 }

@@ -21,4 +21,7 @@ class GeneralModel extends Model
   public function listarGrupo(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_tipo_grupo_ocupacional');}
   public function listarRegimen(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_regimen');}
   public function listarTipoRegimen($id){  return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_tipo_regimen ?',[$id]);}
+  public function listarSexo(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_sexo');}
+  public function listarGrupoSanguineo(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_grupo_sanguineo');}
+  public function listarEstadoCivil(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_estado_civil');}  
 }

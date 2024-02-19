@@ -50,6 +50,21 @@ export class DatoGeneralesService {
     listarTipoRegimen(id: number) {
         return this.http.post<HttpResponseApi>('/api/general/listarTipoRegimen', { id }, { responseType: "json" }).pipe(shareReplay(1));
     }
+    listarSexo() {
+        return this.http.post<HttpResponseApi>('/api/general/listarSexo', {
+            responseType: "json"
+        }).pipe(shareReplay(1));
+    }
+    listarGrupoSanguineo() {
+        return this.http.post<HttpResponseApi>('/api/general/listarGrupoSanguineo', {
+            responseType: "json"
+        }).pipe(shareReplay(1));
+    }
+    listarEstadoCivil() {
+        return this.http.post<HttpResponseApi>('/api/general/listarEstadoCivil', {
+            responseType: "json"
+        }).pipe(shareReplay(1));
+    }
 
 
     guardarDatosEmpleado(
@@ -66,13 +81,16 @@ export class DatoGeneralesService {
         datosIdiomas:any,
         experienciaLaboral:any,
         laborDocencia:any,
-
+        fotoPersonal:any
         ) 
         
         {
  
             const formData = new FormData();
+            fotoPersonal.forEach((datos:any) => {
+                formData.append(`foto`, datos);
 
+            });
             datosEstudioSuperior.forEach((datos:any, index:any) => {
                 formData.append(`estudioSuperior${index}_archivo`, datos.archivo);
 

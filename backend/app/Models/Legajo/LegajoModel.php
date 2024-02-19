@@ -93,7 +93,7 @@ class LegajoModel extends Model
                     $datosPersonales['fechaIngreso'],
                     $datosPersonales['unidadOrganica'],
                     $datosPersonales['servicio'],
-                    $datosPersonales['foto']
+                    $datosPersonales['rutaFoto']
 
                 ]);
             } catch (\Exception $e) {
