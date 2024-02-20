@@ -121,8 +121,8 @@ export class InformacionComponent {
   //}
 
   verDatos(id: string) {
+    this.modalDatos?.openModal(id);
 
-    this.modalDatos?.openModal(2, id);
   }
   editarEmpleado(codigo:string){
 

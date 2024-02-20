@@ -3,7 +3,7 @@ import { HttpClient} from "@angular/common/http";
 import { map, Observable, shareReplay } from "rxjs";
 import { HttpResponseApi } from "@interfaces/http.interface";
 import { ListarPersonalParams } from "@interfaces/legajo/listar-datos-g";
-import { FinanciadorClass, DatosClass } from "@classes/legajo/datos.class";
+
 
 @Injectable({
     providedIn: 'root'

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Legajo\LegajoController;
+use App\Http\Controllers\legajo\VerDatosController;
 use App\Http\Controllers\Service\ExtranjeriaController;
 use App\Http\Controllers\Service\ReniecController;
 use App\Http\Controllers\Util\GeneralController;
@@ -49,4 +50,13 @@ Route::controller(ReniecController::class)->group(function () {
 });
 Route::controller(ExtranjeriaController::class)->group(function () {
     Route::get('extranjeria/buscarExtranjeria', 'buscarCarneExtranjeria');
+});
+
+Route::controller(VerDatosController::class)->group(function () {
+    Route::post('datos/datosEmpleado', 'listarDatosEmpleado');
+    Route::post('datos/datosDomicilio', 'listarDatosEmpleado');
+    Route::post('datos/datosDiscapacidad', 'listarDatosEmpleado');
+    Route::post('datos/datosContactoEmergencia', 'listarDatosEmpleado');
+    Route::post('datos/datosFamiliares', 'listarDatosEmpleado');
+
 });

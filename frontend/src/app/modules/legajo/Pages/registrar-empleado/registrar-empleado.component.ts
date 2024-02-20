@@ -65,7 +65,7 @@ export class RegistrarEmpleadoComponent {
   tipoRegimen: any[] = []
   tipoSexo:any[]=[]
   tipoGrupoSanguineo:any[]=[]
-  tipoEstadoCivil:string[]=[]
+  tipoEstadoCivil:any[]=[]
 
   //--VALOR DE SELECTS----//
   valorRegimen: any = ""
@@ -78,7 +78,8 @@ export class RegistrarEmpleadoComponent {
   codigoAirhsp:string=""
   //---DATOS PERSONALES FORM
   tipoDoc: string = "";
-  numeroDocumento: string = ""
+  numeroDocumento: string = "";
+  nacionalidad:string="";
   tipoEmp: string = "";
   grupOcup: string = "";
   aPaterno: string = "";
@@ -207,28 +208,27 @@ export class RegistrarEmpleadoComponent {
   this.familiares[index].fechaNacimiento=datos.obtenerFechaNacimiento();
  }
  
-  agregarFamiliar() { 
-    if(this.familiares.length<=5)  this.familiares.push({ nombre: '', apellidos: '', fechaNacimiento: '',dni: '', parentesco: "", centroLaboral: "" });
-   }
-   
-    agregarEstudioSuperior() {  
-      this.estudioSuperior.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:""  });
-  }
-  
-  agregarEstudioPostgrado() { 
-  
-    this.estudioPostgrado.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:"" }); }
-  agregarEspecializacion() { 
-  this.especializacion.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: null,ruta:"" }); }
-  agregarCursos() { 
-    this.cursos.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:""  }); }
-  agregarIdioma() { 
-    this.idiomas.push({ lenguaE: '', basico: "", intermedio: '', avanzado: "", archivo: "",ruta:""  }); }
-  agregarExperiencia() {
-     this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "", archivo:""}); }
-  agregarDocencia() {
-     this.laborDocencia.push({ centroEnseñanza: '', curso: "", inicio: '', termino: "", archivo: "",ruta: ""}); 
-   }
+ agregarFamiliar() { 
+  if(this.familiares.length<=5)this.familiares.push({ nombre: '', apellidos: '', fechaNacimiento: '',dni: '', parentesco: "", centroLaboral: "" });
+ }
+
+  agregarEstudioSuperior() {     
+  if(this.estudioSuperior.length<=5) this.estudioSuperior.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:""  });
+}
+agregarEstudioPostgrado() { 
+  if(this.estudioPostgrado.length<=5) this.estudioPostgrado.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:"" }); }
+agregarEspecializacion() { 
+if(this.especializacion.length<=5) this.especializacion.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: null,ruta:"" }); }
+agregarCursos() { 
+if(this.cursos.length<=5)  this.cursos.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:""  }); }
+agregarIdioma() { 
+ if(this.idiomas.length<=4) this.idiomas.push({ lenguaE: '', basico: "", intermedio: '', avanzado: "", archivo: "",ruta:""  }); }
+agregarExperiencia() {
+ if(this.seleccionarArchivoExpLaboral.length<=10)  this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "", archivo:""}); }
+agregarDocencia() {
+  if(this.laborDocencia.length<=10) this.laborDocencia.push({ centroEnseñanza: '', curso: "", inicio: '', termino: "", archivo: "",ruta: ""}); 
+ }
+
 
   eliminarItem(index: number, nombre: keyof RegistrarEmpleadoComponent) { this[nombre].splice(index, 1); }
 
@@ -371,6 +371,14 @@ export class RegistrarEmpleadoComponent {
       });
   }
 
+
+  cambioNacionalidad(){
+    if(this.tipoDoc=='1'){
+      this.nacionalidad='Peruana'
+    }else{
+      this.nacionalidad=""
+    }
+  }
   cambioTipo() {
     let id = this.valorRegimen
     if (id.length > 0) {
@@ -439,7 +447,7 @@ export class RegistrarEmpleadoComponent {
       .subscribe(({ estado, mensaje, datos }) => {
         if (estado) {
           datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.estadoCivil = datos;
+          this.tipoEstadoCivil = datos;
         } else {
           errorAlerta('Error', mensaje).then();
         }

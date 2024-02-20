@@ -7,22 +7,19 @@
                     <div class="col-xl-12">
                         <app-loading [mostrar]="loading">
                             <div class="row w-100 d-block">
-                                <div class="row data-local">
+                                <div class="row data-local d-flex justify-content-between">
                                     <div class="col-xl-4">
                                         <div class="row">
                                             <div class="col-xl-6">
                                                 <div class="form-group">
                                                     <div class="mb-3">
                                                         <label class="form-label form-label-sm">TIPO DOCUMENTO</label>
-                                                        <select class="form-select form-select-sm  " required bsInvalid
-                                                            [(ngModel)]="tipoDoc">
-
+                                                        <select class="form-select form-select-sm" required bsInvalid
+                                                            [(ngModel)]="tipoDoc"   (change)="cambioNacionalidad()">
                                                             <option></option>
                                                             <option *ngFor="let tipoD of datos" value="{{tipoD.id}}">
                                                                 {{tipoD.descripcion}}</option>
                                                         </select>
-
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -47,9 +44,17 @@
                                         </div>
 
                                     </div>
+                                    <div class="col-xl-3 mt-4 me-4">
+                                                          
+                                            <div class="input-group input-group-sm ">
+                                                <div class="input-group-text d-personales ">Nacionalidad
+                                                </div>
+                                                <input type="text" class="form-control  text-uppercase"
+                                                    bsInvalid required id="nacionalidad" name="nacionalidad" 
+                                                    [(ngModel)]="nacionalidad">
 
-
-
+                                            </div>                                       
+                                    </div>
                                 </div>
                                 <div class="row  w-100 d-block">
                                     <fieldset>
@@ -119,7 +124,7 @@
                                                             </div>
                                                             <select class="form-select form-select-sm  " required
                                                                 bsInvalid [(ngModel)]="sexo">
-                                                                <option disabled selected>Seleccionar</option>
+                                                                <option value="" selected>Seleccionar</option>
                                                                 <option *ngFor="let tipoS of tipoSexo"
                                                                     value="{{tipoS.tipo}}">
                                                                     {{tipoS.tipo}}</option>
@@ -167,14 +172,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
-                                                        <form action="">
+                                                        
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text d-personales ">Correo E.</div>
                                                             <input type="email" class="form-control form-control-sm"
                                                             bsInvalid required  aria-label="Small" [(ngModel)]="correoE"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
-                                                    </form>
+                                                
                                                     </div>
 
                                                 </div>
@@ -208,11 +213,11 @@
                                                             <div class="input-group-text d-personales ">Estado Civil
                                                             </div>
                                                             <select class="form-select form-select-sm"
-                                                                [(ngModel)]="estadoCivil">
-                                                                <option value="SOLTERO">Soltero/a</option>
-                                                                <option value="CASADO">Casado/a</option>
-                                                                <option value="DIVORCIADO">Divorciado/a</option>
-                                                                <option value="VIUDO">Viudo/a</option>
+                                                                [(ngModel)]="estadoCivil" bsInvalid required>
+                                                                <option value="" selected>Seleccionar</option>
+                                                                <option *ngFor="let tipoX of tipoEstadoCivil"
+                                                                    value="{{tipoX.descripcion}}">
+                                                                    {{tipoX.descripcion}}</option>
                                                             </select>
 
                                                         </div>

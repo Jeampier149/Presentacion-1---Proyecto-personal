@@ -1,19 +1,14 @@
+import { ModalDatosService } from './../../../../services/legajo/modal-datos.service';
 import { Modal } from 'bootstrap';
 import { Component, ViewChild, ElementRef, } from '@angular/core';
-
+import { finalize } from 'rxjs';
 @Component({
   selector: 'app-modal-ver',
   templateUrl: './modal-ver.component.html',
   styleUrl: './modal-ver.component.scss'
 })
 export class ModalVerComponent {
-  modal: any;
-  resolve: any;
-  reject: any;
-  idMenu: string = '';
-  tipo: number = 1; // 1 Nuevo, 2 Editar
-  loading: any
-
+   pkEmpleado:string="";
 
   fotoPersonal:File []=[]
   rutaFoto:string=""
@@ -39,6 +34,7 @@ export class ModalVerComponent {
   //---DATOS PERSONALES FORM
   tipoDoc: string = "";
   numeroDocumento: string = ""
+  nacionalidad:string=""
   tipoEmp: string = "";
   grupOcup: string = "";
   aPaterno: string = "";
@@ -95,6 +91,7 @@ export class ModalVerComponent {
   datosContacto: string[] = [];
   mensajeLoading: string = '';
 
+  loading: boolean = false;
   //arrays de archivos
   archivoSuperior: any []=[]
   archivoPostgrado: any []=[]
@@ -103,15 +100,40 @@ export class ModalVerComponent {
   @ViewChild('selFocus') selFocus!: ElementRef;
   @ViewChild('modalDatos') modalEl!: any;
 
+
+  constructor(private ModalDatosService$:ModalDatosService){
+   
+  }
+
   ngAfterViewInit() {
     this.modalEl = new Modal(this.modalEl.nativeElement, {
       backdrop: 'static',
       keyboard: false
     });
   }  
+  
 
-  openModal() {
+  openModal(id:string) {
     this.modalEl.show();
+    this.listarDatosEmpleado(id)
+    
+  }
+
+  listarDatosEmpleado(id:string){
+    this.loading=true
+    this.ModalDatosService$.listarDatosEmpleado(id).pipe(
+      finalize(() => {
+        this.loading = false
+    })
+    ).subscribe(respuesta => {
+      const {estado, mensaje, datos} = respuesta;
+       
+      if (!estado) {        
+          return;
+      }   
+  });
+
+      
   }
 
   closeModal() {

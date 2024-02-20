@@ -146,7 +146,7 @@ class LegajoController extends JSONResponseController
         }
         $legajoModel = new LegajoModel();
         $resultado = $legajoModel->registrarEmpleado($datosPersonales, $datosContacto, $datosDiscapacidad, $datosDomicilio, $datosFamiliares, $datosProfesion, $datosEstudioSuperior);
-        return $this->sendResponse(200, true, 'Datos Registrados Correctamente', $resultado);
+        return $this->sendResponse(200, true,$resultado);
   
 
 
