@@ -65,6 +65,16 @@ export class DatoGeneralesService {
             responseType: "json"
         }).pipe(shareReplay(1));
     }
+    listarParentesco() {
+        return this.http.post<HttpResponseApi>('/api/general/listarParentesco', {
+            responseType: "json"
+        }).pipe(shareReplay(1));
+    }
+    listarProfesiones() {
+        return this.http.post<HttpResponseApi>('/api/general/listarProfesiones', {
+            responseType: "json"
+        }).pipe(shareReplay(1));
+    }
 
 
     guardarDatosEmpleado(

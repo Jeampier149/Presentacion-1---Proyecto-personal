@@ -64,7 +64,7 @@ class LegajoController extends JSONResponseController
             'apellidoPaterno' => 'required',
             'apellidoMaterno' => 'required',
             'nombres' => 'required',
-            'ruc' => 'string',
+            'ruc' => 'string| max:11',
             'estadoCivil' => 'required',
             'sexo' => 'required',
             'grupoSanguineo' => 'required',
@@ -74,12 +74,14 @@ class LegajoController extends JSONResponseController
             'tipoRegimen' => 'required',
             'fechaNacimiento' => 'string',
             'telefonoFijo' => 'required',
-            'telefonoMovil' => 'required',
+            'telefonoMovil' => 'required | max:9',
             'correoElectronico' => 'required|email',
             'enfAlergias' => 'string',
             'fechaIngreso' => 'string',
             'unidadOrganica' => 'required',
-            'servicio' => 'required'
+            'servicio' => 'required',
+            'nacionalidad' => 'required',
+            'tipoEmpleado' => 'required'
 
         ];
         $validacionDatosEmpleado = Validator::make($datosPersonales, $reglasDatosEmpleado);
@@ -127,6 +129,12 @@ class LegajoController extends JSONResponseController
         $datosFamiliares = json_decode($request->post('datosFamiliares'), true);
         $datosProfesion = json_decode($request->post('datosProfesion'), true);
         $datosEstudioSuperior = json_decode($request->post('datosEstudioSuperior'), true);
+        $datosPostgrado = json_decode($request->post('datosPostgrado'), true);
+        $datosEspecialidades = json_decode($request->post('datosEspecializacion'), true);
+        $datosCursos= json_decode($request->post('datosCursos'), true);
+        $datosIdiomas= json_decode($request->post('datosIdiomas'), true);
+        $datosExpLaboral= json_decode($request->post('experienciaLaboral'), true);
+        $datosLaborDocencia= json_decode($request->post('laborDocencia'), true);
         $numeroDocumento = $datosPersonales['numeroDocumento'];
         $archivosT = $request->file();       
         foreach ($archivosT as $archivo) {
@@ -144,10 +152,15 @@ class LegajoController extends JSONResponseController
             }
             // Subir el archivo al servidor FTP
         }
+
+
+        
         $legajoModel = new LegajoModel();
-        $resultado = $legajoModel->registrarEmpleado($datosPersonales, $datosContacto, $datosDiscapacidad, $datosDomicilio, $datosFamiliares, $datosProfesion, $datosEstudioSuperior);
-        return $this->sendResponse(200, true,$resultado);
-  
+        $resultado = $legajoModel->registrarEmpleado($datosPersonales, $datosContacto, $datosDiscapacidad, $datosDomicilio, $datosFamiliares, $datosProfesion,
+                                                     $datosEstudioSuperior,$datosPostgrado,$datosEspecialidades,$datosCursos,$datosIdiomas,$datosExpLaboral,$datosLaborDocencia);
+
+         return $this->sendResponse(200, true,$resultado->mensaje,$resultado->dato);
+         
 
 
        

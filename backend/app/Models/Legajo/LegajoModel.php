@@ -58,8 +58,13 @@ class LegajoModel extends Model
         array $datosDomicilio,
         array $datosFamiliares,
         array $datosProfesion,
-        array $datosEstudioSuperior
-
+        array $datosEstudioSuperior,
+        array $datosPostgrado,
+        array $datosEspecialidades,
+        array $datosCursos,
+        array $datosIdiomas,
+        array $datosExpLaboral,
+        array $datosLaborDocencia,
     ) {
        $numDocumento=$datosPersonales['numeroDocumento'];
         // Iniciar una transacción para asegurar que todas las inserciones se realicen correctamente
@@ -70,30 +75,31 @@ class LegajoModel extends Model
 
             // Iterar sobre los datos personales 
             try {
-                DB::statement('EXEC dbo.pl_sp_insertar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                $resultado = DB::selectOne('EXEC dbo.pl_sp_insertar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
                     $datosPersonales['tipoDocumento'],
                     $datosPersonales['numeroDocumento'],
                     $datosPersonales['codigoAirhsp'],
-                    $datosPersonales['aPaterno'],
-                    $datosPersonales['aMaterno'],
+                    $datosPersonales['apellidoPaterno'],
+                    $datosPersonales['apellidoMaterno'],
                     $datosPersonales['nombres'],
                     $datosPersonales['ruc'],
                     $datosPersonales['estadoCivil'],
                     $datosPersonales['sexo'],
-                    $datosPersonales['gSanguineo'],
+                    $datosPersonales['grupoSanguineo'],
                     $datosPersonales['grupOcupacional'],
                     $datosPersonales['tipoEmpleado'],
                     $datosPersonales['regimen'],
                     $datosPersonales['tipoRegimen'],
-                    $datosPersonales['fNacimiento'],
-                    $datosPersonales['tFijo'],
-                    $datosPersonales['tMovil'],
-                    $datosPersonales['correoE'],
+                    $datosPersonales['fechaNacimiento'],
+                    $datosPersonales['telefonoFijo'],
+                    $datosPersonales['telefonoMovil'],
+                    $datosPersonales['correoElectronico'],
                     $datosPersonales['enfAlergias'],
                     $datosPersonales['fechaIngreso'],
                     $datosPersonales['unidadOrganica'],
                     $datosPersonales['servicio'],
-                    $datosPersonales['rutaFoto']
+                    $datosPersonales['rutaFoto'],
+                    $datosPersonales['nacionalidad']
 
                 ]);
             } catch (\Exception $e) {
@@ -152,10 +158,11 @@ class LegajoModel extends Model
             //insertar datos familiares
             try {
                 foreach ($datosFamiliares as $familiar) {
-                    DB::statement('EXEC dbo.pl_sp_insertar_datos_familiar ?,?,?,?,?,?,?', [
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_familiar ?,?,?,?,?,?,?,?', [
                         $familiar['apellidos'],
                         $familiar['nombre'],
                         $familiar['fechaNacimiento'],
+                        $familiar['tipoD'],
                         $familiar['dni'],
                         $familiar['parentesco'],
                         $familiar['centroLaboral'],
@@ -199,20 +206,122 @@ class LegajoModel extends Model
                 echo 'Error al ejecutar el procedimiento almacenado: pl_sp_insertar_datos_estudio_superior' . $e->getMessage();
             }
 
+            //insertar datos  postgrado
+            try {
+
+                foreach ($datosPostgrado as $postgrado) {
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_postgrado ?,?,?,?,?,?,?', [
+                        $postgrado['centro'],
+                        $postgrado['especialidad'],
+                        $postgrado['inicio'],
+                        $postgrado['termino'],
+                        $postgrado['nivel'],
+                        $postgrado['ruta'],
+                        $numDocumento
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_insertar_datos_estudio_postgrado' . $e->getMessage();
+            }
+            //insertar Especialidades 
+            try {
+
+                foreach ($datosEspecialidades as $especialidad) {
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_especialidad ?,?,?,?,?,?,?', [
+                        $especialidad['centro'],
+                        $especialidad['materia'],
+                        $especialidad['inicio'],
+                        $especialidad['termino'],
+                        $especialidad['certificacion'],
+                        $especialidad['ruta'],
+                        $numDocumento
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_insertar_datos_estudio_especialidad' . $e->getMessage();
+            }
+
+            //insertar Cursos
+            try {
+
+                foreach ($datosCursos as $curso) {
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_curso ?,?,?,?,?,?,?', [
+                        $curso['centro'],
+                        $curso['materia'],
+                        $curso['inicio'],
+                        $curso['termino'],
+                        $curso['certificacion'],
+                        $curso['ruta'],
+                        $numDocumento
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_insertar_datos_estudio_curso' . $e->getMessage();
+            }
+
+            //insertar idiomas
+            try {
+
+                foreach ($datosIdiomas as $idioma) {
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_idioma ?,?,?,?,?', [
+                        $idioma['lenguaE'],
+                        $idioma['nivel'],
+                        $idioma['descripcion'],
+                        $idioma['ruta'],
+                        $numDocumento
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_insertar_datos_estudio_idioma' . $e->getMessage();
+            }
+          //insertar expLaboral
+          try {
+
+            foreach ($datosExpLaboral as $laboral) {
+                DB::statement('EXEC dbo.pl_sp_insertar_datos_experiencia_laboral ?,?,?,?,?,?', [
+                    $laboral['institucion'],
+                    $laboral['cargo'],
+                    $laboral['inicio'],
+                    $laboral['termino'],
+                    $laboral['ruta'],
+                    $numDocumento
+                ]);
+            }
+        } catch (\Exception $e) {
+            echo 'Error al ejecutar el procedimiento almacenado: pl_sp_insertar_datos_estudio_exp_laboral' . $e->getMessage();
+        }
+        //inserta exp docencia
+        //insertar expLaboral
+        try {
+
+            foreach ($datosLaborDocencia as $docencia) {
+                DB::statement('EXEC dbo.pl_sp_insertar_datos_experiencia_docencia ?,?,?,?,?,?', [
+                    $docencia['centroEnseñanza'],
+                    $docencia['curso'],
+                    $docencia['inicio'],
+                    $docencia['termino'],
+                    $docencia['ruta'],
+                    $numDocumento
+                ]);
+            }
+        } catch (\Exception $e) {
+            echo 'Error al ejecutar el procedimiento almacenado: pl_sp_insertar_datos_estudio_exp_docencia' . $e->getMessage();
+        }
             // Finalizar la transacción
             DB::commit();
 
             // Retornar true para indicar que la inserción fue exitosa
-            return true;
+          return $resultado;
         } catch (\Exception $e) {
             // Revertir la transacción si ocurre algún error
             DB::rollBack();
 
             // Loguear el error o manejarlo de alguna otra manera
             // ...
-
+      
+        
             // Retornar false para indicar que la inserción falló
-            return false;
+          return $resultado;
         }
     }
 }

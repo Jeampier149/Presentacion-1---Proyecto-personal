@@ -45,13 +45,24 @@ class GeneralController extends JSONResponseController
         return $this->sendResponse(200, true, '', $resultado);
     }
     public function listarGrupoSanguineo(Request $request){
-        $sexo =new GeneralModel();
-        $resultado=$sexo->listarGrupoSanguineo();
+        $grupo =new GeneralModel();
+        $resultado=$grupo->listarGrupoSanguineo();
         return $this->sendResponse(200, true, '', $resultado);
     }
     public function listarEstadoCivil(Request $request){
-        $sexo =new GeneralModel();
-        $resultado=$sexo->listarEstadoCivil();
+        $civil =new GeneralModel();
+        $resultado=$civil->listarEstadoCivil();
+        return $this->sendResponse(200, true, '', $resultado);
+    }
+    public function listarParentesco(Request $request){
+        $parentesco =new GeneralModel();
+        $resultado=$parentesco->listarParentesco();
+        return $this->sendResponse(200, true, '', $resultado);
+    }
+    public function listarProfesiones(Request $request){
+        $profesion =new GeneralModel();
+        $resultado=$profesion->listarProfesiones();
         return $this->sendResponse(200, true, '', $resultado);
     }
 }
+

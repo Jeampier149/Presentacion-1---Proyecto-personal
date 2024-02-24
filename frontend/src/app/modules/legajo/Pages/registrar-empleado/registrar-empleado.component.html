@@ -16,7 +16,7 @@
                                                         <label class="form-label form-label-sm">TIPO DOCUMENTO</label>
                                                         <select class="form-select form-select-sm" required bsInvalid
                                                             [(ngModel)]="tipoDoc"   (change)="cambioNacionalidad()">
-                                                            <option></option>
+                                                            <option value="" selected>Seleccionar</option>
                                                             <option *ngFor="let tipoD of datos" value="{{tipoD.id}}">
                                                                 {{tipoD.descripcion}}</option>
                                                         </select>
@@ -44,15 +44,13 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-xl-3 mt-4 me-4">
-                                                          
+                                    <div class="col-xl-3 mt-4 me-4">                                     
                                             <div class="input-group input-group-sm ">
                                                 <div class="input-group-text d-personales ">Nacionalidad
                                                 </div>
                                                 <input type="text" class="form-control  text-uppercase"
                                                     bsInvalid required id="nacionalidad" name="nacionalidad" 
                                                     [(ngModel)]="nacionalidad">
-
                                             </div>                                       
                                     </div>
                                 </div>
@@ -132,10 +130,10 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm ">
+                                                        <div class="input-group input-group-sm "[formGroup]="valGroup">
                                                             <div class="input-group-text d-personales">RUC N°</div>
                                                             <input type="text" class="form-control form-control-sm"
-                                                                aria-label="Small" [(ngModel)]="ruc" required maxlength="12"
+                                                                aria-label="Small" formControlName="ruc" bsInvalid
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -151,37 +149,35 @@
 
 
                                                 </div>
-                                                <div class="row my-2 px-3">
+                                                <div class="row my-2 px-3" [formGroup]="valGroup">
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text d-personales">Telefono Fijo
                                                             </div>
-                                                            <input type="number" class="form-control form-control-sm"
-                                                                aria-label="Small" [(ngModel)]="tFijo" 
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small" formControlName="telFijo" bsInvalid
                                                                 aria-describedby="inputGroup-sizing-sm">
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4" [formGroup]="valGroup">
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text d-personales">Telefono Movil
                                                             </div>
-                                                            <input type="number" class="form-control form-control-sm"
-                                                                aria-label="Small" [(ngModel)]="tMovil" 
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                aria-label="Small"  formControlName="telMovil" bsInvalid
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4" [formGroup]="valGroup">
                                                         
                                                         <div class="input-group input-group-sm mb-3">
-                                                            <div class="input-group-text d-personales ">Correo E.</div>
-                                                            <input type="email" class="form-control form-control-sm"
-                                                            bsInvalid required  aria-label="Small" [(ngModel)]="correoE"
-                                                                aria-describedby="inputGroup-sizing-sm">
-                                                        </div>
-                                                
+                                                            <div class="input-group-text d-personales ">Correo .E</div>
+                                                            <input type="email" class="form-control form-control-sm" bsInvalid
+                                                            required  aria-label="Small" formControlName="correo"
+                                                             aria-describedby="inputGroup-sizing-sm">
+                                                        </div>                                               
                                                     </div>
-
                                                 </div>
                                                 <div class="row my-2 px-3">
                                                     <div class="col-xl-4">
@@ -231,7 +227,7 @@
                                                 <h6 class="my-0 b-900">En caso de emergencia contactar a:</h6>
                                             </div>
                                             <div class="card-body p-3">
-                                                <div class="row">
+                                                <div class="row ">
                                                     <div class="col-xl-6">
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text ">Nombre de contacto</div>
@@ -243,16 +239,19 @@
                                                     <div class="col-xl-3">
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text ">Parentesco</div>
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                aria-label="Small" [(ngModel)]="parentesco" 
-                                                                aria-describedby="inputGroup-sizing-sm">
+                                                                <select class="form-select form-select-sm" 
+                                                                [(ngModel)]="parentesco">
+                                                                <option value="" selected>Seleccionar</option>
+                                                                <option *ngFor="let tipoPa of tipoParentesco" value="{{tipoPa.parentesco}}">
+                                                                    {{tipoPa.parentesco}}</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group input-group-sm mb-3"   [formGroup]="valGroup">
                                                             <div class="input-group-text ">N° de contacto</div>
                                                             <input type="text" class="form-control form-control-sm"
-                                                                [(ngModel)]="numContacto" aria-label="Small" maxlength="10"
+                                                           aria-label="Small" formControlName="numContacto" bsInvalid
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -521,26 +520,44 @@
                                                             <legend>Datos Familiares</legend>
                                                             <div class="row">
                                                                 <form>
-                                                                    <button type="button " class="btn bg-agg btn-sm"
+                                                                  <div class="row mb-3">
+                                                                    <div class="col-xl-4">
+                                                                        <button type="button " class="btn bg-agg btn-sm"
                                                                         (click)="agregarFamiliar()"><i
                                                                             class="fa-solid fa-square-plus"></i>
-                                                                        Agregar </button>
+                                                                        Agregar </button>  
+                                                                        <button type="button" class="btn bg-delete btn-sm ms-4"
+                                                                      (click)="sinDatosFamiliares()"><i class="fas fa-dot-circle"> 
+                                                                        </i> Sin Datos
+                                                                       </button>
+                                                                    </div>                                                                                                                                                                                                                                                         
+                                                                  </div>                                                              
                                                                     <table class="table table-responsive">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>N °DNI</th>
+                                                                                <th>Tipo Documento</th>
+                                                                                <th>N °Doc</th>
                                                                                 <th>Nombres</th>
                                                                                 <th>Apellidos</th>
                                                                                 <th>F. de Nacimiento</th>
                                                                                 <th>Parentesco</th>
-                                                                                <th>Institución / Entidad en la que
-                                                                                    labora
+                                                                                <th>Institución/Entidad 
+                                                                                    laboral
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr
                                                                                 *ngFor="let familiar of familiares; let i = index">
+                                                                                <td>                                              
+                                                                                    <select class="form-select form-select-sm" 
+                                                                                    [(ngModel)]="familiar.tipoD"   id="tipoD{{i}}"
+                                                                                    name="tipoD{{i}}">
+                                                                                    <option value="" selected>Seleccionar</option>
+                                                                                  <option *ngFor="let tipoD of datos" value="{{tipoD.descripcion}}">
+                                                                                            {{tipoD.desCorta}}</option>
+                                                                                   </select>
+                                                                             </td>
                                                                                 <td>
                                                                                     <div class="form-group">
                                                                                         <label for=""></label> 
@@ -557,14 +574,10 @@
                                                                                                 <button
                                                                                                     class="btn btn-outline-secondary btn-primary btn-sm"
                                                                                                     type="button"
-                                                                                                    (click)=" buscarDocumento(familiar.dni,i)"><i
+                                                                                                    (click)=" buscarDocumentoFamiliar(familiar.dni,i,familiar.tipoD)"><i
                                                                                                         class="fa-solid fa-magnifying-glass"></i></button>
                                                                                             </div>
-                                                                                            <div
-                                                                                                class="invalid-feedback">
-                                                                                                El dni es un campo
-                                                                                                obligatorio
-                                                                                            </div>
+                            
                                                                                         </div>
                                                                                     </div>
 
@@ -575,7 +588,7 @@
                                                                                         id="nombre{{i}}"
                                                                                         name="nombre{{i}}"
                                                                                         [(ngModel)]="familiar.nombre"
-                                                                                        required>
+                                                                                        >
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="text"
@@ -583,7 +596,7 @@
                                                                                         id="apeliidos{{i}}"
                                                                                         name="apellidos{{i}}"
                                                                                         [(ngModel)]="familiar.apellidos"
-                                                                                        required>
+                                                                                       >
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="date"
@@ -591,16 +604,17 @@
                                                                                         id="fechaNacimiento{{i}}"
                                                                                         name="fechaNacimiento{{i}}"
                                                                                         [(ngModel)]="familiar.fechaNacimiento"
-                                                                                        required>
+                                                                                        >
                                                                                 </td>
 
-                                                                                <td>
-                                                                                    <input type="text"
-                                                                                        class="form-control form-control-sm"
-                                                                                        id="parentesco{{i}}"
-                                                                                        name="parentesco{{i}}"
-                                                                                        [(ngModel)]="familiar.parentesco"
-                                                                                        required>
+                                                                                <td>                                              
+                                                                                       <select class="form-select form-select-sm" 
+                                                                                       [(ngModel)]="familiar.parentesco"   id="parentesco{{i}}"
+                                                                                       name="parentesco{{i}}">
+                                                                                       <option value="" selected>Seleccionar</option>
+                                                                                       <option *ngFor="let tipoPa of tipoParentesco" value="{{tipoPa.parentesco}}">
+                                                                                           {{tipoPa.parentesco}}</option>
+                                                                                   </select>
                                                                                 </td>
                                                                                 <td>
                                                                                     <input type="text"
@@ -608,7 +622,7 @@
                                                                                         id="centroLaboral{{i}}"
                                                                                         name="centroLaboral{{i}}"
                                                                                         [(ngModel)]="familiar.centroLaboral"
-                                                                                        required>
+                                                                                        >
                                                                                 </td>
                                                                                 <td>
                                                                                     <button type="button"
@@ -620,6 +634,13 @@
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
+                                                                    @if(divFamiliar){
+                                                                        <div>
+                                                                            <p class="text-center fw-bold">SIN DATOS POR REGISTRAR</p>
+                                                                        </div>
+                                                                    }
+                                                                                                                                        
+                                                                    
                                                                 </form>
                                                             </div>
                                                         </fieldset>
@@ -649,60 +670,78 @@
                                                             <div class="row mt-2 ">
                                                                 <div class="col-xl-6">
                                                                     <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Profesion</div>
+                                                                        <div class="input-group-text ">Profesion</div>                                                                      
                                                                         <input type="text"
+                                                                            list="profesiones" name="profesiones" id="proft"
                                                                             class="form-control form-control-sm"
                                                                             aria-label="Small" [(ngModel)]="profesion"
                                                                             aria-describedby="inputGroup-sizing-sm">
+                                                                            <datalist id="profesiones">
+                                                                                <option value="" selected>Seleccionar</option>
+                                                                                <option *ngFor="let tipProfe of tipoProfesiones"
+                                                                                    value="{{tipProfe.profesion}}">{{tipProfe.profesion}}</option>
+                                                                              </datalist>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-xl-6">
-                                                                    <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Lugar de
-                                                                            Colegiatura
-                                                                        </div>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            aria-label="Small" [(ngModel)]="lugarColeg"
-                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    <div class="form-check form-switch  ">
+                                                                        <label class="form-check-label" for="flexSwitchCheckChecked">
+                                                                            <span>{{colegiatura.checked?'':'No' }}</span>
+                                                                            Tiene
+                                                                            Colegiatura</label>
+                                                                        <input class="form-check-input position-end " type="checkbox"
+                                                                            id="colegiatura" (change)="true" #colegiatura>
                                                                     </div>
                                                                 </div>
 
                                                             </div>
-                                                            <div class="row mt-2">
-                                                                <div class="row"></div>
-                                                                <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">F. de colegiatura
+                                                            @if(colegiatura.checked){
+                                                                <div class="row mt-2">
+                                                                    <div class="col-xl-3">
+                                                                        <div class="input-group input-group-sm mb-3">
+                                                                            <div class="input-group-text ">Lugar de
+                                                                                Colegiatura
+                                                                            </div>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                aria-label="Small" [(ngModel)]="lugarColeg"
+                                                                                aria-describedby="inputGroup-sizing-sm">
+                                                                            </div>
+                                                                    </div>
+                                                                    <div class="col-xl-3">
+                                                                        <div class="input-group input-group-sm mb-3">
+                                                                            <div class="input-group-text ">F. de colegiatura
+                                                                            </div>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                aria-label="Small" [(ngModel)]="fechColeg"
+                                                                                aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
-                                                                        <input type="date"
-                                                                            class="form-control form-control-sm"
-                                                                            aria-label="Small" [(ngModel)]="fechColeg"
-                                                                            aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">F.termino de
-                                                                            habilitacion</div>
-                                                                        <input type="date"
-                                                                            class="form-control form-control-sm"
-                                                                            aria-label="Small"
-                                                                            [(ngModel)]="fechTerColeg"
-                                                                            aria-describedby="inputGroup-sizing-sm">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">N° Colegiatura
+                                                                    <div class="col-xl-3">
+                                                                        <div class="input-group input-group-sm mb-3">
+                                                                            <div class="input-group-text ">F.termino de
+                                                                                habilitacion</div>
+                                                                            <input type="date"
+                                                                                class="form-control form-control-sm"
+                                                                                aria-label="Small"
+                                                                                [(ngModel)]="fechTerColeg"
+                                                                                aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            aria-label="Small" [(ngModel)]="numColeg"
-                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                    </div>
+                                                                    <div class="col-xl-3">
+                                                                        <div class="input-group input-group-sm mb-3">
+                                                                            <div class="input-group-text ">N° Colegiatura
+                                                                            </div>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-sm"
+                                                                                aria-label="Small" [(ngModel)]="numColeg"
+                                                                                aria-describedby="inputGroup-sizing-sm">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            }
+                                                    
                                                             <div class="card border">
                                                                 <div class="card-header bg-transparent p-2">
                                                                     <h6 class="my-0">Estudios Superiores (Universitarios
@@ -713,27 +752,44 @@
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
                                                                         <form>
-                                                                            <button type="button "
-                                                                                class="btn bg-agg btn-sm"
-                                                                                (click)="agregarEstudioSuperior()"> <i
-                                                                                    class="fa-solid fa-square-plus"></i>
-                                                                                Agregar</button>
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-xl-4">
+                                                                                    <button type="button "
+                                                                                    class="btn bg-agg btn-sm"
+                                                                                    (click)="agregarEstudioSuperior()"> <i
+                                                                                        class="fa-solid fa-square-plus"></i>
+                                                                                    Agregar</button>
+                                                                                    <button type="button" class="btn bg-delete btn-sm ms-4"
+                                                                                    (click)="sinDatosSuperiores()"><i class="fas fa-dot-circle"> 
+                                                                                      </i> Sin Datos
+                                                                                     </button>
+                                                                                </div>
+                                                                      
+
+                                                                            </div>
+                                                                           
                                                                             <table class="table table-responsive">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th>Centro de estudios</th>
-                                                                                        <th>Especialidad</th>
-                                                                                        <th>F.Inicio</th>
-                                                                                        <th>F.Termino</th>
-                                                                                        <th>Nivel alcanzado
-                                                                                        </th>
-                                                                                        <th>Documento
-                                                                                        </th>
+                                                                                        <Th class="text-center" style="width: 250px; ">Tipo</Th>
+                                                                                        <th class="text-center" style="width: 270px; ">Centro de estudios</th>
+                                                                                        <th class="text-center" style="width: 220px; ">Especialidad</th>
+                                                                                        <th class="text-center" style="width: 160px; ">F.Inicio</th>
+                                                                                        <th class="text-center" style="width: 160px; ">F.Termino</th>
+                                                                                        <th class="text-center" style="width: 220px; ">Nivel alcanzado</th>
+                                                                                        <th class="text-center" style="width: 250px; " >Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr
                                                                                         *ngFor="let superior of estudioSuperior; let i = index">
+                                                                                        <td>
+                                                                                            <select class="form-select form-select-sm" 
+                                                                                            [(ngModel)]="superior.tipo">
+                                                                                            <option value="UNIVERSITARIO">Universitario</option>
+                                                                                            <option value="TECNICO">Tecnico</option>
+                                                                                            </select>
+                                                                                        </td>
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
@@ -767,13 +823,15 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="text"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="nivel{{i}}"
-                                                                                                name="nivel{{i}}"
-                                                                                                [(ngModel)]="superior.nivel"
-                                                                                                required>
-                                                                                        </td>
+                                                                                            <select class="form-select form-select-sm" 
+                                                                                            [(ngModel)]="superior.nivel">
+                                                                                            
+                                                                                            <option value="TITLULADO">Titulado</option>
+                                                                                            <option value="BACHILLER">Bachiller</option>
+                                                                                            <option value="EGRESADO">Egresado</option>
+                                                                                            <option value="ESTUDIANTE">Estudiante</option>
+                                                                                            </select>
+                                                                                            </td>
                                                                                         <td>
                                                                                             <input type="file"
                                                                                                 class="form-control form-control-sm"
@@ -792,6 +850,11 @@
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
+                                                                            @if(divSuperior){
+                                                                                <div>
+                                                                                    <p class="text-center fw-bold">SIN DATOS ESTUDIO SUPERIOR</p>
+                                                                                </div>
+                                                                            }
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -805,27 +868,43 @@
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
                                                                         <form>
-                                                                            <button type="button "
-                                                                                class="btn bg-agg btn-sm"
-                                                                                (click)="agregarEstudioPostgrado()"><i
-                                                                                    class="fa-solid fa-square-plus"></i>
-                                                                                Agregar</button>
+                                                                            <div class="row">
+                                                                                <div class="col-xl-4">
+                                                                                    <button type="button "
+                                                                                    class="btn bg-agg btn-sm"
+                                                                                    (click)="agregarEstudioPostgrado()"><i
+                                                                                        class="fa-solid fa-square-plus"></i>
+                                                                                    Agregar</button>
+                                                                                    <button type="button" class="btn bg-delete btn-sm ms-4"
+                                                                                    (click)="sinDatosPostgrado()"><i class="fas fa-dot-circle"> 
+                                                                                      </i> Sin Datos
+                                                                                     </button>
+                                                                                </div>
+                                                                            </div>
+                                                                           
                                                                             <table class="table table-responsive">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th>Centro de estudios</th>
-                                                                                        <th>Especialidad</th>
-                                                                                        <th>F.Inicio</th>
-                                                                                        <th>F.Termino</th>
-                                                                                        <th>Nivel alcanzado
-
-                                                                                        </th>
-                                                                                        <th>Documento</th>
+                                                                                        <Th class="text-center" style="width: 250px; ">Tipo</Th>
+                                                                                        <th class="text-center" style="width: 270px; ">Centro de estudios</th>
+                                                                                        <th class="text-center" style="width: 220px; ">Especialidad</th>
+                                                                                        <th class="text-center" style="width: 160px; ">F.Inicio</th>
+                                                                                        <th class="text-center" style="width: 160px; ">F.Termino</th>
+                                                                                        <th class="text-center" style="width: 220px; ">Nivel alcanzado</th>
+                                                                                        <th class="text-center" style="width: 250px; " >Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr
                                                                                         *ngFor="let postg of estudioPostgrado; let i = index">
+                                                                                       <td>
+                                                                                        <select class="form-select form-select-sm" 
+                                                                                            [(ngModel)]="postg.tipo">
+                                                                               
+                                                                                            <option value="MAESTRIA">Maestria</option>
+                                                                                            <option value="DOCTORADO">Doctorado</option>
+                                                                                        </select>
+                                                                                       </td>
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
@@ -859,12 +938,15 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="text"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="nivel{{i}}"
-                                                                                                name="nivel{{i}}"
-                                                                                                [(ngModel)]="postg.nivel"
-                                                                                                required>
+                                                                                            <select class="form-select form-select-sm" 
+                                                                                            [(ngModel)]="postg.nivel">
+                                                                                 
+                                                                                            <option value="MAESTRIA">Maestria</option>
+                                                                                            <option value="DOCTORADO">Doctorado</option>
+                                                                                            <option value="EGRESADO">Egresado</option>
+                                                                                            <option value="ESTUDIANTE">Estudiante</option>
+
+                                                                                        </select>
                                                                                         </td>
                                                                                         <td>
                                                                                             <input type="file"
@@ -885,6 +967,11 @@
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
+                                                                            @if(divPostgrado){
+                                                                                <div>
+                                                                                    <p class="text-center fw-bold">SIN DATOS POSTGRADO</p>
+                                                                                </div>
+                                                                            }
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -897,26 +984,41 @@
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
                                                                         <form>
-                                                                            <button type="button "
-                                                                                class="btn bg-agg btn-sm"
-                                                                                (click)="agregarEspecializacion()"><i
-                                                                                    class="fa-solid fa-square-plus"></i>
-                                                                                Agregar</button>
+                                                                            <div class="row">
+                                                                                <div class="col-xl-4">
+                                                                                    <button type="button "
+                                                                                    class="btn bg-agg btn-sm"
+                                                                                    (click)="agregarEspecializacion()"><i
+                                                                                        class="fa-solid fa-square-plus"></i>
+                                                                                    Agregar</button>
+                                                                                    <button type="button" class="btn bg-delete btn-sm ms-4"
+                                                                                    (click)="sinDatosEspecializacion()"><i class="fas fa-dot-circle"> 
+                                                                                      </i> Sin Datos
+                                                                                     </button>
+                                                                                </div>
+                                                                            </div>
                                                                             <table class="table table-responsive">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th>Centro de estudios</th>
-                                                                                        <th>Materia</th>
-                                                                                        <th>F.Inicio</th>
-                                                                                        <th>F.Termino</th>
-                                                                                        <th>Certificado Obtenido
-                                                                                        </th>
-                                                                                        <th>Documento</th>
+                                                                                        <Th class="text-center" style="width: 250px; ">Tipo</Th>
+                                                                                        <th class="text-center" style="width: 270px; ">Centro de estudios</th>
+                                                                                        <th class="text-center" style="width: 220px; ">Materia</th>
+                                                                                        <th class="text-center" style="width: 160px; ">F.Inicio</th>
+                                                                                        <th class="text-center" style="width: 160px; ">F.Termino</th>
+                                                                                        <th class="text-center" style="width: 220px; ">Certificado</th>
+                                                                                        <th class="text-center" style="width: 250px; " >Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr
                                                                                         *ngFor="let espe of especializacion; let i = index">
+                                                                                        <td>
+                                                                                            <select class="form-select form-select-sm" 
+                                                                                            [(ngModel)]="espe.tipo">
+                                                                                            <option value="ESPECIALIZACION">Especializacion</option>
+                                                                                            <option value="DIPLOMADO">Diplomado</option>
+                                                                                            </select>
+                                                                                        </td>
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
@@ -952,9 +1054,9 @@
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
-                                                                                                id="certificado{{i}}"
-                                                                                                name="certificado{{i}}"
-                                                                                                [(ngModel)]="espe.certificado"
+                                                                                                id="certificacion{{i}}"
+                                                                                                name="certificacion{{i}}"
+                                                                                                [(ngModel)]="espe.certificacion"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -976,6 +1078,11 @@
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
+                                                                            @if(divEspecializacion){
+                                                                                <div>
+                                                                                    <p class="text-center fw-bold">SIN DATOS DE ESPECIALIZACION </p>
+                                                                                </div>
+                                                                            }
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -988,25 +1095,42 @@
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
                                                                         <form>
-                                                                            <button type="button "
-                                                                                class="btn bg-agg btn-sm"
-                                                                                (click)="agregarCursos()"><i
-                                                                                    class="fa-solid fa-square-plus"></i>
-                                                                                Agregar</button>
+                                                                            <div class="row">
+                                                                                <div class="col-xl-4">
+                                                                                    <button type="button "
+                                                                                    class="btn bg-agg btn-sm"
+                                                                                    (click)="agregarCursos()"><i
+                                                                                        class="fa-solid fa-square-plus"></i>
+                                                                                    Agregar</button>
+                                                                                    <button type="button" class="btn bg-delete btn-sm ms-4"
+                                                                                    (click)="sinDatosCursos()"><i class="fas fa-dot-circle"> 
+                                                                                      </i> Sin Datos
+                                                                                     </button>
+                                                                                </div>
+                                                                            </div>
+                                                                           
                                                                             <table class="table table-responsive">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th>Centro de estudios</th>
-                                                                                        <th>Materia</th>
-                                                                                        <th>F.Inicio</th>
-                                                                                        <th>F.Termino</th>
-                                                                                        <th>Certificado Obtenido
-                                                                                        </th>
+                                                                                        <Th class="text-center" style="width: 250px; ">Tipo</Th>
+                                                                                        <th class="text-center" style="width: 270px; ">Centro de estudios</th>
+                                                                                        <th class="text-center" style="width: 220px; ">Materia</th>
+                                                                                        <th class="text-center" style="width: 160px; ">F.Inicio</th>
+                                                                                        <th class="text-center" style="width: 160px; ">F.Termino</th>
+                                                                                        <th class="text-center" style="width: 220px; ">certificacion</th>
+                                                                                        <th class="text-center" style="width: 250px; " >Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr
                                                                                         *ngFor="let curso of cursos; let i = index">
+                                                                                        <td>
+                                                                                            <select class="form-select form-select-sm" 
+                                                                                            [(ngModel)]="curso.tipo">
+                                                                                            <option value="ESPECIALIZACION">Especializacion</option>
+                                                                                            <option value="DIPLOMADO">Diplomado</option>
+                                                                                            </select>
+                                                                                        </td>
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
@@ -1042,9 +1166,9 @@
                                                                                         <td>
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
-                                                                                                id="certificado{{i}}"
-                                                                                                name="certificado{{i}}"
-                                                                                                [(ngModel)]="curso.certificado"
+                                                                                                id="certificacion{{i}}"
+                                                                                                name="certificacion{{i}}"
+                                                                                                [(ngModel)]="curso.certificacion"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1062,9 +1186,15 @@
                                                                                                 (click)="eliminarItem(i ,'cursos')"><i
                                                                                                     class="fa-solid fa-xmark"></i>
                                                                                             </button>
+                                                                                        </td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
+                                                                            @if(divCursos){
+                                                                                <div>
+                                                                                    <p class="text-center fw-bold">SIN DATOS DE CURSOS </p>
+                                                                                </div>
+                                                                            }
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -1077,18 +1207,28 @@
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
                                                                         <form>
-                                                                            <button type="button "
-                                                                                class="btn bg-agg btn-sm"
-                                                                                (click)="agregarIdioma()"><i
-                                                                                    class="fa-solid fa-square-plus"></i>
-                                                                                Agregar</button>
+                                                                            <div class="row">
+                                                                                <div class="col-xl-4">
+                                                                                    <button type="button "
+                                                                                    class="btn bg-agg btn-sm"
+                                                                                    (click)="agregarIdioma()"><i
+                                                                                        class="fa-solid fa-square-plus"></i>
+                                                                                    Agregar</button>
+                                                                                    <button type="button" class="btn bg-delete btn-sm ms-4"
+                                                                                    (click)="sinDatosIdiomas()"><i class="fas fa-dot-circle"> 
+                                                                                      </i> Sin Datos
+                                                                                     </button>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            
                                                                             <table class="table table-responsive">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th>Lengua Extranjera</th>
-                                                                                        <th>Nivel </th>
-                                                                                        <th>Descripcion</th>
-                                                                                        <th>Documento</th>
+                                                                                        <th class="text-center">Lengua Extranjera</th>
+                                                                                        <th class="text-center">Nivel </th>
+                                                                                        <th class="text-center">Descripcion</th>
+                                                                                        <th class="text-center">Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -1119,7 +1259,7 @@
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <input type="text"
+                                                                                            <input type="file"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileID{{i}}"
                                                                                                 name="fileID{{i}}"
@@ -1137,6 +1277,11 @@
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
+                                                                            @if(divIdioma){
+                                                                                <div>
+                                                                                    <p class="text-center fw-bold">SIN DATOS DE IDIOMAS </p>
+                                                                                </div>
+                                                                            }
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -1171,15 +1316,24 @@
                                                             <div class="card-body p-3">
                                                                 <div class="row">
                                                                     <form>
-                                                                        <button type="button " class="btn bg-agg btn-sm"
-                                                                            (click)="agregarExperiencia()"><i
-                                                                                class="fa-solid fa-square-plus"></i>
-                                                                            Agregar</button>
+                                                                        <div class="row">
+                                                                            <div class="col-xl-4">
+                                                                                <button type="button " class="btn bg-agg btn-sm"
+                                                                                (click)="agregarExperiencia()"><i
+                                                                                    class="fa-solid fa-square-plus"></i>
+                                                                                Agregar</button>
+                                                                                <button type="button" class="btn bg-delete btn-sm ms-4"
+                                                                                (click)="sinDatosExperienciaLaboral()"><i class="fas fa-dot-circle"> 
+                                                                                  </i> Sin Datos
+                                                                                 </button>
+                                                                            </div>
+                                                                        </div>
+                                                                      
                                                                         <table class="table table-responsive">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th>Institucion / Empresa</th>
-                                                                                    <th>Cargo -Actividad Desempeñada
+                                                                                    <th class="text-center">Institucion / Empresa</th>
+                                                                                    <th class="text-center"> Cargo - Actividad Desempeñada
                                                                                     </th>
                                                                                     <th>F.Inicio</th>
                                                                                     <th>F.Termino</th>
@@ -1240,6 +1394,11 @@
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
+                                                                        @if(divExperienciaLaboral){
+                                                                            <div>
+                                                                                <p class="text-center fw-bold">SIN DATOS DE EXPERIENCIA LABORAL </p>
+                                                                            </div>
+                                                                        }
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -1252,10 +1411,19 @@
                                                             <div class="card-body p-3">
                                                                 <div class="row">
                                                                     <form>
-                                                                        <button type="button " class="btn bg-agg btn-sm"
-                                                                            (click)="agregarDocencia()"><i
-                                                                                class="fa-solid fa-square-plus"></i>
-                                                                            Agregar</button>
+                                                                        <div class="row">
+                                                                            <div class="col xl-4">
+                                                                                <button type="button " class="btn bg-agg btn-sm"
+                                                                                (click)="agregarDocencia()"><i
+                                                                                    class="fa-solid fa-square-plus"></i>
+                                                                                Agregar</button>
+                                                                                <button type="button" class="btn bg-delete btn-sm ms-4"
+                                                                                (click)="sinDatosExperienciaDocencia()"><i class="fas fa-dot-circle"> 
+                                                                                  </i> Sin Datos
+                                                                                 </button>
+                                                                            </div>
+                                                                        </div>
+                                                                       
                                                                         <div class="table-responsive">
                                                                             <table class="table ">
                                                                                 <thead>
@@ -1323,6 +1491,11 @@
                                                                                 </tbody>
                                                                             </table>
                                                                         </div>
+                                                                        @if(divExperienciaDocencia){
+                                                                            <div>
+                                                                                <p class="text-center fw-bold">SIN DATOS DE EXPERIENCIA EN DOCENCIA </p>
+                                                                            </div>
+                                                                        }
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -1351,7 +1524,7 @@
                                                                 </div>
                                                                 <select class="form-select form-select-sm"
                                                                     [(ngModel)]="tipoEmp">
-                                                                    <option>Select</option>
+                                                                    <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let tipoE of tipoEmpleado"
                                                                         value="{{tipoE.idTipo}}">{{tipoE.tipo}}</option>
 
@@ -1375,7 +1548,7 @@
                                                                 <div class="input-group-text ">Regimen</div>
                                                                 <select class="form-select form-select-sm"
                                                                     (change)="cambioTipo()" [(ngModel)]="valorRegimen">
-                                                                    <option value="">Seleccion</option>
+                                                                    <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let regimen of regimen"
                                                                         value="{{regimen.id}}">{{regimen.regimen}}
                                                                     </option>
@@ -1387,7 +1560,7 @@
                                                                 <div class="input-group-text ">T.Regimen</div>
                                                                 <select class="form-select form-select-sm"
                                                                     [(ngModel)]="valortipRegimen">
-                                                                    <option>Select</option>
+                                                                    <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let tipoR of tipoRegimen"
                                                                         value="{{tipoR.id}}">{{tipoR.tipoRegimen}}
                                                                     </option>
@@ -1402,7 +1575,7 @@
                                                                 <div class="input-group-text ">U.Organica/Dpto</div>
                                                                 <select class="form-select form-select-sm"
                                                                     [(ngModel)]="valorUnidad">
-                                                                    <option value="">Seleccionar</option>
+                                                                    <option value="" selected>Seleccionar</option>
                                                                     <option value="1">Oficina Personal
                                                                     </option>
                                                                 </select>
@@ -1413,7 +1586,7 @@
                                                                 <div class="input-group-text ">Servicio/Equipo</div>
                                                                 <select class="form-select form-select-sm"
                                                                     [(ngModel)]="valorServicio">
-                                                                    <option value="">Seleccinar</option>
+                                                                    <option value="" selected>Seleccionar</option>
                                                                     <option value="1">Equipo Legajo</option>
                                                                 </select>
                                                             </div>
@@ -1423,7 +1596,7 @@
                                                                 <div class="input-group-text ">Cargo</div>
                                                                 <select class="form-select form-select-sm"
                                                                     [(ngModel)]="valorCargo">
-                                                                    <option value="">Seleccionar</option>
+                                                                    <option value="" selected>Seleccionar</option>
                                                                     <option value="TECNICO ADMINISTRATIVO">Tecnico
                                                                         Administrativo</option>
                                                                 </select>
@@ -1434,7 +1607,7 @@
                                                                 <div class="input-group-text ">Nivel</div>
                                                                 <select class="form-select form-select-sm"
                                                                     [(ngModel)]="valorNivel">
-                                                                    <option value="">Seleccionar</option>
+                                                                    <option value="" selected>Seleccionar</option>
                                                                     <option value="TD">TD</option>
                                                                 </select>
                                                             </div>

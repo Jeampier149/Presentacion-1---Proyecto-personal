@@ -41,7 +41,8 @@ Route::controller(GeneralController::class)->group(function () {
     Route::post('general/listarSexo', 'listarSexo');
     Route::post('general/listarGrupoSanguineo', 'listarGrupoSanguineo');
     Route::post('general/listarEstadoCivil', 'listarEstadoCivil');
-
+    Route::post('general/listarParentesco', 'listarParentesco');
+    Route::post('general/listarProfesiones', 'listarProfesiones');
 });
 
 Route::controller(ReniecController::class)->group(function () {
@@ -54,9 +55,9 @@ Route::controller(ExtranjeriaController::class)->group(function () {
 
 Route::controller(VerDatosController::class)->group(function () {
     Route::post('datos/datosEmpleado', 'listarDatosEmpleado');
-    Route::post('datos/datosDomicilio', 'listarDatosEmpleado');
-    Route::post('datos/datosDiscapacidad', 'listarDatosEmpleado');
-    Route::post('datos/datosContactoEmergencia', 'listarDatosEmpleado');
-    Route::post('datos/datosFamiliares', 'listarDatosEmpleado');
+    Route::post('datos/datosDomicilio', 'listarDatosDomicilio');
+    Route::post('datos/datosDiscapacidad', 'listarDatosDiscapacidad');
+    Route::post('datos/datosContactoEmergencia', 'listarDatosContactoEmergencia');
+    Route::post('datos/datosFamiliares', 'listarDatosFamiliares');
 
 });

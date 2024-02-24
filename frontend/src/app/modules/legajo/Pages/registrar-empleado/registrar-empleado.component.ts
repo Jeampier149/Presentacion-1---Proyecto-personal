@@ -7,6 +7,7 @@ import { ExtranjeriaService } from '@services/general/extranjeria.service';
 import { reniecClass } from '@classes/servicios/reniec.class';
 import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { MigracionesClass } from '@classes/servicios/migraciones.class';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-registrar-empleado',
@@ -23,7 +24,9 @@ export class RegistrarEmpleadoComponent {
     this.listarsexo()
     this.listarGrupoSanguineo()
     this.listarEstadoCivil()
- 
+    this.inicializarVariables()
+    this.listarParentesco()
+    this.listarProfesiones()
   }
 
   //DORPZONE IMAGEN
@@ -66,6 +69,8 @@ export class RegistrarEmpleadoComponent {
   tipoSexo:any[]=[]
   tipoGrupoSanguineo:any[]=[]
   tipoEstadoCivil:any[]=[]
+  tipoParentesco:any[]=[]
+  tipoProfesiones:any[]=[]
 
   //--VALOR DE SELECTS----//
   valorRegimen: any = ""
@@ -88,11 +93,10 @@ export class RegistrarEmpleadoComponent {
   sexo: string = "";
   ruc: string = "";
   fNacimiento: string = "";
-  tFijo: string = "";
-  tMovil: string = "";
-  correoE: string = "";
+ 
+
   gSanguineo: string = "";
-  enfAlergias: string = "";
+  enfAlergias: string = "SIN DATOS";
   estadoCivil: string = "";
   //--datos contacto emergencia--//
   nombreContacto: string = "";
@@ -142,6 +146,29 @@ export class RegistrarEmpleadoComponent {
   archivoCursos: any []=[]
   fechaIngreso:string=""
 
+  //mostrar divs
+   divFamiliar:boolean=false
+   divSuperior:boolean=false
+   divPostgrado:boolean=false
+   divEspecializacion:boolean=false
+   divCursos:boolean=false
+   divIdioma:boolean=false;
+   divExperienciaLaboral:boolean=false;
+   divExperienciaDocencia:boolean=false;
+  //formocntrol
+ valGroup!: FormGroup;
+
+
+   inicializarVariables(){
+    this.valGroup = new FormGroup({
+      correo: new FormControl('', { validators: Validators.email}),    
+      telFijo: new FormControl('', [Validators.pattern('^[0-9]*$')]),
+      telMovil: new FormControl('', [Validators.pattern('^[0-9]*$')]),
+      ruc: new FormControl('',[Validators.required,Validators.pattern('[0-9]{11}')]),
+      numContacto: new FormControl('', [Validators.pattern('^[0-9]*$')]),
+   })
+
+  }
   buscarDocumento(documento:string,index?:number) {
     let tipoDocumento = this.tipoDoc;
     this.loading = true;
@@ -185,7 +212,43 @@ export class RegistrarEmpleadoComponent {
       errorAlerta('Error', 'No se dispone del servicio en estos momentos.').then();
     }
   }
+  buscarDocumentoFamiliar(documento:string,index:number,tipoD:string) {
+    this.loading = true;
+    this.mensajeLoading = 'Buscando Documento...';
+    if (tipoD == 'DNI') {
+      this.mensajeLoading = 'Buscando en RENIEC...';
+      this.ReniecService$.buscarDni(documento)
+        .pipe((
+          finalize(() => {
+            this.loading = false;
+            this.mensajeLoading = 'Cargando...';
+          }))
+        )
+        .subscribe(({ estado, datos }) => {
 
+          if (estado && datos ) {           
+                this.setDatosFamiliar(datos,index)        
+          }
+        })
+    } else if (tipoD == 'CARNET EXTRANJERIA') {
+      this.mensajeLoading = 'Buscando en MIGRACIONES...';
+      this.ExtranjeriaService$. buscarMigraciones(documento)
+        .pipe((
+          finalize(() => {
+            this.loading = false;
+            this.mensajeLoading = 'Cargando...';
+          }))
+        )
+        .subscribe(({ estado, datos }) => {
+
+          if (estado && datos) {
+            this.setDatosFamiliar(datos,index);
+          }
+        })
+    } else {
+      errorAlerta('Error', 'No se dispone del servicio en estos momentos.').then();
+    }
+  }
   setDatosRENIEC(datos: reniecClass) {
     this.aPaterno = datos.apellidoPaterno;
     this.aMaterno = datos.apellidoMaterno;
@@ -202,35 +265,80 @@ export class RegistrarEmpleadoComponent {
     this.aMaterno = datos.apellidoMaterno;
     this.nombres = datos.nombres;
   }
- setDatosFamiliar(datos:reniecClass,index:number){
+ setDatosFamiliar(datos:any ,index:number){
   this.familiares[index].nombre = datos.nombres;
   this.familiares[index].apellidos =`${datos.apellidoPaterno} ${datos.apellidoMaterno} `;
-  this.familiares[index].fechaNacimiento=datos.obtenerFechaNacimiento();
+  this.familiares[index].fechaNacimiento=this.obtenerFechaNacimiento(datos.fechaNacimiento)
  }
+ obtenerFechaNacimiento(fechaNacimiento:any) {
+  return fechaNacimiento.slice(0, 4) + '-' + fechaNacimiento.slice(4, 6) + '-' + fechaNacimiento.slice(6, 8)
+}
  
  agregarFamiliar() { 
-  if(this.familiares.length<=5)this.familiares.push({ nombre: '', apellidos: '', fechaNacimiento: '',dni: '', parentesco: "", centroLaboral: "" });
+  this.divFamiliar=false
+  if(this.familiares.length<=5)this.familiares.push({ nombre: '', apellidos: '', fechaNacimiento: '',tipoD:'',dni: '', parentesco: "", centroLaboral: "" });
  }
 
-  agregarEstudioSuperior() {     
-  if(this.estudioSuperior.length<=5) this.estudioSuperior.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:""  });
-}
+  agregarEstudioSuperior() {
+    this.divSuperior=false     
+  if(this.estudioSuperior.length<=5) this.estudioSuperior.push({ tipo:'',centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:""  });
+ }
 agregarEstudioPostgrado() { 
-  if(this.estudioPostgrado.length<=5) this.estudioPostgrado.push({ centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:"" }); }
+ this.divPostgrado=false
+  if(this.estudioPostgrado.length<=5) this.estudioPostgrado.push({ tipo:'',centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:"" }); }
 agregarEspecializacion() { 
-if(this.especializacion.length<=5) this.especializacion.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: null,ruta:"" }); }
+  this.divEspecializacion=false
+if(this.especializacion.length<=5) this.especializacion.push({ tipo:'',centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: null,ruta:"" }); }
 agregarCursos() { 
+  this.divCursos=false
 if(this.cursos.length<=5)  this.cursos.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:""  }); }
 agregarIdioma() { 
- if(this.idiomas.length<=4) this.idiomas.push({ lenguaE: '', basico: "", intermedio: '', avanzado: "", archivo: "",ruta:""  }); }
+  this.divIdioma=false
+ if(this.idiomas.length<=4) this.idiomas.push({ lenguaE: '', nivel: "", descripcion: "", archivo:null,ruta:""  }); }
 agregarExperiencia() {
- if(this.seleccionarArchivoExpLaboral.length<=10)  this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "", archivo:""}); }
+  this.divExperienciaLaboral=false
+ if(this.experienciaLaboral.length<=10)  this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "", archivo:null,ruta:""  }); }
 agregarDocencia() {
-  if(this.laborDocencia.length<=10) this.laborDocencia.push({ centroEnseñanza: '', curso: "", inicio: '', termino: "", archivo: "",ruta: ""}); 
+  this.divExperienciaDocencia=false
+  if(this.laborDocencia.length<=10) this.laborDocencia.push({ centroEnseñanza: '', curso: "", inicio: '', termino: "", archivo:null,ruta:""}); 
  }
 
 
   eliminarItem(index: number, nombre: keyof RegistrarEmpleadoComponent) { this[nombre].splice(index, 1); }
+  sinDatosFamiliares(){
+    this.divFamiliar=true
+    this.familiares=[]
+  }
+  sinDatosSuperiores(){
+    this.divSuperior=true
+    this.estudioSuperior=[]
+  }
+  sinDatosPostgrado(){
+    this.divPostgrado=true
+    this.estudioPostgrado=[]
+  }
+  sinDatosEspecializacion(){
+    this.divEspecializacion=true
+    this.especializacion=[]
+  }
+  sinDatosCursos(){
+    this.divCursos=true
+    this.cursos=[]
+  }
+  sinDatosIdiomas(){
+    this.divIdioma=true
+    this.idiomas=[]
+  }
+  sinDatosExperienciaLaboral(){
+    this.divExperienciaLaboral=true
+    this.experienciaLaboral=[]
+  }
+
+  sinDatosExperienciaDocencia(){
+    this.divExperienciaDocencia=true
+    this.laborDocencia=[]
+  }
+
 
   seleccionarArchivoEst(event: any, index: number) {
     const fileEs: File = event.target.files[0];
@@ -453,7 +561,40 @@ agregarDocencia() {
         }
       });
   }
-
+  listarParentesco() {
+    this.DatoGeneralesService$.listarParentesco()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (estado) {
+          datos.length > 0 ? this.agregable = false : this.agregable = true;
+          console.log(datos)
+          this.tipoParentesco = datos;
+        } else {
+          errorAlerta('Error', mensaje).then();
+        }
+      });
+  }
+  
+  listarProfesiones() {
+    this.DatoGeneralesService$.listarProfesiones()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (estado) {
+          datos.length > 0 ? this.agregable = false : this.agregable = true;
+          this.tipoProfesiones = datos;
+        } else {
+          errorAlerta('Error', mensaje).then();
+        }
+      });
+  }
   actualizarTipo(tipo: string, isChecked: boolean) {
     if (isChecked) {
       // Si está marcado, agregamos el tipo al arreglo
@@ -469,20 +610,18 @@ agregarDocencia() {
 
   }
   registrarEmpleado() {
-    const foto='ruta/foto';
-
     const datosDomicilio = {
       departamento: this.departamento.toUpperCase(),
       provincia: this.provincia.toUpperCase(),
       distrito: this.distrito.toUpperCase(),
       via: this.via.toUpperCase(),
       nombreVia: this.nombreVia.toUpperCase(),
-      numeroVia: this.numeroVia.toUpperCase(),
-      interiorVia: this.interiorVia.toUpperCase(),
+      numeroVia: this.numeroVia,
+      interiorVia: this.interiorVia,
       zona: this.zona.toUpperCase(),
       nombreZona: this.nombreZona.toUpperCase(),
-      numeroZona: this.numeroZona.toUpperCase(),
-      interiorZona: this.interiorZona.toUpperCase(),
+      numeroZona: this.numeroZona,
+      interiorZona: this.interiorZona,
       referenciaDomicilio: this.referenciaDomicilio.toUpperCase(),
       ubigeo:this.ubigeo,
       numDocumento:this.numeroDocumento
@@ -510,7 +649,7 @@ agregarDocencia() {
       apellidoPaterno: this.aPaterno.toUpperCase(),
       apellidoMaterno: this.aMaterno.toUpperCase(),
       nombres: this.nombres.toUpperCase(),    
-      ruc: this.ruc,
+      ruc: this.valGroup.controls['ruc'].value,
       estadoCivil: this.estadoCivil,
       sexo: this.sexo,
       grupoSanguineo: this.gSanguineo,
@@ -519,20 +658,21 @@ agregarDocencia() {
       regimen:this.valorRegimen,
       tipoRegimen:this.valortipRegimen,
       fechaNacimiento: this.fNacimiento,
-      telefonoFijo: this.tFijo,
-      telefonoMovil: this.tMovil,
-      correoElectronico: this.correoE.toUpperCase(),         
+      telefonoFijo: this.valGroup.controls['telFijo'].value,
+      telefonoMovil: this.valGroup.controls['telMovil'].value,
+      correoElectronico:  this.valGroup.controls['correo'].value, 
       enfAlergias: this.enfAlergias.toUpperCase(),
       fechaIngreso:this.fechaIngreso,
       unidadOrganica:this.valorUnidad,
       servicio:this.valorServicio,
-      rutaFoto:this.rutaFoto
+      rutaFoto:this.rutaFoto,
+      nacionalidad:this.nacionalidad
 
     }
     const datosContacto = {
       nombreContacto: this.nombreContacto.toUpperCase(),
       parentesco: this.parentesco.toUpperCase(),
-      numContacto: this.numContacto.toUpperCase(),
+      numContacto:  this.valGroup.controls['numContacto'].value, 
       numDocumento:this.numeroDocumento
     }
 
@@ -563,15 +703,22 @@ agregarDocencia() {
         this.loading = false
       })
     ).subscribe(respuesta => {
+      console.log(respuesta)
       const { estado, mensaje, datos } = respuesta;
       if (!estado && datos) {
-        errorAlertaValidacion(mensaje, datos);
+        errorAlertaValidacion(mensaje,datos);
         return;
+      }else if(datos==2){
+         warningAlerta('Alerta',mensaje) 
+      }else if((datos==1)){
+        successAlerta('Éxito', mensaje);
+      }else{
+         errorAlerta('Error',mensaje)
       }
-      successAlerta('Éxito', mensaje);
+      
     });
 
-
+  
 
 
     

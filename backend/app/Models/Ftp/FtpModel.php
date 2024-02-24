@@ -28,15 +28,6 @@ class FtpModel extends Model
     }
 
 
-    public function subirArchivo(string $destino, string $nomArchivo, string $rutaArchivo): bool
-    {
-        if (ftp_nlist($this->ftp, $destino) === false) ftp_mkdir($this->ftp, $destino);
-		return ftp_put($this->ftp, $destino . DIRECTORY_SEPARATOR . $nomArchivo,
-			$rutaArchivo . DIRECTORY_SEPARATOR . $nomArchivo,
-			FTP_BINARY);
-    }
-
-
     public function obtenerArchivo(string $rutaOrigen, string $nomArchivo, string $destino): bool
     {
         $flag = ftp_get($this->ftp, $destino . $nomArchivo, $rutaOrigen . $nomArchivo, FTP_BINARY);

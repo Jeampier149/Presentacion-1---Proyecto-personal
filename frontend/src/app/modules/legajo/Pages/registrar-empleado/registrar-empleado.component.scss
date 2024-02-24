@@ -91,3 +91,21 @@ color: white;
    height: 100%;
    object-fit: cover; /* La imagen cubrirá todo el contenedor sin distorsionarla */
  }
+
+
+ 
+ /* Estilo para el datalist */
+ datalist {
+   display: none; /* Oculta el datalist por defecto */
+ }
+ 
+ /* Estilo para mostrar las opciones */
+ input[list]::-webkit-calendar-picker-indicator {
+   display: none;
+ }
+ 
+ input[list] {
+   -webkit-appearance: menulist; /* Establece la apariencia como un menú desplegable */
+   -moz-appearance: menulist;
+   appearance: menulist;
+ }
