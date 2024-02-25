@@ -291,7 +291,7 @@ agregarEspecializacion() {
 if(this.especializacion.length<=5) this.especializacion.push({ tipo:'',centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: null,ruta:"" }); }
 agregarCursos() { 
   this.divCursos=false
-if(this.cursos.length<=5)  this.cursos.push({ centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:""  }); }
+if(this.cursos.length<=5)  this.cursos.push({tipo:'', centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:""  }); }
 agregarIdioma() { 
   this.divIdioma=false
  if(this.idiomas.length<=4) this.idiomas.push({ lenguaE: '', nivel: "", descripcion: "", archivo:null,ruta:""  }); }

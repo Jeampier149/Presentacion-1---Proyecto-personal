@@ -59,5 +59,13 @@ Route::controller(VerDatosController::class)->group(function () {
     Route::post('datos/datosDiscapacidad', 'listarDatosDiscapacidad');
     Route::post('datos/datosContactoEmergencia', 'listarDatosContactoEmergencia');
     Route::post('datos/datosFamiliares', 'listarDatosFamiliares');
+    Route::post('datos/datosProfesion', 'listarDatosProfesion');
+    Route::post('datos/datosEstudioSuperior', 'listarDatosEstudioSuperior');
+    Route::post('datos/datosEstudioPostgrado', 'listarDatosEstudioPostgrado');
+    Route::post('datos/datosEstudioEspecializacion', 'listarDatosEstudioEspecializacion');
+    Route::post('datos/datosEstudioCursos', 'listarDatosEstudioCursos');
+    Route::post('datos/datosEstudioIdioma', 'listarDatosEstudioIdioma');
+    Route::post('datos/datosExperienciaLaboral', 'listarDatosExperienciaLaboral');
+    Route::post('datos/datosExperienciaDocencia', 'listarDatosExperienciaDocencia');
 
 });

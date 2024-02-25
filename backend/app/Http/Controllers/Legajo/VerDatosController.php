@@ -41,40 +41,53 @@ class VerDatosController extends JSONResponseController
         $resultado =$datos->listarDatosDomicilio($id);
         return $this->sendResponse(200, true, '', $resultado);     
     }
-    public function listarArchivos(Request $request){
+    public function listarDatosProfesion(Request $request){
         $id=$request->post('pkEmpleado');
-    // Carpeta remota donde se encuentran los archivos
-        $remoteFolder = $id;
-        // Carpeta local donde se guardarán los archivos descargados
-        $localFolder = storage_path('app');
-        // Obtener una lista de archivos en la carpeta remota
-        $files = $ftp->nlist($remoteFolder);
-        // Descargar cada archivo de la lista
-        foreach ($files as $file) {
-      // Nombre del archivo en el servidor remoto
-          $remoteFilePath = $remoteFolder . '/' . $file;            
-        // Ruta local donde se guardará el archivo descargado
-         $localFilePath = $localFolder . '/' . $file;
-    
-        // Descargar el archivo
-     if ($ftp->get($remoteFilePath, $localFilePath, FTP_BINARY)) {
-        echo "Archivo descargado: $file\n";
-        
-        // Eliminar el archivo local después de descargarlo
-        if (unlink($localFilePath)) {
-            echo "Archivo local eliminado: $localFilePath\n";
-        } else {
-            echo "Error al eliminar el archivo local: $localFilePath\n";
-        }
-    } else {
-        echo "Error al descargar el archivo: $file\n";
+        $datos= new  verDatosModel();
+        $resultado =$datos->listarDatosProfesion($id);
+        return $this->sendResponse(200, true, '', $resultado);    
     }
-}
-
-    // Cerrar conexión FTP
-    $ftp->close();
-        return $this->sendResponse(200, true, '', $resultado);     
+    public function listarDatosEstudioSuperior(Request $request){
+        $id=$request->post('pkEmpleado');
+        $datos= new  verDatosModel();
+        $resultado =$datos->listarDatosEstudioSuperior($id);
+        return $this->sendResponse(200, true, '', $resultado);    
     }
-   
+    public function listarDatosEstudioPostgrado(Request $request){
+        $id=$request->post('pkEmpleado');
+        $datos= new  verDatosModel();
+        $resultado =$datos->listarDatosEstudioPostgrado($id);
+        return $this->sendResponse(200, true, '', $resultado);    
+    }
+    public function listarDatosEstudioEspecializacion(Request $request){
+        $id=$request->post('pkEmpleado');
+        $datos= new  verDatosModel();
+        $resultado =$datos->listarDatosEstudioEspecializacion($id);
+        return $this->sendResponse(200, true, '', $resultado);    
+    }
+    public function listarDatosEstudioCursos(Request $request){
+        $id=$request->post('pkEmpleado');
+        $datos= new  verDatosModel();
+        $resultado =$datos->listarDatosEstudioCursos($id);
+        return $this->sendResponse(200, true, '', $resultado);    
+    }
+    public function listarDatosEstudioIdioma(Request $request){
+        $id=$request->post('pkEmpleado');
+        $datos= new  verDatosModel();
+        $resultado =$datos->listarDatosEstudioIdioma($id);
+        return $this->sendResponse(200, true, '', $resultado);    
+    }
+    public function listarDatosExperienciaLaboral(Request $request){
+        $id=$request->post('pkEmpleado');
+        $datos= new  verDatosModel();
+        $resultado =$datos->listarDatosExperienciaLaboral($id);
+        return $this->sendResponse(200, true, '', $resultado);    
+    }
+    public function listarDatosExperienciaDocencia(Request $request){
+        $id=$request->post('pkEmpleado');
+        $datos= new  verDatosModel();
+        $resultado =$datos->listarDatosExperienciaDocencia($id);
+        return $this->sendResponse(200, true, '', $resultado);    
+    }
 
 }

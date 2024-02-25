@@ -12,21 +12,15 @@ export class ModalVerComponent {
   pkEmpleado: string = "";
   estado:string=""
 
-  //---ARRAYS DE SELECTS---//
-  datosEmpleado: any[] = [];
-  tipoEmpleado: any[] = []
-  tipoGrupo: any[] = []
-  regimen: any[] = []
-  tipoRegimen: any[] = []
 
-  //--VALOR DE SELECTS----//
+
+  //--VALOR ---//
   valorRegimen: any = ""
   valortipRegimen: any = ""
   valorNivel: string = ""
   valorCargo: string = ""
   valorServicio: string = ""
   valorUnidad: string = ""
-
   codigoAirhsp: string = ""
   //---DATOS PERSONALES FORM
   tipoDoc: string = "";
@@ -65,14 +59,11 @@ export class ModalVerComponent {
   referenciaDomicilio: string = "";
   ubigeo: string = "";
   //---Datos discapacidad---//
-  fisicas: boolean = false;
-  sensorial: boolean = false;
-  mentales: boolean = false;
-  intelectuales: boolean = false;
   tipoDiscapacidad: any[] = [];
   //--TABLAS DE INGRESO DE DATOS---
   familiares: any[] = [];
   estudioSuperior: any[] = [];
+
   profesion: string = "";
   lugarColeg: string = "";
   fechColeg: string = "";
@@ -117,11 +108,20 @@ export class ModalVerComponent {
     this.listarContactoEmergencia(id)
     this.listarDatosDomicilio(id)
     this.listarDatosFamiliar(id)
-
+    this.listarDatosProfesion(id)
+    this.listarDatosEstudioSuperior(id)
+    this.listarDatosEstudioPostgrado(id)
+    this.listarDatosEstudioEspecializacion(id)
+    this.listarDatosEstudioCursos(id)
+    this.listarDatosEstudioIdioma(id)
+    this.listarDatosExperienciaLaboral(id)
+    this.listarDatosExperienciaDocencia(id)
   }
+
   closeModal() {
     this.modalEl.hide();
   }
+  
   listarDatosEmpleado(id: string) {
     this.loading = true
     this.ModalDatosService$.listarDatosEmpleado(id).pipe(
@@ -145,6 +145,7 @@ export class ModalVerComponent {
       if (!estado) {
         return;
       }
+      this.tipoDiscapacidad=datos
     });
   }
   listarDatosDomicilio(id: string) {
@@ -185,8 +186,95 @@ export class ModalVerComponent {
       })
     ).subscribe(respuesta => {
       const { estado, mensaje, datos } = respuesta;
-      console.log(datos[0])
       this.setDatosConctactoEmergencia(datos[0])
+    });
+  }
+  listarDatosProfesion(id: string) {
+    this.loading = true
+    this.ModalDatosService$.listarDatosProfesion(id).pipe(
+      finalize(() => {
+        this.loading = false
+      })
+    ).subscribe(respuesta => {
+      const { estado, mensaje, datos } = respuesta;
+      this.setDatosProfesion(datos[0])
+    });
+  }
+  listarDatosEstudioSuperior(id: string) {
+    this.loading = true
+    this.ModalDatosService$.listarDatosEstudioSuperior(id).pipe(
+      finalize(() => {
+        this.loading = false
+      })
+    ).subscribe(respuesta => {
+      const { estado, mensaje, datos } = respuesta;
+      this.estudioSuperior=datos
+    });
+  }
+  listarDatosEstudioPostgrado(id: string) {
+    this.loading = true
+    this.ModalDatosService$.listarDatosEstudioPostgrado(id).pipe(
+      finalize(() => {
+        this.loading = false
+      })
+    ).subscribe(respuesta => {
+      const { estado, mensaje, datos } = respuesta;
+      this.estudioPostgrado=datos
+    });
+  }
+  listarDatosEstudioEspecializacion(id: string) {
+    this.loading = true
+    this.ModalDatosService$.listarDatosEstudioEspecializacion(id).pipe(
+      finalize(() => {
+        this.loading = false
+      })
+    ).subscribe(respuesta => {
+      const { estado, mensaje, datos } = respuesta;
+      this.especializacion=datos
+    });
+  }
+  listarDatosEstudioCursos(id: string) {
+    this.loading = true
+    this.ModalDatosService$.listarDatosEstudioCursos(id).pipe(
+      finalize(() => {
+        this.loading = false
+      })
+    ).subscribe(respuesta => {
+      const { estado, mensaje, datos } = respuesta;
+      this.cursos=datos
+    });
+  }
+  listarDatosEstudioIdioma(id: string) {
+    this.loading = true
+    this.ModalDatosService$.listarDatosEstudioIdioma(id).pipe(
+      finalize(() => {
+        this.loading = false
+      })
+    ).subscribe(respuesta => {
+      const { estado, mensaje, datos } = respuesta;
+      this.idiomas=datos
+    });
+  }
+  listarDatosExperienciaLaboral(id: string) {
+    this.loading = true
+    this.ModalDatosService$.listarDatosExperienciaLaboral(id).pipe(
+      finalize(() => {
+        this.loading = false
+      })
+    ).subscribe(respuesta => {
+      const { estado, mensaje, datos } = respuesta;
+      this.experienciaLaboral=datos
+    });
+  }
+  listarDatosExperienciaDocencia(id: string) {
+    this.loading = true
+    this.ModalDatosService$.listarDatosExperienciaDocencia(id).pipe(
+      finalize(() => {
+        this.loading = false
+      })
+    ).subscribe(respuesta => {
+      const { estado, mensaje, datos } = respuesta;
+      this.laborDocencia=datos
     });
   }
 
@@ -236,8 +324,12 @@ export class ModalVerComponent {
    this.interiorZona=datos.interiorZona
    this.referenciaDomicilio=datos.referencia
  }
- setDatosProfesion(){
- 
+ setDatosProfesion(datos:any){
+  this.profesion=datos.profesion
+  this.fechColeg=datos.fechaInicio
+  this.lugarColeg=datos.lugar
+  this.fechTerColeg=datos.fechaTermino
+  this.numColeg=datos.numeroCole
  }
 
 }

@@ -192,7 +192,8 @@ class LegajoModel extends Model
             try {
 
                 foreach ($datosEstudioSuperior as $superior) {
-                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_superior ?,?,?,?,?,?,?', [
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_superior ?,?,?,?,?,?,?,?', [
+                        $superior['tipo'],
                         $superior['centro'],
                         $superior['especialidad'],
                         $superior['inicio'],
@@ -210,7 +211,8 @@ class LegajoModel extends Model
             try {
 
                 foreach ($datosPostgrado as $postgrado) {
-                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_postgrado ?,?,?,?,?,?,?', [
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_postgrado ?,?,?,?,?,?,?,?', [
+                        $postgrado['tipo'],
                         $postgrado['centro'],
                         $postgrado['especialidad'],
                         $postgrado['inicio'],
@@ -227,7 +229,8 @@ class LegajoModel extends Model
             try {
 
                 foreach ($datosEspecialidades as $especialidad) {
-                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_especialidad ?,?,?,?,?,?,?', [
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_especialidad ?,?,?,?,?,?,?,?', [
+                        $especialidad['tipo'],
                         $especialidad['centro'],
                         $especialidad['materia'],
                         $especialidad['inicio'],
@@ -245,7 +248,8 @@ class LegajoModel extends Model
             try {
 
                 foreach ($datosCursos as $curso) {
-                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_curso ?,?,?,?,?,?,?', [
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_curso ?,?,?,?,?,?,?,?', [
+                        $curso['tipo'],
                         $curso['centro'],
                         $curso['materia'],
                         $curso['inicio'],
@@ -263,10 +267,9 @@ class LegajoModel extends Model
             try {
 
                 foreach ($datosIdiomas as $idioma) {
-                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_idioma ?,?,?,?,?', [
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_estudio_idioma ?,?,?,?', [
                         $idioma['lenguaE'],
                         $idioma['nivel'],
-                        $idioma['descripcion'],
                         $idioma['ruta'],
                         $numDocumento
                     ]);
