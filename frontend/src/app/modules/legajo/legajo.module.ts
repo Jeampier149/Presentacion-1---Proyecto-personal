@@ -12,13 +12,16 @@ import { RegistrarEmpleadoComponent } from './Pages/registrar-empleado/registrar
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ModalVerComponent } from './components/modal-ver/modal-ver.component';
 import { ModalVerArchivoComponent } from './components/modal-ver-archivo/modal-ver-archivo.component';
+import { EditarEmpleadoComponent } from './Pages/editar-empleado/editar-empleado.component';
+
 
 @NgModule({
   declarations: [
     InformacionComponent,
     RegistrarEmpleadoComponent,
-    ModalVerComponent,
-    ModalVerArchivoComponent
+    ModalVerComponent, 
+    ModalVerArchivoComponent,
+    EditarEmpleadoComponent
 
   
   ],

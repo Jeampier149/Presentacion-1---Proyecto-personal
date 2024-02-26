@@ -107,20 +107,7 @@ export class ModalVerComponent {
 
     openModal(id: string) {
 
-        this.listarDatosEmpleado(id)
-        this.listarDatosDiscapacidad(id)
-        this.listarContactoEmergencia(id)
-        this.listarDatosDomicilio(id)
-        this.listarDatosFamiliar(id)
-        this.listarDatosProfesion(id)
-        this.listarDatosEstudioSuperior(id)
-        this.listarDatosEstudioPostgrado(id)
-        this.listarDatosEstudioEspecializacion(id)
-        this.listarDatosEstudioCursos(id)
-        this.listarDatosEstudioIdioma(id)
-        this.listarDatosExperienciaLaboral(id)
-        this.listarDatosExperienciaDocencia(id)
-        
+        this.listarDatos(id)        
         this.modalEl.show();
     }
 
@@ -128,215 +115,36 @@ export class ModalVerComponent {
         this.modalEl.hide();
     }
 
-    listarDatosEmpleado(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosEmpleado(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.setDatosEmpleado(datos[0]);
-            });
-    }
-    listarDatosDiscapacidad(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosDiscapacidad(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.tipoDiscapacidad = datos;
-            });
-    }
-    listarDatosDomicilio(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosDomicilio(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                console.log(respuesta);
-                if (!estado) {
-                    return;
-                }
-                this.setDatosDomicilio(datos[0]);
-            });
-    }
-    listarDatosFamiliar(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosFamiliares(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.familiares = datos;
-            });
-    }
-    listarContactoEmergencia(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosContacto(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.setDatosConctactoEmergencia(datos[0]);
-            });
-    }
-    listarDatosProfesion(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosProfesion(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.setDatosProfesion(datos[0]);
-            });
-    }
-    listarDatosEstudioSuperior(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosEstudioSuperior(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.estudioSuperior = datos;
-            });
-    }
-    listarDatosEstudioPostgrado(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosEstudioPostgrado(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.estudioPostgrado = datos;
-            });
-    }
-    listarDatosEstudioEspecializacion(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosEstudioEspecializacion(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.especializacion = datos;
-            });
-    }
-    listarDatosEstudioCursos(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosEstudioCursos(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
+    listarDatos(id:any){
+      
+      this.loading = true;
+      this.ModalDatosService$.listarDatos(id)
+          .pipe(
+              finalize(() => {
+                  this.loading = false;
+              })
+          )
+          .subscribe((respuesta) => {
+              const { estado, datos } = respuesta;
+              if (!estado) {
                   return;
               }
-                this.cursos = datos;
-            });
+              this.setDatosEmpleado(datos.datosEmpleado[0])
+              this.setDatosConctactoEmergencia(datos.datosContactoEmergencia[0])
+              this.setDatosDomicilio(datos.datosDomicilio[0])
+              this.setDatosProfesion(datos.datosProfesion[0])
+              this.familiares=datos.datosFamiliares;
+              this.estudioSuperior=datos.datosEstudioSuperior
+              this.especializacion=datos.datosEstudioEspecializacion
+              this.estudioPostgrado=datos.datosEstudioPostgrado
+              this.cursos=datos.datosEstudioCursos
+              this.idiomas=datos.datosEstudioIdioma
+              this.tipoDiscapacidad=datos.datosDiscapacidad
+              this.experienciaLaboral=datos.datosExperienciaLaboral
+              this.laborDocencia=datos.datosExperienciaDocencia
+          });
     }
-    listarDatosEstudioIdioma(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosEstudioIdioma(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                  return;
-              }
-                this.idiomas = datos;
-            });
-    }
-    listarDatosExperienciaLaboral(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosExperienciaLaboral(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.experienciaLaboral = datos;
-            });
-    }
-    listarDatosExperienciaDocencia(id: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatosExperienciaDocencia(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.laborDocencia = datos;
-            });
-    }
+ 
     listarFoto(ruta: any) {
         this.fotoP = '';
         if (ruta !== '') {

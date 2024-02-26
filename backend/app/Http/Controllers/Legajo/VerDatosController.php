@@ -11,104 +11,36 @@ use stdClass;
 
 class VerDatosController extends JSONResponseController
 {
-    public function listarDatosEmpleado(Request $request)
+    public function listarTodosLosDatos(Request $request)
     {
         $id = $request->post('pkEmpleado');
         $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosEmpleado($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosDiscapacidad(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosDiscapacidades($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosContactoEmergencia(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosContactoEmergencia($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosFamiliares(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosFamiliares($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
+        
+        $resultado = [];
 
-    public function listarDatosDomicilio(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosDomicilio($id);
-        return $this->sendResponse(200, true, '', $resultado);
+        $resultado['datosEmpleado'] = $datos->listarDatosEmpleado($id);
+        $resultado['datosDiscapacidad'] = $datos->listarDatosDiscapacidades($id);
+        $resultado['datosContactoEmergencia'] = $datos->listarDatosContactoEmergencia($id);
+        $resultado['datosFamiliares'] = $datos->listarDatosFamiliares($id);
+        $resultado['datosDomicilio'] = $datos->listarDatosDomicilio($id);
+        $resultado['datosProfesion'] = $datos->listarDatosProfesion($id);
+        $resultado['datosEstudioSuperior'] = $datos->listarDatosEstudioSuperior($id);
+        $resultado['datosEstudioPostgrado'] = $datos->listarDatosEstudioPostgrado($id);
+        $resultado['datosEstudioEspecializacion'] = $datos->listarDatosEstudioEspecializacion($id);
+        $resultado['datosEstudioCursos'] = $datos->listarDatosEstudioCursos($id);
+        $resultado['datosEstudioIdioma'] = $datos->listarDatosEstudioIdioma($id);
+        $resultado['datosExperienciaLaboral'] = $datos->listarDatosExperienciaLaboral($id);
+        $resultado['datosExperienciaDocencia'] = $datos->listarDatosExperienciaDocencia($id);
+
+        return $this->sendResponse(200, true, 'Todos los datos', $resultado);
     }
-    public function listarDatosProfesion(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosProfesion($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosEstudioSuperior(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosEstudioSuperior($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosEstudioPostgrado(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosEstudioPostgrado($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosEstudioEspecializacion(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosEstudioEspecializacion($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosEstudioCursos(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosEstudioCursos($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosEstudioIdioma(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosEstudioIdioma($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosExperienciaLaboral(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosExperienciaLaboral($id);
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarDatosExperienciaDocencia(Request $request)
-    {
-        $id = $request->post('pkEmpleado');
-        $datos = new  verDatosModel();
-        $resultado = $datos->listarDatosExperienciaDocencia($id);
-        return $this->sendResponse(200, true, '', $resultado);}
 
     public function verArchivo(Request $request)
     {    
         try {
             $ruta = $request->get('ruta');
             if (empty(trim($ruta))) {
-                return ;
+                return;
             }
             $archivo = Storage::disk('ftp')->get($ruta);
             $tipo = Storage::disk('ftp')->mimeType($ruta);
