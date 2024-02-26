@@ -64,5 +64,10 @@ class GeneralController extends JSONResponseController
         $resultado=$profesion->listarProfesiones();
         return $this->sendResponse(200, true, '', $resultado);
     }
+    public function listarNivelIdioma(Request $request){
+        $nivel =new GeneralModel();
+        $resultado=$nivel->listarNivelIdioma();
+        return $this->sendResponse(200, true, '', $resultado);
+    }
 }
 

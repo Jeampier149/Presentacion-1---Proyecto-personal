@@ -91,12 +91,7 @@ color: white;
    height: 100%;
    object-fit: cover; /* La imagen cubrirá todo el contenedor sin distorsionarla */
  }
- .foto{
 
-    border-color: black;
-    border-width: 2px;
-    border-style: dashed;
- }
  .estado{
    width: 140px;
    padding: 6px;
@@ -120,3 +115,20 @@ color: white;
   background-color: #296073;
   color: white;
 }
+
+.foto{
+  border: 2px solid #214eaf; 
+  border-radius: 5px; 
+  box-shadow: 0 0 5px rgba(58, 24, 206, 0.3); 
+  overflow: hidden;
+}
+.img-perfil{
+  width: 100%; /* Ancho al 100% del contenedor */
+  height: auto; /* Alto al 100% del contenedor */
+  object-fit: cover; 
+  border-radius: 3px;
+}
+
+
+
+

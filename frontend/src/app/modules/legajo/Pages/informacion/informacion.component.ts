@@ -17,6 +17,7 @@ import { ModalVerComponent } from '@modules/legajo/components/modal-ver/modal-ve
   styleUrl: './informacion.component.scss'
 })
 export class InformacionComponent {
+    
 @ViewChild(ModalVerComponent) modalDatos?: any
 @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
   rutas: rutaBreadCrumb[] = [{nombre: 'Legajo'}];
@@ -27,7 +28,7 @@ export class InformacionComponent {
   datos: any[] = [];
   agregable: boolean = false;
 
-
+  filtroEstado: string = '';
   filtroServicioEquipo: string = '';
   filtroDocumento: string = '';
   filtroUnidadOrganica: string = '';
@@ -46,6 +47,7 @@ export class InformacionComponent {
       {nombre: 'Nombres.', estilo: 'width: 120px; min-width: 110px'},
       {nombre: 'Unidad Organica', estilo: 'width: 140px; min-width: 140px', clase: 'text-center'},
       {nombre: 'Servicio/Equipo', estilo: 'width: 140px; min-width: 40px', clase: 'text-center'},
+      {nombre: 'Estado', estilo: 'width: 140px; min-width: 40px', clase: 'text-center'}
 
   ]
 
@@ -74,7 +76,8 @@ export class InformacionComponent {
           unidadOrganica: this.filtroUnidadOrganica,
           equipoServicio: this.filtroServicioEquipo,
           nombres: this.filtroNombres,
-          pagina: this.pagina
+          pagina: this.pagina,
+          estado:this.filtroEstado
       }
 
       this.DatoGeneralesService$.listarEmpleado(datos)
@@ -110,6 +113,7 @@ export class InformacionComponent {
       this.filtroAppPaterno = '';
       this.filtroAppMaterno = '';
       this.filtroServicioEquipo = '';
+      this.filtroEstado = '';
       this.pagina = 1;
       this.listarEmpleados();
       this.inpFocus.nativeElement.focus();

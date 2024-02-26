@@ -83,5 +83,12 @@ export class ModalDatosService {
     }).pipe(shareReplay(1));
   
   }
+  verArchivo(ruta: string) {
+    return this.http.get('/api/datos/archivos', {
+      params: {
+         ruta:ruta
+      },   responseType: "blob"
+      
+  }).pipe(shareReplay(1));}
  
 }

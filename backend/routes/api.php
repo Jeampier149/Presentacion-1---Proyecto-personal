@@ -43,6 +43,9 @@ Route::controller(GeneralController::class)->group(function () {
     Route::post('general/listarEstadoCivil', 'listarEstadoCivil');
     Route::post('general/listarParentesco', 'listarParentesco');
     Route::post('general/listarProfesiones', 'listarProfesiones');
+    Route::post('general/listarNivelIdioma', 'listarNivelIdioma');
+
+
 });
 
 Route::controller(ReniecController::class)->group(function () {
@@ -67,5 +70,7 @@ Route::controller(VerDatosController::class)->group(function () {
     Route::post('datos/datosEstudioIdioma', 'listarDatosEstudioIdioma');
     Route::post('datos/datosExperienciaLaboral', 'listarDatosExperienciaLaboral');
     Route::post('datos/datosExperienciaDocencia', 'listarDatosExperienciaDocencia');
+    Route::get('datos/archivos', 'verArchivo');
+    
 
 });

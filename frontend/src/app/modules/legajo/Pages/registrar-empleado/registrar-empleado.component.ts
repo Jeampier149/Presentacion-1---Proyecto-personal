@@ -27,6 +27,7 @@ export class RegistrarEmpleadoComponent {
     this.inicializarVariables()
     this.listarParentesco()
     this.listarProfesiones()
+    this.listarNivelIdioma()
   }
 
   //DORPZONE IMAGEN
@@ -71,6 +72,7 @@ export class RegistrarEmpleadoComponent {
   tipoEstadoCivil:any[]=[]
   tipoParentesco:any[]=[]
   tipoProfesiones:any[]=[]
+  nivelIdioma:any[]=[]
 
   //--VALOR DE SELECTS----//
   valorRegimen: any = ""
@@ -294,13 +296,13 @@ agregarCursos() {
 if(this.cursos.length<=5)  this.cursos.push({tipo:'', centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:""  }); }
 agregarIdioma() { 
   this.divIdioma=false
- if(this.idiomas.length<=4) this.idiomas.push({ lenguaE: '', nivel: "", descripcion: "", archivo:null,ruta:""  }); }
+ if(this.idiomas.length<=4) this.idiomas.push({ lenguaE: '', nivel: "", archivo:null,ruta:""  }); }
 agregarExperiencia() {
   this.divExperienciaLaboral=false
  if(this.experienciaLaboral.length<=10)  this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "", archivo:null,ruta:""  }); }
 agregarDocencia() {
   this.divExperienciaDocencia=false
-  if(this.laborDocencia.length<=10) this.laborDocencia.push({ centroEnseñanza: '', curso: "", inicio: '', termino: "", archivo:null,ruta:""}); 
+  if(this.laborDocencia.length<=10) this.laborDocencia.push({ centro: '', curso: "", inicio: '', termino: "", archivo:null,ruta:""}); 
  }
 
 
@@ -590,6 +592,23 @@ agregarDocencia() {
         if (estado) {
           datos.length > 0 ? this.agregable = false : this.agregable = true;
           this.tipoProfesiones = datos;
+        } else {
+          errorAlerta('Error', mensaje).then();
+        }
+      });
+  }
+  listarNivelIdioma() {
+    this.DatoGeneralesService$.listarNivelIdioma()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (estado) {
+          datos.length > 0 ? this.agregable = false : this.agregable = true;
+          this.nivelIdioma = datos;
+          console.log(this.nivelIdioma)
         } else {
           errorAlerta('Error', mensaje).then();
         }

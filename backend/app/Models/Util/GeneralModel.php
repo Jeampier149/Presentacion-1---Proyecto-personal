@@ -8,23 +8,78 @@ use Illuminate\Support\Facades\DB;
 
 class GeneralModel extends Model
 {
-    use HasFactory;
-    public function __construct()
-    {
+  use HasFactory;
+  public function __construct()
+  {
 
-        parent::__construct();
-        $this->conexion = DB::connection('personal');
-    }
+    parent::__construct();
+    $this->conexion = DB::connection('personal');
+  }
 
-  public function listarTipoDocumento(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_tipo_documento');}
-  public function listarTipoEmpleado(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_tipo_empleado');}
-  public function listarGrupo(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_tipo_grupo_ocupacional');}
-  public function listarRegimen(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_regimen');}
-  public function listarTipoRegimen($id){  return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_tipo_regimen ?',[$id]);}
-  public function listarSexo(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_sexo');}
-  public function listarGrupoSanguineo(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_grupo_sanguineo');}
-  public function listarEstadoCivil(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_estado_civil');}  
-  public function listarParentesco(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_tipo_parentesco');}
-  public function listarProfesiones(){ return $this->conexion->select(/** @lang SQL */ 'EXEC dbo.g_sp_listar_tipo_profesion');}
-    
+  public function listarTipoDocumento()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_tipo_documento');
+  }
+  public function listarTipoEmpleado()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_tipo_empleado');
+  }
+  public function listarGrupo()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_tipo_grupo_ocupacional');
+  }
+  public function listarRegimen()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_regimen');
+  }
+  public function listarTipoRegimen($id)
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_tipo_regimen ?', [$id]);
+  }
+  public function listarSexo()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_sexo');
+  }
+  public function listarGrupoSanguineo()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_grupo_sanguineo');
+  }
+  public function listarEstadoCivil()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_estado_civil');
+  }
+  public function listarParentesco()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_tipo_parentesco');
+  }
+  public function listarProfesiones()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_tipo_profesion');
+  }
+  public function listarNivelIdioma()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_nivel_idioma');
+  }
 }

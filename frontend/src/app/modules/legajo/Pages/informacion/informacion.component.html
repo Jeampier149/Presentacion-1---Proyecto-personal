@@ -76,6 +76,12 @@
                                                     name="filtroServicioEquipo" [(ngModel)]="filtroServicioEquipo"
                                                     (keydown.enter)="filtrarEmpleado()">
                                                 </th>
+                                                <th><input
+                                                    inputmode="text"
+                                                    type="text" class="form-control form-control-sm text-center"
+                                                    name="filtroEstado" [(ngModel)]="filtroEstado"
+                                                    (keydown.enter)="filtrarEmpleado()">
+                                                </th>
                                            
                                             </tr>
                                             </thead>
@@ -107,6 +113,11 @@
                                                     <td>{{ dato.nombres }}</td>
                                                     <td >{{ dato.unidadOrganica }}</td>
                                                     <td >{{ dato.servicio}}</td>
+                                                    <td  class="text-center">
+                                                        <span class="badge estado W-100" [ngClass]="dato.estado === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{ dato.estado}}</span>    
+                                                    
+                                                    
+                                                    </td>
                                                 </tr>
                                             </ng-template>
                                             <ng-template #vacio>

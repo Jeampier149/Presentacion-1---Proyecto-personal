@@ -8,5 +8,6 @@ export interface ListarPersonalParams {
     unidadOrganica: string
     equipoServicio: string,
     pagina: number,
-    longitud: number
+    longitud: number,
+    estado:string
 }

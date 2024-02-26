@@ -136,26 +136,26 @@ class LegajoController extends JSONResponseController
         $datosExpLaboral= json_decode($request->post('experienciaLaboral'), true);
         $datosLaborDocencia= json_decode($request->post('laborDocencia'), true);
         $numeroDocumento = $datosPersonales['numeroDocumento'];
-        $archivosT = $request->file();       
+        $archivosT = $request->file();  
+
         foreach ($archivosT as $archivo) {
        
             $nameArchivo =  $archivo->getClientOriginalName();
-
-            $destino = $numeroDocumento.'/'.$nameArchivo;
+            $name = str_replace(" ", "_", $nameArchivo);
+            $destino = $numeroDocumento.'/'.$name;
             try {
                 Storage::disk('ftp')->put($destino, file_get_contents($archivo));     
                          
             } catch (\Exception $e) {
-                // Capturar la excepción y obtener el mensaje de error
                 $errorMessage = $e->getMessage();
                 return response()->json(['error' => 'Error al subir el archivo al servidor FTP: ' . $errorMessage], 500);
             }
-            // Subir el archivo al servidor FTP
         }
 
 
         
         $legajoModel = new LegajoModel();
+
         $resultado = $legajoModel->registrarEmpleado($datosPersonales, $datosContacto, $datosDiscapacidad, $datosDomicilio, $datosFamiliares, $datosProfesion,
                                                      $datosEstudioSuperior,$datosPostgrado,$datosEspecialidades,$datosCursos,$datosIdiomas,$datosExpLaboral,$datosLaborDocencia);
 

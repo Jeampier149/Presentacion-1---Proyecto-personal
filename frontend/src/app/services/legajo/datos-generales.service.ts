@@ -75,7 +75,11 @@ export class DatoGeneralesService {
             responseType: "json"
         }).pipe(shareReplay(1));
     }
-
+    listarNivelIdioma() {
+        return this.http.post<HttpResponseApi>('/api/general/listarNivelIdioma', {
+            responseType: "json"
+        }).pipe(shareReplay(1));
+    }
 
     guardarDatosEmpleado(
         datosPersonales:any ,

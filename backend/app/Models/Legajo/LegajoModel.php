@@ -299,7 +299,7 @@ class LegajoModel extends Model
 
             foreach ($datosLaborDocencia as $docencia) {
                 DB::statement('EXEC dbo.pl_sp_insertar_datos_experiencia_docencia ?,?,?,?,?,?', [
-                    $docencia['centroEnseñanza'],
+                    $docencia['centro'],
                     $docencia['curso'],
                     $docencia['inicio'],
                     $docencia['termino'],

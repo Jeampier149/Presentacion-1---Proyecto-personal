@@ -59,11 +59,11 @@
                                         <legend>Datos Personales</legend>
                                         <div class="row mt-4 ">
                                             <div class="col-xl-2  col-8">
-                                                <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
+                                                <ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept="image/*">
                                                     <ngx-dropzone-label>Arraste o Elija una imagen!</ngx-dropzone-label>
                                                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
                                                         *ngFor="let f of files" [file]="f" [removable]="true"
-                                                        (removed)="onRemove(f)">
+                                                        (removed)="onRemove(f)"  accept="image/*">
 
                                                     </ngx-dropzone-image-preview>
                                                 </ngx-dropzone>
@@ -554,7 +554,7 @@
                                                                                     [(ngModel)]="familiar.tipoD"   id="tipoD{{i}}"
                                                                                     name="tipoD{{i}}">
                                                                                     <option value="" selected>Seleccionar</option>
-                                                                                  <option *ngFor="let tipoD of datos" value="{{tipoD.descripcion}}">
+                                                                                    <option *ngFor="let tipoD of datos" value="{{tipoD.descripcion}}">
                                                                                             {{tipoD.desCorta}}</option>
                                                                                    </select>
                                                                              </td>
@@ -785,6 +785,8 @@
                                                                                         *ngFor="let superior of estudioSuperior; let i = index">
                                                                                         <td>
                                                                                             <select class="form-select form-select-sm" 
+                                                                                            id="tipo{{i}}"
+                                                                                            name="tipo{{i}}"
                                                                                             [(ngModel)]="superior.tipo">
                                                                                             <option value="UNIVERSITARIO">Universitario</option>
                                                                                             <option value="TECNICO">Tecnico</option>
@@ -824,6 +826,8 @@
                                                                                         </td>
                                                                                         <td>
                                                                                             <select class="form-select form-select-sm" 
+                                                                                            id="nivel{{i}}"
+                                                                                            name="nivel{{i}}"
                                                                                             [(ngModel)]="superior.nivel">
                                                                                             
                                                                                             <option value="TITLULADO">Titulado</option>
@@ -837,6 +841,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="filePro{{i}}"
                                                                                                 name="filePro{{i}}"
+                                                                                                accept="application/pdf"
                                                                                                 (change)="seleccionarArchivoEst($event,i)"
                                                                                                 required>
                                                                                         </td>
@@ -899,7 +904,10 @@
                                                                                         *ngFor="let postg of estudioPostgrado; let i = index">
                                                                                        <td>
                                                                                         <select class="form-select form-select-sm" 
-                                                                                            [(ngModel)]="postg.tipo">
+                                                                                            [(ngModel)]="postg.tipo"
+                                                                                            id="tipo{{i}}"
+                                                                                            name="tipo{{i}}"
+                                                                                            >
                                                                                
                                                                                             <option value="MAESTRIA">Maestria</option>
                                                                                             <option value="DOCTORADO">Doctorado</option>
@@ -918,7 +926,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="especialidad{{i}}"
                                                                                                 name="especialidad{{i}}"
-                                                                                                [(ngModel)]="postg.Especialidad"
+                                                                                                [(ngModel)]="postg.especialidad"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -939,8 +947,11 @@
                                                                                         </td>
                                                                                         <td>
                                                                                             <select class="form-select form-select-sm" 
-                                                                                            [(ngModel)]="postg.nivel">
-                                                                                 
+                                                                                            [(ngModel)]="postg.nivel"
+                                                                                            id="nivel{{i}}"
+                                                                                            name="nivel{{i}}"
+                                                                                            >
+                                                                          
                                                                                             <option value="MAESTRIA">Maestria</option>
                                                                                             <option value="DOCTORADO">Doctorado</option>
                                                                                             <option value="EGRESADO">Egresado</option>
@@ -953,6 +964,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="filePost{{i}}"
                                                                                                 name="filePost{{i}}"
+                                                                                                accept="application/pdf"
                                                                                                 (change)="seleccionarArchivoPg($event,i)"
                                                                                                 required>
                                                                                         </td>
@@ -1014,6 +1026,8 @@
                                                                                         *ngFor="let espe of especializacion; let i = index">
                                                                                         <td>
                                                                                             <select class="form-select form-select-sm" 
+                                                                                            id="tipo{{i}}"
+                                                                                            name="tipo{{i}}"
                                                                                             [(ngModel)]="espe.tipo">
                                                                                             <option value="ESPECIALIZACION">Especializacion</option>
                                                                                             <option value="DIPLOMADO">Diplomado</option>
@@ -1064,6 +1078,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileEs{{i}}"
                                                                                                 name="fileEs{{i}}"
+                                                                                                accept="application/pdf"
                                                                                                 (change)="seleccionarArchivoEspecialidad($event,i)"
                                                                                                 required>
                                                                                         </td>
@@ -1126,6 +1141,8 @@
                                                                                         *ngFor="let curso of cursos; let i = index">
                                                                                         <td>
                                                                                             <select class="form-select form-select-sm" 
+                                                                                            id="tipo{{i}}"
+                                                                                            name="tipo{{i}}"
                                                                                             [(ngModel)]="curso.tipo">
                                                                                             <option value="ESPECIALIZACION">Curso</option>
                                                                                             <option value="DIPLOMADO">Seminario</option>
@@ -1176,6 +1193,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileCurso{{i}}"
                                                                                                 name="fileCurso{{i}}"
+                                                                                                accept="application/pdf"
                                                                                                 (change)="seleccionarArchivoCurso($event,i)"
                                                                                                 required>
                                                                                         </td>
@@ -1227,7 +1245,6 @@
                                                                                     <tr>
                                                                                         <th class="text-center">Lengua Extranjera</th>
                                                                                         <th class="text-center">Nivel </th>
-                                                                                        <th class="text-center">Descripcion</th>
                                                                                         <th class="text-center">Documento</th>
                                                                                     </tr>
                                                                                 </thead>
@@ -1239,30 +1256,27 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="lengua{{i}}"
                                                                                                 name="lengua{{i}}"
-                                                                                                [(ngModel)]="idioma.lengua"
+                                                                                                [(ngModel)]="idioma.lenguaE"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
                                                                                             <input type="text"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="nivel{{i}}"
-                                                                                                name="nivel{{i}}"
-                                                                                                [(ngModel)]="idioma.nivel"
-                                                                                                required>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <input type="text"
-                                                                                                class="form-control form-control-sm"
-                                                                                                id="descripcion{{i}}"
-                                                                                                name="descripcion{{i}}"
-                                                                                                [(ngModel)]="idioma.descripcion"
-                                                                                                required>
+                                                                                            list="nivel" name="nivel" 
+                                                                                            class="form-control form-control-sm"
+                                                                                            aria-label="Small" [(ngModel)]="idioma.nivel"
+                                                                                            aria-describedby="inputGroup-sizing-sm">
+                                                                                            <datalist id="nivel">
+                                                                                                <option *ngFor="let nive of nivelIdioma"
+                                                                                                value="{{nive.nivel}}">{{nive.nivel}}</option>
+                                                                                        
+                                                                                              </datalist>
                                                                                         </td>
                                                                                         <td>
                                                                                             <input type="file"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileID{{i}}"
                                                                                                 name="fileID{{i}}"
+                                                                                                accept="application/pdf"
                                                                                                 (change)="seleccionarArchivoIdioma($event,i)"
                                                                                                 required>
                                                                                         </td>
@@ -1350,7 +1364,7 @@
                                                                                             class="form-control form-control-sm"
                                                                                             id="institucionEL{{i}}"
                                                                                             name="institucionEL{{i}}"
-                                                                                            [(ngModel)]="expL.institucionEL"
+                                                                                            [(ngModel)]="expL.institucion"
                                                                                             required>
                                                                                     </td>
                                                                                     <td>
@@ -1358,7 +1372,7 @@
                                                                                             class="form-control form-control-sm"
                                                                                             id="cargoEL{{i}}"
                                                                                             name="cargoEL{{i}}"
-                                                                                            [(ngModel)]="expL.cargoEL"
+                                                                                            [(ngModel)]="expL.cargo"
                                                                                             required>
                                                                                     </td>
                                                                                     <td>
@@ -1366,7 +1380,7 @@
                                                                                             class="form-control form-control-sm"
                                                                                             id="inicioEL{{i}}"
                                                                                             name="inicioEL{{i}}"
-                                                                                            [(ngModel)]="expL.inicioEL"
+                                                                                            [(ngModel)]="expL.inicio"
                                                                                             required>
                                                                                     </td>
                                                                                     <td>
@@ -1374,7 +1388,7 @@
                                                                                             class="form-control form-control-sm"
                                                                                             id="terminoEL{{i}}"
                                                                                             name="terminoEL{{i}}"
-                                                                                            [(ngModel)]="expL.terminoEL"
+                                                                                            [(ngModel)]="expL.termino"
                                                                                             required>
                                                                                     </td>
                                                                                     <td>
@@ -1382,6 +1396,7 @@
                                                                                             class="form-control form-control-sm"
                                                                                             id="fileEL{{i}}"
                                                                                             name="fileEL{{i}}"
+                                                                                            accept="application/pdf"
                                                                                             (change)="seleccionarArchivoExpLaboral($event,i)"
                                                                                             required>
                                                                                     </td>
@@ -1446,7 +1461,8 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="centroD{{i}}"
                                                                                                 name="centroD{{i}}"
-                                                                                                [(ngModel)]="expD.centroD"
+                                                                                                [(ngModel)]="expD.centro
+                                                                                                "
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1454,7 +1470,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="cursoD{{i}}"
                                                                                                 name="cursoD{{i}}"
-                                                                                                [(ngModel)]="expD.cursoD"
+                                                                                                [(ngModel)]="expD.curso"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1462,7 +1478,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="inicioD{{i}}"
                                                                                                 name="inicioD{{i}}"
-                                                                                                [(ngModel)]="expD.inicioD"
+                                                                                                [(ngModel)]="expD.inicio"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1470,7 +1486,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="terminoD{{i}}"
                                                                                                 name="terminoD{{i}}"
-                                                                                                [(ngModel)]="expD.terminoD"
+                                                                                                [(ngModel)]="expD.termino"
                                                                                                 required>
                                                                                         </td>
                                                                                         <td>
@@ -1478,6 +1494,7 @@
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="fileED{{i}}"
                                                                                                 name="fileED{{i}}"
+                                                                                                accept="application/pdf"
                                                                                                 (change)="seleccionarArchivoExpDocencia($event,i)"
                                                                                                 required>
                                                                                         </td>
@@ -1528,7 +1545,7 @@
                                                                     [(ngModel)]="tipoEmp">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let tipoE of tipoEmpleado"
-                                                                        value="{{tipoE.idTipo}}">{{tipoE.tipo}}</option>
+                                                                        value="{{tipoE.tipo}}">{{tipoE.tipo}}</option>
 
                                                                 </select>
                                                             </div>
@@ -1541,7 +1558,7 @@
                                                                     [(ngModel)]="grupOcup">
                                                                     <option value="">Seleccionar</option>
                                                                     <option *ngFor="let tipoG of tipoGrupo"
-                                                                        value="{{tipoG.id}}">{{tipoG.tipoG}}</option>
+                                                                        value="{{tipoG.tipoG}}">{{tipoG.tipoG}}</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -1552,7 +1569,7 @@
                                                                     (change)="cambioTipo()" [(ngModel)]="valorRegimen">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let regimen of regimen"
-                                                                        value="{{regimen.id}}">{{regimen.regimen}}
+                                                                        value="{{regimen.regimen}}">{{regimen.regimen}}
                                                                     </option>
                                                                 </select>
                                                             </div>
@@ -1564,7 +1581,7 @@
                                                                     [(ngModel)]="valortipRegimen">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let tipoR of tipoRegimen"
-                                                                        value="{{tipoR.id}}">{{tipoR.tipoRegimen}}
+                                                                        value="{{tipoR.tipoRegimen}}">{{tipoR.tipoRegimen}}
                                                                     </option>
                                                                 </select>
                                                             </div>
