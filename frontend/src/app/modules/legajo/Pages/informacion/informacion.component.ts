@@ -10,6 +10,7 @@ import {Session} from "@store/session.actions";
 import {SessionSelectors} from "@store/index.session";
 import {Store} from "@ngrx/store";
 import { ModalVerComponent } from '@modules/legajo/components/modal-ver/modal-ver.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-informacion',
@@ -52,7 +53,7 @@ export class InformacionComponent {
   ]
 
   constructor(private DatoGeneralesService$: DatoGeneralesService,
-              private store: Store<Session>) {
+              private store: Store<Session>,private router:Router) {
       this.listarEmpleados();
       //this.obtenerPermisos();
   }
@@ -124,12 +125,12 @@ export class InformacionComponent {
   //    this.modalHC?.openModal(1);
   //}
 
-  verDatos(id: string) {
-    this.modalDatos?.openModal(id);
+  verDatos(id:number,numeroDoc :string) {
+    this.modalDatos?.openModal(id,numeroDoc);
 
   }
-  editarEmpleado(codigo:string){
-
+  editarEmpleado(id:number,numeroDoc:string){
+   this.router.navigate(['/legajo/editarEmpleado',id,numeroDoc])
   }
 
 

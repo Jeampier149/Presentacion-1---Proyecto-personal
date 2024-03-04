@@ -1,4 +1,4 @@
-<app-breadcrumb [rutas]="rutas" [titulo]="'Registrar Datos'"></app-breadcrumb>
+<app-breadcrumb [rutas]="rutas" [titulo]="'EDITAR DATOS'"></app-breadcrumb>
 <div class="row">
     <div class="col-xl-12">
         <div class="card p-4">
@@ -12,32 +12,23 @@
                                         <div class="row">
                                             <div class="col-xl-6">
                                                 <div class="form-group">
-                                                    <div class="mb-3">
-                                                        <label class="form-label form-label-sm">TIPO DOCUMENTO</label>
-                                                        <select class="form-select form-select-sm" required bsInvalid
-                                                            [(ngModel)]="tipoDoc"   (change)="cambioNacionalidad()">
-                                                            <option value="" selected>Seleccionar</option>
-                                                            <option *ngFor="let tipoD of datos" value="{{tipoD.id}}">
-                                                                {{tipoD.descripcion}}</option>
-                                                        </select>
+                                                    <label for="numero_doc">TIPO DOCUMENTO</label>
+                                                    <div class="input-group mb-3" [formGroup]="valDatosPersonales">
+                                                        <input type="text" class="form-control form-control-sm"
+                                                            aria-label="tipoDocumento" formControlName="tipoDocumento"
+                                                            aria-describedby="tipoDocumento">
+    
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-xl-6">
                                                 <div class="form-group">
                                                     <label for="numero_doc">N° DOCUMENTO</label>
-                                                    <div class="input-group mb-3">
+                                                    <div class="input-group mb-3" [formGroup]="valDatosPersonales">
                                                         <input type="text" class="form-control form-control-sm"
-                                                            aria-label="dni" [(ngModel)]="numeroDocumento" maxlength="10"
-                                                            aria-describedby="dni" required bsInvalid>
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-secondary btn-primary btn-sm"
-                                                                type="button" (click)=" buscarDocumento(this.numeroDocumento)"><i
-                                                                    class="fa-solid fa-magnifying-glass"></i></button>
-                                                        </div>
-                                                        <div class="invalid-feedback">
-                                                            El dni es un campo obligatorio
-                                                        </div>
+                                                            aria-label="dni" formControlName="numDoc" maxlength="10"
+                                                            aria-describedby="dni">
+    
                                                     </div>
                                                 </div>
                                             </div>
@@ -45,12 +36,12 @@
 
                                     </div>
                                     <div class="col-xl-3 mt-4 me-4">                                     
-                                            <div class="input-group input-group-sm ">
+                                            <div class="input-group input-group-sm " [formGroup]="valDatosPersonales">
                                                 <div class="input-group-text d-personales ">Nacionalidad
                                                 </div>
                                                 <input type="text" class="form-control  text-uppercase"
                                                     bsInvalid required id="nacionalidad" name="nacionalidad" 
-                                                    [(ngModel)]="nacionalidad">
+                                                   formControlName="nacionalidad">
                                             </div>                                       
                                     </div>
                                 </div>
@@ -78,37 +69,35 @@
                                             </div>
                                             <div class="col-xl-10 ">
                                                 <div class="row my-2 px-3 mb-3">
-
                                                     <div class="col-xl-4 ">
-                                                        <div class="input-group input-group-sm  ">
+                                                        <div class="input-group input-group-sm" [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Apll. Paterno
                                                             </div>
                                                             <input type="text" class="form-control  text-uppercase"
-                                                                bsInvalid required id="aPaterno" name="aPaterno" maxlength="40"
-                                                                [(ngModel)]="aPaterno">
-
+                                                                bsInvalid required id="aPaterno" name="aPaterno" 
+                                                                formControlName="aPaterno">
                                                         </div>
 
                                                     </div>
                                                     <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm ">
+                                                        <div class="input-group input-group-sm"[formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Apll. Materno
                                                             </div>
                                                             <input type="text"
                                                                 class="form-control form-control-sm text-uppercase"
                                                                 id="aMaterno" name="aMaterno" aria-label="Small"
-                                                                [(ngModel)]="aMaterno" required bsInvalid maxlength="40"
+                                                                formControlName="aMaterno" 
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm ">
+                                                        <div class="input-group input-group-sm " [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales">Nombres
                                                             </div>
                                                             <input type="text"
                                                                 class="form-control form-control-sm text-uppercase"
-                                                                id="nombres" name="nombres" aria-label="Small" required
-                                                                [(ngModel)]="nombres" bsInvalid maxlength="30"
+                                                                id="nombres" name="nombres" aria-label="Small" 
+                                                                formControlName="nombres"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
@@ -117,20 +106,18 @@
                                                 </div>
                                                 <div class="row my-2 px-3 mb-3">
                                                     <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm ">
+                                                        <div class="input-group input-group-sm "[formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Sexo
                                                             </div>
-                                                            <select class="form-select form-select-sm  " required
-                                                                bsInvalid [(ngModel)]="sexo">
-                                                                <option value="" selected>Seleccionar</option>
-                                                                <option *ngFor="let tipoS of tipoSexo"
-                                                                    value="{{tipoS.tipo}}">
-                                                                    {{tipoS.tipo}}</option>
-                                                            </select>
+                                                            <input type="text"
+                                                                class="form-control form-control-sm text-uppercase"
+                                                                id="sexo" name="sexo" aria-label="Small" 
+                                                                formControlName="sexo"
+                                                                aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm "[formGroup]="valGroup">
+                                                        <div class="input-group input-group-sm "[formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales">RUC N°</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small" formControlName="ruc" bsInvalid
@@ -138,18 +125,18 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm ">
+                                                        <div class="input-group input-group-sm " [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">F. Nacimiento
                                                             </div>
                                                             <input type="date" class="form-control form-control-sm"
-                                                                required aria-label="Small" [(ngModel)]="fNacimiento"
+                                                                required aria-label="Small" formControlName="fechaNacimiento"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
 
 
                                                 </div>
-                                                <div class="row my-2 px-3" [formGroup]="valGroup">
+                                                <div class="row my-2 px-3" [formGroup]="valDatosPersonales">
                                                     <div class="col-xl-4">
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text d-personales">Telefono Fijo
@@ -160,7 +147,7 @@
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4" [formGroup]="valGroup">
+                                                    <div class="col-xl-4" [formGroup]="valDatosPersonales">
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text d-personales">Telefono Movil
                                                             </div>
@@ -169,7 +156,7 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4" [formGroup]="valGroup">
+                                                    <div class="col-xl-4" [formGroup]="valDatosPersonales">
                                                         
                                                         <div class="input-group input-group-sm mb-3">
                                                             <div class="input-group-text d-personales ">Correo .E</div>
@@ -181,40 +168,32 @@
                                                 </div>
                                                 <div class="row my-2 px-3">
                                                     <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales"> G. Sanguineo
                                                             </div>
-                                                            <select class="form-select form-select-sm" required
-                                                                [(ngModel)]="gSanguineo" bsInvalid>
-                                                                <option value="" selected>Seleccionar</option>
-                                                                <option *ngFor="let tipoGs of tipoGrupoSanguineo"
-                                                                    value="{{tipoGs.id}}">
-                                                                    {{tipoGs.descripcion}}</option>
-                                                            </select>
+                                                            <input type="email" class="form-control form-control-sm" bsInvalid
+                                                            required  aria-label="Small" formControlName="grupoSanguineo"
+                                                            aria-describedby="inputGroup-sizing-sm">
 
                                                         </div>
                                                     </div>
 
                                                     <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group input-group-sm mb-3"[formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales">Enf./Alergias
                                                             </div>
                                                             <input type="text" class="form-control form-control-sm"
-                                                                aria-label="Small" [(ngModel)]="enfAlergias" 
+                                                                aria-label="Small" formControlName="enfAlergias" 
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Estado Civil
                                                             </div>
-                                                            <select class="form-select form-select-sm"
-                                                                [(ngModel)]="estadoCivil" bsInvalid required>
-                                                                <option value="" selected>Seleccionar</option>
-                                                                <option *ngFor="let tipoX of tipoEstadoCivil"
-                                                                    value="{{tipoX.descripcion}}">
-                                                                    {{tipoX.descripcion}}</option>
-                                                            </select>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                            aria-label="Small" formControlName="estadoCivil" 
+                                                            aria-describedby="inputGroup-sizing-sm">
 
                                                         </div>
                                                     </div>
@@ -229,18 +208,18 @@
                                             <div class="card-body p-3">
                                                 <div class="row ">
                                                     <div class="col-xl-6">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group input-group-sm mb-3"  [formGroup]="valContactoEmergencia">
                                                             <div class="input-group-text ">Nombre de contacto</div>
                                                             <input type="text" class="form-control form-control-sm"
-                                                                aria-label="Small" [(ngModel)]="nombreContacto" maxlength="40"
+                                                                aria-label="Small"formControlName="nombreContacto"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valContactoEmergencia">
                                                             <div class="input-group-text ">Parentesco</div>
                                                                 <select class="form-select form-select-sm" 
-                                                                [(ngModel)]="parentesco">
+                                                               formControlName="parentesco">
                                                                 <option value="" selected>Seleccionar</option>
                                                                 <option *ngFor="let tipoPa of tipoParentesco" value="{{tipoPa.parentesco}}">
                                                                     {{tipoPa.parentesco}}</option>
@@ -248,7 +227,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3">
-                                                        <div class="input-group input-group-sm mb-3"   [formGroup]="valGroup">
+                                                        <div class="input-group input-group-sm mb-3"   [formGroup]="valContactoEmergencia">
                                                             <div class="input-group-text ">N° de contacto</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                            aria-label="Small" formControlName="numContacto" bsInvalid
@@ -321,157 +300,132 @@
                                                 aria-labelledby="panelsStayOpen-headingOne">
                                                 <div class="accordion-body text-muted">
 
-
                                                     <div class="row w-100 d-block  mt-3">
                                                         <fieldset>
                                                             <legend>Domicilio</legend>
                                                             <span>Ubicacion Geografica</span>
                                                             <div class="row mt-2">
 
-                                                                <div class="col-xl-4">
+                                                                <div class="col-xl-4" [formGroup]="valDatosDomicilio">
                                                                     <div class="input-group input-group-sm mb-3">
                                                                         <div class="input-group-text d-personales ">
                                                                             Departamento
                                                                         </div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
-                                                                            [(ngModel)]="departamento"
+                                                                            formControlName="departamento"
                                                                             aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-4">
+                                                                <div class="col-xl-4" [formGroup]="valDatosDomicilio">
                                                                     <div class="input-group input-group-sm mb-3">
                                                                         <div class="input-group-text d-personales ">
                                                                             Provincia</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
-                                                                            [(ngModel)]="provincia" aria-label="Small"
+                                                                            formControlName="provincia" aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-4">
+                                                                <div class="col-xl-4"  [formGroup]="valDatosDomicilio">
                                                                     <div class="input-group input-group-sm mb-3">
                                                                         <div class="input-group-text ">Distrito</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
-                                                                            [(ngModel)]="distrito" aria-label="Small"
+                                                                            formControlName="distrito" aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row mt-2">
+                                                            <div class="row mt-2" [formGroup]="valDatosDomicilio">
                                                                 <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text d-personales ">Tipo
-                                                                            de Via
+                                                                    <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
+                                                                        <div class="input-group-text  ">Via
                                                                         </div>
-                                                                        <select class="form-select form-select-sm"
-                                                                            [(ngModel)]="via">
-                                                                            <option value="">Seleccionar</option>
-                                                                            <option value="AVENIDA">Avenida</option>
-                                                                            <option value="JIRON">Jirón</option>
-                                                                            <option value="CALLE">Calle</option>
-                                                                            <option value="PASAJE">Pasaje</option>
-                                                                            <option value="ALAMEDA">Alameda</option>
-                                                                            <option value="MALECON">Malecon</option>
-                                                                            <option value="OVALO">Ovalo</option>
-                                                                            <option value="PARQUE">Parque</option>
-                                                                            <option value="PLAZA">Plaza</option>
-                                                                            <option value="CARRETERA">Carretera</option>
-                                                                            <option value="TROCHA">Trocha</option>
-                                                                        </select>
+                                                                        <ng-select  formControlName ="via"
+                                                                        [items]="tipoVia"
+                                                                        bindLabel ="tipo" 
+                                                                        bindValue ="tipo" 
+                                                                        class="d-block"
+                                                                        style="font-size: 0.8rem; height: auto; width: 89%;"> 
+                                                                       </ng-select >
                                                                     </div>
                                                                 </div>
-                                                                @if(via.length!=0){
+                                                                @if(valDatosDomicilio.controls['via'].value==""){
                                                                     <div class="col-xl-4">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text d-personales">
                                                                                 Nombre de la via
                                                                             </div>
                                                                             <input type="text" class="form-control"
-                                                                                [(ngModel)]="nombreVia" aria-label="Small"maxlength="150"
+                                                                               formControlName="nombreVia" aria-label="Small"maxlength="150"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text ">Numero</div>
                                                                             <input type="number"
                                                                                 class="form-control form-control-sm"
-                                                                                [(ngModel)]="numeroVia" aria-label="Small"
+                                                                               formControlName="numeroVia" aria-label="Small"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3"[formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text ">Interior</div>
                                                                             <input type="text"
                                                                                 class="form-control form-control-sm"
-                                                                                [(ngModel)]="interiorVia" aria-label="Small"
+                                                                                formControlName="interiorVia" aria-label="Small"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
                                                                 }
                                                                 
                                                             </div>
-                                                            <div class="row mt-2">
+                                                            <div class="row mt-2" [formGroup]="valDatosDomicilio">
                                                                 <div class="col-xl-4">
                                                                     <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text d-personales">Tipo
-                                                                            de Zona
+                                                                        <div class="input-group-text ">
+                                                                         Zona
                                                                         </div>
-                                                                        <select class="form-select form-select-sm"
-                                                                            [(ngModel)]="zona">
-                                                                            <option value="">Seleccionar</option>
-                                                                            <option value="URBANIZACION">Urbanización
-                                                                            </option>
-                                                                            <option value="PUEBLO JOVEN">Pueblo Joven
-                                                                            </option>
-                                                                            <option value="UNIDAD VECINAL">Unidad
-                                                                                Vecinal</option>
-                                                                            <option value="CONJUNTO HABITACIONAL">
-                                                                                Conjunto Habitacional</option>
-                                                                            <option value="ASENTAMIENTO HUMANO">
-                                                                                Asentamineto Humano</option>
-                                                                            <option value="COOPERATIVA">Cooperativa
-                                                                            </option>
-                                                                            <option value="RESIDENCIAL">Residencial
-                                                                            </option>
-                                                                            <option value="ZONA INDUSTRIAL">Zona
-                                                                                Industrial</option>
-                                                                            <option value="GRUPO">Grupo</option>
-                                                                            <option value="CACERIO">Cacerio</option>
-                                                                            <option value="FUNDO">Fundo</option>
-                                                                        </select>
+                                                                        <ng-select  formControlName="zona"
+                                                                        [items]="tipoZona"
+                                                                        bindLabel ="tipo" 
+                                                                        bindValue ="tipo" 
+                                                                        class="d-block"
+                                                                        style="font-size: 0.8rem; height: auto; width: 85%;"> 
+                                                                       </ng-select >
                                                                     </div>
                                                                 </div>
-                                                                 @if(zona.length!=0){
+                                                               
+                                                                 @if(valDatosDomicilio.controls['zona'].value!=''){
                                                                     <div class="col-xl-4">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text d-personales">
                                                                                 Nombre de Zona
                                                                             </div>
                                                                             <input type="text" class="form-control" maxlength="150"
-                                                                                [(ngModel)]="nombreZona" aria-label="Small"
+                                                                                formControlName="nombreZona" aria-label="Small"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text ">Numero</div>
                                                                             <input type="number"
                                                                                 class="form-control form-control-sm"
-                                                                                [(ngModel)]="numeroZona" aria-label="Small"
+                                                                                formControlName="numeroZona" aria-label="Small"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3"[formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text ">Interior</div>
                                                                             <input type="text"
                                                                                 class="form-control form-control-sm"
-                                                                                [(ngModel)]="interiorZona"
+                                                                                formControlName="interiorZona"
                                                                                 aria-label="Small"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
@@ -481,7 +435,7 @@
                                                             </div>
 
                                                             <div class="row mt-4">
-                                                                <div class="col-xl-12">
+                                                                <div class="col-xl-12"[formGroup]="valDatosDomicilio">
                                                                     <div class="input-group input-group-sm mb-3">
                                                                         <div class="input-group-text ">
                                                                             Referencia(Indicar
@@ -489,7 +443,7 @@
                                                                             cercana)</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
-                                                                            [(ngModel)]="referenciaDomicilio"
+                                                                            formControlName="referencia"
                                                                             aria-label="Small" maxlength="250"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
@@ -669,12 +623,12 @@
                                                             </legend>
                                                             <div class="row mt-2 ">
                                                                 <div class="col-xl-6">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                    <div class="input-group input-group-sm mb-3" [formGroup]="valDatosProfesion">
                                                                         <div class="input-group-text ">Profesion</div>                                                                      
                                                                         <input type="text"
                                                                             list="profesiones" name="profesiones" id="proft"
                                                                             class="form-control form-control-sm"
-                                                                            aria-label="Small" [(ngModel)]="profesion"
+                                                                            aria-label="Small" formControlName="profesion"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                             <datalist id="profesiones">
                                                                                 <option value="" selected>Seleccionar</option>
@@ -698,44 +652,44 @@
                                                             @if(colegiatura.checked){
                                                                 <div class="row mt-2">
                                                                     <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosProfesion">
                                                                             <div class="input-group-text ">Lugar de
                                                                                 Colegiatura
                                                                             </div>
                                                                             <input type="text"
                                                                                 class="form-control form-control-sm"
-                                                                                aria-label="Small" [(ngModel)]="lugarColeg"
+                                                                                aria-label="Small" formControlName="lugarColeg"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                             </div>
                                                                     </div>
                                                                     <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosProfesion">
                                                                             <div class="input-group-text ">F. de colegiatura
                                                                             </div>
                                                                             <input type="date"
                                                                                 class="form-control form-control-sm"
-                                                                                aria-label="Small" [(ngModel)]="fechColeg"
+                                                                                aria-label="Small" formControlName="fechColeg"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosProfesion">
                                                                             <div class="input-group-text ">F.termino de
                                                                                 habilitacion</div>
                                                                             <input type="date"
                                                                                 class="form-control form-control-sm"
                                                                                 aria-label="Small"
-                                                                                [(ngModel)]="fechTerColeg"
+                                                                                formControlName="fechTerColeg"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm mb-3"[formGroup]="valDatosProfesion">
                                                                             <div class="input-group-text ">N° Colegiatura
                                                                             </div>
                                                                             <input type="text"
                                                                                 class="form-control form-control-sm"
-                                                                                aria-label="Small" [(ngModel)]="numColeg"
+                                                                                aria-label="Small" formControlName="numColeg"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
@@ -1537,12 +1491,12 @@
                                                 <div class="accordion-body text-muted">
                                                     <div class="row mt-2">
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text d-personales ">
                                                                     Condición
                                                                 </div>
                                                                 <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="tipoEmp">
+                                                                    formControlName="tipoEmp">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let tipoE of tipoEmpleado"
                                                                         value="{{tipoE.tipo}}">{{tipoE.tipo}}</option>
@@ -1551,11 +1505,11 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text d-personales ">
                                                                     G.Ocupacional</div>
                                                                 <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="grupOcup">
+                                                                    formControlName="grupOcup">
                                                                     <option value="">Seleccionar</option>
                                                                     <option *ngFor="let tipoG of tipoGrupo"
                                                                         value="{{tipoG.tipoG}}">{{tipoG.tipoG}}</option>
@@ -1563,10 +1517,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text ">Regimen</div>
                                                                 <select class="form-select form-select-sm"
-                                                                    (change)="cambioTipo()" [(ngModel)]="valorRegimen">
+                                                                    (change)="cambioTipo()" formControlName="valorRegimen">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let regimen of regimen"
                                                                         value="{{regimen.regimen}}">{{regimen.regimen}}
@@ -1575,10 +1529,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text ">T.Regimen</div>
                                                                 <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="valortipRegimen">
+                                                                   formControlName="valorTipRegimen">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let tipoR of tipoRegimen"
                                                                         value="{{tipoR.tipoRegimen}}">{{tipoR.tipoRegimen}}
@@ -1590,10 +1544,10 @@
                                                     <div class="row mt-2">
 
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text ">U.Organica/Dpto</div>
                                                                 <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="valorUnidad">
+                                                                    formControlName="valorUnidad">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option value="1">Oficina Personal
                                                                     </option>
@@ -1601,55 +1555,58 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text ">Servicio/Equipo</div>
                                                                 <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="valorServicio">
+                                                                   formControlName="valorServicio">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option value="1">Equipo Legajo</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm mb-3"  [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text ">Cargo</div>
                                                                 <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="valorCargo">
+                                                                   formControlName="valorCargo">
                                                                     <option value="" selected>Seleccionar</option>
-                                                                    <option value="TECNICO ADMINISTRATIVO">Tecnico
-                                                                        Administrativo</option>
+                                                                    <option *ngFor="let carg of cargo"
+                                                                        value="{{carg.codigo}}">{{carg.descripcion}}
+                                                                    </option>
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-2">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm mb-3"  [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text ">Nivel</div>
-                                                                <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="valorNivel">
+                                                                <select class="form-select form-select-sm" formControlName="valorNivel"
+                                                                    >
                                                                     <option value="" selected>Seleccionar</option>
-                                                                    <option value="TD">TD</option>
+                                                                    <option *ngFor="let niv of nivelCargo"
+                                                                        value="{{niv.nivel}}">{{niv.nivel}}
+                                                                    </option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <DIV class="row mt-2">
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text d-personales">
                                                                     C. AIRSHP
                                                                 </div>
                                                                 <input type="text" class="form-control form-control-sm"
-                                                                    [(ngModel)]="codigoAirhsp" aria-label="Small"
+                                                                 formControlName="codigoAirhsp" aria-label="Small"
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valSituacionLaboral">
                                                                 <div class="input-group-text d-personales">
                                                                     F. Ingreso
                                                                 </div>
                                                                 <input type="date" class="form-control form-control-sm"
-                                                                    [(ngModel)]="fechaIngreso" aria-label="Small"
+                                                                    formControlName="fechaIngreso" aria-label="Small"
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>

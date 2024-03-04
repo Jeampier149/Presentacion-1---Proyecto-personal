@@ -33,19 +33,8 @@ Route::controller(LegajoController::class)->group(function () {
 });
 
 Route::controller(GeneralController::class)->group(function () {
-    Route::post('general/listarTipoDoc', 'listarTipoDocumento');
-    Route::post('general/listarTipoEmp', 'listarTipoEmpleado');
-    Route::post('general/listarRegimen', 'listarRegimen');
-    Route::post('general/listarTipoGrupo', 'listarGrupo');
+    Route::post('general/listarSelects', 'listarSelects'); 
     Route::post('general/listarTipoRegimen', 'listarTipoRegimen');
-    Route::post('general/listarSexo', 'listarSexo');
-    Route::post('general/listarGrupoSanguineo', 'listarGrupoSanguineo');
-    Route::post('general/listarEstadoCivil', 'listarEstadoCivil');
-    Route::post('general/listarParentesco', 'listarParentesco');
-    Route::post('general/listarProfesiones', 'listarProfesiones');
-    Route::post('general/listarNivelIdioma', 'listarNivelIdioma');
-
-
 });
 
 Route::controller(ReniecController::class)->group(function () {

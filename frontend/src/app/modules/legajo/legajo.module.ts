@@ -7,12 +7,14 @@ import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { PaginacionComponent } from '@shared/components/paginacion/paginacion.component';
 import { LegajoRoutingModule } from './legajo-routing.module';
 import { InformacionComponent } from './Pages/informacion/informacion.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { RegistrarEmpleadoComponent } from './Pages/registrar-empleado/registrar-empleado.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ModalVerComponent } from './components/modal-ver/modal-ver.component';
 import { ModalVerArchivoComponent } from './components/modal-ver-archivo/modal-ver-archivo.component';
 import { EditarEmpleadoComponent } from './Pages/editar-empleado/editar-empleado.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 
 @NgModule({
@@ -22,7 +24,7 @@ import { EditarEmpleadoComponent } from './Pages/editar-empleado/editar-empleado
     ModalVerComponent, 
     ModalVerArchivoComponent,
     EditarEmpleadoComponent
-
+    
   
   ],
   imports: [
@@ -34,7 +36,9 @@ import { EditarEmpleadoComponent } from './Pages/editar-empleado/editar-empleado
     PaginacionComponent,
     LegajoRoutingModule,
     ReactiveFormsModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    NgSelectModule,
+    FormsModule
   ]
 })
 export class LegajoModule { }

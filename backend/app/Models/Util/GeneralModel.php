@@ -82,4 +82,28 @@ class GeneralModel extends Model
     /** @lang SQL */
     'EXEC dbo.g_sp_listar_nivel_idioma');
   }
+  public function listarCargo()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_cargos');
+  }
+  public function listarNivel()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_niveles_cargo');
+  }
+  public function listarVias()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_tipo_vias');
+  }
+  public function listarZonas()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_tipo_zonas');
+  }
 }

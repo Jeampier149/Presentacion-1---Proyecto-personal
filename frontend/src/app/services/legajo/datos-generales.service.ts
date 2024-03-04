@@ -17,70 +17,26 @@ export class DatoGeneralesService {
                 documento: datos.documento,
                 apellidoPaterno: datos.appPat,
                 apellidoMaterno: datos.appMat,
-                Nombres: datos.nombres,
+                nombres: datos.nombres,
                 unidadOrganica: datos.unidadOrganica,
                 equipoServicio: datos.equipoServicio,
                 pagina: datos.pagina,
-                longitud: datos.longitud
+                longitud: datos.longitud,
+                estado: datos.estado
             },
             responseType: "json"
         }).pipe(shareReplay(1));
     }
 
-    listarTipoDocumento() {
-        return this.http.post<HttpResponseApi>('/api/general/listarTipoDoc', {
-            responseType: "json"
-        }).pipe(shareReplay(1));
-    }
-    listarTipoEmpleado() {
-        return this.http.post<HttpResponseApi>('/api/general/listarTipoEmp', {
-            responseType: "json"
-        }).pipe(shareReplay(1));
-    }
-    listarTipoGrupo() {
-        return this.http.post<HttpResponseApi>('/api/general/listarTipoGrupo', {
-            responseType: "json"
-        }).pipe(shareReplay(1));
-    }
-    listarRegimen() {
-        return this.http.post<HttpResponseApi>('/api/general/listarRegimen', {
+    listarSelects() {
+        return this.http.post<HttpResponseApi>('/api/general/listarSelects', {
             responseType: "json"
         }).pipe(shareReplay(1));
     }
     listarTipoRegimen(id: number) {
         return this.http.post<HttpResponseApi>('/api/general/listarTipoRegimen', { id }, { responseType: "json" }).pipe(shareReplay(1));
     }
-    listarSexo() {
-        return this.http.post<HttpResponseApi>('/api/general/listarSexo', {
-            responseType: "json"
-        }).pipe(shareReplay(1));
-    }
-    listarGrupoSanguineo() {
-        return this.http.post<HttpResponseApi>('/api/general/listarGrupoSanguineo', {
-            responseType: "json"
-        }).pipe(shareReplay(1));
-    }
-    listarEstadoCivil() {
-        return this.http.post<HttpResponseApi>('/api/general/listarEstadoCivil', {
-            responseType: "json"
-        }).pipe(shareReplay(1));
-    }
-    listarParentesco() {
-        return this.http.post<HttpResponseApi>('/api/general/listarParentesco', {
-            responseType: "json"
-        }).pipe(shareReplay(1));
-    }
-    listarProfesiones() {
-        return this.http.post<HttpResponseApi>('/api/general/listarProfesiones', {
-            responseType: "json"
-        }).pipe(shareReplay(1));
-    }
-    listarNivelIdioma() {
-        return this.http.post<HttpResponseApi>('/api/general/listarNivelIdioma', {
-            responseType: "json"
-        }).pipe(shareReplay(1));
-    }
-
+    
     guardarDatosEmpleado(
         datosPersonales:any ,
         datosContacto:any,

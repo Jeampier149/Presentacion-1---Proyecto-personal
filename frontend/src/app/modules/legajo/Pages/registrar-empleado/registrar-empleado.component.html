@@ -59,11 +59,11 @@
                                         <legend>Datos Personales</legend>
                                         <div class="row mt-4 ">
                                             <div class="col-xl-2  col-8">
-                                                <ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept="image/*">
+                                                <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
                                                     <ngx-dropzone-label>Arraste o Elija una imagen!</ngx-dropzone-label>
                                                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
                                                         *ngFor="let f of files" [file]="f" [removable]="true"
-                                                        (removed)="onRemove(f)"  accept="image/*">
+                                                        (removed)="onRemove(f)">
 
                                                     </ngx-dropzone-image-preview>
                                                 </ngx-dropzone>
@@ -360,30 +360,21 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row mt-2">
+                                                            <div class="row mt-2 d-flex align-items-center">
                                                                 <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text d-personales ">Tipo
-                                                                            de Via
-                                                                        </div>
-                                                                        <select class="form-select form-select-sm"
-                                                                            [(ngModel)]="via">
-                                                                            <option value="">Seleccionar</option>
-                                                                            <option value="AVENIDA">Avenida</option>
-                                                                            <option value="JIRON">Jirón</option>
-                                                                            <option value="CALLE">Calle</option>
-                                                                            <option value="PASAJE">Pasaje</option>
-                                                                            <option value="ALAMEDA">Alameda</option>
-                                                                            <option value="MALECON">Malecon</option>
-                                                                            <option value="OVALO">Ovalo</option>
-                                                                            <option value="PARQUE">Parque</option>
-                                                                            <option value="PLAZA">Plaza</option>
-                                                                            <option value="CARRETERA">Carretera</option>
-                                                                            <option value="TROCHA">Trocha</option>
-                                                                        </select>
+                                                                    <div class="input-group input-group-sm mb-3 custom-select">
+                                                                        <div class="input-group-text col-auto ">Via</div>
+                                                                     
+                                                                        <ng-select  [(ngModel)] ="via"
+                                                                        [items]="tipoVia"
+                                                                        bindLabel ="tipo" 
+                                                                        bindValue ="tipo" 
+                                                                        class="d-block"
+                                                                        style="font-size: 0.8rem; height: auto; width: 89%;"> 
+                                                                       </ng-select >
                                                                     </div>
                                                                 </div>
-                                                                @if(via.length!=0){
+                                                                   @if(via && via!==""){
                                                                     <div class="col-xl-4">
                                                                         <div class="input-group input-group-sm mb-3">
                                                                             <div class="input-group-text d-personales">
@@ -412,41 +403,24 @@
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                }
-                                                                
+
+                                                                   }
+                                                                                                                                 
                                                             </div>
-                                                            <div class="row mt-2">
+                                                            <div class="row mt-2 d-flex align-items-center">
                                                                 <div class="col-xl-4">
                                                                     <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text d-personales">Tipo
-                                                                            de Zona
-                                                                        </div>
-                                                                        <select class="form-select form-select-sm"
-                                                                            [(ngModel)]="zona">
-                                                                            <option value="">Seleccionar</option>
-                                                                            <option value="URBANIZACION">Urbanización
-                                                                            </option>
-                                                                            <option value="PUEBLO JOVEN">Pueblo Joven
-                                                                            </option>
-                                                                            <option value="UNIDAD VECINAL">Unidad
-                                                                                Vecinal</option>
-                                                                            <option value="CONJUNTO HABITACIONAL">
-                                                                                Conjunto Habitacional</option>
-                                                                            <option value="ASENTAMIENTO HUMANO">
-                                                                                Asentamineto Humano</option>
-                                                                            <option value="COOPERATIVA">Cooperativa
-                                                                            </option>
-                                                                            <option value="RESIDENCIAL">Residencial
-                                                                            </option>
-                                                                            <option value="ZONA INDUSTRIAL">Zona
-                                                                                Industrial</option>
-                                                                            <option value="GRUPO">Grupo</option>
-                                                                            <option value="CACERIO">Cacerio</option>
-                                                                            <option value="FUNDO">Fundo</option>
-                                                                        </select>
+                                                                        <div class="input-group-text ">Zona</div>
+                                                                        <ng-select  [(ngModel)] ="zona"
+                                                                        [items]="tipoZona"
+                                                                        bindLabel ="tipo" 
+                                                                        bindValue ="tipo" 
+                                                                        class="d-block"
+                                                                        style="font-size: 0.8rem; height: auto; width: 85%;"> 
+                                                                       </ng-select >
                                                                     </div>
                                                                 </div>
-                                                                 @if(zona.length!=0){
+                                                                @if(zona&&zona!=""){
                                                                     <div class="col-xl-4">
                                                                         <div class="input-group input-group-sm mb-3">
                                                                             <div class="input-group-text d-personales">
@@ -476,8 +450,9 @@
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                 }
-                                                                
+                                                                }
+                                                             
+                                                                                                                      
                                                             </div>
 
                                                             <div class="row mt-4">
@@ -1545,7 +1520,7 @@
                                                                     [(ngModel)]="tipoEmp">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let tipoE of tipoEmpleado"
-                                                                        value="{{tipoE.tipo}}">{{tipoE.tipo}}</option>
+                                                                        value="{{tipoE.idTipo}}">{{tipoE.tipo}}</option>
 
                                                                 </select>
                                                             </div>
@@ -1558,7 +1533,7 @@
                                                                     [(ngModel)]="grupOcup">
                                                                     <option value="">Seleccionar</option>
                                                                     <option *ngFor="let tipoG of tipoGrupo"
-                                                                        value="{{tipoG.tipoG}}">{{tipoG.tipoG}}</option>
+                                                                        value="{{tipoG.id}}">{{tipoG.tipoG}}</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -1569,7 +1544,7 @@
                                                                     (change)="cambioTipo()" [(ngModel)]="valorRegimen">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let regimen of regimen"
-                                                                        value="{{regimen.regimen}}">{{regimen.regimen}}
+                                                                        value="{{regimen.id}}">{{regimen.regimen}}
                                                                     </option>
                                                                 </select>
                                                             </div>
@@ -1581,7 +1556,7 @@
                                                                     [(ngModel)]="valortipRegimen">
                                                                     <option value="" selected>Seleccionar</option>
                                                                     <option *ngFor="let tipoR of tipoRegimen"
-                                                                        value="{{tipoR.tipoRegimen}}">{{tipoR.tipoRegimen}}
+                                                                        value="{{tipoR.id}}">{{tipoR.tipoRegimen}}
                                                                     </option>
                                                                 </select>
                                                             </div>
@@ -1613,22 +1588,25 @@
                                                         <div class="col-xl-3">
                                                             <div class="input-group input-group-sm mb-3">
                                                                 <div class="input-group-text ">Cargo</div>
-                                                                <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="valorCargo">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option value="TECNICO ADMINISTRATIVO">Tecnico
-                                                                        Administrativo</option>
-                                                                </select>
+                                                                <ng-select  [(ngModel)] ="valorCargo"
+                                                                        [items]="cargo"
+                                                                        bindLabel ="descripcion" 
+                                                                        bindValue ="codigo" 
+                                                                        class="d-block"
+                                                                        style="font-size: 0.8rem; height: auto; width: 80%;"> 
+                                                                 </ng-select >
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-2">
                                                             <div class="input-group input-group-sm mb-3">
                                                                 <div class="input-group-text ">Nivel</div>
-                                                                <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="valorNivel">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option value="TD">TD</option>
-                                                                </select>
+                                                                <ng-select  [(ngModel)] ="valorNivel"
+                                                                [items]="nivelCargo"
+                                                                bindLabel ="nivel" 
+                                                                bindValue ="nivel" 
+                                                                class="d-block"
+                                                                style="font-size: 0.8rem; height: auto; width: 50%;"> 
+                                                         </ng-select >
                                                             </div>
                                                         </div>
                                                     </div>

@@ -5,9 +5,8 @@ import { finalize } from "rxjs";
 import { ReniecService } from '@services/general/reniec.service';
 import { ExtranjeriaService } from '@services/general/extranjeria.service';
 import { reniecClass } from '@classes/servicios/reniec.class';
-import { NgxDropzoneChangeEvent } from 'ngx-dropzone';
 import { MigracionesClass } from '@classes/servicios/migraciones.class';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-registrar-empleado',
@@ -17,23 +16,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class RegistrarEmpleadoComponent {
 
   constructor(private DatoGeneralesService$: DatoGeneralesService, private ReniecService$: ReniecService, private ExtranjeriaService$: ExtranjeriaService) {
-    this.listarTipoDocumento()
-    this.listarTipoEmpleado()
-    this.listarRegimen()
-    this.listarTipoGrupo()
-    this.listarsexo()
-    this.listarGrupoSanguineo()
-    this.listarEstadoCivil()
     this.inicializarVariables()
-    this.listarParentesco()
-    this.listarProfesiones()
-    this.listarNivelIdioma()
+    this.listarSelects()
+    
   }
 
   //DORPZONE IMAGEN
  files: File[] = [];
  fotoFile:any[]=[];
-
+ 
   onSelect(event: any) {
     this.files = [];
     this.files.push(event.addedFiles[0])
@@ -73,7 +64,10 @@ export class RegistrarEmpleadoComponent {
   tipoParentesco:any[]=[]
   tipoProfesiones:any[]=[]
   nivelIdioma:any[]=[]
-
+  cargo:any[]=[]
+  nivelCargo:any[]=[]
+  tipoVia:any[]=[]
+  tipoZona:any[]=[]
   //--VALOR DE SELECTS----//
   valorRegimen: any = ""
   valortipRegimen: any = ""
@@ -414,8 +408,8 @@ agregarDocencia() {
 
   }
 
-  listarTipoDocumento() {
-    this.DatoGeneralesService$.listarTipoDocumento()
+  listarSelects() {
+    this.DatoGeneralesService$.listarSelects()
       .pipe(
         finalize(() => {
           this.loading = false;
@@ -423,58 +417,22 @@ agregarDocencia() {
       )
       .subscribe(({ estado, mensaje, datos }) => {
         if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.datos = datos;
-        } else {
-          errorAlerta('Error', mensaje).then();
-        }
-      });
-  }
+          this.datos = datos.tipoDocumento;
+          this.tipoEmpleado = datos.tipoEmpleado;
+          this.tipoGrupo = datos.grupo;
+          this.regimen = datos.regimen;
+          this.tipoSexo = datos.sexo;
+          this.tipoGrupoSanguineo = datos.grupoSanguineo;
+          this.tipoEstadoCivil = datos.estadoCivil;
+          this.tipoParentesco = datos.parentesco;
+          this.tipoProfesiones = datos.profesiones;
+          this.nivelIdioma = datos.idioma;
+          this.nivelCargo=datos.nivel
+          this.cargo=datos.cargo
+          this.tipoVia=datos.via
+          this.tipoZona=datos.zona
 
-  listarTipoEmpleado() {
-    this.DatoGeneralesService$.listarTipoEmpleado()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.tipoEmpleado = datos;
-        } else {
-          errorAlerta('Error', mensaje).then();
-        }
-      });
-  }
-
-  listarTipoGrupo() {
-    this.DatoGeneralesService$.listarTipoGrupo()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.tipoGrupo = datos;
-        } else {
-          errorAlerta('Error', mensaje).then();
-        }
-      });
-  }
-  listarRegimen() {
-    this.DatoGeneralesService$.listarRegimen()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.regimen = datos;
+          console.log(this.tipoVia)
         } else {
           errorAlerta('Error', mensaje).then();
         }
@@ -498,6 +456,7 @@ agregarDocencia() {
     }
   }
 
+
   listarTipoRegimen(id: any) {
     this.DatoGeneralesService$.listarTipoRegimen(id)
       .pipe(
@@ -515,105 +474,7 @@ agregarDocencia() {
       });
   }
   
-  listarsexo() {
-    this.DatoGeneralesService$.listarSexo()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.tipoSexo = datos;
-        } else {
-          errorAlerta('Error', mensaje).then();
-        }
-      });
-  }
-  listarGrupoSanguineo() {
-    this.DatoGeneralesService$.listarGrupoSanguineo()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.tipoGrupoSanguineo = datos;
-        } else {
-          errorAlerta('Error', mensaje).then();
-        }
-      });
-  }
-  listarEstadoCivil() {
-    this.DatoGeneralesService$.listarEstadoCivil()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.tipoEstadoCivil = datos;
-        } else {
-          errorAlerta('Error', mensaje).then();
-        }
-      });
-  }
-  listarParentesco() {
-    this.DatoGeneralesService$.listarParentesco()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          console.log(datos)
-          this.tipoParentesco = datos;
-        } else {
-          errorAlerta('Error', mensaje).then();
-        }
-      });
-  }
   
-  listarProfesiones() {
-    this.DatoGeneralesService$.listarProfesiones()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.tipoProfesiones = datos;
-        } else {
-          errorAlerta('Error', mensaje).then();
-        }
-      });
-  }
-  listarNivelIdioma() {
-    this.DatoGeneralesService$.listarNivelIdioma()
-      .pipe(
-        finalize(() => {
-          this.loading = false;
-        })
-      )
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
-          this.nivelIdioma = datos;
-          console.log(this.nivelIdioma)
-        } else {
-          errorAlerta('Error', mensaje).then();
-        }
-      });
-  }
   actualizarTipo(tipo: string, isChecked: boolean) {
     if (isChecked) {
       // Si está marcado, agregamos el tipo al arreglo
@@ -629,19 +490,21 @@ agregarDocencia() {
 
   }
   registrarEmpleado() {
+    console.log(this.via)
+    console.log(this.zona)
     const datosDomicilio = {
-      departamento: this.departamento.toUpperCase(),
-      provincia: this.provincia.toUpperCase(),
-      distrito: this.distrito.toUpperCase(),
-      via: this.via.toUpperCase(),
-      nombreVia: this.nombreVia.toUpperCase(),
+      departamento: this.departamento,
+      provincia: this.provincia,
+      distrito: this.distrito,
+      via: this.via,
+      nombreVia: this.nombreVia,
       numeroVia: this.numeroVia,
       interiorVia: this.interiorVia,
-      zona: this.zona.toUpperCase(),
-      nombreZona: this.nombreZona.toUpperCase(),
+      zona: this.zona,
+      nombreZona: this.nombreZona,
       numeroZona: this.numeroZona,
       interiorZona: this.interiorZona,
-      referenciaDomicilio: this.referenciaDomicilio.toUpperCase(),
+      referenciaDomicilio: this.referenciaDomicilio,
       ubigeo:this.ubigeo,
       numDocumento:this.numeroDocumento
     }
@@ -665,9 +528,9 @@ agregarDocencia() {
       tipoDocumento: this.tipoDoc,
       numeroDocumento:this.numeroDocumento,
       codigoAirhsp:this.codigoAirhsp,
-      apellidoPaterno: this.aPaterno.toUpperCase(),
-      apellidoMaterno: this.aMaterno.toUpperCase(),
-      nombres: this.nombres.toUpperCase(),    
+      apellidoPaterno: this.aPaterno,
+      apellidoMaterno: this.aMaterno,
+      nombres: this.nombres,    
       ruc: this.valGroup.controls['ruc'].value,
       estadoCivil: this.estadoCivil,
       sexo: this.sexo,
@@ -680,17 +543,19 @@ agregarDocencia() {
       telefonoFijo: this.valGroup.controls['telFijo'].value,
       telefonoMovil: this.valGroup.controls['telMovil'].value,
       correoElectronico:  this.valGroup.controls['correo'].value, 
-      enfAlergias: this.enfAlergias.toUpperCase(),
+      enfAlergias: this.enfAlergias,
       fechaIngreso:this.fechaIngreso,
       unidadOrganica:this.valorUnidad,
       servicio:this.valorServicio,
       rutaFoto:this.rutaFoto,
-      nacionalidad:this.nacionalidad
+      nacionalidad:this.nacionalidad,
+      cargo:this.valorCargo,
+      nivel:this.valorNivel
 
     }
     const datosContacto = {
-      nombreContacto: this.nombreContacto.toUpperCase(),
-      parentesco: this.parentesco.toUpperCase(),
+      nombreContacto: this.nombreContacto,
+      parentesco: this.parentesco,
       numContacto:  this.valGroup.controls['numContacto'].value, 
       numDocumento:this.numeroDocumento
     }
@@ -736,10 +601,6 @@ agregarDocencia() {
       }
       
     });
-
-  
-
-
     
   }
 

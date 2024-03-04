@@ -7,30 +7,30 @@ use App\Http\Controllers\Respuesta\JSONResponseController;
 use App\Models\legajo\verDatosModel;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
-use stdClass;
 
 class VerDatosController extends JSONResponseController
 {
     public function listarTodosLosDatos(Request $request)
     {
-        $id = $request->post('pkEmpleado');
+        $numeroDoc = $request->post('pkEmpleado');
+        $id = $request->post('id');
         $datos = new  verDatosModel();
         
         $resultado = [];
 
         $resultado['datosEmpleado'] = $datos->listarDatosEmpleado($id);
-        $resultado['datosDiscapacidad'] = $datos->listarDatosDiscapacidades($id);
-        $resultado['datosContactoEmergencia'] = $datos->listarDatosContactoEmergencia($id);
-        $resultado['datosFamiliares'] = $datos->listarDatosFamiliares($id);
-        $resultado['datosDomicilio'] = $datos->listarDatosDomicilio($id);
-        $resultado['datosProfesion'] = $datos->listarDatosProfesion($id);
-        $resultado['datosEstudioSuperior'] = $datos->listarDatosEstudioSuperior($id);
-        $resultado['datosEstudioPostgrado'] = $datos->listarDatosEstudioPostgrado($id);
-        $resultado['datosEstudioEspecializacion'] = $datos->listarDatosEstudioEspecializacion($id);
-        $resultado['datosEstudioCursos'] = $datos->listarDatosEstudioCursos($id);
-        $resultado['datosEstudioIdioma'] = $datos->listarDatosEstudioIdioma($id);
-        $resultado['datosExperienciaLaboral'] = $datos->listarDatosExperienciaLaboral($id);
-        $resultado['datosExperienciaDocencia'] = $datos->listarDatosExperienciaDocencia($id);
+        $resultado['datosDiscapacidad'] = $datos->listarDatosDiscapacidades($numeroDoc);
+        $resultado['datosContactoEmergencia'] = $datos->listarDatosContactoEmergencia($numeroDoc);
+        $resultado['datosFamiliares'] = $datos->listarDatosFamiliares($numeroDoc);
+        $resultado['datosDomicilio'] = $datos->listarDatosDomicilio($numeroDoc);
+        $resultado['datosProfesion'] = $datos->listarDatosProfesion($numeroDoc);
+        $resultado['datosEstudioSuperior'] = $datos->listarDatosEstudioSuperior($numeroDoc);
+        $resultado['datosEstudioPostgrado'] = $datos->listarDatosEstudioPostgrado($numeroDoc);
+        $resultado['datosEstudioEspecializacion'] = $datos->listarDatosEstudioEspecializacion($numeroDoc);
+        $resultado['datosEstudioCursos'] = $datos->listarDatosEstudioCursos($numeroDoc);
+        $resultado['datosEstudioIdioma'] = $datos->listarDatosEstudioIdioma($numeroDoc);
+        $resultado['datosExperienciaLaboral'] = $datos->listarDatosExperienciaLaboral($numeroDoc);
+        $resultado['datosExperienciaDocencia'] = $datos->listarDatosExperienciaDocencia($numeroDoc);
 
         return $this->sendResponse(200, true, 'Todos los datos', $resultado);
     }

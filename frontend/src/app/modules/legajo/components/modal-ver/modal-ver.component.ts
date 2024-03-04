@@ -105,9 +105,8 @@ export class ModalVerComponent {
         });
     }
 
-    openModal(id: string) {
-
-        this.listarDatos(id)        
+    openModal(id:number,numeroDoc:string) {
+        this.listarDatos(id,numeroDoc)        
         this.modalEl.show();
     }
 
@@ -115,10 +114,10 @@ export class ModalVerComponent {
         this.modalEl.hide();
     }
 
-    listarDatos(id:any){
+    listarDatos(id:number,numeroDoc:string){
       
       this.loading = true;
-      this.ModalDatosService$.listarDatos(id)
+      this.ModalDatosService$.listarDatos(id,numeroDoc)
           .pipe(
               finalize(() => {
                   this.loading = false;
@@ -165,7 +164,7 @@ export class ModalVerComponent {
         this.ruc = datos.ruc;
         this.fNacimiento = datos.fechaNacimiento;
         this.tFijo = datos.telFijo;
-        this.tMovil = datos.telFijo;
+        this.tMovil = datos.telMovil;
         this.correoE = datos.correo;
         this.gSanguineo = datos.grupSanguineo;
         this.enfAlergias = datos.enferAlergia;
@@ -176,6 +175,8 @@ export class ModalVerComponent {
         this.valortipRegimen = datos.tipoRegimen;
         this.valorUnidad = datos.unidadOrganica;
         this.valorServicio = datos.servicio;
+        this.valorCargo = datos.cargo;
+        this.valorNivel = datos.nivel;
         this.codigoAirhsp = datos.codigoAirhsp;
         this.fechaIngreso = datos.fechaIngreso;
         this.estado = datos.estado;

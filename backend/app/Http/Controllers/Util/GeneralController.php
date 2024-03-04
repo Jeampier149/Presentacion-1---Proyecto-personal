@@ -8,66 +8,32 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 class GeneralController extends JSONResponseController
 {
-    public function listarTipoDocumento(){
-        $tipoDocumento =new GeneralModel();
-        $resultado=$tipoDocumento->listarTipoDocumento();
+    public  function listarSelects(){
+        $dato=new GeneralModel();
+        $resultado=[];
+        $resultado['tipoDocumento']=$dato->listarTipoDocumento();
+        $resultado['tipoEmpleado']=$dato->listarTipoEmpleado();
+        $resultado['grupo']=$dato->listarGrupo();
+        $resultado['regimen']=$dato->listarRegimen();
+        $resultado['sexo']=$dato->listarSexo();
+        $resultado['grupoSanguineo']=$dato->listarGrupoSanguineo();
+        $resultado['estadoCivil']=$dato->listarEstadoCivil();
+        $resultado['parentesco']=$dato->listarParentesco();
+        $resultado['profesiones']=$dato->listarProfesiones();
+        $resultado['idioma']=$dato->listarNivelIdioma();
+        $resultado['cargo']=$dato->listarCargo();
+        $resultado['nivel']=$dato->listarNivel();
+        $resultado['via']=$dato->listarVias();
+        $resultado['zona']=$dato->listarZonas();
         return $this->sendResponse(200, true, '', $resultado);
-
     }
-    public function listarTipoEmpleado(){
-        $tipoEmpleado =new GeneralModel();
-        $resultado=$tipoEmpleado->listarTipoEmpleado();
-        return $this->sendResponse(200, true, '', $resultado);
 
-    }
-    public function listarGrupo(){
-        $tipoGrupo =new GeneralModel();
-        $resultado=$tipoGrupo->listarGrupo();
-        return $this->sendResponse(200, true, '', $resultado);
-
-    }
-    public function listarRegimen(){
-        $regimen =new GeneralModel();
-        $resultado=$regimen->listarRegimen();
-        return $this->sendResponse(200, true, '', $resultado);
-
-    }
     public function listarTipoRegimen(Request $request){
         $id=$request->post('id');
         $tipoRegimen =new GeneralModel();
         $resultado=$tipoRegimen->listarTipoRegimen($id);
         return $this->sendResponse(200, true, '', $resultado);
-
     }
-    public function listarSexo(Request $request){
-        $sexo =new GeneralModel();
-        $resultado=$sexo->listarSexo();
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarGrupoSanguineo(Request $request){
-        $grupo =new GeneralModel();
-        $resultado=$grupo->listarGrupoSanguineo();
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarEstadoCivil(Request $request){
-        $civil =new GeneralModel();
-        $resultado=$civil->listarEstadoCivil();
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarParentesco(Request $request){
-        $parentesco =new GeneralModel();
-        $resultado=$parentesco->listarParentesco();
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarProfesiones(Request $request){
-        $profesion =new GeneralModel();
-        $resultado=$profesion->listarProfesiones();
-        return $this->sendResponse(200, true, '', $resultado);
-    }
-    public function listarNivelIdioma(Request $request){
-        $nivel =new GeneralModel();
-        $resultado=$nivel->listarNivelIdioma();
-        return $this->sendResponse(200, true, '', $resultado);
-    }
+ 
 }
 

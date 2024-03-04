@@ -93,11 +93,11 @@
                                                             @if (dato.estado !== '*') {
                                                                 <button [bsTooltip]="'Editar'"
                                                                         class="btn btn-sm waves-light waves-effect btn-primary"
-                                                                         (click)="editarEmpleado(dato.numeroDocumento)">
+                                                                         (click)="editarEmpleado(dato.idHistorial,dato.numeroDocumento)">
                                                                     <i class="fa fa-pencil"></i></button>
                                                                 <button [bsTooltip]="'ver'"
                                                                         class="btn btn-sm waves-light waves-effect bg-secundary-new"
-                                                                        (click)="verDatos(dato.numeroDocumento)"
+                                                                        (click)="verDatos(dato.idHistorial,dato.numeroDocumento)"
                                                                         >
                                                                 <i class="fa fa-eye"></i></button>
                                                                

@@ -35,7 +35,7 @@ class LegajoModel extends Model
     {
         $smtp = $this->conexion->getPdo()->prepare(
             /** @lang SQL */
-            'EXEC dbo.lg_sp_listar_empleados ?,?,?,?,?,?,?,?'
+            'EXEC dbo.lg_sp_listar_empleados ?,?,?,?,?,?,?,?,?'
         );
         $smtp->bindParam(1, $params->documento);
         $smtp->bindParam(2, $params->apPaterno);
@@ -45,6 +45,7 @@ class LegajoModel extends Model
         $smtp->bindParam(6, $params->equipoServicio);
         $smtp->bindParam(7, $params->longitud);
         $smtp->bindParam(8, $params->pagina);
+        $smtp->bindParam(9, $params->estado);
         $smtp->execute();
         $resultados = $smtp->columnCount() > 0 ? $smtp->fetchAll(PDO::FETCH_ASSOC) : [];
         $smtp->closeCursor();
@@ -75,7 +76,7 @@ class LegajoModel extends Model
 
             // Iterar sobre los datos personales 
             try {
-                $resultado = DB::selectOne('EXEC dbo.pl_sp_insertar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                $resultado = DB::selectOne('EXEC dbo.pl_sp_insertar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
                     $datosPersonales['tipoDocumento'],
                     $datosPersonales['numeroDocumento'],
                     $datosPersonales['codigoAirhsp'],
@@ -99,7 +100,9 @@ class LegajoModel extends Model
                     $datosPersonales['unidadOrganica'],
                     $datosPersonales['servicio'],
                     $datosPersonales['rutaFoto'],
-                    $datosPersonales['nacionalidad']
+                    $datosPersonales['nacionalidad'],
+                    $datosPersonales['cargo'],
+                    $datosPersonales['nivel']
 
                 ]);
             } catch (\Exception $e) {
