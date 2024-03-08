@@ -21,6 +21,12 @@ class verDatosModel extends Model
         /** @lang SQL */
         'EXEC dbo.pl_sp_listar_datos_empleado ?', [$id]);
     }
+    public function listarDatosEmpleadoVer($id)
+    {
+        return $this->conexion->select(
+        /** @lang SQL */
+        'EXEC dbo.pl_sp_listar_datos_empleado_mv ?', [$id]);
+    }
     public function listarDatosDiscapacidades($id)
     {
         return $this->conexion->select(

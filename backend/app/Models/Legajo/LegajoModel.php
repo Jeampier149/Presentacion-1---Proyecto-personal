@@ -65,7 +65,8 @@ class LegajoModel extends Model
         array $datosCursos,
         array $datosIdiomas,
         array $datosExpLaboral,
-        array $datosLaborDocencia,
+        array $datosLaborDocencia
+      
     ) {
        $numDocumento=$datosPersonales['numeroDocumento'];
         // Iniciar una transacción para asegurar que todas las inserciones se realicen correctamente
@@ -328,6 +329,315 @@ class LegajoModel extends Model
         
             // Retornar false para indicar que la inserción falló
           return $resultado;
+        }
+    }
+
+    public function editarEmpleado(
+
+        array $datosPersonales,
+        array $datosContacto,
+        array $datosDiscapacidad,
+        array $datosDomicilio,
+        array $datosFamiliares,
+        array $datosProfesion,
+        array $datosEstudioSuperior,
+        array $datosPostgrado,
+        array $datosEspecialidades,
+        array $datosCursos,
+        array $datosIdiomas,
+        array $datosExpLaboral,
+        array $datosLaborDocencia,
+        $usuario,
+        $equipo,
+        $perfil
+    ) {
+       $numDocumento=$datosPersonales['numDoc'];
+        // Iniciar una transacción para asegurar que todas las inserciones se realicen correctamente
+        DB::beginTransaction();
+
+        try {
+            // Iterar sobre los datos personales 
+            try {
+                $resultado = DB::selectOne('EXEC dbo.pl_sp_editar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                    $datosPersonales['numDoc'],
+                    $datosPersonales['ruc'],
+                    $datosPersonales['estadoCivil'],
+                    $datosPersonales['telFijo'],
+                    $datosPersonales['telMovil'],
+                    $datosPersonales['correo'],
+                    $datosPersonales['enfAlergias'],
+                    $datosPersonales['rutaFoto'],
+                    $datosPersonales['codigoAirhsp'],
+                    $datosPersonales['grupOcup'],
+                    $datosPersonales['tipoEmp'],
+                    $datosPersonales['valorRegimen'],
+                    $datosPersonales['valorTipRegimen'],                
+                    $datosPersonales['fechaIngreso'],
+                    $datosPersonales['valorUnidad'],
+                    $datosPersonales['valorServicio'],                  
+                    $datosPersonales['valorCargo'],
+                    $datosPersonales['valorNivel'],
+                    $usuario,
+                    $equipo,
+                    $perfil
+
+                ]);
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_personal: ' . $e->getMessage();
+            }
+
+            //Insertar datos de  contacto de emergencia
+            try {
+                DB::statement('EXEC dbo.pl_sp_editar_datos_contacto_emergencia ?,?,?,?,?,?,?', [
+                    $datosContacto['nombreContacto'],
+                    $datosContacto['parentesco'],
+                    $datosContacto['numContacto'],
+                    $datosContacto['id'],
+                    $usuario,
+                    $equipo,
+                    $perfil
+                   
+                ]);
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_datos_contacto_emergencia: ' . $e->getMessage();
+            }
+
+            //insertar datso de discapacidad 
+          
+
+            //insertar datos domiclio
+            try {
+
+                DB::statement('EXEC dbo.pl_sp_editar_datos_direccion ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                    $datosDomicilio['departamento'],
+                    $datosDomicilio['provincia'],
+                    $datosDomicilio['distrito'],
+                    $datosDomicilio['via'],
+                    $datosDomicilio['nombreVia'],
+                    $datosDomicilio['numeroVia'],
+                    $datosDomicilio['interiorVia'],
+                    $datosDomicilio['zona'],
+                    $datosDomicilio['nombreZona'],
+                    $datosDomicilio['numeroZona'],
+                    $datosDomicilio['interiorZona'],
+                    $datosDomicilio['referencia'],
+                    $datosDomicilio['ubigeo'],
+                    $numDocumento,
+                    $datosDomicilio['id'],
+                    $usuario,
+                    $equipo,
+                    $perfil
+                ]);
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado  pl_sp_editar_datos_direccion: ' . $e->getMessage();
+            }
+
+            //insertar datos familiares
+            try {
+                foreach ($datosFamiliares as $familiar) {
+                    DB::statement('EXEC dbo.pl_sp_editar_datos_familiar ?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                        $familiar['apellidos'],
+                        $familiar['nombre'],
+                        $familiar['fechaNacimiento'],
+                        $familiar['tipoD'],
+                        $familiar['dni'],
+                        $familiar['parentesco'],
+                        $familiar['centroLaboral'],
+                        $numDocumento,
+                        $familiar['estado'],
+                        $familiar['id'],
+                        $usuario,
+                        $equipo,
+                        $perfil
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_datos_familiar: ' . $e->getMessage();
+            }
+            //insertar datos profesion
+            try {
+
+                DB::statement('EXEC dbo.pl_sp_editar_datos_profesion ?,?,?,?,?,?,?,?,?,?', [
+                    $datosProfesion['profesion'],
+                    $datosProfesion['lugarColeg'],
+                    $datosProfesion['fechColeg'],
+                    $datosProfesion['fechTerColeg'],
+                    $datosProfesion['numColeg'],
+                    $numDocumento,
+                    $datosProfesion['id'],
+                    $usuario,
+                    $equipo,
+                    $perfil
+                ]);
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_datos_profesion: ' . $e->getMessage();
+            }
+            //insertar datos estudio superior
+            try {
+
+                foreach ($datosEstudioSuperior as $superior) {
+                    DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_superior ?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                        $superior['tipo'],
+                        $superior['centro'],
+                        $superior['especialidad'],
+                        $superior['inicio'],
+                        $superior['termino'],
+                        $superior['nivel'],
+                        $superior['ruta'],
+                        $numDocumento,
+                        $superior['estado'],
+                        $superior['id'],
+                        $usuario,
+                        $equipo,
+                        $perfil
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_editar_datos_estudio_superior' . $e->getMessage();
+            }
+
+            //insertar datos  postgrado
+            try {
+
+                foreach ($datosPostgrado as $postgrado) {
+                    DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_postgrado ?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                        $postgrado['tipo'],
+                        $postgrado['centro'],
+                        $postgrado['especialidad'],
+                        $postgrado['inicio'],
+                        $postgrado['termino'],
+                        $postgrado['nivel'],
+                        $postgrado['ruta'],
+                        $numDocumento,
+                        $postgrado['estado'],
+                        $postgrado['id'],
+                        $usuario,
+                        $equipo,
+                        $perfil
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_editar_datos_estudio_postgrado' . $e->getMessage();
+            }
+            //insertar Especialidades 
+            try {
+
+                foreach ($datosEspecialidades as $especialidad) {
+                    DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_especialidad ?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                        $especialidad['tipo'],
+                        $especialidad['centro'],
+                        $especialidad['materia'],
+                        $especialidad['inicio'],
+                        $especialidad['termino'],
+                        $especialidad['certificacion'],
+                        $especialidad['ruta'],
+                        $numDocumento,
+                        $especialidad['estado'],
+                        $especialidad['id'],
+                        $usuario,
+                        $equipo,
+                        $perfil
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_editar_datos_estudio_especialidad' . $e->getMessage();
+            }
+
+            //insertar Cursos
+            try {
+
+                foreach ($datosCursos as $curso) {
+                    DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_curso ?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                        $curso['tipo'],
+                        $curso['centro'],
+                        $curso['materia'],
+                        $curso['inicio'],
+                        $curso['termino'],
+                        $curso['certificacion'],
+                        $curso['ruta'],
+                        $numDocumento,
+                        $curso['estado'],
+                        $curso['id'],
+                        $usuario,
+                        $equipo,
+                        $perfil
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_editar_datos_estudio_curso' . $e->getMessage();
+            }
+
+            //insertar idiomas
+            try {
+
+                foreach ($datosIdiomas as $idioma) {
+                    DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_idioma ?,?,?,?,?,?,?,?,?', [
+                        $idioma['lenguaE'],
+                        $idioma['nivel'],
+                        $idioma['ruta'],
+                        $numDocumento,
+                        $idioma['estado'],
+                        $idioma['id'],
+                        $usuario,
+                        $equipo,
+                        $perfil
+                    ]);
+                }
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado: pl_sp_ieditar_datos_estudio_idioma' . $e->getMessage();
+            }
+          //insertar expLaboral
+          try {
+
+            foreach ($datosExpLaboral as $laboral) {
+                DB::statement('EXEC dbo.pl_sp_editar_datos_experiencia_laboral ?,?,?,?,?,?,?,?,?,?,?', [
+                    $laboral['institucion'],
+                    $laboral['cargo'],
+                    $laboral['inicio'],
+                    $laboral['termino'],
+                    $laboral['ruta'],
+                    $numDocumento,
+                    $laboral['estado'],
+                    $laboral['id'],
+                    $usuario,
+                    $equipo,
+                    $perfil
+                ]);
+            }
+        } catch (\Exception $e) {
+            echo 'Error al ejecutar el procedimiento almacenado: pl_sp_editar_datos_estudio_exp_laboral' . $e->getMessage();
+        }
+        //inserta exp docencia
+        //insertar expLaboral
+        try {
+
+            foreach ($datosLaborDocencia as $docencia) {
+                DB::statement('EXEC dbo.pl_sp_editar_datos_experiencia_docencia ?,?,?,?,?,?,?,?,?,?,?', [
+                    $docencia['centro'],
+                    $docencia['curso'],
+                    $docencia['inicio'],
+                    $docencia['termino'],
+                    $docencia['ruta'],
+                    $numDocumento,
+                    $docencia['estado'],
+                    $docencia['id'],
+                    $usuario,
+                    $equipo,
+                    $perfil
+                ]);
+            }
+        } catch (\Exception $e) {
+            echo 'Error al ejecutar el procedimiento almacenado: pl_sp_editar_datos_estudio_exp_docencia' . $e->getMessage();
+        }
+            // Finalizar la transacción
+            DB::commit();
+            // Retornar true para indicar que la inserción fue exitosa
+          return $resultado;
+        } catch (\Exception $e) {
+            // Revertir la transacción si ocurre algún error
+            DB::rollBack();
+            // Retornar false para indicar que la inserción falló
+          return false;
         }
     }
 }

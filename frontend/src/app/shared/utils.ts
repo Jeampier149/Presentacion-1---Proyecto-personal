@@ -51,9 +51,9 @@ function formatearMensaje(mensaje: string): string {
     for (const error in errores) {
         const campo = errores[error];
         campo.forEach((c: string) => {
-            html += `${c}<br>`;
+            html += `<li style='margin:0;text-align:left;'>${c}</li>`;
         });
     }
 
-    return html.slice(0, -4);
+    return html.slice(0, -5);
 }

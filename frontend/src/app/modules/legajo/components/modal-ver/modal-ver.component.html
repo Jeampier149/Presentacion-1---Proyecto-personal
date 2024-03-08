@@ -553,13 +553,13 @@
                                                                         <tr
                                                                             *ngFor="let familiar of familiares;let i=index">
                                                                             <th scope="row"  [innerHTML]="i+1"> </th>
-                                                                            <td class="text-center"  [innerHTML]="familiar.tipoDoc "> </td>
-                                                                            <td class="text-center"  [innerHTML]="familiar.numeroDocumento"> </td>
+                                                                            <td class="text-center"  [innerHTML]="familiar.tipoDoc"></td>
+                                                                            <td class="text-center"  [innerHTML]="familiar.dni"> </td>
                                                                             <td class="text-center"  [innerHTML]="familiar.nombre"> </td>
                                                                             <td class="text-center"  [innerHTML]="familiar.apellidos"> </td>
                                                                             <td class="text-center"  [innerHTML]="familiar.fechaNacimiento"> </td>     
                                                                             <td class="text-center"  [innerHTML]="familiar.parentesco"> </td>                                                                     
-                                                                            <td class="text-center"  [innerHTML]="familiar.institucionLaboral"> </td>
+                                                                            <td class="text-center"  [innerHTML]="familiar.centroLaboral"> </td>
                                                                             
                                                                         </tr>
                                                                     </tbody>
@@ -778,7 +778,7 @@
                                                                                             <td class="text-center" [innerHTML]="especialidad.materia"></td>
                                                                                             <td class="text-center" [innerHTML]="especialidad.inicio"></td>
                                                                                             <td class="text-center" [innerHTML]="especialidad.termino"></td>   
-                                                                                            <td class="text-center"  [innerHTML]="especialidad.certificado"></td>  
+                                                                                            <td class="text-center"  [innerHTML]="especialidad.certificacion"></td>  
                                                                                             <td class="text-center">
                                                                                                 <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(especialidad.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
                                                                                                 <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(especialidad.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
@@ -828,7 +828,7 @@
                                                                                         <td class="text-center" [innerHTML]="curso.materia"></td>
                                                                                         <td class="text-center" [innerHTML]="curso.inicio"></td>
                                                                                         <td class="text-center" [innerHTML]="curso.termino"></td>   
-                                                                                        <td class="text-center"  [innerHTML]="curso.certificado"></td>  
+                                                                                        <td class="text-center"  [innerHTML]="curso.certificacion"></td>  
                                                                                         <td class="text-center"> 
                                                                                             <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(curso.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
                                                                                             <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(curso.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
@@ -871,7 +871,7 @@
                                                                                 @for( idioma of idiomas;track idioma ;let index=$index){
                                                                                     <tr>                                                                           
                                                                                         <th scope="row" >{{index+1}}</th>
-                                                                                        <td class="text-center" [innerHTML]="idioma.idioma"></td>
+                                                                                        <td class="text-center" [innerHTML]="idioma.lenguaE"></td>
                                                                                         <td class="text-center" [innerHTML]="idioma.nivel"></td> 
                                                                                         <td class="text-center"> 
                                                                                             <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(idioma.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>

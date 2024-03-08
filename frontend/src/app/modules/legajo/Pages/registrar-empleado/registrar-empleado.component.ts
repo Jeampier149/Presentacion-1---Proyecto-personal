@@ -587,7 +587,6 @@ agregarDocencia() {
         this.loading = false
       })
     ).subscribe(respuesta => {
-      console.log(respuesta)
       const { estado, mensaje, datos } = respuesta;
       if (!estado && datos) {
         errorAlertaValidacion(mensaje,datos);

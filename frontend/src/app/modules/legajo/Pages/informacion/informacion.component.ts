@@ -89,6 +89,7 @@ export class InformacionComponent {
           )
           .subscribe(({estado, mensaje, datos}) => {
               if (estado) {
+                console.log(datos)
                   datos.length > 0 ? this.agregable = false : this.agregable = true;
                   this.datos = datos;
               } else {

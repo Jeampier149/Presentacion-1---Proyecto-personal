@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
+use Illuminate\Support\Str;
 use stdClass;
 
 
@@ -16,7 +16,7 @@ class LegajoController extends JSONResponseController
 {
     public function __construct()
     {
-        //$this->middleware('auth:sanctum');
+        $this->middleware('auth:sanctum');
     }
 
     public function listarEmpleados(Request $request): JsonResponse
@@ -51,7 +51,7 @@ class LegajoController extends JSONResponseController
         $paramentos->equipoServicio = $request->get('equipoServicio') ?? '';
         $paramentos->pagina = $request->get('pagina');
         $paramentos->longitud = $request->get('longitud');
-        $paramentos->longitud = $request->get('estado');
+        $paramentos->estado = $request->get('estado');
         $resultado = $legajoModel->listarEmpleado($paramentos);
         return $this->sendResponse(200, true, '', $resultado);
     }
@@ -133,21 +133,23 @@ class LegajoController extends JSONResponseController
         $datosEstudioSuperior = json_decode($request->post('datosEstudioSuperior'), true);
         $datosPostgrado = json_decode($request->post('datosPostgrado'), true);
         $datosEspecialidades = json_decode($request->post('datosEspecializacion'), true);
-        $datosCursos= json_decode($request->post('datosCursos'), true);
-        $datosIdiomas= json_decode($request->post('datosIdiomas'), true);
-        $datosExpLaboral= json_decode($request->post('experienciaLaboral'), true);
-        $datosLaborDocencia= json_decode($request->post('laborDocencia'), true);
+        $datosCursos = json_decode($request->post('datosCursos'), true);
+        $datosIdiomas = json_decode($request->post('datosIdiomas'), true);
+        $datosExpLaboral = json_decode($request->post('experienciaLaboral'), true);
+        $datosLaborDocencia = json_decode($request->post('laborDocencia'), true);
         $numeroDocumento = $datosPersonales['numeroDocumento'];
-        $archivosT = $request->file();  
+        $user = $request->user();
+        $usuario = $user->username;
+        $perfil = $user->id_perfil;
+        $equipo = Str::upper(explode(':', gethostbyaddr($_SERVER['REMOTE_ADDR']))[0] ?? '');
+        $archivosT = $request->file();
 
         foreach ($archivosT as $archivo) {
-       
             $nameArchivo =  $archivo->getClientOriginalName();
             $name = str_replace(" ", "_", $nameArchivo);
-            $destino = $numeroDocumento.'/'.$name;
+            $destino = $numeroDocumento . '/' . $name;
             try {
-                Storage::disk('ftp')->put($destino, file_get_contents($archivo));     
-                         
+                Storage::disk('ftp')->put($destino, file_get_contents($archivo));
             } catch (\Exception $e) {
                 $errorMessage = $e->getMessage();
                 return response()->json(['error' => 'Error al subir el archivo al servidor FTP: ' . $errorMessage], 500);
@@ -155,16 +157,147 @@ class LegajoController extends JSONResponseController
         }
 
 
-        
+
         $legajoModel = new LegajoModel();
+        $resultado = $legajoModel->registrarEmpleado(
+            $datosPersonales,
+            $datosContacto,
+            $datosDiscapacidad,
+            $datosDomicilio,
+            $datosFamiliares,
+            $datosProfesion,
+            $datosEstudioSuperior,
+            $datosPostgrado,
+            $datosEspecialidades,
+            $datosCursos,
+            $datosIdiomas,
+            $datosExpLaboral,
+            $datosLaborDocencia
+        );
+        return $this->sendResponse(200, true, $resultado->mensaje, $resultado->dato);
+    }
 
-        $resultado = $legajoModel->registrarEmpleado($datosPersonales, $datosContacto, $datosDiscapacidad, $datosDomicilio, $datosFamiliares, $datosProfesion,
-                                                     $datosEstudioSuperior,$datosPostgrado,$datosEspecialidades,$datosCursos,$datosIdiomas,$datosExpLaboral,$datosLaborDocencia);
+    public function editarEmpleado(Request $request): JsonResponse
+    {
+        $datosPersonales = json_decode($request->post('datosPersonales'), true);
+        $reglasDatosEmpleado = [
+            'numDoc' => 'required',
+            'ruc' => 'max:99999999999|numeric',
+            'estadoCivil' => 'required',
+            'telFijo' => 'numeric',
+            'telMovil' => 'numeric|max:999999999',
+            'correoE' => 'email',
+            'codigoAirhsp' => 'required',
+            'grupOcup' => 'required',
+            'tipoEmp' => 'required',
+            'valorRegimen' => 'required',
+            'valorTipRegimen' => 'required',
+            'fechaIngreso' => 'required',
+            'valorUnidad' => 'required',
+            'valorServicio' => 'required',
+        ];
+        
+        $messagesEmpleado = [
+            'numDoc.required' => 'El numero de documento es requerido.',
+            'ruc.max' => 'El ruc solo debe tener 11 dígitos.',
+            'estadoCivil.required' => 'El estado civil es requerido.',
+            'telFijo.numeric' => 'El teléfono fijo solo debe contener números.',
+            'telMovil.numeric' => 'El teléfono móvil solo debe contener números.',
+            'correoE.email' => 'El correo electrónico no es válido.',
+            'codigoAirhsp.required' => 'El código Airhsp es requerido.',
+            'grupOcup.required' => 'El tipo de grupo Ocupacional es requerido.',
+            'tipoEmp.required' => 'La condición laboral es requerida.',
+            'valorRegimen.required' => 'El régimen laboral es requerido.',
+            'valorTipRegimen.required' => 'El tipo de régimen es requerido.',
+            'fechaIngreso.required' => 'La fecha de ingreso es requerida.',
+            'valorUnidad.required' => 'El valor por unidad es requerido.',
+            'valorServicio.required' => 'El valor del servicio es requerido.',
+        ];
+        
+        $validacionDatosEmpleado = Validator::make($datosPersonales, $reglasDatosEmpleado, $messagesEmpleado);
+        
+        if ($validacionDatosEmpleado->fails()) {
+            return $this->sendResponse(200, false, 'Error de validación', $validacionDatosEmpleado->errors());
+        }
+        
+      
+        $datosContacto = json_decode($request->post('datosContacto'), true);
+        $reglasDatosContacto = [
+            'nombreContacto' => 'string',
+            'parentesco' => 'string',
+            'numeroContacto' => 'string',
+            'id'=>'required'
+        ];
 
-         return $this->sendResponse(200, true,$resultado->mensaje,$resultado->dato);
-         
+        $validacionDatosContacto = Validator::make($datosContacto, $reglasDatosContacto);
+        if ($validacionDatosContacto->fails()) {
+            return $this->sendResponse(200, false, 'Error de validación', $validacionDatosContacto->errors());
+        }
+        $datosDiscapacidad = json_decode($request->post('datosDiscapacidad'), true);
 
+        $datosDomicilio = json_decode($request->post('datosDomicilio'), true);
+        $reglasDatosDomicilio = [
+            'departamento' => 'string|required',
+            'provincia' => 'string',
+            'distrito' => 'string',
+            'ubigeo' => 'string',
+            'id'=>'required'
+        ];
 
-       
+        $validacionDatosDomicilio = Validator::make($datosDomicilio, $reglasDatosDomicilio);
+        if ($validacionDatosContacto->fails()) {
+            return $this->sendResponse(200, false, 'Error de validación', $validacionDatosDomicilio->errors());
+        }
+
+        $datosFamiliares = json_decode($request->post('datosFamiliares'), true);
+        $datosProfesion = json_decode($request->post('datosProfesion'), true);
+        $datosEstudioSuperior = json_decode($request->post('datosEstudioSuperior'), true);
+        $datosPostgrado = json_decode($request->post('datosPostgrado'), true);
+        $datosEspecialidades = json_decode($request->post('datosEspecializacion'), true);
+        $datosCursos = json_decode($request->post('datosCursos'), true);
+        $datosIdiomas = json_decode($request->post('datosIdiomas'), true);
+        $datosExpLaboral = json_decode($request->post('experienciaLaboral'), true);
+        $datosLaborDocencia = json_decode($request->post('laborDocencia'), true);
+        $numeroDocumento = $datosPersonales['numDoc'];
+        $user = $request->user();
+        $usuario = $user->username;
+        $perfil = $user->id_perfil;
+        $equipo = Str::upper(explode(':', gethostbyaddr($_SERVER['REMOTE_ADDR']))[0] ?? '');
+        $archivosT = $request->file();
+
+        foreach ($archivosT as $archivo) {
+            $nameArchivo =  $archivo->getClientOriginalName();
+            $name = str_replace(" ", "_", $nameArchivo);
+            $destino = $numeroDocumento . '/' . $name;
+            try {
+                Storage::disk('ftp')->put($destino, file_get_contents($archivo));
+            } catch (\Exception $e) {
+                $errorMessage = $e->getMessage();
+                return response()->json(['error' => 'Error al subir el archivo al servidor FTP: ' . $errorMessage], 500);
+            }
+        }
+
+        $legajoModel = new LegajoModel();
+        $resultado = $legajoModel->editarEmpleado(
+            $datosPersonales,
+            $datosContacto,
+            $datosDiscapacidad,
+            $datosDomicilio,
+            $datosFamiliares,
+            $datosProfesion,
+            $datosEstudioSuperior,
+            $datosPostgrado,
+            $datosEspecialidades,
+            $datosCursos,
+            $datosIdiomas,
+            $datosExpLaboral,
+            $datosLaborDocencia,
+            $usuario,
+            $equipo,
+            $perfil
+
+        );
+        var_dump($resultado);
+        return $this->sendResponse(200, true, $resultado->mensaje, $resultado->dato);
     }
 }

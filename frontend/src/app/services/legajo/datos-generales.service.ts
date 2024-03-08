@@ -110,6 +110,78 @@ export class DatoGeneralesService {
            {responseType: "json"} 
         );
     }
+    editarDatosEmpleado(
+        datosPersonales:any ,
+        datosContacto:any,
+        datosDiscapacidad:any,
+        datosDomicilio:any,
+        datosFamiliares:any,
+        datosProfesion:any,
+        datosEstudioSuperior:any,
+        datosPostgrado:any,
+        datosEspecializacion:any,
+        datosCursos:any,
+        datosIdiomas:any,
+        experienciaLaboral:any,
+        laborDocencia:any,
+        fotoPersonal:any
+        ) 
+        
+        {
+ 
+            const formData = new FormData();
+            fotoPersonal.forEach((datos:any) => {
+                formData.append(`foto`, datos);
 
+            });
+            datosEstudioSuperior.forEach((datos:any, index:any) => {
+                formData.append(`estudioSuperior${index}_archivo`, datos.archivo);
+
+            });
+            datosPostgrado.forEach((datos:any, index:any) => {
+                formData.append(`postgrado${index}_archivo`, datos.archivo);
+
+            });
+            datosEspecializacion.forEach((datos:any, index:any) => {
+                formData.append(`especializacion${index}_archivo`, datos.archivo);
+
+            });
+            datosCursos.forEach((datos:any, index:any) => {
+                formData.append(`curso${index}_archivo`, datos.archivo);
+
+            });
+            datosIdiomas.forEach((datos:any, index:any) => {
+                formData.append(`idioma${index}_archivo`, datos.archivo);
+
+            });
+            experienciaLaboral.forEach((datos:any, index:any) => {
+                formData.append(`laboral${index}_archivo`, datos.archivo);
+
+            });
+           laborDocencia.forEach((datos:any, index:any) => {
+                formData.append(`docencia${index}_archivo`, datos.archivo);
+
+            });
+            // Aquí agregamos los datos al formData
+            formData.append('datosPersonales', JSON.stringify(datosPersonales));
+            formData.append('datosContacto', JSON.stringify(datosContacto));
+            formData.append('datosDiscapacidad', JSON.stringify(datosDiscapacidad));
+            formData.append('datosDomicilio', JSON.stringify(datosDomicilio));
+            formData.append('datosFamiliares', JSON.stringify(datosFamiliares));
+            formData.append('datosProfesion', JSON.stringify(datosProfesion));
+            formData.append('datosEstudioSuperior', JSON.stringify(datosEstudioSuperior));
+            formData.append('datosPostgrado', JSON.stringify(datosPostgrado));
+            formData.append('datosEspecializacion', JSON.stringify(datosEspecializacion));
+            formData.append('datosCursos', JSON.stringify(datosCursos));
+            formData.append('datosIdiomas', JSON.stringify(datosIdiomas));
+            formData.append('experienciaLaboral', JSON.stringify(experienciaLaboral));
+            formData.append('laborDocencia', JSON.stringify(laborDocencia));
+
+   
+     
+        return this.http.post<HttpResponseApi>('/api/legajo/editar-empleado', formData,         
+           {responseType: "json"} 
+        );
+    }
    
 }

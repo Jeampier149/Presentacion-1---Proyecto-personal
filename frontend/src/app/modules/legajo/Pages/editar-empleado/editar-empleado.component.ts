@@ -43,7 +43,7 @@ export class EditarEmpleadoComponent implements OnInit {
     const fileFinal: File = new File([file], nuevoNombre);
     this.fotoFile.push(fileFinal)
     const ruta=this.valDatosPersonales.controls['numDoc']+'/'+fileFinal.name.replace(/\s+/g, '_');
-    this.rutaFoto=ruta
+    this.valDatosPersonales.controls['rutaFoto'].setValue(ruta);
   }
 
   onRemove(event: any) {
@@ -52,7 +52,7 @@ export class EditarEmpleadoComponent implements OnInit {
   }
   //FOTO PERSONAL
   fotoPersonal:File []=[]
-  rutaFoto:string=""
+
 
   archivoUrl: any;
   fotoP: any;
@@ -130,7 +130,6 @@ export class EditarEmpleadoComponent implements OnInit {
   valContactoEmergencia!: FormGroup;
   valDatosDomicilio!:FormGroup;
   valDatosProfesion!:FormGroup;
-  valSituacionLaboral!:FormGroup;
 
 
    inicializarVariables(){  
@@ -149,38 +148,8 @@ export class EditarEmpleadoComponent implements OnInit {
       telMovil: new FormControl('', [Validators.pattern('^[0-9]*$')]),
       correo: new FormControl('', { validators: Validators.email}),    
       grupoSanguineo:new FormControl({value:'',disabled:true}),
-      enfAlergias:new FormControl(''),
-      estadoCivil:new FormControl('')    
-   })
-
-   this.valContactoEmergencia = new FormGroup({
-    nombreContacto:new FormControl(''),
-    parentesco:new FormControl(''),
-    numContacto: new FormControl('', [Validators.pattern('^[0-9]*$')]) })
-    
-   this.valDatosDomicilio=new FormGroup({
-    departamento:new FormControl(''),
-    provincia:new FormControl(''),
-    distrito:new FormControl(''),
-    via:new FormControl(''),
-    nombreVia:new FormControl(''),
-    numeroVia:new FormControl(''),
-    interiorVia:new FormControl(''),
-    zona:new FormControl(''),
-    nombreZona:new FormControl(''),
-    numeroZona:new FormControl(''),
-    interiorZona:new FormControl(''),
-    referencia:new FormControl('')
-   })
-
-    this.valDatosProfesion=new FormGroup({
-      profesion:new FormControl(''),
-      lugarColeg:new FormControl(''),
-      fechColeg:new FormControl(''),
-      fechTerColeg:new FormControl(''),
-      numColeg:new FormControl('')
-     })
-    this.valSituacionLaboral=new FormGroup({
+      estadoCivil:new FormControl(''),
+      rutaFoto:new FormControl(''),
       tipoEmp:new FormControl(''),
       grupOcup:new FormControl(''),
       valorRegimen:new FormControl(''),
@@ -190,8 +159,44 @@ export class EditarEmpleadoComponent implements OnInit {
       valorCargo:new FormControl(''),
       valorNivel:new FormControl(''),
       codigoAirhsp:new FormControl(''),
-      fechaIngreso:new FormControl('')
+      fechaIngreso:new FormControl(''),
+      valorEstado:new FormControl(''),
+      motivo:new FormControl(''),
+      enfAlergias:new FormControl('')
+   })
+
+   this.valContactoEmergencia = new FormGroup({
+    nombreContacto:new FormControl(''),
+    parentesco:new FormControl(''),
+    id:new FormControl(''),
+    numContacto: new FormControl('', [Validators.pattern('^[0-9]*$')]) })
+    
+   this.valDatosDomicilio=new FormGroup({
+    departamento:new FormControl(''),
+    provincia:new FormControl(''),
+    distrito:new FormControl(''),
+    via:new FormControl(''),
+    nombreVia:new FormControl(''),
+    ubigeo:new FormControl(''),
+    numeroVia:new FormControl(''),
+    interiorVia:new FormControl(''),
+    zona:new FormControl(''),
+    nombreZona:new FormControl(''),
+    numeroZona:new FormControl(''),
+    interiorZona:new FormControl(''),
+    referencia:new FormControl(''),
+    id:new FormControl('')
+   })
+
+    this.valDatosProfesion=new FormGroup({
+      profesion:new FormControl(''),
+      lugarColeg:new FormControl(''),
+      fechColeg:new FormControl(''),
+      fechTerColeg:new FormControl(''),
+      numColeg:new FormControl(''),
+      id:new FormControl('')
      })
+
   }
 
   buscarDocumentoFamiliar(documento:string,index:number,tipoD:string) {
@@ -283,16 +288,18 @@ export class EditarEmpleadoComponent implements OnInit {
     this.valDatosPersonales.controls['telMovil'].setValue(datos.telMovil);
     this.valDatosPersonales.controls['correo'].setValue(datos.correo);
     this.valDatosPersonales.controls['grupoSanguineo'].setValue(datos.grupSanguineo);
-    this.valDatosPersonales.controls['enfAlergias'].setValue(datos.enfAlergias);
+    this.valDatosPersonales.controls['enfAlergias'].setValue(datos.enferAlergia);
     this.valDatosPersonales.controls['estadoCivil'].setValue(datos.estadoCivil);
-    this.valSituacionLaboral.controls['tipoEmp'].setValue(datos.condicion);
-    this.valSituacionLaboral.controls['grupOcup'].setValue(datos.grupOcupacional);
-    this.valSituacionLaboral.controls['valorRegimen'].setValue(datos.regimen);
-    this.valSituacionLaboral.controls['valorTipRegimen'].setValue(datos.tipoRegimen);
-    this.valSituacionLaboral.controls['valorUnidad'].setValue(datos.unidadOrganica);
-    this.valSituacionLaboral.controls['valorServicio'].setValue(datos.servicio);
-    this.valSituacionLaboral.controls['codigoAirhsp'].setValue(datos.codigoAirhsp);
-    this.valSituacionLaboral.controls['fechaIngreso'].setValue(datos.fechaIngreso);
+    this.valDatosPersonales.controls['tipoEmp'].setValue(datos.idCondicion);
+    this.valDatosPersonales.controls['grupOcup'].setValue(datos.idGrupO);
+    this.valDatosPersonales.controls['valorRegimen'].setValue(datos.idRegimen);
+    this.listarTipoRegimen(datos.idRegimen)
+    this.valDatosPersonales.controls['valorTipRegimen'].setValue(datos.idTipoRegimen);
+    this.valDatosPersonales.controls['valorUnidad'].setValue(datos.unidadOrganica);
+    this.valDatosPersonales.controls['valorServicio'].setValue(datos.servicio);
+    this.valDatosPersonales.controls['codigoAirhsp'].setValue(datos.codigoAirhsp);
+    this.valDatosPersonales.controls['fechaIngreso'].setValue(datos.fechaIngreso);
+    this.valDatosPersonales.controls['rutaFoto'].setValue(datos.rutaFoto);
     this.listarFoto(datos.rutaFoto);
 }
 
@@ -300,6 +307,7 @@ setDatosConctactoEmergencia(datos: any) {
   this.valContactoEmergencia.controls['nombreContacto'].setValue(datos.nombre);
   this.valContactoEmergencia.controls['parentesco'].setValue(datos.parentesco);
   this.valContactoEmergencia.controls['numContacto'].setValue(datos.telefono);
+  this.valContactoEmergencia.controls['id'].setValue(datos.id);
 }
 setDatosDomicilio(datos: any) {
   this.valDatosDomicilio.controls['departamento'].setValue(datos.departamento);
@@ -314,6 +322,8 @@ setDatosDomicilio(datos: any) {
   this.valDatosDomicilio.controls['numeroZona'].setValue(datos.numeroZona);
   this.valDatosDomicilio.controls['interiorZona'].setValue(datos.interiorZona);
   this.valDatosDomicilio.controls['referencia'].setValue(datos.referencia);
+  this.valDatosDomicilio.controls['ubigeo'].setValue(datos.ubigeo);
+  this.valDatosDomicilio.controls['id'].setValue(datos.id);
 }
 setDatosProfesion(datos: any) {
   this.valDatosProfesion.controls['profesion'].setValue(datos.profesion);
@@ -321,6 +331,7 @@ setDatosProfesion(datos: any) {
   this.valDatosProfesion.controls['fechTerColeg'].setValue(datos.fechaTermino);
   this.valDatosProfesion.controls['lugarColeg'].setValue(datos.lugar);
   this.valDatosProfesion.controls['numColeg'].setValue(datos.numeroCole);
+  this.valDatosProfesion.controls['id'].setValue(datos.id);
 }
 
  setDatosFamiliar(datos:any ,index:number){
@@ -335,35 +346,37 @@ setDatosProfesion(datos: any) {
  
  agregarFamiliar() { 
   this.divFamiliar=false
-  if(this.familiares.length<=5)this.familiares.push({ nombre: '', apellidos: '', fechaNacimiento: '',tipoD:'',dni: '', parentesco: "", centroLaboral: "" });
+  if(this.familiares.length<=5)this.familiares.push({ id:'',nombre: '', apellidos: '', fechaNacimiento: '',tipoD:'',dni: '', parentesco: "", centroLaboral: "" ,estado:'' });
  }
 
   agregarEstudioSuperior() {
     this.divSuperior=false     
-  if(this.estudioSuperior.length<=5) this.estudioSuperior.push({ tipo:'',centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:""  });
+  if(this.estudioSuperior.length<=5) this.estudioSuperior.push({ id:'',tipo:'',centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:"" ,estado:""   });
  }
 agregarEstudioPostgrado() { 
  this.divPostgrado=false
-  if(this.estudioPostgrado.length<=5) this.estudioPostgrado.push({ tipo:'',centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:"" }); }
+  if(this.estudioPostgrado.length<=5) this.estudioPostgrado.push({ id:'',tipo:'',centro: '', especialidad: "", inicio: '', termino: "", nivel: "", archivo: null ,ruta:"" ,estado:""  }); }
 agregarEspecializacion() { 
   this.divEspecializacion=false
-if(this.especializacion.length<=5) this.especializacion.push({ tipo:'',centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: null,ruta:"" }); }
+if(this.especializacion.length<=5) this.especializacion.push({ id:'',tipo:'',centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo: null,ruta:"" ,estado:"" }); }
 agregarCursos() { 
   this.divCursos=false
-if(this.cursos.length<=5)  this.cursos.push({tipo:'', centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:""  }); }
+if(this.cursos.length<=5)  this.cursos.push({id:'',tipo:'', centro: '', materia: "", inicio: '', termino: "", certificacion: "", archivo:null ,ruta:""  ,estado:""  }); }
 agregarIdioma() { 
   this.divIdioma=false
- if(this.idiomas.length<=4) this.idiomas.push({ lenguaE: '', nivel: "", archivo:null,ruta:""  }); }
+ if(this.idiomas.length<=4) this.idiomas.push({id:'', lenguaE: '', nivel: "", archivo:null,ruta:"",estado:""   }); }
 agregarExperiencia() {
   this.divExperienciaLaboral=false
- if(this.experienciaLaboral.length<=10)  this.experienciaLaboral.push({ institucion: '', cargo: "", inicio: '', termino: "", archivo:null,ruta:""  }); }
+ if(this.experienciaLaboral.length<=10)  this.experienciaLaboral.push({ id:'',institucion: '', cargo: "", inicio: '', termino: "", archivo:null,ruta:"" ,estado:""  }); }
 agregarDocencia() {
   this.divExperienciaDocencia=false
-  if(this.laborDocencia.length<=10) this.laborDocencia.push({ centro: '', curso: "", inicio: '', termino: "", archivo:null,ruta:""}); 
+  if(this.laborDocencia.length<=10) this.laborDocencia.push({ id:'',centro: '', curso: "", inicio: '', termino: "", archivo:null,ruta:""}); 
  }
 
 
-  eliminarItem(index: number, nombre: keyof EditarEmpleadoComponent) { this[nombre].splice(index, 1); }
+  eliminarItem(index: number, nombre: keyof EditarEmpleadoComponent) {   
+    this[nombre][index].estado='*'
+  }
   sinDatosFamiliares(){
     this.divFamiliar=true
     this.familiares=[]
@@ -493,6 +506,8 @@ agregarDocencia() {
           this.nivelIdioma = datos.idioma;
           this.nivelCargo=datos.nivel
           this.cargo=datos.cargo
+          this.tipoVia=datos.via
+          this.tipoZona=datos.zona
         } else {
           errorAlerta('Error', mensaje).then();
         }
@@ -502,7 +517,7 @@ agregarDocencia() {
   
 
   cambioTipo() {
-    let id = this.valSituacionLaboral.controls['valorRegimen'].value
+    let id = this.valDatosPersonales.controls['valorRegimen'].value
     if (id.length > 0) {
       this.listarTipoRegimen(id)
     } else {
@@ -542,25 +557,24 @@ agregarDocencia() {
     }
 
   }
-  registrarEmpleado() {
-    const datosDomicilio = {
-     
-    }
+  actualizarEmpleado() {
+ 
+    const datosDomicilio = this.valDatosDomicilio.getRawValue()
     const datosFamiliares =this.familiares 
     const datosEstudioSuperior =this.estudioSuperior 
-    const datosProfesion={                    }
+    const datosProfesion=this.valDatosProfesion.value
     const datosPostgrado =  this.estudioPostgrado 
     const datosEspecializacion = this.especializacion 
     const datosCursos = this.cursos 
     const datosIdiomas = this.idiomas 
     const experienciaLaboral =  this.experienciaLaboral 
     const laborDocencia =  this.laborDocencia 
-    const datosPersonales = {      }
-    const datosContacto = {        }
+    const datosPersonales = this.valDatosPersonales.getRawValue()
+    const datosContacto = this.valContactoEmergencia.value
     const datosDiscapacidad={ tipos:this.tipoDiscapacidad }
     const fotoPersonal=this.fotoFile
-
-    this.DatoGeneralesService$.guardarDatosEmpleado(
+    console.log(datosPersonales)
+    this.DatoGeneralesService$.editarDatosEmpleado(
       datosPersonales,
       datosContacto,
       datosDiscapacidad,
@@ -574,7 +588,7 @@ agregarDocencia() {
       datosIdiomas,
       experienciaLaboral,
       laborDocencia,
-     fotoPersonal
+      fotoPersonal
       
     ).pipe(
       finalize(() => {
@@ -597,7 +611,8 @@ agregarDocencia() {
     });
   
   }
-  descargarArchivo(ruta: string, tipo?: string) {
+
+  descargarArchivo(ruta: string) {
     this.loading = true;
     this.ModalDatosService$.verArchivo(ruta)
         .pipe(

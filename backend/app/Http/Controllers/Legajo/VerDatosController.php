@@ -13,12 +13,11 @@ class VerDatosController extends JSONResponseController
     public function listarTodosLosDatos(Request $request)
     {
         $numeroDoc = $request->post('pkEmpleado');
-        $id = $request->post('id');
         $datos = new  verDatosModel();
         
         $resultado = [];
 
-        $resultado['datosEmpleado'] = $datos->listarDatosEmpleado($id);
+        $resultado['datosEmpleado'] = $datos->listarDatosEmpleadoVer($numeroDoc);
         $resultado['datosDiscapacidad'] = $datos->listarDatosDiscapacidades($numeroDoc);
         $resultado['datosContactoEmergencia'] = $datos->listarDatosContactoEmergencia($numeroDoc);
         $resultado['datosFamiliares'] = $datos->listarDatosFamiliares($numeroDoc);
