@@ -11,6 +11,7 @@ import {SessionSelectors} from "@store/index.session";
 import {Store} from "@ngrx/store";
 import { ModalVerComponent } from '@modules/legajo/components/modal-ver/modal-ver.component';
 import { Router } from '@angular/router';
+import { ModalSituacionLaboralComponent } from '@modules/legajo/components/modal-situacion-laboral/modal-situacion-laboral.component';
 
 @Component({
   selector: 'app-informacion',
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
   styleUrl: './informacion.component.scss'
 })
 export class InformacionComponent {
-    
+@ViewChild(ModalSituacionLaboralComponent) modalSituacion?: any    
 @ViewChild(ModalVerComponent) modalDatos?: any
 @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
   rutas: rutaBreadCrumb[] = [{nombre: 'Legajo'}];
@@ -40,7 +41,7 @@ export class InformacionComponent {
   longitudes: number[] = [15, 20, 50, 100];
 
   cabeceras: CabeceraTabla[] = [
-      {nombre: 'Acciones', estilo: 'width: 80px;min-width: 80px', clase: 'text-center'},
+      {nombre: 'Acciones', estilo: 'width: 115px;min-width: 110px', clase: 'text-center'},
       {nombre: 'Documento', estilo: 'width: 120px; min-width: 120px', clase: 'text-center'},
       {nombre: 'Tipo. Doc', estilo: 'width: 100px; min-width: 100px;', clase: 'text-center'},
       {nombre: 'Apellido Pat.', estilo: 'width: 120px; min-width: 110px'},
@@ -122,17 +123,17 @@ export class InformacionComponent {
   }
 
 
-  //nuevaHistoria() {
-  //    this.modalHC?.openModal(1);
-  //}
 
-  verDatos(id:number,numeroDoc :string) {
-    this.modalDatos?.openModal(id,numeroDoc);
+  verDatos(numeroDoc :string) {
+    this.modalDatos?.openModal(numeroDoc);
 
   }
-  editarEmpleado(id:number,numeroDoc:string){
-   this.router.navigate(['/legajo/editarEmpleado',id,numeroDoc])
+  editarEmpleado(numeroDoc:string){
+   this.router.navigate(['/legajo/editarEmpleado',numeroDoc])
   }
-
+ 
+  situacionLaboral(numeroDoc:string){
+    this.modalSituacion?.openModal(numeroDoc);
+  }
 
 }

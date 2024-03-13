@@ -1,5 +1,5 @@
 <div #modalDatos class="modal fade" tabIndex="-1" *teleportTo="'body'">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Informacion Detallada</h5>
@@ -14,21 +14,23 @@
                                 <div class="col-xl-12">
                                     <div class="row w-100 d-block">
                                         <div class="row  w-100 d-block">
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    <span class="badge estado W-100" [ngClass]="estado === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{estado}}</span>
+                                            <div class="row  d-flex justify-content-between ">
+                                                <div class="col-xl-4 d-flex justify-content-center justify-content-md-start">
+                                                    <span class="badge estado W-100 ms-xs-3" [ngClass]="estado === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{estado}}</span>
+                                                </div>
+                                                <div class="col-xl-2 ">
+                                                   <button class="btn btn-sm btn-primary" (click)="generarReporte()"><i class="fa-solid fa-print me-1"></i> Imprimir</button>
                                                 </div>
                                             </div>
-                                            <div class="row mt-4 d-flex ">
-                                                <div class="col-xl-2 col-8 foto mb-3 d-flex align-items-center foto">
-                                                    <img [src]="fotoP" alt="imagen de perfil" class=" img-perfil">
+                                            <div class="row mt-4 d-flex align-items-center justify-content-center mb-2">
+                                                <div class="col-xl-2 col-md-3 col-sm-12 col-xs-12 img  mb-3 d-flex align-items-center justify-content-center">
+                                                    <img [src]="fotoP" alt="imagen de perfil" class="img-fluid">
 
                                                 </div>
-                                                <div class="col-xl-10 ">
-                                                    <div class="row my-2 px-3 mb-3">
-
-                                                        <div class="col-xl-4 ">
-                                                            <div class="input-group input-group-sm   ">
+                                                <div class="col-xl-10  col-md-9  col-sm-12 col-xs-12 ">
+                                                    <div class="row">                                                   
+                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales ">
                                                                     Tip Documento
                                                                 </div>
@@ -37,9 +39,9 @@
                                                                     disabled>
 
                                                             </div>
-
                                                         </div>
-                                                        <div class="col-xl-4">
+
+                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
                                                             <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales ">
                                                                     N° Documento
@@ -51,7 +53,7 @@
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4">
+                                                        <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
                                                             <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">
                                                                     Nacionalidad
@@ -63,10 +65,7 @@
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row my-2 px-3 mb-3">
-
-                                                        <div class="col-xl-4 ">
+                                                        <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
                                                             <div class="input-group input-group-sm   ">
                                                                 <div class="input-group-text d-personales ">
                                                                     Apll. Paterno
@@ -78,7 +77,7 @@
                                                             </div>
 
                                                         </div>
-                                                        <div class="col-xl-4">
+                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
                                                             <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales ">
                                                                     Apll. Materno
@@ -90,7 +89,7 @@
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4">
+                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
                                                             <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">
                                                                     Nombres
@@ -103,10 +102,7 @@
                                                             </div>
                                                         </div>
 
-
-                                                    </div>
-                                                    <div class="row my-2 px-3 mb-3">
-                                                        <div class="col-xl-4">
+                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
                                                             <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales ">Sexo
                                                                 </div>
@@ -115,7 +111,7 @@
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4">
+                                                        <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
                                                             <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">RUC
                                                                     N°</div>
@@ -124,7 +120,7 @@
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4">
+                                                        <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6mb-1">
                                                             <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales ">F.
                                                                     Nacimiento
@@ -136,11 +132,8 @@
                                                             </div>
                                                         </div>
 
-
-                                                    </div>
-                                                    <div class="row my-2 px-3">
-                                                        <div class="col-xl-4">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                        <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">
                                                                     Telefono Fijo
                                                                 </div>
@@ -150,8 +143,8 @@
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                        <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">
                                                                     Telefono Movil
                                                                 </div>
@@ -161,8 +154,8 @@
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                        <div class="col-xl-4 col-md-6  col-sm-6 col-xs-6 mb-1">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales ">
                                                                     Correo E.</div>
                                                                 <input type="text" class="form-control form-control-sm"
@@ -171,10 +164,10 @@
                                                             </div>
                                                         </div>
 
-                                                    </div>
-                                                    <div class="row my-2 px-3">
-                                                        <div class="col-xl-4">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                 
+                                                
+                                                        <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales"> G.
                                                                     Sanguineo
                                                                 </div>
@@ -184,8 +177,8 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-xl-4">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                        <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">
                                                                     Enf./Alergias
                                                                 </div>
@@ -194,8 +187,8 @@
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                        <div class="col-xl-4 col-md-6  col-sm-6 col-xs-6 mb-1">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales ">
                                                                     Estado Civil
                                                                 </div>
@@ -205,6 +198,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                  
                                                 </div>
                                             </div>
 
@@ -215,25 +209,25 @@
                                                 </div>
                                                 <div class="card-body p-3">
                                                     <div class="row">
-                                                        <div class="col-xl-5">
-                                                            <div class="input-group input-group-sm mb-3">
-                                                                <div class="input-group-text ">Nombre de
+                                                        <div class="col-xl-5 mb-1 ps-0">
+                                                            <div class="input-group input-group-sm ">
+                                                                <div class="input-group-text d-personales ">Nombre 
                                                                     contacto</div>
                                                                 <input type="text" class="form-control form-control-sm"
                                                                     aria-label="Small" [(ngModel)]="nombreContacto"  disabled
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-3 ms-4">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                        <div class="col-xl-3 ms-xl-4 mb-1 ps-0">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">Parentesco</div>
                                                                 <input type="text" class="form-control form-control-sm"
                                                                     aria-label="Small" [(ngModel)]="parentesco"  disabled
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-3 ms-4">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                        <div class="col-xl-3 ms-xl-4 mb-1 ps-0">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">N° de contacto
                                                                 </div>
                                                                 <input type="text" class="form-control form-control-sm"
@@ -251,9 +245,9 @@
                                                 </div>
                                                 <div class="card-body p-3">
                                                     <div class="row">
-                                                        <div class="row mt-2">
-                                                            <div class="col-xl-3">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                       
+                                                            <div class="col-xl-3 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales ">
                                                                         Condición
                                                                     </div>
@@ -262,8 +256,8 @@
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-4 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales ">
                                                                         G.Ocupacional</div>
                                                                         <input type="text" class="form-control form-control-sm"
@@ -271,8 +265,8 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-5">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-5 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales">
                                                                         U.Organica/Dpto</div>
                                                                         <input type="text" class="form-control form-control-sm"
@@ -281,11 +275,10 @@
                                                                 </div>
                                                             </div>
                                                             
-                                                        </div>
-                                                        <div class="row mt-2">
+                                                       
                                                             
-                                                            <div class="col-xl-3">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-3 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales ">
                                                                         Regimen</div>
                                                                         <input type="text" class="form-control form-control-sm"
@@ -294,8 +287,8 @@
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-4 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales ">
                                                                         Tipo Regimen</div>
                                                                         <input type="text" class="form-control form-control-sm"
@@ -304,8 +297,8 @@
 
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-5">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-5 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales">
                                                                         Servicio/Equipo</div>
                                                                         <input type="text" class="form-control form-control-sm"
@@ -314,10 +307,9 @@
                                                                 </div>
                                                             </div>
                                                            
-                                                        </div>
-                                                        <div class="row mt-2">
-                                                            <div class="col-xl-3">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                 
+                                                            <div class="col-xl-3 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text  d-personales">
                                                                        Codigo Airshp</div>
                                                                         <input type="text" class="form-control form-control-sm"
@@ -325,8 +317,8 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-4 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales">
                                                                        Fecha Ingreso</div>
                                                                         <input type="date" class="form-control form-control-sm"
@@ -334,23 +326,23 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-3">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-3 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales">Cargo</div>
                                                                     <input type="text" class="form-control form-control-sm"
                                                                     [(ngModel)]="valorCargo" aria-label="Small"  disabled
                                                                     aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2">
-                                                                <div class="input-group input-group-sm mb-3">
-                                                                    <div class="input-group-text ">Nivel</div>
+                                                            <div class="col-xl-2 mb-1 ps-0">
+                                                                <div class="input-group input-group-sm ">
+                                                                    <div class="input-group-text d-ancho ">Nivel</div>
                                                                     <input type="text" class="form-control form-control-sm"
                                                                         [(ngModel)]="valorNivel" aria-label="Small"  disabled
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                    
                                                     </div>
                                                 </div>
                                             </div>
@@ -382,10 +374,9 @@
                                                 </div>
                                                 <div class="card-body p-3">
                                                     <div class="row">
-                                                        <div class="row mt-2">
 
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales ">
                                                                         Departamento
                                                                     </div>
@@ -395,8 +386,8 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales ">
                                                                         Provincia</div>
                                                                     <input type="text"
@@ -405,9 +396,9 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
-                                                                    <div class="input-group-text ">Distrito
+                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm  ">
+                                                                    <div class="input-group-text d-ancho">Distrito
                                                                     </div>
                                                                     <input type="text"
                                                                         class="form-control form-control-sm"
@@ -415,10 +406,10 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row mt-2">
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                    
+                                                    
+                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales ">
                                                                         Tipo
                                                                         de Via
@@ -430,8 +421,8 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales">
                                                                         Nombre de la via
                                                                     </div>
@@ -440,9 +431,9 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2">
-                                                                <div class="input-group input-group-sm mb-3">
-                                                                    <div class="input-group-text ">Numero
+                                                            <div class="col-xl-2 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm ">
+                                                                    <div class="input-group-text d-ancho ">Numero
                                                                     </div>
                                                                     <input type="text"
                                                                         class="form-control form-control-sm"
@@ -450,9 +441,9 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2">
-                                                                <div class="input-group input-group-sm mb-3">
-                                                                    <div class="input-group-text ">Interior
+                                                            <div class="col-xl-2 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm ">
+                                                                    <div class="input-group-text d-ancho">Interior
                                                                     </div>
                                                                     <input type="text"
                                                                         class="form-control form-control-sm"
@@ -460,10 +451,10 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row mt-2">
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                   
+                                                     
+                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales">
                                                                         Tipo
                                                                         de Zona
@@ -475,8 +466,8 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-xl-4">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text d-personales">
                                                                         Nombre de Zona
                                                                     </div>
@@ -485,9 +476,9 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2">
-                                                                <div class="input-group input-group-sm mb-3">
-                                                                    <div class="input-group-text ">Numero
+                                                            <div class="col-xl-2 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm  ">
+                                                                    <div class="input-group-text d-ancho">Numero
                                                                     </div>
                                                                     <input type="text"
                                                                         class="form-control form-control-sm"
@@ -495,9 +486,9 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2">
-                                                                <div class="input-group input-group-sm mb-3">
-                                                                    <div class="input-group-text ">Interior
+                                                            <div class="col-xl-2 col-md-6 col-sm-6  col-xs-6 mb-1">
+                                                                <div class="input-group input-group-sm ">
+                                                                    <div class="input-group-text  d-ancho">Interior
                                                                     </div>
                                                                     <input type="text"
                                                                         class="form-control form-control-sm"
@@ -505,11 +496,11 @@
                                                                         aria-describedby="inputGroup-sizing-sm">
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                 
 
-                                                        <div class="row mt-4">
+                                                      
                                                             <div class="col-xl-12">
-                                                                <div class="input-group input-group-sm mb-3">
+                                                                <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text ">
                                                                         Referencia(Indicar
                                                                         institucion
@@ -522,7 +513,7 @@
                                                                 </div>
                                                             </div>
 
-                                                        </div>
+                                                     
                                                     </div>
                                                 </div>
                                             </div>
@@ -533,7 +524,7 @@
                                                     </h6>
                                                 </div>
                                                 <div class="card-body p-3">
-                                                    <div class="row">
+                                                    <div class="row table-responsive">
                                                             <form>
                                                                 <table class="table table-responsive">
                                                                     <thead  class="table-light">
@@ -553,7 +544,7 @@
                                                                         <tr
                                                                             *ngFor="let familiar of familiares;let i=index">
                                                                             <th scope="row"  [innerHTML]="i+1"> </th>
-                                                                            <td class="text-center"  [innerHTML]="familiar.tipoDoc"></td>
+                                                                            <td class="text-center"  [innerHTML]="familiar.tipoD"></td>
                                                                             <td class="text-center"  [innerHTML]="familiar.dni"> </td>
                                                                             <td class="text-center"  [innerHTML]="familiar.nombre"> </td>
                                                                             <td class="text-center"  [innerHTML]="familiar.apellidos"> </td>
@@ -576,9 +567,9 @@
                                                 <div class="card-body p-3">
                                                     <div class="row">
                                                         <div class="row d-block w-100 mt-3">
-                                                            <div class="row  ">
-                                                                <div class="col-xl-6">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                            <div class="row">
+                                                                <div class="col-xl-6 mb-1">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text  d-personales">
                                                                             Profesion</div>
                                                                         <input type="text"
@@ -587,8 +578,8 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-6">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                <div class="col-xl-6 mb-1">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text d-personales ">Lugar
                                                                            
                                                                             Colegiatura
@@ -599,14 +590,9 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                         
 
-                                                            </div>
-                                                            <div class="row mt-2">
-                                                         
-                                                                
-                                                                <div class="col-xl-3">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                <div class="col-xl-3 mb-1">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text d-personales">F. de
                                                                             colegiatura
                                                                         </div>
@@ -616,8 +602,8 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-3">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                <div class="col-xl-3 mb-1">
+                                                                    <div class="input-group input-group-sm">
                                                                         <div class="input-group-text d-personales">
                                                                             F.Fin
                                                                             habilitacion</div>
@@ -628,8 +614,8 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-3">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                <div class="col-xl-3 mb-1">
+                                                                    <div class="input-group input-group-sm">
                                                                         <div class="input-group-text d-personales">N°
                                                                             Colegiatura
                                                                         </div>
@@ -640,6 +626,8 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                                
+                                                  
                                                             <div class="card border mt-3">
                                                                 <div class="card-header bg-transparent p-2">
                                                                     <h6 class="my-0">ESTUDIOS SUPERIORES
@@ -649,7 +637,7 @@
                                                                     </h6>
                                                                 </div>
                                                                 <div class="card-body p-3">
-                                                                    <div class="row">
+                                                                    <div class="row table-responsive">
                                             
                                                                             <table class="table table-responsive w-100">
                                                                  
@@ -704,7 +692,7 @@
                                                                     </h6>
                                                                 </div>
                                                                 <div class="card-body p-3">
-                                                                    <div class="row">
+                                                                    <div class="row table-responsive">
                                                                             <table class="table table-responsive w-100">
                                                                                 @if(estudioPostgrado.length!=0){
                                                                                     <thead class="table-light">
@@ -753,7 +741,7 @@
                                                                     <h6 class="my-0">ESPECIALIZACION - DIPLOMADOS</h6>
                                                                 </div>
                                                                 <div class="card-body p-3">
-                                                                    <div class="row">
+                                                                    <div class="row table-responsive">
                                                                             <table class="table table-responsive w-100">
                                                                                 @if(especializacion.length!=0){
                                                                                     <thead class="table-light">
@@ -802,7 +790,7 @@
                                                                     <h6 class="my-0">CURSOS - SEMINARIOS</h6>
                                                                 </div>
                                                                 <div class="card-body p-3">
-                                                                    <div class="row">
+                                                                    <div class="row table-responsive">
                                                                         <table class="table table-responsive w-100">
                                                                             @if(cursos.length!=0){
                                                                                 <thead class="table-light">
@@ -854,7 +842,7 @@
                                                                     </h6>
                                                                 </div>
                                                                 <div class="card-body p-3">
-                                                                    <div class="row">
+                                                                    <div class="row table-responsive">
                                                                         <table class="table table-responsive w-100">
                                                                             @if(idiomas.length!=0){
                                                                                 <thead class="table-light">
@@ -910,7 +898,7 @@
                                                                 </h6>
                                                             </div>
                                                             <div class="card-body p-3">
-                                                                <div class="row">
+                                                                <div class="row table-responsive">
                                                                     <table class="table table-responsive w-100">
                                                                         @if(experienciaLaboral.length!=0){
                                                                             <thead class="table-light">
@@ -958,7 +946,7 @@
                                                                 </h6>
                                                             </div>
                                                             <div class="card-body p-3">
-                                                                <div class="row">
+                                                                <div class="row table-responsive">
                                                                     <table class="table table-responsive w-100">
                                                                         @if(laborDocencia.length!=0){
                                                                             <thead class="table-light">

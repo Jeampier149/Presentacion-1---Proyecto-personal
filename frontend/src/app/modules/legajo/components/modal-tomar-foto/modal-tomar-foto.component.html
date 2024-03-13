@@ -1,0 +1,37 @@
+
+<div #modalTomarFoto class="modal fade" tabIndex="-1" *teleportTo="'body'">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">CAPTURAR IMAGEN</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-loading [mostrar]="loading">
+                    <div class="row d-flex justify-content-center ">
+                                <div class="col-xl-12 px-0 d-flex justify-content-center">
+                                    
+                                            <video  #videoElement autoplay></video>
+                                                                 
+                                </div>
+                  </div>
+                  <div class="row d-flex justify-content-center my-3">
+                    <div class="col-xl-3">
+                        <button (click)="capturarFoto()" class="btn btn-primary btn-sm " style="width: 100%;">Capturar</button>
+                    </div>
+                   
+                </div>
+
+                </app-loading>
+                <div class="modal-footer justify-content-between">
+
+                    <div>
+                        <button class="btn btn-danger waves-light waves-effect btn-label m-1" type="button"
+                            (click)="closeModal()">
+                            Salir &ensp;<i class="fas fa-door-open label-icon"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

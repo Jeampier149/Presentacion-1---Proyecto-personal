@@ -87,6 +87,7 @@ export class ModalVerComponent {
     fechaIngreso: string = '';
 
     archivoUrl: any;
+    archEmb:any
     fotoP: any;
 
     @ViewChild('selFocus') selFocus!: ElementRef;
@@ -105,8 +106,8 @@ export class ModalVerComponent {
         });
     }
 
-    openModal(id:number,numeroDoc:string) {
-        this.listarDatos(id,numeroDoc)        
+    openModal(numeroDoc:string) {
+        this.listarDatos(numeroDoc)        
         this.modalEl.show();
     }
 
@@ -114,10 +115,10 @@ export class ModalVerComponent {
         this.modalEl.hide();
     }
 
-    listarDatos(id:number,numeroDoc:string){
+    listarDatos(numeroDoc:string){
       
       this.loading = true;
-      this.ModalDatosService$.listarDatos(id,numeroDoc)
+      this.ModalDatosService$.listarDatos(numeroDoc)
           .pipe(
               finalize(() => {
                   this.loading = false;
@@ -246,8 +247,10 @@ export class ModalVerComponent {
     }
 
     mostrarArchivoEnFotoP() {
-        this.fotoP = this.sanitizer.bypassSecurityTrustResourceUrl(
-            this.archivoUrl
-        );
+        this.fotoP = this.sanitizer.bypassSecurityTrustResourceUrl( this.archivoUrl );
+    }
+
+    generarReporte(){
+        
     }
 }

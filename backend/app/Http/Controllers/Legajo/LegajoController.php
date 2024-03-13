@@ -95,8 +95,8 @@ class LegajoController extends JSONResponseController
         $reglasDatosContacto = [
             'nombreContacto' => 'string',
             'parentesco' => 'string',
-            'numeroContacto' => 'string',
-            'numDocumento' => 'required'
+
+
         ];
 
         $validacionDatosContacto = Validator::make($datosContacto, $reglasDatosContacto);
@@ -120,7 +120,7 @@ class LegajoController extends JSONResponseController
             'interiorZona' => 'string|required',
             'referenciaDomicilio' => 'string|required',
             'ubigeo' => 'string',
-            'numDocumento' => 'string|required',
+
         ];
 
         $validacionDatosDomicilio = Validator::make($datosDomicilio, $reglasDatosDomicilio);
@@ -186,15 +186,8 @@ class LegajoController extends JSONResponseController
             'estadoCivil' => 'required',
             'telFijo' => 'numeric',
             'telMovil' => 'numeric|max:999999999',
-            'correoE' => 'email',
-            'codigoAirhsp' => 'required',
-            'grupOcup' => 'required',
-            'tipoEmp' => 'required',
-            'valorRegimen' => 'required',
-            'valorTipRegimen' => 'required',
-            'fechaIngreso' => 'required',
-            'valorUnidad' => 'required',
-            'valorServicio' => 'required',
+            'correoE' => 'email'
+            
         ];
         
         $messagesEmpleado = [
@@ -204,14 +197,7 @@ class LegajoController extends JSONResponseController
             'telFijo.numeric' => 'El teléfono fijo solo debe contener números.',
             'telMovil.numeric' => 'El teléfono móvil solo debe contener números.',
             'correoE.email' => 'El correo electrónico no es válido.',
-            'codigoAirhsp.required' => 'El código Airhsp es requerido.',
-            'grupOcup.required' => 'El tipo de grupo Ocupacional es requerido.',
-            'tipoEmp.required' => 'La condición laboral es requerida.',
-            'valorRegimen.required' => 'El régimen laboral es requerido.',
-            'valorTipRegimen.required' => 'El tipo de régimen es requerido.',
-            'fechaIngreso.required' => 'La fecha de ingreso es requerida.',
-            'valorUnidad.required' => 'El valor por unidad es requerido.',
-            'valorServicio.required' => 'El valor del servicio es requerido.',
+            
         ];
         
         $validacionDatosEmpleado = Validator::make($datosPersonales, $reglasDatosEmpleado, $messagesEmpleado);
@@ -297,7 +283,7 @@ class LegajoController extends JSONResponseController
             $perfil
 
         );
-        var_dump($resultado);
-        return $this->sendResponse(200, true, $resultado->mensaje, $resultado->dato);
+        return $this->sendResponse(200, true, $resultado->mensaje, $resultado->resultado);
+
     }
 }

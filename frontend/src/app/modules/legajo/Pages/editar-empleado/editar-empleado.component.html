@@ -1,7 +1,7 @@
 <app-breadcrumb [rutas]="rutas" [titulo]="'EDITAR DATOS'"></app-breadcrumb>
 <div class="row">
     <div class="col-xl-12 me-0 pe-0">
-        <div class="card pt-4 ps-4">
+        <div class="card pt-4 ps-lg-4">
             <div class="card-body me-0 pe-0">
                 <div class="row pt-2 me-0 pe-0">
                     <div class="col-xl-12 pe-0">
@@ -9,11 +9,11 @@
                             <div class="row w-100 d-block pe-0 me-0">
                                 <div class="row data-local d-flex justify-content-between">
                                     <div class="col-xl-4">
-                                        <div class="row">
-                                            <div class="col-xl-6">
+                                        <div class="row me-1">
+                                            <div class="col-xl-6 col-sm-6 ">
                                                 <div class="form-group">
                                                     <label for="numero_doc">TIPO DOCUMENTO</label>
-                                                    <div class="input-group mb-3" [formGroup]="valDatosPersonales">
+                                                    <div class="input-group " [formGroup]="valDatosPersonales">
                                                         <input type="text" class="form-control form-control-sm"
                                                             aria-label="tipoDocumento" formControlName="tipoDocumento"
                                                             aria-describedby="tipoDocumento">
@@ -21,10 +21,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-6">
+                                            <div class="col-xl-6 col-sm-6 ">
                                                 <div class="form-group">
                                                     <label for="numero_doc">N° DOCUMENTO</label>
-                                                    <div class="input-group mb-3" [formGroup]="valDatosPersonales">
+                                                    <div class="input-group " [formGroup]="valDatosPersonales">
                                                         <input type="text" class="form-control form-control-sm"
                                                             aria-label="dni" formControlName="numDoc" maxlength="10"
                                                             aria-describedby="dni">
@@ -35,7 +35,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-xl-3 mt-4 me-4">                                     
+                                    <div class="col-xl-3 mt-lg-4 me-4 mb-sm-2 mt-3   mb-lg-0">                                     
                                             <div class="input-group input-group-sm " [formGroup]="valDatosPersonales">
                                                 <div class="input-group-text d-personales ">Nacionalidad
                                                 </div>
@@ -46,11 +46,10 @@
                                     </div>
                                 </div>
                                 <div class="row  w-100 d-block">
-                                    <fieldset>
-                                        <legend>Datos Personales</legend>
+                                    
                                         <div class="row mt-4 ">
-                                            <div class="col-xl-2  col-8">
-                                                <ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept="image/*">
+                                            <div class="col-xl-2 col-md-3 col-sm-12 col-xs-12   d-flex flex-column  ">
+                                                <ngx-dropzone class=" d-flex justify-content-center mb-3 mb-lg-0" (change)="onSelect($event)" [multiple]="false" accept="image/*" >
                                                     <ngx-dropzone-label>Arraste o Elija una imagen!</ngx-dropzone-label>
                                                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
                                                         *ngFor="let f of files" [file]="f" [removable]="true"
@@ -58,18 +57,18 @@
 
                                                     </ngx-dropzone-image-preview>
                                                 </ngx-dropzone>
-                                                <div class="row mt-3 w-100  ">
-                                                    <div class="col-12 d-flex justify-content-center">
-                                                        <button type="button w-100 d-block"
+                                                <div class="row mt-3 w-100 none  ">
+                                                    <div class="col-12 d-flex justify-content-center mb-3 ms-4">
+                                                        <button type="button w-100 d-block"      (click)="tomarFoto()"
                                                             class="btn btn-primary btn-sm"><i class="fas fa-camera"></i>
                                                             Tomar Foto</button>
                                                     </div>
                                                 </div>
 
                                             </div>
-                                            <div class="col-xl-10 ">
-                                                <div class="row my-2 px-3 mb-3">
-                                                    <div class="col-xl-4 ">
+                                            <div class="col-xl-10  col-md-9  col-sm-12 col-xs-12 mt-lg-4 ">
+                                              <div class="row">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1  ">
                                                         <div class="input-group input-group-sm" [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Apll. Paterno
                                                             </div>
@@ -79,7 +78,7 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
                                                         <div class="input-group input-group-sm"[formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Apll. Materno
                                                             </div>
@@ -90,7 +89,7 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
                                                         <div class="input-group input-group-sm " [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales">Nombres
                                                             </div>
@@ -103,9 +102,8 @@
                                                     </div>
 
 
-                                                </div>
-                                                <div class="row my-2 px-3 mb-3">
-                                                    <div class="col-xl-4">
+                                
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
                                                         <div class="input-group input-group-sm "[formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Sexo
                                                             </div>
@@ -116,7 +114,7 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
                                                         <div class="input-group input-group-sm "[formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales">RUC N°</div>
                                                             <input type="text" class="form-control form-control-sm"
@@ -124,7 +122,7 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
                                                         <div class="input-group input-group-sm " [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">F. Nacimiento
                                                             </div>
@@ -135,10 +133,9 @@
                                                     </div>
 
 
-                                                </div>
-                                                <div class="row my-2 px-3" [formGroup]="valDatosPersonales">
-                                                    <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3">
+                                     
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1" [formGroup]="valDatosPersonales">
+                                                        <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales">Telefono Fijo
                                                             </div>
                                                             <input type="text" class="form-control form-control-sm"
@@ -147,8 +144,8 @@
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4" [formGroup]="valDatosPersonales">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1" [formGroup]="valDatosPersonales">
+                                                        <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales">Telefono Movil
                                                             </div>
                                                             <input type="text" class="form-control form-control-sm"
@@ -156,19 +153,18 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4" [formGroup]="valDatosPersonales">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1" [formGroup]="valDatosPersonales">
                                                         
-                                                        <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales ">Correo .E</div>
                                                             <input type="email" class="form-control form-control-sm" bsInvalid
                                                             required  aria-label="Small" formControlName="correo"
                                                              aria-describedby="inputGroup-sizing-sm">
                                                         </div>                                               
                                                     </div>
-                                                </div>
-                                                <div class="row my-2 px-3">
-                                                    <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
+                                           
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales"> G. Sanguineo
                                                             </div>
                                                             <input type="email" class="form-control form-control-sm" bsInvalid
@@ -178,8 +174,8 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3"[formGroup]="valDatosPersonales">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
+                                                        <div class="input-group input-group-sm "[formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales">Enf./Alergias
                                                             </div>
                                                             <input type="text" class="form-control form-control-sm"
@@ -187,8 +183,8 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Estado Civil
                                                             </div>
                                                             <input type="text" class="form-control form-control-sm"
@@ -207,17 +203,17 @@
                                             </div>
                                             <div class="card-body p-3">
                                                 <div class="row ">
-                                                    <div class="col-xl-6">
-                                                        <div class="input-group input-group-sm mb-3"  [formGroup]="valContactoEmergencia">
-                                                            <div class="input-group-text ">Nombre de contacto</div>
+                                                    <div class="col-xl-6 mb-1 ps-0">
+                                                        <div class="input-group input-group-sm "  [formGroup]="valContactoEmergencia">
+                                                            <div class="input-group-text d-ancho ">Nombre contacto</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small"formControlName="nombreContacto"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-3">
-                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valContactoEmergencia">
-                                                            <div class="input-group-text ">Parentesco</div>
+                                                    <div class="col-xl-3 mb-1 ps-0">
+                                                        <div class="input-group input-group-sm " [formGroup]="valContactoEmergencia">
+                                                            <div class="input-group-text d-ancho">Parentesco</div>
                                                                 <select class="form-select form-select-sm" 
                                                                formControlName="parentesco">
                                                                 <option value="" selected>Seleccionar</option>
@@ -226,9 +222,9 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-3">
-                                                        <div class="input-group input-group-sm mb-3"   [formGroup]="valContactoEmergencia">
-                                                            <div class="input-group-text ">N° de contacto</div>
+                                                    <div class="col-xl-3 mb-1 ps-0">
+                                                        <div class="input-group input-group-sm "   [formGroup]="valContactoEmergencia">
+                                                            <div class="input-group-text d-ancho">N° de contacto</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                            aria-label="Small" formControlName="numContacto" bsInvalid
                                                                 aria-describedby="inputGroup-sizing-sm">
@@ -250,215 +246,29 @@
                                                 </div>
                                             </div>
                                             <div *ngIf="disca.checked" class="col-xl-9 d-flex justify-content-between align-items-baseline">
-                                               <div class="col-xl-8">
-                                                <label class="me-2" for="flexSwitchCheckChecked">Tipos
-                                                    Discapacidad :</label>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="fisicas"
-                                                        [(ngModel)]="fisicas"
-                                                        (change)="actualizarTipo('Fisica',this.fisicas)">
-                                                    <label class="form-check-label" for="fisicas">Fisicas</label>
+                                                <div class="input-group input-group-sm  custom-select">
+                                                    <div class="input-group-text col-auto d-ancho">Tipos Discapacidad</div>                                             
+                                                    <ng-select  [(ngModel)] ="discapacidades"
+                                                    [multiple]="true"
+                                                    [items]="atp"
+                                                    bindLabel ="tipo" 
+                                                    bindValue ="tipo" 
+                                                    class="d-block"
+                                                    style="font-size: 0.8rem; height: auto; width: 68%;"> 
+                                                   </ng-select >
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="sensorial"
-                                                        [(ngModel)]="sensorial"
-                                                        (change)="actualizarTipo('Sensorial',this.sensorial)">
-                                                    <label class="form-check-label" for="sensorial">Sensoriales</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="mentales"
-                                                        [(ngModel)]="mentales"
-                                                        (change)="actualizarTipo('Mental',this.mentales)">
-                                                    <label class="form-check-label" for="mentales">Mentales</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="intelectuales"
-                                                        [(ngModel)]="intelectuales"
-                                                        (change)="actualizarTipo('Intelectuales',this.intelectuales)">
-                                                    <label class="form-check-label"
-                                                        for="intelectuales">Intelectuales</label>
-                                                </div>
-                                               </div>
-                                                
                                                 <div class="col-xl-4">
-                                                    <input class="form-control form-control-sm"  type="file">
+                                                    <input class="form-control form-control-sm"  (change)="seleccionarArchivoDiscapacidad($event)" type="file">
                                                   </div>
 
                                             </div>
                                                    
                                         </div>
 
-                                    </fieldset>
+                                  
                                 </div> <!-- fin de datos genrales -->
                                 <div class="row w-100 d-block pe-0 me-0">
                                     <div class="accordion mt-4 px-0 mx-0" id="accordionPanelsStayOpenExample">
-                                        <div class="accordion-item">
-                                            <h2 class="accordion-header" id="panelsStayOpen-headingfour">
-                                                <button class="accordion-button collapsed" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#panelsStayOpen-collapsefour" aria-expanded="false"
-                                                    aria-controls="panelsStayOpen-collapsefour">
-                                                    SITUACION LABORAL ACTUAL
-                                                </button>
-                                            </h2>
-                                            <div id="panelsStayOpen-collapsefour" class="accordion-collapse collapse "
-                                                aria-labelledby="panelsStayOpen-headingfour">
-                                                <div class="accordion-body text-muted">
-                                                    <div class="row mt-2">
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text d-personales ">
-                                                                    Condición
-                                                                </div>
-                                                                <select class="form-select form-select-sm"
-                                                                    formControlName="tipoEmp">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option *ngFor="let tipoE of tipoEmpleado"
-                                                                        value="{{tipoE.idTipo}}">{{tipoE.tipo}}</option>
-
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text d-personales ">
-                                                                    G.Ocupacional</div>
-                                                                <select class="form-select form-select-sm"
-                                                                    formControlName="grupOcup">
-                                                                    <option value="">Seleccionar</option>
-                                                                    <option *ngFor="let tipoG of tipoGrupo"
-                                                                        value="{{tipoG.id}}">{{tipoG.tipoG}}</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text ">Regimen</div>
-                                                                <select class="form-select form-select-sm"
-                                                                    (change)="cambioTipo()" formControlName="valorRegimen">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option *ngFor="let regimen of regimen"
-                                                                        value="{{regimen.id}}">{{regimen.regimen}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text ">T.Regimen</div>
-                                                                <select class="form-select form-select-sm"
-                                                                   formControlName="valorTipRegimen">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option *ngFor="let tipoR of tipoRegimen"
-                                                                        value="{{tipoR.id}}">{{tipoR.tipoRegimen}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mt-2">
-
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text ">U.Organica/Dpto</div>
-                                                                <select class="form-select form-select-sm"
-                                                                    formControlName="valorUnidad">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option value="1">Oficina Personal
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text ">Servicio/Equipo</div>
-                                                                <select class="form-select form-select-sm"
-                                                                   formControlName="valorServicio">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option value="1">Equipo Legajo</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3"  [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text ">Cargo</div>
-                                                                <select class="form-select form-select-sm"
-                                                                   formControlName="valorCargo">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option *ngFor="let carg of cargo"
-                                                                        value="{{carg.codigo}}">{{carg.descripcion}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3"  [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text ">Nivel</div>
-                                                                <select class="form-select form-select-sm" formControlName="valorNivel"
-                                                                    >
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option *ngFor="let niv of nivelCargo"
-                                                                        value="{{niv.nivel}}">{{niv.nivel}}
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <DIV class="row mt-2">
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text d-personales">
-                                                                    C. AIRSHP
-                                                                </div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                 formControlName="codigoAirhsp" aria-label="Small"
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text d-personales">
-                                                                    F. Ingreso
-                                                                </div>
-                                                                <input type="date" class="form-control form-control-sm"
-                                                                    formControlName="fechaIngreso" aria-label="Small"
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                <div class="input-group-text ">
-                                                                   Estado
-                                                                </div>
-                                                                <select class="form-select form-select-sm"
-                                                                formControlName="valorEstado">
-                                                                 <option value="" selected>Seleccionar</option>
-                                                                 <option value="A">Activo</option>
-                                                                 <option value="*">HIstorico</option>
-                                                             </select>
-                                                            </div>
-
-                                                        </div>
-                                                        @if(valDatosPersonales.controls['valorEstado'].value=="*"){
-                                                            <div class="col-xl-3">
-                                                                <div class="input-group input-group-sm mb-3" [formGroup]="valDatosPersonales">
-                                                                    <div class="input-group-text d-personales">
-                                                                       Motivo
-                                                                    </div>
-                                                                    <select class="form-select form-select-sm"
-                                                                    formControlName="motivo">
-                                                                     <option value="" selected>Seleccionar</option>
-                                                                     <option value="CESE POR EDAD">Cese por edad</option>
-                                                                     <option value="RENUNCIA">Renuncia</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        }
-                                                       
-                                                    </DIV>
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -474,13 +284,13 @@
                                                 <div class="accordion-body text-muted">
 
                                                     <div class="row w-100 d-block  mt-3">
-                                                        <fieldset>
-                                                            <legend>Domicilio</legend>
+                                                    
+                                                          
                                                             <span>Ubicacion Geografica</span>
                                                             <div class="row mt-2">
 
-                                                                <div class="col-xl-4" [formGroup]="valDatosDomicilio">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                <div class="col-xl-4 mb-1" [formGroup]="valDatosDomicilio">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text d-personales ">
                                                                             Departamento
                                                                         </div>
@@ -491,8 +301,8 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-4" [formGroup]="valDatosDomicilio">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                <div class="col-xl-4 mb-1" [formGroup]="valDatosDomicilio">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text d-personales ">
                                                                             Provincia</div>
                                                                         <input type="text"
@@ -501,8 +311,8 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-4"  [formGroup]="valDatosDomicilio">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                <div class="col-xl-4 mb-1"  [formGroup]="valDatosDomicilio">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text ">Distrito</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
@@ -512,8 +322,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row mt-2" [formGroup]="valDatosDomicilio">
-                                                                <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
+                                                                <div class="col-xl-4 mb-1">
+                                                                    <div class="input-group input-group-sm " [formGroup]="valDatosDomicilio">
                                                                         <div class="input-group-text  ">Via
                                                                         </div>
                                                                         <ng-select  formControlName ="via"
@@ -526,8 +336,8 @@
                                                                     </div>
                                                                 </div>
                                                                 @if(valDatosDomicilio.controls['via'].value&&valDatosDomicilio.controls['via'].value!==""){
-                                                                    <div class="col-xl-4">
-                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
+                                                                    <div class="col-xl-4 mb-1">
+                                                                        <div class="input-group input-group-sm " [formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text d-personales">
                                                                                 Nombre de la via
                                                                             </div>
@@ -536,8 +346,8 @@
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
+                                                                    <div class="col-xl-2 mb-1">
+                                                                        <div class="input-group input-group-sm " [formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text ">Numero</div>
                                                                             <input type="number"
                                                                                 class="form-control form-control-sm"
@@ -545,8 +355,8 @@
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3"[formGroup]="valDatosDomicilio">
+                                                                    <div class="col-xl-2 mb-1">
+                                                                        <div class="input-group input-group-sm "[formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text ">Interior</div>
                                                                             <input type="text"
                                                                                 class="form-control form-control-sm"
@@ -559,7 +369,7 @@
                                                             </div>
                                                             <div class="row mt-2" [formGroup]="valDatosDomicilio">
                                                                 <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text ">
                                                                          Zona
                                                                         </div>
@@ -575,7 +385,7 @@
                                                                
                                                                  @if(valDatosDomicilio.controls['zona'].value&&valDatosDomicilio.controls['zona'].value!=''){
                                                                     <div class="col-xl-4">
-                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
+                                                                        <div class="input-group input-group-sm " [formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text d-personales">
                                                                                 Nombre de Zona
                                                                             </div>
@@ -585,7 +395,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosDomicilio">
+                                                                        <div class="input-group input-group-sm " [formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text ">Numero</div>
                                                                             <input type="number"
                                                                                 class="form-control form-control-sm"
@@ -594,7 +404,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3"[formGroup]="valDatosDomicilio">
+                                                                        <div class="input-group input-group-sm "[formGroup]="valDatosDomicilio">
                                                                             <div class="input-group-text ">Interior</div>
                                                                             <input type="text"
                                                                                 class="form-control form-control-sm"
@@ -609,7 +419,7 @@
 
                                                             <div class="row mt-4">
                                                                 <div class="col-xl-12"[formGroup]="valDatosDomicilio">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text ">
                                                                             Referencia(Indicar
                                                                             institucion
@@ -623,7 +433,7 @@
                                                                 </div>
 
                                                             </div>
-                                                        </fieldset>
+                                                  
                                                     </div>
 
                                                 </div>
@@ -643,11 +453,10 @@
                                                 <div class="accordion-body text-muted">
 
                                                     <div class="row d-block w-100 mt-3">
-                                                        <fieldset>
-                                                            <legend>Datos Familiares</legend>
+                                                      
                                                             <div class="row">
-                                                                <form>
-                                                                  <div class="row mb-3">
+                                                          
+                                                                  <div class="row ">
                                                                     <div class="col-xl-4">
                                                                         <button type="button " class="btn bg-agg btn-sm"
                                                                         (click)="agregarFamiliar()"><i
@@ -658,17 +467,18 @@
                                                                         </i> Sin Datos
                                                                        </button>
                                                                     </div>                                                                                                                                                                                                                                                         
-                                                                  </div>                                                              
-                                                                    <table class="table table-responsive">
+                                                                  </div>   
+                                                                  <div class="row table-responsive">                                                          
+                                                                    <table class="table ">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>Tipo Documento</th>
-                                                                                <th>N °Doc</th>
-                                                                                <th>Nombres</th>
-                                                                                <th>Apellidos</th>
-                                                                                <th>F. de Nacimiento</th>
-                                                                                <th>Parentesco</th>
-                                                                                <th>Institución/Entidad 
+                                                                                <th style="min-width:130px;"> Tipo Documento</th>
+                                                                                <th style="min-width:130px;">N °Doc</th>
+                                                                                <th style="min-width:130px;">Nombres</th>
+                                                                                <th style="min-width:130px;">Apellidos</th>
+                                                                                <th style="min-width:130px;">F. de Nacimiento</th>
+                                                                                <th style="min-width:130px;">Parentesco</th>
+                                                                                <th style="min-width:130px;">Institución/Entidad 
                                                                                     laboral
                                                                                 </th>
                                                                             </tr>
@@ -688,7 +498,7 @@
                                                                                 <td>
                                                                                     <div class="form-group">
                                                                                         <label for=""></label> 
-                                                                                        <div class="input-group mb-3">
+                                                                                        <div class="input-group ">
                                           
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
@@ -766,11 +576,11 @@
                                                                             <p class="text-center fw-bold">SIN DATOS POR REGISTRAR</p>
                                                                         </div>
                                                                     }
-                                                                                                                                        
+                                                                </div>                                                                       
                                                                     
-                                                                </form>
+                                                              
                                                             </div>
-                                                        </fieldset>
+                                                      
                                                     </div>
 
                                                 </div>
@@ -790,13 +600,10 @@
                                                 <div class="accordion-body text-muted">
 
                                                     <div class="row d-block w-100 mt-3">
-                                                        <fieldset>
-                                                            <legend>
-                                                                Datos Profeionales - Academicos
-                                                            </legend>
+                                                   
                                                             <div class="row mt-2 ">
                                                                 <div class="col-xl-6">
-                                                                    <div class="input-group input-group-sm mb-3" [formGroup]="valDatosProfesion">
+                                                                    <div class="input-group input-group-sm " [formGroup]="valDatosProfesion">
                                                                         <div class="input-group-text ">Profesion</div>                                                                      
                                                                         <input type="text"
                                                                             list="profesiones" name="profesiones" id="proft"
@@ -804,14 +611,14 @@
                                                                             aria-label="Small" formControlName="profesion"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                             <datalist id="profesiones">
-                                                                                <option value="" selected>Seleccionar</option>
+                                                                                               <option value="" selected>Seleccionar</option>
                                                                                 <option *ngFor="let tipProfe of tipoProfesiones"
                                                                                     value="{{tipProfe.profesion}}">{{tipProfe.profesion}}</option>
                                                                               </datalist>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-6">
-                                                                    <div class="form-check form-switch  ">
+                                                                <div class="col-xl-6 ">
+                                                                    <div class="form-check form-switch my-3 my-lg-0  ">
                                                                         <label class="form-check-label" for="flexSwitchCheckChecked">
                                                                             <span>{{colegiatura.checked?'':'No' }}</span>
                                                                             Tiene
@@ -824,8 +631,8 @@
                                                             </div>
                                                             @if(colegiatura.checked){
                                                                 <div class="row mt-2">
-                                                                    <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosProfesion">
+                                                                    <div class="col-xl-3 mb-1">
+                                                                        <div class="input-group input-group-sm " [formGroup]="valDatosProfesion">
                                                                             <div class="input-group-text ">Lugar de
                                                                                 Colegiatura
                                                                             </div>
@@ -835,9 +642,9 @@
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                             </div>
                                                                     </div>
-                                                                    <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosProfesion">
-                                                                            <div class="input-group-text ">F. de colegiatura
+                                                                    <div class="col-xl-3 mb-1">
+                                                                        <div class="input-group input-group-sm " [formGroup]="valDatosProfesion">
+                                                                            <div class="input-group-text d-cole">F. de colegiatura
                                                                             </div>
                                                                             <input type="date"
                                                                                 class="form-control form-control-sm"
@@ -845,9 +652,9 @@
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3" [formGroup]="valDatosProfesion">
-                                                                            <div class="input-group-text ">F.termino de
+                                                                    <div class="col-xl-3 mb-1">
+                                                                        <div class="input-group input-group-sm " [formGroup]="valDatosProfesion">
+                                                                            <div class="input-group-text d-cole">F.Fin de
                                                                                 habilitacion</div>
                                                                             <input type="date"
                                                                                 class="form-control form-control-sm"
@@ -856,9 +663,9 @@
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3"[formGroup]="valDatosProfesion">
-                                                                            <div class="input-group-text ">N° Colegiatura
+                                                                    <div class="col-xl-3 mb-3 mb-lg-0">
+                                                                        <div class="input-group input-group-sm "[formGroup]="valDatosProfesion">
+                                                                            <div class="input-group-text d-cole">N° Colegiatura
                                                                             </div>
                                                                             <input type="text"
                                                                                 class="form-control form-control-sm"
@@ -878,8 +685,8 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
-                                                                            <div class="row mb-3">
+                                                                    
+                                                                            <div class="row ">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
                                                                                     class="btn bg-agg btn-sm"
@@ -894,8 +701,8 @@
                                                                       
 
                                                                             </div>
-                                                                           
-                                                                            <table class="table table-responsive">
+                                                                           <div class="row table-responsive">
+                                                                            <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <Th class="text-center" style="width: 250px; ">Tipo</Th>
@@ -987,7 +794,7 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS ESTUDIO SUPERIOR</p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -999,7 +806,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
+                                                                      
                                                                             <div class="row">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
@@ -1013,8 +820,8 @@
                                                                                      </button>
                                                                                 </div>
                                                                             </div>
-                                                                           
-                                                                            <table class="table table-responsive">
+                                                                           <div class="row table-responsive">
+                                                                            <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <Th class="text-center" style="width: 250px; ">Tipo</Th>
@@ -1111,7 +918,7 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS POSTGRADO</p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1122,7 +929,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
+                                                                    
                                                                             <div class="row">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
@@ -1136,7 +943,8 @@
                                                                                      </button>
                                                                                 </div>
                                                                             </div>
-                                                                            <table class="table table-responsive">
+                                                                          <div class="row table-responsive">
+                                                                            <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <Th class="text-center" style="width: 250px; ">Tipo</Th>
@@ -1225,7 +1033,7 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS DE ESPECIALIZACION </p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1236,7 +1044,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
+                                                                     
                                                                             <div class="row">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
@@ -1250,8 +1058,8 @@
                                                                                      </button>
                                                                                 </div>
                                                                             </div>
-                                                                           
-                                                                            <table class="table table-responsive">
+                                                                           <div class="row table-responsive">
+                                                                            <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <Th class="text-center" style="width: 250px; ">Tipo</Th>
@@ -1340,7 +1148,7 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS DE CURSOS </p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1351,7 +1159,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
+                                                                 
                                                                             <div class="row">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
@@ -1366,7 +1174,7 @@
 
                                                                                 </div>
                                                                             </div>
-                                                                            
+                                                                            <div class="row table-responsive">
                                                                             <table class="table table-responsive">
                                                                                 <thead>
                                                                                     <tr>
@@ -1423,12 +1231,12 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS DE IDIOMAS </p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                        </fieldset>
+                                                  
 
 
                                                     </div>
@@ -1447,8 +1255,7 @@
                                             <div id="panelsStayOpen-collapsethree" class="accordion-collapse collapse "
                                                 aria-labelledby="panelsStayOpen-headingthree">
                                                 <div class="accordion-body text-muted">
-                                                    <fieldset class="mt-3">
-                                                        <legend>Datos Laborales</legend>
+                                              
                                                         <div class="card border">
                                                             <div class="card-header bg-transparent p-2">
                                                                 <h6 class="my-0">Experiencia Laboral
@@ -1456,7 +1263,7 @@
                                                             </div>
                                                             <div class="card-body p-3">
                                                                 <div class="row">
-                                                                    <form>
+                                                                  
                                                                         <div class="row">
                                                                             <div class="col-xl-4">
                                                                                 <button type="button " class="btn bg-agg btn-sm"
@@ -1469,7 +1276,7 @@
                                                                                  </button>
                                                                             </div>
                                                                         </div>
-                                                                      
+                                                                      <div class="row table-responsive">
                                                                         <table class="table table-responsive">
                                                                             <thead>
                                                                                 <tr>
@@ -1543,7 +1350,7 @@
                                                                                 <p class="text-center fw-bold">SIN DATOS DE EXPERIENCIA LABORAL </p>
                                                                             </div>
                                                                         }
-                                                                    </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1554,7 +1361,7 @@
                                                             </div>
                                                             <div class="card-body p-3">
                                                                 <div class="row">
-                                                                    <form>
+                                                                   
                                                                         <div class="row">
                                                                             <div class="col xl-4">
                                                                                 <button type="button " class="btn bg-agg btn-sm"
@@ -1567,7 +1374,7 @@
                                                                                  </button>
                                                                             </div>
                                                                         </div>
-                                                                       
+                                                                 
                                                                         <div class="table-responsive">
                                                                             <table class="table ">
                                                                                 <thead>
@@ -1642,27 +1449,23 @@
                                                                                 <p class="text-center fw-bold">SIN DATOS DE EXPERIENCIA EN DOCENCIA </p>
                                                                             </div>
                                                                         }
-                                                                    </form>
+                                                                  
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </fieldset>
+                                               
                                                 </div>
                                             </div>
                                         </div>
                                    
                                     </div><!-- fin del acordtion  -->
                                 </div>
-                                <div class="row d-flex justify-content-center mt-4">
-                                    <div class="col-xl-2">
+                                <div class="mt-4 d-flex justify-content-evenly">
                                         <button type="button" class="btn bg-delete" routerLink="/legajo/informacion"><i
                                                 class="fa-solid fa-circle-arrow-left"></i> Regresar</button>
-                                    </div>
-                                    <div class="col-xl-2">
+                              
                                         <button type="button" class="btn btn-primary" (click)="actualizarEmpleado()"><i
-                                                class="fa-solid fa-floppy-disk"></i> Actualizar </button>
-                                    </div>
-
+                                                class="fa-solid fa-floppy-disk"></i> Actualizar </button>                                
                                 </div>
                             </div>
                         </app-loading>
@@ -1673,3 +1476,4 @@
     </div>
 </div>
 
+<app-modal-tomar-foto (capturarImagen)="mandarImagen($event)"></app-modal-tomar-foto>

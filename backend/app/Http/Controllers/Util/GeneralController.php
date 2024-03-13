@@ -25,6 +25,9 @@ class GeneralController extends JSONResponseController
         $resultado['nivel']=$dato->listarNivel();
         $resultado['via']=$dato->listarVias();
         $resultado['zona']=$dato->listarZonas();
+        $resultado['unidadOrganica']=$dato->listarUnidad();
+        $resultado['servicio']=$dato->listarServicio();
+        
         return $this->sendResponse(200, true, '', $resultado);
     }
 

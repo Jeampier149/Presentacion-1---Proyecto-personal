@@ -106,4 +106,16 @@ class GeneralModel extends Model
     /** @lang SQL */
     'EXEC dbo.g_sp_listar_tipo_zonas');
   }
+  public function listarUnidad()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_unidad_organica');
+  }
+  public function listarServicio()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_servicio');
+  }
 }

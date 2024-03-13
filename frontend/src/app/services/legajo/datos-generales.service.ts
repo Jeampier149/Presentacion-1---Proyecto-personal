@@ -51,7 +51,8 @@ export class DatoGeneralesService {
         datosIdiomas:any,
         experienciaLaboral:any,
         laborDocencia:any,
-        fotoPersonal:any
+        fotoPersonal:any,
+        archivoDiscapacidad:any
         ) 
         
         {
@@ -59,6 +60,11 @@ export class DatoGeneralesService {
             const formData = new FormData();
             fotoPersonal.forEach((datos:any) => {
                 formData.append(`foto`, datos);
+
+            });
+ 
+            archivoDiscapacidad.forEach((datos:any) => {
+                formData.append(`archivoD`, datos);
 
             });
             datosEstudioSuperior.forEach((datos:any, index:any) => {
@@ -124,7 +130,8 @@ export class DatoGeneralesService {
         datosIdiomas:any,
         experienciaLaboral:any,
         laborDocencia:any,
-        fotoPersonal:any
+        fotoPersonal:any,
+        archivoDiscapacidad:any
         ) 
         
         {
@@ -132,6 +139,10 @@ export class DatoGeneralesService {
             const formData = new FormData();
             fotoPersonal.forEach((datos:any) => {
                 formData.append(`foto`, datos);
+
+            });
+            archivoDiscapacidad.forEach((datos:any) => {
+                formData.append(`archivoD`, datos);
 
             });
             datosEstudioSuperior.forEach((datos:any, index:any) => {

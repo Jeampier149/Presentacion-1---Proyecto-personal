@@ -9,11 +9,13 @@ import {Modal} from 'bootstrap';
 export class ModalVerArchivoComponent {
 
  loading:boolean=false
- prevArchivo: any;
+ prevArchivo: any='';
  
  @ViewChild('modalFrame') modalFrame!: any;
 
- constructor(private sanitizer: DomSanitizer){}
+ constructor(private sanitizer: DomSanitizer){
+
+ }
 
  ngAfterViewInit() {
   this.modalFrame = new Modal(this.modalFrame.nativeElement, {
@@ -22,9 +24,8 @@ export class ModalVerArchivoComponent {
   });
 }
  openModal(url:any) {
-  this.modalFrame.show();
-  this.prevArchivo=this.sanitizer.bypassSecurityTrustResourceUrl(url);
- 
+  this.prevArchivo =this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  this.modalFrame.show(); 
 }
 
  closeModal() {

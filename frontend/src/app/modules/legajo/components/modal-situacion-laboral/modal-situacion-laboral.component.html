@@ -1,0 +1,279 @@
+<div #modalSituacionLaboral class="modal fade" tabIndex="-1" *teleportTo="'body'" [ngClass]="{'ver':mostrar}">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">SITUACION LABORAL</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <app-loading [mostrar]="loading">
+                    <div class="row">
+                        <div class="col-xl-12 px-0">
+                            <div class="row w-100 d-block px-3">
+                                <div class="row">
+                                    <div class="row mb-4 d-flex justify-content-lg-between align-items-baseline">
+                                     
+                                            <div class="col-xl-3 col-12  d-flex justify-content-start">
+                                                <button type="button" class="btn bg-delete btn-sm"
+                                                 [disabled]="valSituacionLaboral.get('valorEstado')?.value=='HISTORICO'"
+                                                 (click)="darTermino(idHistorial)"
+                                                >
+                                                    <i class="fas fa-dot-circle"> 
+                                                    </i> Finalizar
+                                                </button>
+                                                <button type="button" class="btn bg-agg btn-sm ms-1"
+                                                 [disabled]="valSituacionLaboral.get('valorEstado')?.value=='ACTIVO'"
+                                                 (click)="actualizar()"
+                                                >
+                                                <i class="fa-solid fa-rotate"></i> Actualizar
+                                                </button>
+                                           
+                                            </div>
+                                            <div class="col-xl-2 col-12  d-flex justify-content-end">
+                                                <span class="badge estado  d-block estado-res" style="height: 18px;" [ngClass]="valSituacionLaboral.get('valorEstado')?.value === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{valSituacionLaboral.get('valorEstado')?.value}}</span>
+                                            </div>
+                                    
+                                    </div>
+
+                                    <div class="card border my-2 mx-0 px-0">
+                                        <div class="card-header bg-transparent p-2">
+                                            <h6 class="my-0 b-900">
+                                                Situacion Laboral Actual:
+                                            </h6>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <div class="row">
+                                           
+                                                    <div class="col-xl-3 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text d-personales ancho">
+                                                                Condición
+                                                            </div>
+                                                            <select class="form-select form-select-sm" formControlName="tipoEmp" >
+                                                                <option value="" selected>
+                                                                    Seleccionar
+                                                                </option>
+                                                                <option *ngFor="
+                                                                        let tipoE of tipoEmpleado
+                                                                    " value="{{ tipoE.idTipo }}">
+                                                                    {{ tipoE.tipo }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text d-personales ancho">
+                                                                G.Ocupacional
+                                                            </div>
+                                                            <select class="form-select form-select-sm" formControlName="grupOcup">
+                                                                <option value="">
+                                                                    Seleccionar
+                                                                </option>
+                                                                <option *ngFor="
+                                                                        let tipoG of tipoGrupo
+                                                                    " value="{{ tipoG.id }}">
+                                                                    {{ tipoG.tipoG }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-5 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text ancho">
+                                                                U.Organica/Dpto
+                                                            </div>
+                                                            <select class="form-select form-select-sm " formControlName="valorUnidad">
+                                                                <option value="" selected>
+                                                                    Seleccionar
+                                                                </option>
+                                                                <option *ngFor="
+                                                                        let unidad of unidadOrganica
+                                                                    " value="{{ unidad.id }}">
+                                                                    {{ unidad.unidad }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                 
+                                          
+                                   
+                                                    <div class="col-xl-3 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text d-personales ancho">
+                                                                Regimen
+                                                            </div>
+                                                            <select class="form-select form-select-sm" (change)="cambioTipo()"
+                                                                formControlName="valorRegimen">
+                                                                <option value="" selected>
+                                                                    Seleccionar
+                                                                </option>
+                                                                <option *ngFor="
+                                                                        let regimen of regimen
+                                                                    " value="{{ regimen.id }}">
+                                                                    {{ regimen.regimen }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text ancho">
+                                                                T.Regimen
+                                                            </div>
+                                                            <select class="form-select form-select-sm"
+                                                                formControlName="valorTipRegimen">
+                                                                <option value="" selected>
+                                                                    Seleccionar
+                                                                </option>
+                                                                <option *ngFor="
+                                                                        let tipoR of tipoRegimen
+                                                                    " value="{{ tipoR.id }}">
+                                                                    {{ tipoR.tipoRegimen }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-5 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text ancho">
+                                                                Servicio
+                                                            </div>
+                                                            <select class="form-select form-select-sm" formControlName="valorServicio">
+                                                                <option value="" selected>
+                                                                    Seleccionar
+                                                                </option>
+                                                                <option *ngFor="
+                                                                        let servicio of servicioE
+                                                                    " value="{{ servicio.id }}">
+                                                                    {{ servicio.servicio }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                   
+                                
+                                                    <div class="col-xl-3 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text d-personales ancho">
+                                                                C. AIRSHP
+                                                            </div>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName="codigoAirhsp" aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text d-personales ancho">
+                                                                F. Ingreso
+                                                            </div>
+                                                            <input type="date" class="form-control form-control-sm"
+                                                                formControlName="fechaIngreso" aria-label="Small"
+                                                                aria-describedby="inputGroup-sizing-sm" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text ancho">
+                                                                Cargo
+                                                            </div>
+                                                            <ng-select formControlName="valorCargo" [items]="cargo"
+                                                                bindLabel="descripcion" bindValue="codigo" class="d-block" style="
+                                                                    font-size: 0.8rem;
+                                                                    height: auto;
+                                                                    width: 75%;
+                                                                ">
+                                                            </ng-select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-2 mb-1">
+                                                        <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                            <div class="input-group-text ancho">
+                                                                Nivel
+                                                            </div>
+                                                            <ng-select formControlName="valorNivel" [items]="nivelCargo"
+                                                                bindLabel="nivel" bindValue="nivel" class="d-block" style="
+                                                                    font-size: 0.8rem;
+                                                                    height: auto;
+                                                                    width: 50%;
+                                                                ">
+                                                            </ng-select>
+                                                        </div>
+                                                    </div>
+                
+                                      
+                                                </div>
+                                            </div>
+
+                                          
+                                        </div>
+                                        <div class="card border my-2">
+                                            <div class="card-header bg-transparent p-2">
+                                                <h6 class="my-0 b-900">
+                                                    Historial:
+                                                </h6>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <div class="row table-responsive mt-3">
+                                                    <table class="table table-responsive">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>
+                                                                    UNIDAD ORGANICA
+                                                                </th>
+                                                                <th>SERVICIO</th>
+                                                                <th>REGIMEN</th>
+                                                                <th>T.REGIMEN</th>
+                                                                <th  style="min-width: 110px;">F.INGRESO</th>
+                                                                <th  style="min-width: 110px;">F.TERMINO</th>
+                                                                <th>MOTIVO</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @for( historial of situacionHistorial;track historial ;let index=$index){
+                                                                <tr>                                                                           
+                                                                    <th scope="row" >{{index+1}}</th>
+                                                                    <td class="text-center" [innerHTML]="historial.unidadOrganica"></td>
+                                                                    <td class="text-center" [innerHTML]="historial.servicio"></td>
+                                                                    <td class="text-center" [innerHTML]="historial.regimen"></td>
+                                                                    <td class="text-center" [innerHTML]="historial.tipoRegimen"></td>
+                                                                    <td class="text-center" [innerHTML]="historial.fechaIngreso"></td>   
+                                                                    <td class="text-center" [innerHTML]="historial.fechaTermino"></td>
+                                                                    <td class="text-center" [innerHTML]="historial.motivo"></td>   
+                                                                                                       
+                                                             </tr>
+                                                            }@empty {
+                                                                <tr>
+                                                                    <td class="text-center" [colSpan]="8">
+                                                                        <p class="text-center">NO HAY DATOS HISTORICOS</p>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                           
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+              
+                </app-loading>
+                <div class="modal-footer justify-content-between">
+                    <div>
+                        <button class="btn btn-danger waves-light waves-effect btn-label m-1" type="button"
+                            (click)="closeModal()">
+                            Salir &ensp;
+                            <i class="fas fa-door-open label-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal-dar-termino></app-modal-dar-termino>

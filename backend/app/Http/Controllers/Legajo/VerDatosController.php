@@ -5,7 +5,6 @@ namespace App\Http\Controllers\legajo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Respuesta\JSONResponseController;
 use App\Models\legajo\verDatosModel;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 
 class VerDatosController extends JSONResponseController
@@ -48,4 +47,5 @@ class VerDatosController extends JSONResponseController
             return response()->json(['error' => 'Error al obtener el archivo desde FTP: ' . $e->getMessage()], 500);
         }
     }
+   
 }

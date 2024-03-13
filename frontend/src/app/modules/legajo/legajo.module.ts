@@ -14,6 +14,10 @@ import { ModalVerComponent } from './components/modal-ver/modal-ver.component';
 import { ModalVerArchivoComponent } from './components/modal-ver-archivo/modal-ver-archivo.component';
 import { EditarEmpleadoComponent } from './Pages/editar-empleado/editar-empleado.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ModalSituacionLaboralComponent } from './components/modal-situacion-laboral/modal-situacion-laboral.component';
+import { ModalDarTerminoComponent } from './components/modal-dar-termino/modal-dar-termino.component';
+import { ModalTomarFotoComponent } from './components/modal-tomar-foto/modal-tomar-foto.component';
+
 
 
 
@@ -23,7 +27,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
     RegistrarEmpleadoComponent,
     ModalVerComponent, 
     ModalVerArchivoComponent,
-    EditarEmpleadoComponent
+    EditarEmpleadoComponent,
+    ModalSituacionLaboralComponent,
+    ModalDarTerminoComponent,
+    ModalTomarFotoComponent
     
   
   ],

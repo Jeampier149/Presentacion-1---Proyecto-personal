@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DatoGeneralesService } from '@services/legajo/datos-generales.service';
 import { errorAlerta, successAlerta, warningAlerta, errorAlertaValidacion } from "@shared/utils";
 import { finalize } from "rxjs";
@@ -7,6 +7,7 @@ import { ExtranjeriaService } from '@services/general/extranjeria.service';
 import { reniecClass } from '@classes/servicios/reniec.class';
 import { MigracionesClass } from '@classes/servicios/migraciones.class';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { ModalTomarFotoComponent } from '@modules/legajo/components/modal-tomar-foto/modal-tomar-foto.component';
 
 @Component({
   selector: 'app-registrar-empleado',
@@ -14,7 +15,7 @@ import { FormControl, FormGroup, Validators} from '@angular/forms';
   styleUrl: './registrar-empleado.component.scss'
 })
 export class RegistrarEmpleadoComponent {
-
+  @ViewChild(ModalTomarFotoComponent) modalTomarFoto?: any
   constructor(private DatoGeneralesService$: DatoGeneralesService, private ReniecService$: ReniecService, private ExtranjeriaService$: ExtranjeriaService) {
     this.inicializarVariables()
     this.listarSelects()
@@ -23,11 +24,13 @@ export class RegistrarEmpleadoComponent {
 
   //DORPZONE IMAGEN
  files: File[] = [];
+ 
  fotoFile:any[]=[];
  
   onSelect(event: any) {
     this.files = [];
     this.files.push(event.addedFiles[0])
+
     const file = event.addedFiles[0];
     const timestamp = new Date().getTime();
     const nuevoNombre=timestamp + '_' + file.name
@@ -35,16 +38,36 @@ export class RegistrarEmpleadoComponent {
     this.fotoFile.push(fileFinal)
     const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
     this.rutaFoto=ruta
-    console.log(ruta) 
+
   }
 
   onRemove(event: any) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
+
+
+ tomarFoto(){
+  this.modalTomarFoto?.openModal();
+ }
+
+ mandarImagen(foto:File){
+  this.files=[]
+  this.files.push(foto)
+  const file = foto;
+  const timestamp = new Date().getTime();
+  const nuevoNombre=timestamp + '_' + file.name
+  const fileFinal: File = new File([file], nuevoNombre);
+  this.fotoFile.push(fileFinal)
+
+  const ruta=this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+  this.rutaFoto=ruta
+ }
+
+
   //FOTO PERSONAL
   fotoPersonal:File []=[]
   rutaFoto:string=""
+  archivoDiscapacidad:File[]=[]
 
   //DEFAULT
   rutas: any
@@ -75,7 +98,8 @@ export class RegistrarEmpleadoComponent {
   valorCargo:string=""
   valorServicio:string=""
   valorUnidad:string=""
-
+  unidadOrganica: any[] = [];
+  servicioE: any[] = [];
   codigoAirhsp:string=""
   //---DATOS PERSONALES FORM
   tipoDoc: string = "";
@@ -113,11 +137,17 @@ export class RegistrarEmpleadoComponent {
   referenciaDomicilio: string = "";
   ubigeo:string="";
   //---Datos discapacidad---//
-  fisicas: boolean = false;
-  sensorial: boolean = false;
-  mentales: boolean = false;
-  intelectuales: boolean = false;
-  tipoDiscapacidad: any[]= [];
+  
+rutaDiscapacidad:string=""
+
+ tipoDiscapacidad = [
+    { id: 1, tipo: 'Fisica' ,estado:'A'},
+    { id: 2, tipo: 'Sensorial',estado:'A'},
+    { id: 3, tipo: 'Mental',estado:'A' },
+    { id: 4, tipo: 'Intelectual',estado:'A'}
+
+  ];
+  discapacidades:any[]=[]
   //--TABLAS DE INGRESO DE DATOS---
   familiares: any[] = [];
   estudioSuperior: any[] = [];
@@ -407,7 +437,16 @@ agregarDocencia() {
     this.laborDocencia[index].ruta=ruta
 
   }
+  seleccionarArchivoDiscapacidad(event: any) {
+    const fileDo: File = event.target.files[0];
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + fileDo.name
+    const fileFinal: File = new File([fileDo], nuevoNombre);
+    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.archivoDiscapacidad.push(fileFinal) ;
+    this.rutaDiscapacidad=ruta
 
+  }
   listarSelects() {
     this.DatoGeneralesService$.listarSelects()
       .pipe(
@@ -431,8 +470,9 @@ agregarDocencia() {
           this.cargo=datos.cargo
           this.tipoVia=datos.via
           this.tipoZona=datos.zona
+          this.unidadOrganica = datos.unidadOrganica;
+          this.servicioE = datos.servicio;
 
-          console.log(this.tipoVia)
         } else {
           errorAlerta('Error', mensaje).then();
         }
@@ -474,21 +514,9 @@ agregarDocencia() {
       });
   }
   
-  
-  actualizarTipo(tipo: string, isChecked: boolean) {
-    if (isChecked) {
-      // Si está marcado, agregamos el tipo al arreglo
-      this.tipoDiscapacidad.push(tipo);
-    } else {
-      // Si está desmarcado, verificamos si el tipo está presente en el arreglo
-      const index = this.tipoDiscapacidad.indexOf(tipo);
-      if (index !== -1) {
-        // Si el tipo está presente, lo eliminamos del arreglo
-        this.tipoDiscapacidad.splice(index, 1);
-      }
-    }
 
-  }
+  
+  
   registrarEmpleado() {
     console.log(this.via)
     console.log(this.zona)
@@ -557,14 +585,11 @@ agregarDocencia() {
       nombreContacto: this.nombreContacto,
       parentesco: this.parentesco,
       numContacto:  this.valGroup.controls['numContacto'].value, 
-      numDocumento:this.numeroDocumento
     }
 
-    const datosDiscapacidad={
-      numDocumento: this.numeroDocumento,
-      tipos:this.tipoDiscapacidad
-    }
-   const fotoPersonal=this.fotoFile
+    const datosDiscapacidad={tipos:this.discapacidades,ruta:this.rutaDiscapacidad}
+    const archivoDiscapacidad=this.archivoDiscapacidad 
+    const fotoPersonal=this.fotoFile
 
     this.DatoGeneralesService$.guardarDatosEmpleado(
       datosPersonales,
@@ -580,7 +605,8 @@ agregarDocencia() {
       datosIdiomas,
       experienciaLaboral,
       laborDocencia,
-     fotoPersonal
+      fotoPersonal,
+      archivoDiscapacidad
       
     ).pipe(
       finalize(() => {

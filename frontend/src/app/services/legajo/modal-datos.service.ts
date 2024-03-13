@@ -10,8 +10,8 @@ export class ModalDatosService {
 
   constructor(private http: HttpClient) { }
 
-  listarDatos(id:number,pkEmpleado: string) {
-    return this.http.post<HttpResponseApi>('/api/datos/datosEmpleado', { id , pkEmpleado  }, { responseType: "json" }).pipe(shareReplay(1));
+  listarDatos(pkEmpleado: string) {
+    return this.http.post<HttpResponseApi>('/api/datos/datosEmpleado', {  pkEmpleado  }, { responseType: "json" }).pipe(shareReplay(1));
   }
   
   verArchivo(ruta: string) {

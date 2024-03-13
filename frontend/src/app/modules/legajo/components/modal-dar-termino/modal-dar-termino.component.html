@@ -1,0 +1,50 @@
+
+<div #modalDarTermino class="modal fade" tabIndex="-1" *teleportTo="'body'" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">FINALIZAR SITUACION LABORAL</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <app-loading [mostrar]="loading">
+                    <div class="row">
+                        <div class="col-xl-12 px-0">
+                            <div class="row w-100 d-block px-3">
+                                <div class="row">
+                                    <div class="mb-2">
+                                        <label for="exampleInputEmail1" class="form-label">FECHA DE TERMINO</label>
+                                        <input type="date" class="form-control" aria-describedby="emailHelp" [(ngModel)]="fechaTermino">
+                                     
+                                      </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-2">
+                                        <label for="exampleInputEmail1" class="form-label">Motivo</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="motivo">                         
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              
+                </app-loading>
+            </div>
+                <div class="modal-footer justify-content-between">
+                    <div>
+                        <button class="btn btn-danger waves-light waves-effect btn-label m-1" type="button"
+                            (click)="closeModal()">
+                            Salir &ensp;
+                            <i class="fas fa-door-open label-icon"></i>
+                        </button>
+                        <button class="btn btn-primary waves-light waves-effect btn-label m-1" type="button"
+                       (click)="registrarTermino()" >
+                        Registrar &ensp;
+                        <i class="fas fa-door-open label-icon"></i>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

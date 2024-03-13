@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatoGeneralesService } from '@services/legajo/datos-generales.service';
 import { errorAlerta, successAlerta, warningAlerta, errorAlertaValidacion } from "@shared/utils";
 import { finalize } from "rxjs";
@@ -8,15 +8,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDatosService } from '@services/legajo/modal-datos.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ModalTomarFotoComponent } from '@modules/legajo/components/modal-tomar-foto/modal-tomar-foto.component';
 @Component({
   selector: 'app-editar-empleado',
   templateUrl: './editar-empleado.component.html',
   styleUrl: './editar-empleado.component.scss'
 })
 export class EditarEmpleadoComponent implements OnInit {
-   idHis:any 
    numDoc:string=''
-
+   @ViewChild(ModalTomarFotoComponent) modalTomarFoto?: any
   constructor(private DatoGeneralesService$: DatoGeneralesService, private ReniecService$: ReniecService,
               private ExtranjeriaService$: ExtranjeriaService, private route:ActivatedRoute, private ModalDatosService$: ModalDatosService
               ,private sanitizer: DomSanitizer) {
@@ -25,15 +25,14 @@ export class EditarEmpleadoComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.idHis = this.route.snapshot.paramMap.get('idHis')!;
     this.numDoc = this.route.snapshot.paramMap.get('numDoc')!;
-    this.listarDatos(this.idHis,this.numDoc)
+    this.listarDatos(this.numDoc)
   }
 
   //DORPZONE IMAGEN
  files: File[] = [];
  fotoFile:any[]=[];
-
+ archivoDiscapacidad:File[]=[]
   onSelect(event: any) {
     this.files = [];
     this.files.push(event.addedFiles[0])
@@ -42,7 +41,8 @@ export class EditarEmpleadoComponent implements OnInit {
     const nuevoNombre=timestamp + '_' + file.name
     const fileFinal: File = new File([file], nuevoNombre);
     this.fotoFile.push(fileFinal)
-    const ruta=this.valDatosPersonales.controls['numDoc']+'/'+fileFinal.name.replace(/\s+/g, '_');
+ 
+    const ruta=this.valDatosPersonales?.get('numDoc')?.value+'/'+fileFinal.name.replace(/\s+/g, '_');
     this.valDatosPersonales.controls['rutaFoto'].setValue(ruta);
   }
 
@@ -78,18 +78,22 @@ export class EditarEmpleadoComponent implements OnInit {
   nivelCargo:any[]=[]
   tipoVia:any[]=[]
   tipoZona:any[]=[]
-
-  //--VALOR DE SELECTS----//
-
+  unidadOrganica:any[]=[]
+  servicioE:any[]=[]
 
   
   ubigeo:string="";
   //---Datos discapacidad---//
-  fisicas: boolean = false;
-  sensorial: boolean = false;
-  mentales: boolean = false;
-  intelectuales: boolean = false;
-  tipoDiscapacidad: any[]= [];
+  rutaDiscapacidad:string=""
+
+atp = [
+     { id: 1, tipo: 'Fisica' ,estado:'A'},
+     { id: 2, tipo: 'Sensorial',estado:'A'},
+     { id: 4, tipo: 'Mental',estado:'A' },
+     { id: 3, tipo: 'Intelectual',estado:'A'}
+ 
+   ];
+   discapacidades:any[]=[]
   //--TABLAS DE INGRESO DE DATOS---
   familiares: any[] = [];
   estudioSuperior: any[] = [];
@@ -150,19 +154,8 @@ export class EditarEmpleadoComponent implements OnInit {
       grupoSanguineo:new FormControl({value:'',disabled:true}),
       estadoCivil:new FormControl(''),
       rutaFoto:new FormControl(''),
-      tipoEmp:new FormControl(''),
-      grupOcup:new FormControl(''),
-      valorRegimen:new FormControl(''),
-      valorTipRegimen:new FormControl(''),
-      valorUnidad:new FormControl(''),
-      valorServicio:new FormControl(''),
-      valorCargo:new FormControl(''),
-      valorNivel:new FormControl(''),
-      codigoAirhsp:new FormControl(''),
-      fechaIngreso:new FormControl(''),
-      valorEstado:new FormControl(''),
-      motivo:new FormControl(''),
-      enfAlergias:new FormControl('')
+      enfAlergias:new FormControl(''),
+
    })
 
    this.valContactoEmergencia = new FormGroup({
@@ -237,10 +230,9 @@ export class EditarEmpleadoComponent implements OnInit {
     }
   }
 
-  listarDatos(id:any,numeroDoc:string){      
-    console.log(id,numeroDoc)
+  listarDatos(numeroDoc:string){      
     this.loading = true;
-    this.ModalDatosService$.listarDatos(id,numeroDoc)
+    this.ModalDatosService$.listarDatos(numeroDoc)
         .pipe(
             finalize(() => {
                 this.loading = false;
@@ -261,7 +253,6 @@ export class EditarEmpleadoComponent implements OnInit {
             this.estudioPostgrado=datos.datosEstudioPostgrado
             this.cursos=datos.datosEstudioCursos
             this.idiomas=datos.datosEstudioIdioma
-            this.tipoDiscapacidad=datos.datosDiscapacidad
             this.experienciaLaboral=datos.datosExperienciaLaboral
             this.laborDocencia=datos.datosExperienciaDocencia
         });
@@ -290,15 +281,6 @@ export class EditarEmpleadoComponent implements OnInit {
     this.valDatosPersonales.controls['grupoSanguineo'].setValue(datos.grupSanguineo);
     this.valDatosPersonales.controls['enfAlergias'].setValue(datos.enferAlergia);
     this.valDatosPersonales.controls['estadoCivil'].setValue(datos.estadoCivil);
-    this.valDatosPersonales.controls['tipoEmp'].setValue(datos.idCondicion);
-    this.valDatosPersonales.controls['grupOcup'].setValue(datos.idGrupO);
-    this.valDatosPersonales.controls['valorRegimen'].setValue(datos.idRegimen);
-    this.listarTipoRegimen(datos.idRegimen)
-    this.valDatosPersonales.controls['valorTipRegimen'].setValue(datos.idTipoRegimen);
-    this.valDatosPersonales.controls['valorUnidad'].setValue(datos.unidadOrganica);
-    this.valDatosPersonales.controls['valorServicio'].setValue(datos.servicio);
-    this.valDatosPersonales.controls['codigoAirhsp'].setValue(datos.codigoAirhsp);
-    this.valDatosPersonales.controls['fechaIngreso'].setValue(datos.fechaIngreso);
     this.valDatosPersonales.controls['rutaFoto'].setValue(datos.rutaFoto);
     this.listarFoto(datos.rutaFoto);
 }
@@ -417,7 +399,7 @@ agregarDocencia() {
     const timestamp = new Date().getTime();
     const nuevoNombre=timestamp + '_' + fileEs.name
     const fileFinal: File = new File([fileEs], nuevoNombre);
-    const ruta =this.valDatosPersonales.controls['numDoc'].value+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.valDatosPersonales?.get('numDoc')?.value+'/'+fileFinal.name.replace(/\s+/g, '_');
     this.estudioSuperior[index].archivo = fileFinal;
     this.estudioSuperior[index].ruta=ruta
 
@@ -428,7 +410,7 @@ agregarDocencia() {
     const timestamp = new Date().getTime();
     const nuevoNombre=timestamp + '_' + filePost.name
     const fileFinal: File = new File([filePost], nuevoNombre);
-    const ruta =this.valDatosPersonales.controls['numDoc']+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.valDatosPersonales?.get('numDoc')?.value+'/'+fileFinal.name.replace(/\s+/g, '_');
     this.estudioPostgrado[index].archivo = fileFinal;
     this.estudioPostgrado[index].ruta=ruta
 
@@ -438,7 +420,7 @@ agregarDocencia() {
     const timestamp = new Date().getTime();
     const nuevoNombre=timestamp + '_' + fileEsp.name
     const fileFinal: File = new File([fileEsp], nuevoNombre);
-    const ruta =this.valDatosPersonales.controls['numDoc']+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.valDatosPersonales?.get('numDoc')?.value+'/'+fileFinal.name.replace(/\s+/g, '_');
     this.especializacion[index].archivo = fileFinal;
     this.especializacion[index].ruta=ruta
 
@@ -448,7 +430,7 @@ agregarDocencia() {
     const timestamp = new Date().getTime();
     const nuevoNombre=timestamp + '_' + fileCu.name
     const fileFinal: File = new File([fileCu], nuevoNombre);
-    const ruta =this.valDatosPersonales.controls['numDoc']+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.valDatosPersonales?.get('numDoc')?.value+'/'+fileFinal.name.replace(/\s+/g, '_');
     this.cursos[index].archivo = fileFinal;
     this.cursos[index].ruta=ruta
 
@@ -458,7 +440,7 @@ agregarDocencia() {
     const timestamp = new Date().getTime();
     const nuevoNombre=timestamp + '_' + fileId.name
     const fileFinal: File = new File([fileId], nuevoNombre);
-    const ruta =this.valDatosPersonales.controls['numDoc']+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.valDatosPersonales?.get('numDoc')?.value+'/'+fileFinal.name.replace(/\s+/g, '_');
     this.idiomas[index].archivo = fileFinal;
     this.idiomas[index].ruta=ruta
 
@@ -468,7 +450,7 @@ agregarDocencia() {
     const timestamp = new Date().getTime();
     const nuevoNombre=timestamp + '_' + fileLa.name
     const fileFinal: File = new File([fileLa], nuevoNombre);
-    const ruta =this.valDatosPersonales.controls['numDoc']+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.valDatosPersonales?.get('numDoc')?.value+'/'+fileFinal.name.replace(/\s+/g, '_');
     this.experienciaLaboral[index].archivo = fileFinal;
     this.experienciaLaboral[index].ruta=ruta
 
@@ -478,9 +460,19 @@ agregarDocencia() {
     const timestamp = new Date().getTime();
     const nuevoNombre=timestamp + '_' + fileDo.name
     const fileFinal: File = new File([fileDo], nuevoNombre);
-    const ruta =this.valDatosPersonales.controls['numDoc']+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.valDatosPersonales?.get('numDoc')?.value +'/'+fileFinal.name.replace(/\s+/g, '_');
     this.laborDocencia[index].archivo = fileFinal;
     this.laborDocencia[index].ruta=ruta
+
+  }
+  seleccionarArchivoDiscapacidad(event: any) {
+    const fileDo: File = event.target.files[0];
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + fileDo.name
+    const fileFinal: File = new File([fileDo], nuevoNombre);
+    const ruta =this.valDatosPersonales?.get('numDoc')?.value+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.archivoDiscapacidad.push(fileFinal) ;
+    this.rutaDiscapacidad=ruta
 
   }
 
@@ -508,6 +500,8 @@ agregarDocencia() {
           this.cargo=datos.cargo
           this.tipoVia=datos.via
           this.tipoZona=datos.zona
+          this.unidadOrganica=datos.unidadOrganica
+          this.servicioE=datos.servicio
         } else {
           errorAlerta('Error', mensaje).then();
         }
@@ -542,21 +536,25 @@ agregarDocencia() {
       });
   }
   
+  tomarFoto(){
+    this.modalTomarFoto?.openModal();
+   }
+  mandarImagen(foto:File){
+    this.files=[]
+    this.files.push(foto)
 
-  actualizarTipo(tipo: string, isChecked: boolean) {
-    if (isChecked) {
-      // Si está marcado, agregamos el tipo al arreglo
-      this.tipoDiscapacidad.push(tipo);
-    } else {
-      // Si está desmarcado, verificamos si el tipo está presente en el arreglo
-      const index = this.tipoDiscapacidad.indexOf(tipo);
-      if (index !== -1) {
-        // Si el tipo está presente, lo eliminamos del arreglo
-        this.tipoDiscapacidad.splice(index, 1);
-      }
-    }
+    const file = foto;
+    const timestamp = new Date().getTime();
+    const nuevoNombre=timestamp + '_' + file.name
+    const fileFinal: File = new File([file], nuevoNombre);
+    this.fotoFile.push(fileFinal)
+ 
+    const ruta=this.valDatosPersonales?.get('numDoc')?.value+'/'+fileFinal.name.replace(/\s+/g, '_');
+    this.valDatosPersonales.controls['rutaFoto'].setValue(ruta);
+   }
+  
 
-  }
+
   actualizarEmpleado() {
  
     const datosDomicilio = this.valDatosDomicilio.getRawValue()
@@ -571,9 +569,10 @@ agregarDocencia() {
     const laborDocencia =  this.laborDocencia 
     const datosPersonales = this.valDatosPersonales.getRawValue()
     const datosContacto = this.valContactoEmergencia.value
-    const datosDiscapacidad={ tipos:this.tipoDiscapacidad }
+    const datosDiscapacidad={ tipos:this.discapacidades,ruta:this.rutaDiscapacidad }
+    const archivoDiscapacidad=this.archivoDiscapacidad 
     const fotoPersonal=this.fotoFile
-    console.log(datosPersonales)
+
     this.DatoGeneralesService$.editarDatosEmpleado(
       datosPersonales,
       datosContacto,
@@ -588,7 +587,8 @@ agregarDocencia() {
       datosIdiomas,
       experienciaLaboral,
       laborDocencia,
-      fotoPersonal
+      fotoPersonal,
+      archivoDiscapacidad
       
     ).pipe(
       finalize(() => {

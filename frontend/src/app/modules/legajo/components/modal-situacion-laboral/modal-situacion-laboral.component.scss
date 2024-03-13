@@ -47,7 +47,7 @@ color: white;
 }
 
 .d-personales{
-   width: 113px;
+   width: 80px;
 }
 
 /* app.component.css */
@@ -110,25 +110,29 @@ color: white;
    appearance: menulist;
  }
 
-/* mediaqueries */
-@media screen and (max-width: 898px) {
-  .d-ancho{
-    width: 113px;
-  }
-
+ .bg-activo{
+  background-color: #00999C;
+}
+.bg-historico{
+  background-color: #474554;
+}
+.ver{
+  opacity: 0;
 }
 
-th{
+td,th{
   text-align: center;
 }
-
 @media screen and (max-width: 1000px) {
-  .none{
-    display: none;
-  }
+
   .mb-1, div{
     padding-right: 0;
   }
+  .ancho{
+    width: 110px;
+  }
+  .estado-res{
+    width: 110px;
+  }
 
 }
-

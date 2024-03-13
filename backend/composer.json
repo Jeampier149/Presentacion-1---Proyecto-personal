@@ -10,7 +10,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "league/flysystem-ftp": "^3.0"
+        "league/flysystem-ftp": "^3.0",
+        "mpdf/mpdf": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

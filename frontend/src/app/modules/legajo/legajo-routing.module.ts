@@ -7,7 +7,7 @@ import { EditarEmpleadoComponent } from './Pages/editar-empleado/editar-empleado
 const routes: Routes = [
     {path: 'informacion', component:InformacionComponent},
     {path: 'agregarEmpleado', component:RegistrarEmpleadoComponent},
-    {path: 'editarEmpleado/:idHis/:numDoc', component:EditarEmpleadoComponent}
+    {path: 'editarEmpleado/:numDoc', component:EditarEmpleadoComponent}
 ];
 
 @NgModule({

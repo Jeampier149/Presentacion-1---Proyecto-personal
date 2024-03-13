@@ -126,8 +126,9 @@ class LegajoModel extends Model
             try {
 
                 foreach ($datosDiscapacidad['tipos'] as $tipo) {
-                    DB::statement('EXEC dbo.pl_sp_insertar_datos_discapacidad ?,?', [
+                    DB::statement('EXEC dbo.pl_sp_insertar_datos_discapacidad ?,?,?', [
                         $tipo,
+                        $datosDiscapacidad['ruta'],
                         $numDocumento
 
                     ]);
@@ -323,11 +324,6 @@ class LegajoModel extends Model
             // Revertir la transacción si ocurre algún error
             DB::rollBack();
 
-            // Loguear el error o manejarlo de alguna otra manera
-            // ...
-      
-        
-            // Retornar false para indicar que la inserción falló
           return $resultado;
         }
     }
@@ -358,7 +354,7 @@ class LegajoModel extends Model
         try {
             // Iterar sobre los datos personales 
             try {
-                $resultado = DB::selectOne('EXEC dbo.pl_sp_editar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                $resultado = DB::selectOne('EXEC dbo.pl_sp_editar_personal ?,?,?,?,?,?,?,?,?,?,?', [
                     $datosPersonales['numDoc'],
                     $datosPersonales['ruc'],
                     $datosPersonales['estadoCivil'],
@@ -367,16 +363,6 @@ class LegajoModel extends Model
                     $datosPersonales['correo'],
                     $datosPersonales['enfAlergias'],
                     $datosPersonales['rutaFoto'],
-                    $datosPersonales['codigoAirhsp'],
-                    $datosPersonales['grupOcup'],
-                    $datosPersonales['tipoEmp'],
-                    $datosPersonales['valorRegimen'],
-                    $datosPersonales['valorTipRegimen'],                
-                    $datosPersonales['fechaIngreso'],
-                    $datosPersonales['valorUnidad'],
-                    $datosPersonales['valorServicio'],                  
-                    $datosPersonales['valorCargo'],
-                    $datosPersonales['valorNivel'],
                     $usuario,
                     $equipo,
                     $perfil
@@ -403,7 +389,7 @@ class LegajoModel extends Model
             }
 
             //insertar datso de discapacidad 
-          
+            
 
             //insertar datos domiclio
             try {
@@ -629,10 +615,8 @@ class LegajoModel extends Model
         } catch (\Exception $e) {
             echo 'Error al ejecutar el procedimiento almacenado: pl_sp_editar_datos_estudio_exp_docencia' . $e->getMessage();
         }
-            // Finalizar la transacción
             DB::commit();
-            // Retornar true para indicar que la inserción fue exitosa
-          return $resultado;
+            return $resultado;
         } catch (\Exception $e) {
             // Revertir la transacción si ocurre algún error
             DB::rollBack();

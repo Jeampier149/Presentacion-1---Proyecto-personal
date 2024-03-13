@@ -11,3 +11,36 @@
   .bg-historico{
     background-color: #474554;
   }
+
+  @media screen and (max-width: 767px) {
+    /* Selecciona la barra de URL específicamente en Chrome para Android */
+    /* Puede que necesites ajustar estos valores dependiendo del navegador y el dispositivo */
+    html {
+      overflow: -moz-scrollbars-none;
+      overflow: -webkit-scrollbars-none;
+      -ms-overflow-style: none;
+      overflow: scroll;
+      -webkit-tap-highlight-color: transparent;
+    }
+  
+    body {
+      margin-top: -8px;
+      margin-left: -8px;
+      margin-right: -8px;
+      margin-bottom: -8px;
+      padding: 8px;
+    }
+  }
+  
+  /* Estilo para ocultar la barra de URL en iPads y tablets similares */
+  @media screen and (min-width: 768px) and (max-width: 1024px) {
+    /* Puedes agregar estilos específicos para tabletas aquí si es necesario */
+  }
+  
+  /* Estilo para ocultar el encabezado del navegador en dispositivos móviles y tabletas */
+  @media screen and (max-width: 1024px) {
+    /* Establece la altura del encabezado del navegador en 0 para ocultarlo */
+    header {
+      display: none;
+    }
+  }

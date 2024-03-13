@@ -1,18 +1,18 @@
 <app-breadcrumb [rutas]="rutas" [titulo]="'Registrar Datos'"></app-breadcrumb>
 <div class="row">
-    <div class="col-xl-12">
-        <div class="card p-4">
-            <div class="card-body">
-                <div class="row pt-2">
-                    <div class="col-xl-12">
+    <div class="col-xl-12 me-0 pe-0">
+        <div class="card ps-lg-4 me-0 pe-0">
+            <div class="card-body me-0 pe-0">
+                <div class="row pt-2 me-0 pe-0">
+                    <div class="col-xl-12 me-0 pe-0">
                         <app-loading [mostrar]="loading">
                             <div class="row w-100 d-block">
                                 <div class="row data-local d-flex justify-content-between">
-                                    <div class="col-xl-4">
-                                        <div class="row">
-                                            <div class="col-xl-6">
+                                    <div class="col-xl-4 ">
+                                        <div class="row me-1">
+                                            <div class="col-xl-6 col-sm-6">
                                                 <div class="form-group">
-                                                    <div class="mb-3">
+                                                    <div class="">
                                                         <label class="form-label form-label-sm">TIPO DOCUMENTO</label>
                                                         <select class="form-select form-select-sm" required bsInvalid
                                                             [(ngModel)]="tipoDoc"   (change)="cambioNacionalidad()">
@@ -23,10 +23,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-6">
+                                            <div class="col-xl-6 col-sm-6">
                                                 <div class="form-group">
                                                     <label for="numero_doc">N° DOCUMENTO</label>
-                                                    <div class="input-group mb-3">
+                                                    <div class="input-group ">
                                                         <input type="text" class="form-control form-control-sm"
                                                             aria-label="dni" [(ngModel)]="numeroDocumento" maxlength="10"
                                                             aria-describedby="dni" required bsInvalid>
@@ -44,8 +44,8 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-xl-3 mt-4 me-4">                                     
-                                            <div class="input-group input-group-sm ">
+                                    <div class="col-xl-3 mt-lg-4 me-lg-4 pe-0 mb-sm-2 mb-lg-0">                                     
+                                            <div class="input-group input-group-sm pe-0 me-0">
                                                 <div class="input-group-text d-personales ">Nacionalidad
                                                 </div>
                                                 <input type="text" class="form-control  text-uppercase"
@@ -54,32 +54,30 @@
                                             </div>                                       
                                     </div>
                                 </div>
-                                <div class="row  w-100 d-block">
-                                    <fieldset>
-                                        <legend>Datos Personales</legend>
-                                        <div class="row mt-4 ">
-                                            <div class="col-xl-2  col-8">
-                                                <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
+                                <div class="row w-100 d-block pe-0 me-0" >                                 
+                                        <div class="row mt-4  d-flex  justify-content-center pe-0 m0-2">
+                                            <div class="col-xl-2 col-md-3 col-sm-12 col-xs-12   d-flex flex-column mb-3 ">
+                                                <ngx-dropzone (change)="onSelect($event)" class=" d-flex justify-content-center" [multiple]="false">
                                                     <ngx-dropzone-label>Arraste o Elija una imagen!</ngx-dropzone-label>
                                                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
                                                         *ngFor="let f of files" [file]="f" [removable]="true"
                                                         (removed)="onRemove(f)">
 
                                                     </ngx-dropzone-image-preview>
-                                                </ngx-dropzone>
-                                                <div class="row mt-3 w-100  ">
-                                                    <div class="col-12 d-flex justify-content-center">
+                                                </ngx-dropzone>  
+                                                <div class="row mt-3 w-100 none ">
+                                                    <div class="col-12 d-flex justify-content-center ms-4  ">
                                                         <button type="button w-100 d-block"
-                                                            class="btn btn-primary btn-sm"><i class="fas fa-camera"></i>
+                                                        (click)="tomarFoto()"
+                                                            class="btn btn-primary btn-sm me-lg-4"><i class="fas fa-camera"></i>
                                                             Tomar Foto</button>
                                                     </div>
-                                                </div>
-
+                                                </div>                                    
+                                               
                                             </div>
-                                            <div class="col-xl-10 ">
-                                                <div class="row my-2 px-3 mb-3">
-
-                                                    <div class="col-xl-4 ">
+                                            <div class="col-xl-10  col-md-9  col-sm-12 col-xs-12 mt-lg-4 m-0 p-0">
+                                                <div class="row">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1  ">
                                                         <div class="input-group input-group-sm  ">
                                                             <div class="input-group-text d-personales ">Apll. Paterno
                                                             </div>
@@ -90,7 +88,7 @@
                                                         </div>
 
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
                                                         <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales ">Apll. Materno
                                                             </div>
@@ -101,7 +99,7 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
                                                         <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales">Nombres
                                                             </div>
@@ -114,9 +112,8 @@
                                                     </div>
 
 
-                                                </div>
-                                                <div class="row my-2 px-3 mb-3">
-                                                    <div class="col-xl-4">
+                                    
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
                                                         <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales ">Sexo
                                                             </div>
@@ -129,7 +126,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
                                                         <div class="input-group input-group-sm "[formGroup]="valGroup">
                                                             <div class="input-group-text d-personales">RUC N°</div>
                                                             <input type="text" class="form-control form-control-sm"
@@ -137,7 +134,7 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
                                                         <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales ">F. Nacimiento
                                                             </div>
@@ -148,10 +145,9 @@
                                                     </div>
 
 
-                                                </div>
-                                                <div class="row my-2 px-3" [formGroup]="valGroup">
-                                                    <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3">
+                                             
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1  " [formGroup]="valGroup">
+                                                        <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales">Telefono Fijo
                                                             </div>
                                                             <input type="text" class="form-control form-control-sm"
@@ -160,8 +156,8 @@
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4" [formGroup]="valGroup">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 " [formGroup]="valGroup">
+                                                        <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales">Telefono Movil
                                                             </div>
                                                             <input type="text" class="form-control form-control-sm"
@@ -169,19 +165,18 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4" [formGroup]="valGroup">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 " [formGroup]="valGroup">
                                                         
-                                                        <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales ">Correo .E</div>
                                                             <input type="email" class="form-control form-control-sm" bsInvalid
                                                             required  aria-label="Small" formControlName="correo"
                                                              aria-describedby="inputGroup-sizing-sm">
                                                         </div>                                               
                                                     </div>
-                                                </div>
-                                                <div class="row my-2 px-3">
-                                                    <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3">
+                                          
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
+                                                        <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales"> G. Sanguineo
                                                             </div>
                                                             <select class="form-select form-select-sm" required
@@ -195,8 +190,8 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
+                                                        <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales">Enf./Alergias
                                                             </div>
                                                             <input type="text" class="form-control form-control-sm"
@@ -204,8 +199,8 @@
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
-                                                        <div class="input-group input-group-sm mb-3">
+                                                    <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
+                                                        <div class="input-group input-group-sm ">
                                                             <div class="input-group-text d-personales ">Estado Civil
                                                             </div>
                                                             <select class="form-select form-select-sm"
@@ -221,24 +216,25 @@
                                                 </div>
                                             </div>
                                         </div>
+                                       
 
                                         <div class="card border mt-3">
                                             <div class="card-header bg-transparent p-2">
                                                 <h6 class="my-0 b-900">En caso de emergencia contactar a:</h6>
                                             </div>
-                                            <div class="card-body p-3">
+                                            <div class="card-body p-3 ps-0">
                                                 <div class="row ">
-                                                    <div class="col-xl-6">
-                                                        <div class="input-group input-group-sm mb-3">
-                                                            <div class="input-group-text ">Nombre de contacto</div>
+                                                    <div class="col-xl-6 mb-1 ps-0 ms-0">
+                                                        <div class="input-group input-group-sm ">
+                                                            <div class="input-group-text d-ancho">Nombre contacto</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                                 aria-label="Small" [(ngModel)]="nombreContacto" maxlength="40"
                                                                 aria-describedby="inputGroup-sizing-sm">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-3">
-                                                        <div class="input-group input-group-sm mb-3">
-                                                            <div class="input-group-text ">Parentesco</div>
+                                                    <div class="col-xl-3 mb-1 ps-0 ms-0">
+                                                        <div class="input-group input-group-sm ">
+                                                            <div class="input-group-text d-ancho ">Parentesco</div>
                                                                 <select class="form-select form-select-sm" 
                                                                 [(ngModel)]="parentesco">
                                                                 <option value="" selected>Seleccionar</option>
@@ -247,9 +243,9 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-3">
-                                                        <div class="input-group input-group-sm mb-3"   [formGroup]="valGroup">
-                                                            <div class="input-group-text ">N° de contacto</div>
+                                                    <div class="col-xl-3 mb-1 ps-0 ms-0">
+                                                        <div class="input-group input-group-sm "   [formGroup]="valGroup">
+                                                            <div class="input-group-text  d-ancho">N° de contacto</div>
                                                             <input type="text" class="form-control form-control-sm"
                                                            aria-label="Small" formControlName="numContacto" bsInvalid
                                                                 aria-describedby="inputGroup-sizing-sm">
@@ -258,8 +254,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row ms-1">
-                                            <div class="col-xl-4 p-4 ">
+                                        <div class="row ms-1 d-flex align-items-baseline">
+                                            <div class="col-xl-3 p-4 ">
 
                                                 <div class="form-check form-switch  ">
                                                     <label class="form-check-label" for="flexSwitchCheckChecked">
@@ -270,43 +266,28 @@
                                                         id="discapacidad" (change)="true" #disca>
                                                 </div>
                                             </div>
-                                            <div *ngIf="disca.checked" class="col-xl-8 p-4">
-
-                                                <label class="me-2" for="flexSwitchCheckChecked">Tipos
-                                                    Discapacidad :</label>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="fisicas"
-                                                        [(ngModel)]="fisicas"
-                                                        (change)="actualizarTipo('Fisica',this.fisicas)">
-                                                    <label class="form-check-label" for="fisicas">Fisicas</label>
+                                            <div *ngIf="disca.checked" class="col-xl-9 d-flex justify-content-between align-items-baseline">
+                                                <div class="input-group input-group-sm  custom-select">
+                                                    <div class="input-group-text col-auto d-ancho">Tipos Discapacidad</div>                                             
+                                                    <ng-select  [(ngModel)] ="discapacidades"
+                                                    [multiple]="true"
+                                                    [items]="tipoDiscapacidad"
+                                                    bindLabel ="tipo" 
+                                                    bindValue ="tipo" 
+                                                    class="d-block"
+                                                    style="font-size: 0.8rem; height: auto; width: 68%;"> 
+                                                   </ng-select >
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="sensorial"
-                                                        [(ngModel)]="sensorial"
-                                                        (change)="actualizarTipo('Sensorial',this.sensorial)">
-                                                    <label class="form-check-label" for="sensorial">Sensoriales</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="mentales"
-                                                        [(ngModel)]="mentales"
-                                                        (change)="actualizarTipo('Mental',this.mentales)">
-                                                    <label class="form-check-label" for="mentales">Mentales</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="intelectuales"
-                                                        [(ngModel)]="intelectuales"
-                                                        (change)="actualizarTipo('Intelectuales',this.intelectuales)">
-                                                    <label class="form-check-label"
-                                                        for="intelectuales">Intelectuales</label>
-                                                </div>
+                                                <div class="col-xl-4">
+                                                    <input class="form-control form-control-sm"  (change)="seleccionarArchivoDiscapacidad($event)" type="file">
+                                                  </div>
 
                                             </div>
-
+                                                   
                                         </div>
 
-                                    </fieldset>
                                 </div> <!-- fin de datos genrales -->
-                                <div class="row w-100 d-block">
+                                <div class="row w-100 d-block p-0">
                                     <div class="accordion mt-4" id="accordionPanelsStayOpenExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -323,13 +304,13 @@
 
 
                                                     <div class="row w-100 d-block  mt-3">
-                                                        <fieldset>
-                                                            <legend>Domicilio</legend>
+                                                   
+                                                          
                                                             <span>Ubicacion Geografica</span>
-                                                            <div class="row mt-2">
-
-                                                                <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                     
+                                                            <div class="row">
+                                                                <div class="col-xl-4  mb-1">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text d-personales ">
                                                                             Departamento
                                                                         </div>
@@ -340,8 +321,8 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                <div class="col-xl-4  mb-1">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text d-personales ">
                                                                             Provincia</div>
                                                                         <input type="text"
@@ -350,20 +331,20 @@
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Distrito</div>
+                                                                <div class="col-xl-4 mb-1">
+                                                                    <div class="input-group input-group-sm ">
+                                                                        <div class="input-group-text d-ancho ">Distrito</div>
                                                                         <input type="text"
                                                                             class="form-control form-control-sm"
                                                                             [(ngModel)]="distrito" aria-label="Small"
                                                                             aria-describedby="inputGroup-sizing-sm">
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="row mt-2 d-flex align-items-center">
-                                                                <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3 custom-select">
-                                                                        <div class="input-group-text col-auto ">Via</div>                                             
+                                                        
+                                               
+                                                                <div class="col-xl-4  mb-1">
+                                                                    <div class="input-group input-group-sm  custom-select">
+                                                                        <div class="input-group-text col-auto d-ancho">Via</div>                                             
                                                                         <ng-select  [(ngModel)] ="via"
                                                                         [items]="tipoVia"
                                                                         bindLabel ="tipo" 
@@ -374,8 +355,8 @@
                                                                     </div>
                                                                 </div>
                                                                    @if(via && via!=""){
-                                                                    <div class="col-xl-4">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                    <div class="col-xl-4  mb-1">
+                                                                        <div class="input-group input-group-sm ">
                                                                             <div class="input-group-text d-personales">
                                                                                 Nombre de la via
                                                                             </div>
@@ -384,18 +365,18 @@
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3">
-                                                                            <div class="input-group-text ">Numero</div>
+                                                                    <div class="col-xl-2  mb-1">
+                                                                        <div class="input-group input-group-sm ">
+                                                                            <div class="input-group-text d-ancho ">Numero</div>
                                                                             <input type="number"
                                                                                 class="form-control form-control-sm"
                                                                                 [(ngModel)]="numeroVia" aria-label="Small"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3">
-                                                                            <div class="input-group-text ">Interior</div>
+                                                                    <div class="col-xl-2  mb-1">
+                                                                        <div class="input-group input-group-sm ">
+                                                                            <div class="input-group-text d-ancho ">Interior</div>
                                                                             <input type="text"
                                                                                 class="form-control form-control-sm"
                                                                                 [(ngModel)]="interiorVia" aria-label="Small"
@@ -405,11 +386,11 @@
 
                                                                    }
                                                                                                                                  
-                                                            </div>
-                                                            <div class="row mt-2 d-flex align-items-center">
-                                                                <div class="col-xl-4">
-                                                                    <div class="input-group input-group-sm mb-3">
-                                                                        <div class="input-group-text ">Zona</div>
+                                                        
+                                                    
+                                                                <div class="col-xl-4  mb-1">
+                                                                    <div class="input-group input-group-sm ">
+                                                                        <div class="input-group-text d-ancho">Zona</div>
                                                                         <ng-select  [(ngModel)] ="zona"
                                                                         [items]="tipoZona"
                                                                         bindLabel ="tipo" 
@@ -420,8 +401,8 @@
                                                                     </div>
                                                                 </div>
                                                                 @if(zona&&zona!=""){
-                                                                    <div class="col-xl-4">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                    <div class="col-xl-4  mb-1">
+                                                                        <div class="input-group input-group-sm ">
                                                                             <div class="input-group-text d-personales">
                                                                                 Nombre de Zona
                                                                             </div>
@@ -430,18 +411,18 @@
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3">
-                                                                            <div class="input-group-text ">Numero</div>
+                                                                    <div class="col-xl-2  mb-1">
+                                                                        <div class="input-group input-group-sm ">
+                                                                            <div class="input-group-text d-ancho">Numero</div>
                                                                             <input type="number"
                                                                                 class="form-control form-control-sm"
                                                                                 [(ngModel)]="numeroZona" aria-label="Small"
                                                                                 aria-describedby="inputGroup-sizing-sm">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-xl-2">
-                                                                        <div class="input-group input-group-sm mb-3">
-                                                                            <div class="input-group-text ">Interior</div>
+                                                                    <div class="col-xl-2  mb-1">
+                                                                        <div class="input-group input-group-sm ">
+                                                                            <div class="input-group-text d-ancho">Interior</div>
                                                                             <input type="text"
                                                                                 class="form-control form-control-sm"
                                                                                 [(ngModel)]="interiorZona"
@@ -452,11 +433,10 @@
                                                                 }
                                                              
                                                                                                                       
-                                                            </div>
-
+                                                      
                                                             <div class="row mt-4">
                                                                 <div class="col-xl-12">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text ">
                                                                             Referencia(Indicar
                                                                             institucion
@@ -470,7 +450,7 @@
                                                                 </div>
 
                                                             </div>
-                                                        </fieldset>
+                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -489,12 +469,11 @@
                                                 aria-labelledby="panelsStayOpen-headingTwo">
                                                 <div class="accordion-body text-muted">
 
-                                                    <div class="row d-block w-100 mt-3">
-                                                        <fieldset>
-                                                            <legend>Datos Familiares</legend>
+                                                    <div class="row w-100 mt-3">
+                                                 
                                                             <div class="row">
-                                                                <form>
-                                                                  <div class="row mb-3">
+                                                            
+                                                                  <div class="row table-responsive ">
                                                                     <div class="col-xl-4">
                                                                         <button type="button " class="btn bg-agg btn-sm"
                                                                         (click)="agregarFamiliar()"><i
@@ -505,18 +484,19 @@
                                                                         </i> Sin Datos
                                                                        </button>
                                                                     </div>                                                                                                                                                                                                                                                         
-                                                                  </div>                                                              
-                                                                    <table class="table table-responsive">
+                                                                  </div>  
+                                                                   <div class="row table-responsive">
+                                                                    <table class="table ">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>Tipo Documento</th>
-                                                                                <th>N °Doc</th>
-                                                                                <th>Nombres</th>
-                                                                                <th>Apellidos</th>
-                                                                                <th>F. de Nacimiento</th>
-                                                                                <th>Parentesco</th>
+                                                                                <th style="min-width:130px;">T. Documento</th>
+                                                                                <th style="min-width:130px;">N °Doc</th>
+                                                                                <th style="min-width:150px;">Nombres</th>
+                                                                                <th style="min-width:150px;">Apellidos</th>
+                                                                                <th style="min-width:150px;">F. de Nacimiento</th>
+                                                                                <th style="min-width:150px;">Parentesco</th>
                                                                                 <th>Institución/Entidad 
-                                                                                    laboral
+                                                                                 
                                                                                 </th>
                                                                             </tr>
                                                                         </thead>
@@ -534,8 +514,8 @@
                                                                              </td>
                                                                                 <td>
                                                                                     <div class="form-group">
-                                                                                        <label for=""></label> 
-                                                                                        <div class="input-group mb-3">
+                                                           
+                                                                                        <div class="input-group ">
                                                                                            
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
@@ -608,16 +588,16 @@
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
+                                                                </div>
                                                                     @if(divFamiliar){
                                                                         <div>
                                                                             <p class="text-center fw-bold">SIN DATOS POR REGISTRAR</p>
                                                                         </div>
                                                                     }
-                                                                                                                                        
-                                                                    
-                                                                </form>
+                                                                                                                                                                                     
+                                        
                                                             </div>
-                                                        </fieldset>
+                                           
                                                     </div>
 
                                                 </div>
@@ -637,13 +617,10 @@
                                                 <div class="accordion-body text-muted">
 
                                                     <div class="row d-block w-100 mt-3">
-                                                        <fieldset>
-                                                            <legend>
-                                                                Datos Profeionales - Academicos
-                                                            </legend>
+                                                      
                                                             <div class="row mt-2 ">
                                                                 <div class="col-xl-6">
-                                                                    <div class="input-group input-group-sm mb-3">
+                                                                    <div class="input-group input-group-sm ">
                                                                         <div class="input-group-text ">Profesion</div>                                                                      
                                                                         <input type="text"
                                                                             list="profesiones" name="profesiones" id="proft"
@@ -657,8 +634,8 @@
                                                                               </datalist>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-xl-6">
-                                                                    <div class="form-check form-switch  ">
+                                                                <div class="col-xl-6  ">
+                                                                    <div class="form-check form-switch mt-3 mt-lg-0  ">
                                                                         <label class="form-check-label" for="flexSwitchCheckChecked">
                                                                             <span>{{colegiatura.checked?'':'No' }}</span>
                                                                             Tiene
@@ -671,8 +648,8 @@
                                                             </div>
                                                             @if(colegiatura.checked){
                                                                 <div class="row mt-2">
-                                                                    <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                    <div class="col-xl-3 ">
+                                                                        <div class="input-group input-group-sm ">
                                                                             <div class="input-group-text ">Lugar de
                                                                                 Colegiatura
                                                                             </div>
@@ -683,7 +660,7 @@
                                                                             </div>
                                                                     </div>
                                                                     <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm ">
                                                                             <div class="input-group-text ">F. de colegiatura
                                                                             </div>
                                                                             <input type="date"
@@ -693,7 +670,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm ">
                                                                             <div class="input-group-text ">F.termino de
                                                                                 habilitacion</div>
                                                                             <input type="date"
@@ -704,7 +681,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xl-3">
-                                                                        <div class="input-group input-group-sm mb-3">
+                                                                        <div class="input-group input-group-sm ">
                                                                             <div class="input-group-text ">N° Colegiatura
                                                                             </div>
                                                                             <input type="text"
@@ -716,7 +693,7 @@
                                                                 </div>
                                                             }
                                                     
-                                                            <div class="card border">
+                                                            <div class="card border mt-3">
                                                                 <div class="card-header bg-transparent p-2">
                                                                     <h6 class="my-0">Estudios Superiores (Universitarios
                                                                         -
@@ -724,9 +701,9 @@
                                                                     </h6>
                                                                 </div>
                                                                 <div class="card-body p-3">
-                                                                    <div class="row">
-                                                                        <form>
-                                                                            <div class="row mb-3">
+                                                                    <div class="row table-responsive">
+                                                               
+                                                                            <div class="row ">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
                                                                                     class="btn bg-agg btn-sm"
@@ -741,17 +718,17 @@
                                                                       
 
                                                                             </div>
-                                                                           
-                                                                            <table class="table table-responsive">
+                                                                           <div class="row table-responsive">
+                                                                            <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <Th class="text-center" style="width: 250px; ">Tipo</Th>
-                                                                                        <th class="text-center" style="width: 270px; ">Centro de estudios</th>
-                                                                                        <th class="text-center" style="width: 220px; ">Especialidad</th>
-                                                                                        <th class="text-center" style="width: 160px; ">F.Inicio</th>
-                                                                                        <th class="text-center" style="width: 160px; ">F.Termino</th>
-                                                                                        <th class="text-center" style="width: 220px; ">Nivel alcanzado</th>
-                                                                                        <th class="text-center" style="width: 250px; " >Documento</th>
+                                                                                        <Th class="text-center" style="width: 250px; min-width: 150px; ">Tipo</Th>
+                                                                                        <th class="text-center" style="width: 270px; min-width: 150px;  ">Centro de estudios</th>
+                                                                                        <th class="text-center" style="width: 220px; min-width: 150px; ">Especialidad</th>
+                                                                                        <th class="text-center" style="width: 160px; min-width: 150px;  ">F.Inicio</th>
+                                                                                        <th class="text-center" style="width: 160px; min-width: 150px; ">F.Termino</th>
+                                                                                        <th class="text-center" style="width: 220px; min-width: 150px; ">Nivel alcanzado</th>
+                                                                                        <th class="text-center" style="width: 250px; min-width: 150px; " >Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -834,7 +811,7 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS ESTUDIO SUPERIOR</p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -846,7 +823,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
+                                                                  
                                                                             <div class="row">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
@@ -860,17 +837,17 @@
                                                                                      </button>
                                                                                 </div>
                                                                             </div>
-                                                                           
-                                                                            <table class="table table-responsive">
+                                                                           <div class="row table-responsive">
+                                                                            <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <Th class="text-center" style="width: 250px; ">Tipo</Th>
-                                                                                        <th class="text-center" style="width: 270px; ">Centro de estudios</th>
-                                                                                        <th class="text-center" style="width: 220px; ">Especialidad</th>
-                                                                                        <th class="text-center" style="width: 160px; ">F.Inicio</th>
-                                                                                        <th class="text-center" style="width: 160px; ">F.Termino</th>
-                                                                                        <th class="text-center" style="width: 220px; ">Nivel alcanzado</th>
-                                                                                        <th class="text-center" style="width: 250px; " >Documento</th>
+                                                                                        <Th class="text-center" style="width: 250px; min-width: 150px; ">Tipo</Th>
+                                                                                        <th class="text-center" style="width: 270px; min-width: 150px; ">Centro de estudios</th>
+                                                                                        <th class="text-center" style="width: 220px;min-width: 150px;  ">Especialidad</th>
+                                                                                        <th class="text-center" style="width: 160px; min-width: 150px; ">F.Inicio</th>
+                                                                                        <th class="text-center" style="width: 160px; min-width: 150px; ">F.Termino</th>
+                                                                                        <th class="text-center" style="width: 220px; min-width: 150px; ">Nivel alcanzado</th>
+                                                                                        <th class="text-center" style="width: 250px; min-width: 150px; " >Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -958,7 +935,7 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS POSTGRADO</p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -969,7 +946,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
+                                                                
                                                                             <div class="row">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
@@ -983,16 +960,17 @@
                                                                                      </button>
                                                                                 </div>
                                                                             </div>
-                                                                            <table class="table table-responsive">
+                                                                            <div class="row table-responsive">
+                                                                            <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <Th class="text-center" style="width: 250px; ">Tipo</Th>
-                                                                                        <th class="text-center" style="width: 270px; ">Centro de estudios</th>
-                                                                                        <th class="text-center" style="width: 220px; ">Materia</th>
-                                                                                        <th class="text-center" style="width: 160px; ">F.Inicio</th>
-                                                                                        <th class="text-center" style="width: 160px; ">F.Termino</th>
-                                                                                        <th class="text-center" style="width: 220px; ">Certificado</th>
-                                                                                        <th class="text-center" style="width: 250px; " >Documento</th>
+                                                                                        <Th class="text-center" style="width: 250px; min-width: 150px; ">Tipo</Th>
+                                                                                        <th class="text-center" style="width: 270px; min-width: 150px; ">Centro de estudios</th>
+                                                                                        <th class="text-center" style="width: 220px; min-width: 150px; ">Materia</th>
+                                                                                        <th class="text-center" style="width: 160px; min-width: 150px; ">F.Inicio</th>
+                                                                                        <th class="text-center" style="width: 160px; min-width: 150px; ">F.Termino</th>
+                                                                                        <th class="text-center" style="width: 220px; min-width: 150px; ">Certificado</th>
+                                                                                        <th class="text-center" style="width: 250px; min-width: 150px; " >Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -1072,7 +1050,7 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS DE ESPECIALIZACION </p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1083,7 +1061,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
+                                                                    
                                                                             <div class="row">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
@@ -1097,17 +1075,17 @@
                                                                                      </button>
                                                                                 </div>
                                                                             </div>
-                                                                           
-                                                                            <table class="table table-responsive">
+                                                                           <div class="row table-responsive">
+                                                                            <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <Th class="text-center" style="width: 250px; ">Tipo</Th>
-                                                                                        <th class="text-center" style="width: 270px; ">Centro de estudios</th>
-                                                                                        <th class="text-center" style="width: 220px; ">Materia</th>
-                                                                                        <th class="text-center" style="width: 160px; ">F.Inicio</th>
-                                                                                        <th class="text-center" style="width: 160px; ">F.Termino</th>
-                                                                                        <th class="text-center" style="width: 220px; ">certificacion</th>
-                                                                                        <th class="text-center" style="width: 250px; " >Documento</th>
+                                                                                        <Th class="text-center" style="width: 250px; min-width: 150px; ">Tipo</Th>
+                                                                                        <th class="text-center" style="width: 270px; min-width: 150px; ">Centro de estudios</th>
+                                                                                        <th class="text-center" style="width: 220px; min-width: 150px; ">Materia</th>
+                                                                                        <th class="text-center" style="width: 160px; min-width: 150px; ">F.Inicio</th>
+                                                                                        <th class="text-center" style="width: 160px; min-width: 150px; ">F.Termino</th>
+                                                                                        <th class="text-center" style="width: 220px; min-width: 150px; ">certificacion</th>
+                                                                                        <th class="text-center" style="width: 250px; min-width: 150px; " >Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -1187,7 +1165,7 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS DE CURSOS </p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1198,7 +1176,7 @@
                                                                 </div>
                                                                 <div class="card-body p-3">
                                                                     <div class="row">
-                                                                        <form>
+                                                                  
                                                                             <div class="row">
                                                                                 <div class="col-xl-4">
                                                                                     <button type="button "
@@ -1213,13 +1191,13 @@
 
                                                                                 </div>
                                                                             </div>
-                                                                            
-                                                                            <table class="table table-responsive">
+                                                                            <div class="row table-responsive">
+                                                                            <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th class="text-center">Lengua Extranjera</th>
-                                                                                        <th class="text-center">Nivel </th>
-                                                                                        <th class="text-center">Documento</th>
+                                                                                        <th class="text-center"style="width: 250px; min-width: 150px; ">Lengua Extranjera</th>
+                                                                                        <th class="text-center"style="width: 250px; min-width: 150px; ">Nivel </th>
+                                                                                        <th class="text-center"style="width: 250px; min-width: 150px; ">Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -1270,12 +1248,12 @@
                                                                                     <p class="text-center fw-bold">SIN DATOS DE IDIOMAS </p>
                                                                                 </div>
                                                                             }
-                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
-                                                        </fieldset>
+                                                 
 
 
                                                     </div>
@@ -1294,8 +1272,7 @@
                                             <div id="panelsStayOpen-collapsethree" class="accordion-collapse collapse "
                                                 aria-labelledby="panelsStayOpen-headingthree">
                                                 <div class="accordion-body text-muted">
-                                                    <fieldset class="mt-3">
-                                                        <legend>Datos Laborales</legend>
+                                                
                                                         <div class="card border">
                                                             <div class="card-header bg-transparent p-2">
                                                                 <h6 class="my-0">Experiencia Laboral
@@ -1303,7 +1280,7 @@
                                                             </div>
                                                             <div class="card-body p-3">
                                                                 <div class="row">
-                                                                    <form>
+                                                                  
                                                                         <div class="row">
                                                                             <div class="col-xl-4">
                                                                                 <button type="button " class="btn bg-agg btn-sm"
@@ -1316,18 +1293,18 @@
                                                                                  </button>
                                                                             </div>
                                                                         </div>
-                                                                      
-                                                                        <table class="table table-responsive">
+                                                                      <div class="row table-responsive">
+                                                                        <table class="table ">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th class="text-center">Institucion / Empresa</th>
-                                                                                    <th class="text-center"
+                                                                                    <th class="text-center" style="width: 250px; min-width: 150px; ">Institucion / Empresa</th>
+                                                                                    <th class="text-center"style="width: 250px; min-width: 150px; "
                                                                                     
                                                                                     > Cargo - Actividad Desempeñada
                                                                                     </th>
-                                                                                    <th>F.Inicio</th>
-                                                                                    <th>F.Termino</th>
-                                                                                    <th>Documento</th>
+                                                                                    <th style="width: 250px; min-width: 150px; ">F.Inicio</th>
+                                                                                    <th style="width: 250px; min-width: 150px; ">F.Termino</th>
+                                                                                    <th style="width: 250px; min-width: 150px; ">Documento</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
@@ -1390,7 +1367,7 @@
                                                                                 <p class="text-center fw-bold">SIN DATOS DE EXPERIENCIA LABORAL </p>
                                                                             </div>
                                                                         }
-                                                                    </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1401,7 +1378,7 @@
                                                             </div>
                                                             <div class="card-body p-3">
                                                                 <div class="row">
-                                                                    <form>
+                                                               
                                                                         <div class="row">
                                                                             <div class="col xl-4">
                                                                                 <button type="button " class="btn bg-agg btn-sm"
@@ -1419,12 +1396,12 @@
                                                                             <table class="table ">
                                                                                 <thead>
                                                                                     <tr>
-                                                                                        <th>Centro de Enseñanza</th>
-                                                                                        <th>Curso Dictado
+                                                                                        <th style="width: 250px; min-width: 150px; ">Centro de Enseñanza</th>
+                                                                                        <th style="width: 250px; min-width: 150px; ">Curso Dictado
                                                                                         </th>
-                                                                                        <th>F.Inicio</th>
-                                                                                        <th>F.Termino</th>
-                                                                                        <th>Documento</th>
+                                                                                        <th style="width: 250px; min-width: 150px; ">F.Inicio</th>
+                                                                                        <th style="width: 250px; min-width: 150px; "> F.Termino</th>
+                                                                                        <th style="width: 250px; min-width: 150px; ">Documento</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
@@ -1489,11 +1466,11 @@
                                                                                 <p class="text-center fw-bold">SIN DATOS DE EXPERIENCIA EN DOCENCIA </p>
                                                                             </div>
                                                                         }
-                                                                    </form>
+                                                              
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </fieldset>
+                                              
                                                 </div>
                                             </div>
                                         </div>
@@ -1511,7 +1488,7 @@
                                                 <div class="accordion-body text-muted">
                                                     <div class="row mt-2">
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales ">
                                                                     Condición
                                                                 </div>
@@ -1525,7 +1502,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales ">
                                                                     G.Ocupacional</div>
                                                                 <select class="form-select form-select-sm"
@@ -1537,7 +1514,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text ">Regimen</div>
                                                                 <select class="form-select form-select-sm"
                                                                     (change)="cambioTipo()" [(ngModel)]="valorRegimen">
@@ -1549,7 +1526,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text ">T.Regimen</div>
                                                                 <select class="form-select form-select-sm"
                                                                     [(ngModel)]="valortipRegimen">
@@ -1564,40 +1541,49 @@
                                                     <div class="row mt-2">
 
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text ">U.Organica/Dpto</div>
-                                                                <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="valorUnidad">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option value="1">Oficina Personal
+                                                                <select class="form-select form-select-sm " [(ngModel)]="valorUnidad">
+                                                                    <option value="" selected>
+                                                                        Seleccionar
+                                                                    </option>
+                                                                    <option *ngFor="
+                                                                            let unidad of unidadOrganica
+                                                                        " value="{{ unidad.id }}">
+                                                                        {{ unidad.unidad }}
                                                                     </option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text ">Servicio/Equipo</div>
-                                                                <select class="form-select form-select-sm"
-                                                                    [(ngModel)]="valorServicio">
-                                                                    <option value="" selected>Seleccionar</option>
-                                                                    <option value="1">Equipo Legajo</option>
+                                                                <select class="form-select form-select-sm" [(ngModel)]="valorServicio">
+                                                                    <option value="" selected>
+                                                                        Seleccionar
+                                                                    </option>
+                                                                    <option *ngFor="
+                                                                            let servicio of servicioE
+                                                                        " value="{{ servicio.id }}">
+                                                                        {{ servicio.servicio }}
+                                                                    </option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text ">Cargo</div>
                                                                 <ng-select  [(ngModel)] ="valorCargo"
                                                                         [items]="cargo"
                                                                         bindLabel ="descripcion" 
                                                                         bindValue ="codigo" 
                                                                         class="d-block"
-                                                                        style="font-size: 0.8rem; height: auto; width: 80%;"> 
+                                                                        style="font-size: 0.8rem; height: auto; width: 75%;"> 
                                                                  </ng-select >
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-2">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text ">Nivel</div>
                                                                 <ng-select  [(ngModel)] ="valorNivel"
                                                                 [items]="nivelCargo"
@@ -1611,7 +1597,7 @@
                                                     </div>
                                                     <DIV class="row mt-2">
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">
                                                                     C. AIRSHP
                                                                 </div>
@@ -1621,7 +1607,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-3">
-                                                            <div class="input-group input-group-sm mb-3">
+                                                            <div class="input-group input-group-sm ">
                                                                 <div class="input-group-text d-personales">
                                                                     F. Ingreso
                                                                 </div>
@@ -1637,15 +1623,14 @@
 
                                     </div><!-- fin del acordtion  -->
                                 </div>
-                                <div class="row d-flex justify-content-center mt-4">
-                                    <div class="col-xl-2">
-                                        <button type="button" class="btn bg-delete" routerLink="/legajo/informacion"><i
+                                <div class="mt-4 d-flex justify-content-evenly">
+                                 
+                                        <button type="button" class="btn bg-delete " routerLink="/legajo/informacion"><i
                                                 class="fa-solid fa-circle-arrow-left"></i> Regresar</button>
-                                    </div>
-                                    <div class="col-xl-2">
-                                        <button type="button" class="btn btn-primary" (click)="registrarEmpleado()"><i
+                                                                
+                                        <button type="button" class="btn btn-primary " (click)="registrarEmpleado()"><i
                                                 class="fa-solid fa-floppy-disk"></i> Registrar</button>
-                                    </div>
+                            
 
                                 </div>
                             </div>
@@ -1656,3 +1641,5 @@
         </div>
     </div>
 </div>
+
+<app-modal-tomar-foto (capturarImagen)="mandarImagen($event)"></app-modal-tomar-foto>

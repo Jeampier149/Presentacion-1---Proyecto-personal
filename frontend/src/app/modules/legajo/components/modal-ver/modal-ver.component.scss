@@ -116,10 +116,10 @@ color: white;
   color: white;
 }
 
-.foto{
-  border: 2px solid #214eaf; 
-  border-radius: 5px; 
-  box-shadow: 0 0 5px rgba(58, 24, 206, 0.3); 
+img{
+  border: 6px solid #ffffff; 
+  border-radius: 10px; 
+  box-shadow: 0 0 5px rgba(108, 82, 240, 0.3); 
   overflow: hidden;
 }
 .img-perfil{
@@ -132,3 +132,32 @@ color: white;
 
 
 
+@media screen and (max-width: 898px) {
+  .d-ancho{
+    width: 113px;
+  }
+
+}
+
+th{
+  text-align: center;
+  min-width:150px;}
+
+@media screen and (max-width: 1000px) {
+  .none{
+    display: none;
+  }
+  .mb-1, div{
+    padding-right: 1px;
+  }
+
+}
+
+@media screen and (max-width: 620px) {
+  .img{
+    width: 200px;
+    height: 200px;
+  }
+  
+
+}

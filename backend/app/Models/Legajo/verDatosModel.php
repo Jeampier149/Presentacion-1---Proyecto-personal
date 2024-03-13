@@ -15,12 +15,6 @@ class verDatosModel extends Model
         parent::__construct();
         $this->conexion = DB::connection('personal');
     }
-    public function listarDatosEmpleado($id)
-    {
-        return $this->conexion->select(
-        /** @lang SQL */
-        'EXEC dbo.pl_sp_listar_datos_empleado ?', [$id]);
-    }
     public function listarDatosEmpleadoVer($id)
     {
         return $this->conexion->select(
@@ -99,5 +93,6 @@ class verDatosModel extends Model
         /** @lang SQL */
         'EXEC dbo.pl_sp_listar_datos_empleado_experiencia_docencia ?', [$id]);
     }
+   
 
 }

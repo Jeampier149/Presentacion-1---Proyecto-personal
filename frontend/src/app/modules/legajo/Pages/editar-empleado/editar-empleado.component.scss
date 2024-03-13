@@ -109,3 +109,25 @@ color: white;
    -moz-appearance: menulist;
    appearance: menulist;
  }
+ /* mediaqueries */
+/* mediaqueries */
+@media screen and (max-width: 898px) {
+  .d-ancho{
+    width: 113px;
+  }
+
+}
+
+th{
+  text-align: center;
+  min-width:130px;}
+
+@media screen and (max-width: 1000px) {
+  .none{
+    display: none;
+  }
+  .mb-1, div{
+    padding-right: 0;
+  }
+
+}
