@@ -22,4 +22,7 @@ export class ModalDatosService {
       
   }).pipe(shareReplay(1));}
  
+  generarPdf(pkEmpleado: string) {
+    return this.http.post<HttpResponseApi>('/api/datos/genearPdfDatos', {  pkEmpleado  }, { responseType: "json" }).pipe(shareReplay(1));
+  }
 }

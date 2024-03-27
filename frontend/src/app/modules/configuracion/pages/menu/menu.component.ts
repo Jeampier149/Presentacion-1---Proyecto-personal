@@ -7,6 +7,7 @@ import {ModalMenuComponent} from "@modules/configuracion/components/modal-menu/m
 import {ModalAccionComponent} from "@modules/configuracion/components/modal-accion/modal-accion.component";
 import {finalize} from "rxjs";
 import Swal from "sweetalert2";
+import {ModalAccesoComponent} from "@modules/configuracion/components/modal-acceso/modal-acceso.component";
 
 @Component({
     selector: 'app-menu',
@@ -15,6 +16,7 @@ import Swal from "sweetalert2";
 export class MenuComponent {
     @ViewChild(ModalMenuComponent) modalMenu!: ModalMenuComponent
     @ViewChild(ModalAccionComponent) modalAccion!: ModalAccionComponent
+    @ViewChild(ModalAccesoComponent) modalAcceso!: ModalAccesoComponent
     @ViewChild('inpFocus') inpFocus!: ElementRef;
     loading: boolean = true;
     rutas: rutaBreadCrumb[] = [{nombre: 'Menus'}];
@@ -144,6 +146,10 @@ export class MenuComponent {
         if (respuesta) {
             this.listarMenu();
         }
+    }
+
+    abrirModalAcceso(idMenu: string, nombreMenu: string) {
+        this.modalAcceso.openModal(idMenu, nombreMenu);
     }
 
 }

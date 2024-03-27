@@ -41,7 +41,7 @@ Route::controller(GeneralController::class)->group(function () {
 Route::controller(VerDatosController::class)->group(function () {
     Route::post('datos/datosEmpleado', 'listarTodosLosDatos');
     Route::get('datos/archivos', 'verArchivo');
-    
+    Route::post('datos/generarPdf', 'listarTodosLosDatos');
 });
 Route::controller(SituacionLaboralController::class)->group(function () {
     Route::post('situacion/datosSituacion', 'listarSituacionLaboral');

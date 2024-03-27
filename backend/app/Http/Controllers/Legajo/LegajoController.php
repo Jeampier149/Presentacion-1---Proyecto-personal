@@ -172,7 +172,10 @@ class LegajoController extends JSONResponseController
             $datosCursos,
             $datosIdiomas,
             $datosExpLaboral,
-            $datosLaborDocencia
+            $datosLaborDocencia,
+            $usuario,
+            $equipo,
+            $perfil
         );
         return $this->sendResponse(200, true, $resultado->mensaje, $resultado->dato);
     }

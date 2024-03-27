@@ -238,14 +238,14 @@
 
                                                 <div class="form-check form-switch  ">
                                                     <label class="form-check-label" for="flexSwitchCheckChecked">
-                                                        <span>{{disca.checked?'Si':'No' }}</span>
+                                                        <span>{{disca.checked || discapacidades.length>0?'Si':'No' }}</span>
                                                         Presenta
                                                         Discapacidad</label>
                                                     <input class="form-check-input position-end " type="checkbox"
                                                         id="discapacidad" (change)="true" #disca>
                                                 </div>
                                             </div>
-                                            <div *ngIf="disca.checked" class="col-xl-9 d-flex justify-content-between align-items-baseline">
+                                            <div *ngIf="disca.checked || discapacidades.length>0" class="col-xl-9 d-flex justify-content-between align-items-baseline">
                                                 <div class="input-group input-group-sm  custom-select">
                                                     <div class="input-group-text col-auto d-ancho">Tipos Discapacidad</div>                                             
                                                     <ng-select  [(ngModel)] ="discapacidades"

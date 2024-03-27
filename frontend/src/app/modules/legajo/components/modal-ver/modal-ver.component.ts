@@ -89,6 +89,7 @@ export class ModalVerComponent {
     archivoUrl: any;
     archEmb:any
     fotoP: any;
+    
 
     @ViewChild('selFocus') selFocus!: ElementRef;
     @ViewChild('modalDatos') modalEl!: any;
@@ -251,6 +252,14 @@ export class ModalVerComponent {
     }
 
     generarReporte(){
-        
+        this.ModalDatosService$.generarPdf(this.numeroDocumento)
+            .pipe(
+                finalize(() => {
+                  this.loading = false;
+                })
+            )
+            .subscribe((data) => {
+               
+            });
     }
 }

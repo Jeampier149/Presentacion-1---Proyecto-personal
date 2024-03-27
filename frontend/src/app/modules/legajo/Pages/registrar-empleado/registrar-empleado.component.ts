@@ -8,6 +8,7 @@ import { reniecClass } from '@classes/servicios/reniec.class';
 import { MigracionesClass } from '@classes/servicios/migraciones.class';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { ModalTomarFotoComponent } from '@modules/legajo/components/modal-tomar-foto/modal-tomar-foto.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-empleado',
@@ -16,7 +17,7 @@ import { ModalTomarFotoComponent } from '@modules/legajo/components/modal-tomar-
 })
 export class RegistrarEmpleadoComponent {
   @ViewChild(ModalTomarFotoComponent) modalTomarFoto?: any
-  constructor(private DatoGeneralesService$: DatoGeneralesService, private ReniecService$: ReniecService, private ExtranjeriaService$: ExtranjeriaService) {
+  constructor(private DatoGeneralesService$: DatoGeneralesService, private ReniecService$: ReniecService, private ExtranjeriaService$: ExtranjeriaService,private router:Router) {
     this.inicializarVariables()
     this.listarSelects()
     
@@ -621,6 +622,8 @@ agregarDocencia() {
          warningAlerta('Alerta',mensaje) 
       }else if((datos==1)){
         successAlerta('Éxito', mensaje);
+        this.router.navigate(['/legajo/informacion'])
+
       }else{
          errorAlerta('Error',mensaje)
       }
