@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Legajo\LegajoController;
+use App\Http\Controllers\Legajo\ReporteDatosController;
 use App\Http\Controllers\Legajo\SituacionLaboralController;
 use App\Http\Controllers\legajo\VerDatosController;
 use App\Http\Controllers\Service\ExtranjeriaController;
@@ -41,6 +42,7 @@ Route::controller(GeneralController::class)->group(function () {
 Route::controller(VerDatosController::class)->group(function () {
     Route::post('datos/datosEmpleado', 'listarTodosLosDatos');
     Route::get('datos/archivos', 'verArchivo');
+    Route::post('datos/guardarImagen', 'guardarImagen');
     Route::post('datos/generarPdf', 'listarTodosLosDatos');
 });
 Route::controller(SituacionLaboralController::class)->group(function () {
@@ -49,6 +51,9 @@ Route::controller(SituacionLaboralController::class)->group(function () {
     Route::post('situacion/actualizarSituacion', 'actualizarSituacion');
     Route::post('situacion/datosSituacionHistorial', 'listarSituacionLaboralHistorial');
     
+});
+Route::controller(ReporteDatosController::class)->group(function () {
+    Route::get('datos/generarPdf', 'generarPDF');
 });
 
 Route::controller(ReniecController::class)->group(function () {

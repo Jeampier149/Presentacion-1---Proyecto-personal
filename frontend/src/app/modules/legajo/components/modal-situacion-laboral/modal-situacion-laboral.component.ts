@@ -19,7 +19,7 @@ import { ModalDarTerminoComponent } from '../modal-dar-termino/modal-dar-termino
 })
 export class ModalSituacionLaboralComponent {
     loading: boolean = false;
-
+    nombre:any=''
     tipoEmpleado: any[] = [];
     tipoGrupo: any[] = [];
     regimen: any[] = [];
@@ -185,6 +185,7 @@ export class ModalSituacionLaboralComponent {
           this.valSituacionLaboral.enable();
         }
         this.idHistorial = datos.idHistorial;
+        this.nombre=datos.nombreC
     }
 
     listarTipoRegimen(id: any) {
@@ -211,7 +212,7 @@ export class ModalSituacionLaboralComponent {
     }
 
     darTermino(id: string) {
-        this.modalTermino?.openModal(id);
+        this.modalTermino?.openModal(id,this.nombre);
         this.modalSituacion.hide();
     }
     actualizar() {    

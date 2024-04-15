@@ -387,6 +387,7 @@ class LegajoModel extends Model
     public function editarEmpleado(
 
         array $datosPersonales,
+        array $datosSituacionLaboral,
         array $datosContacto,
         array $datosDiscapacidad,
         array $datosDomicilio,
@@ -430,27 +431,56 @@ class LegajoModel extends Model
 
             //Insertar datos de  contacto de emergencia
             try {
-                DB::statement('EXEC dbo.pl_sp_editar_datos_contacto_emergencia ?,?,?,?,?,?,?', [
-                    $datosContacto['nombreContacto'],
-                    $datosContacto['parentesco'],
-                    $datosContacto['numContacto'],
-                    $datosContacto['id'],
+                if(!empty($datosContacto)){
+                    DB::statement('EXEC dbo.pl_sp_editar_datos_contacto_emergencia ?,?,?,?,?,?,?,?', [
+                        $datosContacto['nombreContacto'],
+                        $datosContacto['parentesco'],
+                        $datosContacto['numContacto'],
+                        $numDocumento,
+                        $datosContacto['id']??'',
+                        $usuario,
+                        $equipo,
+                        $perfil
+    
+                    ]);
+                }
+              
+            } catch (\Exception $e) {
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_datos_contacto_emergencia: ' . $e->getMessage();
+            }
+
+            //editar situacion laboral
+            try {
+                   DB::statement('EXEC dbo.pl_sp_editar_situacion_laboral ?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                    $datosSituacionLaboral['condicion'],
+                    $datosSituacionLaboral['grupOcup'],
+                    $datosSituacionLaboral['regimen'],
+                    $datosSituacionLaboral['tipoRegimen'],
+                    $datosSituacionLaboral['unidad'],
+                    $datosSituacionLaboral['servicio'],
+                    $datosSituacionLaboral['cargo'],
+                    $datosSituacionLaboral['nivelCargo'],
+                    $datosSituacionLaboral['airhsp'],
+                    $datosSituacionLaboral['fechaIngreso'],
+                    $datosSituacionLaboral['id'],
                     $usuario,
                     $equipo,
                     $perfil
 
                 ]);
+
             } catch (\Exception $e) {
-                echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_datos_contacto_emergencia: ' . $e->getMessage();
+                echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_situacion_laboral: ' . $e->getMessage();
+
             }
 
             //insertar datso de discapacidad 
             //insertar datso de discapacidad 
 
 
-            //insertar datos domiclio
+            //editar datos domiclio
             try {
-
+          
                 DB::statement('EXEC dbo.pl_sp_editar_datos_direccion ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
                     $datosDomicilio['departamento'],
                     $datosDomicilio['provincia'],
@@ -466,7 +496,7 @@ class LegajoModel extends Model
                     $datosDomicilio['referencia'],
                     $datosDomicilio['ubigeo'],
                     $numDocumento,
-                    $datosDomicilio['id'],
+                    $datosDomicilio['id']??'',
                     $usuario,
                     $equipo,
                     $perfil
@@ -488,7 +518,7 @@ class LegajoModel extends Model
                         $familiar['centroLaboral'],
                         $numDocumento,
                         $familiar['estado'],
-                        $familiar['id'],
+                        $familiar['id']??'',
                         $usuario,
                         $equipo,
                         $perfil
@@ -499,7 +529,7 @@ class LegajoModel extends Model
             }
             //insertar datos profesion
             try {
-
+               if(!empty($datosProfesion)){
                 DB::statement('EXEC dbo.pl_sp_editar_datos_profesion ?,?,?,?,?,?,?,?,?,?', [
                     $datosProfesion['profesion'],
                     $datosProfesion['lugarColeg'],
@@ -507,11 +537,13 @@ class LegajoModel extends Model
                     $datosProfesion['fechTerColeg'],
                     $datosProfesion['numColeg'],
                     $numDocumento,
-                    $datosProfesion['id'],
+                    $datosProfesion['id']??'',
                     $usuario,
                     $equipo,
                     $perfil
                 ]);
+               }
+              
             } catch (\Exception $e) {
                 echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_datos_profesion: ' . $e->getMessage();
             }
@@ -529,7 +561,7 @@ class LegajoModel extends Model
                         $superior['ruta'],
                         $numDocumento,
                         $superior['estado'],
-                        $superior['id'],
+                        $superior['id']??'',
                         $usuario,
                         $equipo,
                         $perfil
@@ -553,7 +585,7 @@ class LegajoModel extends Model
                         $postgrado['ruta'],
                         $numDocumento,
                         $postgrado['estado'],
-                        $postgrado['id'],
+                        $postgrado['id']??'',
                         $usuario,
                         $equipo,
                         $perfil
@@ -576,7 +608,7 @@ class LegajoModel extends Model
                         $especialidad['ruta'],
                         $numDocumento,
                         $especialidad['estado'],
-                        $especialidad['id'],
+                        $especialidad['id']??'',
                         $usuario,
                         $equipo,
                         $perfil
@@ -600,7 +632,7 @@ class LegajoModel extends Model
                         $curso['ruta'],
                         $numDocumento,
                         $curso['estado'],
-                        $curso['id'],
+                        $curso['id']??'',
                         $usuario,
                         $equipo,
                         $perfil
@@ -620,7 +652,7 @@ class LegajoModel extends Model
                         $idioma['ruta'],
                         $numDocumento,
                         $idioma['estado'],
-                        $idioma['id'],
+                        $idioma['id']??'',
                         $usuario,
                         $equipo,
                         $perfil
@@ -641,7 +673,7 @@ class LegajoModel extends Model
                         $laboral['ruta'],
                         $numDocumento,
                         $laboral['estado'],
-                        $laboral['id'],
+                        $laboral['id']??'',
                         $usuario,
                         $equipo,
                         $perfil
@@ -663,7 +695,7 @@ class LegajoModel extends Model
                         $docencia['ruta'],
                         $numDocumento,
                         $docencia['estado'],
-                        $docencia['id'],
+                        $docencia['id']??'',
                         $usuario,
                         $equipo,
                         $perfil

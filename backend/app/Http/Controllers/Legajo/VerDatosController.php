@@ -13,7 +13,7 @@ class VerDatosController extends JSONResponseController
     {
         $numeroDoc = $request->post('pkEmpleado');
         $datos = new  verDatosModel();
-        
+
         $resultado = [];
 
         $resultado['datosEmpleado'] = $datos->listarDatosEmpleadoVer($numeroDoc);
@@ -34,7 +34,7 @@ class VerDatosController extends JSONResponseController
     }
 
     public function verArchivo(Request $request)
-    {    
+    {
         try {
             $ruta = $request->get('ruta');
             if (empty(trim($ruta))) {
@@ -47,5 +47,15 @@ class VerDatosController extends JSONResponseController
             return response()->json(['error' => 'Error al obtener el archivo desde FTP: ' . $e->getMessage()], 500);
         }
     }
-   
+    public function guardarImagen(Request $request)
+    {
+
+        if ($request->hasFile('imagen')) {
+            $imagen = $request->file('imagen');
+            $nombreImagen = $imagen->getClientOriginalName();
+            $destino= 'img/'.$nombreImagen.'.jpg';
+            Storage::disk('public')->put($destino,file_get_contents($imagen));
+            return response()->json(['mensaje' => 'Imagen guardada exitosamente']);
+        }
+    }
 }

@@ -215,7 +215,6 @@ class LegajoController extends JSONResponseController
             'nombreContacto' => 'string',
             'parentesco' => 'string',
             'numeroContacto' => 'string',
-            'id'=>'required'
         ];
 
         $validacionDatosContacto = Validator::make($datosContacto, $reglasDatosContacto);
@@ -226,11 +225,10 @@ class LegajoController extends JSONResponseController
 
         $datosDomicilio = json_decode($request->post('datosDomicilio'), true);
         $reglasDatosDomicilio = [
-            'departamento' => 'string|required',
+            'departamento' => 'string',
             'provincia' => 'string',
             'distrito' => 'string',
             'ubigeo' => 'string',
-            'id'=>'required'
         ];
 
         $validacionDatosDomicilio = Validator::make($datosDomicilio, $reglasDatosDomicilio);
@@ -239,6 +237,7 @@ class LegajoController extends JSONResponseController
         }
 
         $datosFamiliares = json_decode($request->post('datosFamiliares'), true);
+        $datosSituacionLaboral = json_decode($request->post('situacionLaboral'), true);
         $datosProfesion = json_decode($request->post('datosProfesion'), true);
         $datosEstudioSuperior = json_decode($request->post('datosEstudioSuperior'), true);
         $datosPostgrado = json_decode($request->post('datosPostgrado'), true);
@@ -269,6 +268,7 @@ class LegajoController extends JSONResponseController
         $legajoModel = new LegajoModel();
         $resultado = $legajoModel->editarEmpleado(
             $datosPersonales,
+            $datosSituacionLaboral,
             $datosContacto,
             $datosDiscapacidad,
             $datosDomicilio,

@@ -118,6 +118,7 @@ export class DatoGeneralesService {
     }
     editarDatosEmpleado(
         datosPersonales:any ,
+        situacionLaboral:any,
         datosContacto:any,
         datosDiscapacidad:any,
         datosDomicilio:any,
@@ -175,6 +176,7 @@ export class DatoGeneralesService {
             });
             // Aquí agregamos los datos al formData
             formData.append('datosPersonales', JSON.stringify(datosPersonales));
+            formData.append('situacionLaboral', JSON.stringify(situacionLaboral));
             formData.append('datosContacto', JSON.stringify(datosContacto));
             formData.append('datosDiscapacidad', JSON.stringify(datosDiscapacidad));
             formData.append('datosDomicilio', JSON.stringify(datosDomicilio));

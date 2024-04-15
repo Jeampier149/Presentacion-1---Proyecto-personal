@@ -13,7 +13,7 @@ export class ModalDarTerminoComponent {
   loading:boolean=false
   constructor(private  DatoSituacionService$: SituacionLaboralService){}
   @ViewChild('modalDarTermino') modalTermino!: any;
-
+  nombre:any=''
   fechaTermino:any
   motivo:any
   agregable: boolean = false;
@@ -24,16 +24,17 @@ export class ModalDarTerminoComponent {
         keyboard: false
     });
   }
-  openModal(idHistorial:string) {
+  openModal(idHistorial:string,nombre:string) {
     this.modalTermino.show(); 
-   this.idHistorial=idHistorial
+    this.idHistorial=idHistorial
+    this.nombre=nombre
   }
   closeModal() {
     this.modalTermino.hide();
     
   }
 
- registrarTermino(){
+ registrarTermino(){ 
   this.DatoSituacionService$.registrarTermino(this.idHistorial,this.motivo,this.fechaTermino)
   .pipe(
     finalize(() => {
@@ -41,10 +42,15 @@ export class ModalDarTerminoComponent {
     })
   )
   .subscribe(({ estado, mensaje, datos }) => {
-    if (estado) {
-       if(datos=='1'){
+    if (!estado && datos) {
+      errorAlertaValidacion(mensaje,datos);
+      return;}
+      
+    if (estado) {   
+      if(datos=='1'){
         successAlerta('Éxito', mensaje);
        }
+
     } else {
       errorAlerta('Error', mensaje).then();
     }

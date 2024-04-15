@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Respuesta\JSONResponseController;
 use App\Models\Legajo\SituacionLaboralModel;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Validator;
 class SituacionLaboralController  extends JSONResponseController
 {
     public function __construct()
@@ -33,6 +33,18 @@ class SituacionLaboralController  extends JSONResponseController
         $id=$request->post('idHistorial');
         $motivo=$request->post('motivo');
         $fechaTermino=$request->post('fechaTermino');
+        $validacion = Validator::make($request->only([
+            'fechaTermino'
+        ]), [
+            'fechaTermino' => 'required',
+           
+        ]);
+
+        if ($validacion->fails()) {
+            return $this->sendResponse(200, false, 'Error de validación', $validacion->errors());
+        }
+
+
         $situacion =new SituacionLaboralModel();
         $resultado=$situacion->registrarTermino($id,$motivo,$fechaTermino,$usuario,$equipo,$perfil);
     

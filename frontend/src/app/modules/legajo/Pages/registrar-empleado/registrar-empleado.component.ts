@@ -67,7 +67,7 @@ export class RegistrarEmpleadoComponent {
 
   //FOTO PERSONAL
   fotoPersonal:File []=[]
-  rutaFoto:string=""
+  rutaFoto:string="default/perfil.png"
   archivoDiscapacidad:File[]=[]
 
   //DEFAULT

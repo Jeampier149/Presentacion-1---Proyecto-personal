@@ -267,8 +267,160 @@
 
                                   
                                 </div> <!-- fin de datos genrales -->
+                           
+
+                              <!-- fin -->
                                 <div class="row w-100 d-block pe-0 me-0">
                                     <div class="accordion mt-4 px-0 mx-0" id="accordionPanelsStayOpenExample">
+
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="panelsStayOpen-headingfour">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapsefour" aria-expanded="false"
+                                                    aria-controls="panelsStayOpen-collapsefour">
+                                                    SITUACION LABORAL ACTUAL
+                                                </button>
+                                            </h2>
+                                            <div id="panelsStayOpen-collapsefour" class="accordion-collapse collapse "
+                                                aria-labelledby="panelsStayOpen-headingfour">
+                                                <div class="accordion-body text-muted">
+                                                    <div class="row mt-2">
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text d-personales ">
+                                                                    Condición
+                                                                </div>
+                                                                <select class="form-select form-select-sm"
+                                                                formControlName="condicion" >
+                                                                    <option value="" selected>Seleccionar</option>
+                                                                    <option *ngFor="let tipoE of tipoEmpleado"
+                                                                        value="{{tipoE.idTipo}}">{{tipoE.tipo}}</option>
+        
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text d-personales ">
+                                                                    G.Ocupacional</div>
+                                                                <select class="form-select form-select-sm"
+                                                                formControlName="grupOcup"  >
+                                                                    <option value="">Seleccionar</option>
+                                                                    <option *ngFor="let tipoG of tipoGrupo"
+                                                                        value="{{tipoG.id}}">{{tipoG.tipoG}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm "[formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text ">Regimen</div>
+                                                                <select class="form-select form-select-sm"  formControlName="regimen"
+                                                                    (change)="cambioTipo()" >
+                                                                    <option value="" selected>Seleccionar</option>
+                                                                    <option *ngFor="let regimen of regimen"
+                                                                        value="{{regimen.id}}">{{regimen.regimen}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm "[formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text ">T.Regimen</div>
+                                                                <select class="form-select form-select-sm"  formControlName="tipoRegimen"
+                                                                >
+                                                                    <option value="" selected>Seleccionar</option>
+                                                                    <option *ngFor="let tipoR of tipoRegimen"
+                                                                        value="{{tipoR.id}}">{{tipoR.tipoRegimen}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+        
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm "[formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text ">U.Organica/Dpto</div>
+                                                                <select class="form-select form-select-sm "  formControlName="unidad" >
+                                                                    <option value="" selected>
+                                                                        Seleccionar
+                                                                    </option>
+                                                                    <option *ngFor="
+                                                                            let unidad of unidadOrganica
+                                                                        " value="{{ unidad.id }}">
+                                                                        {{ unidad.unidad }}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm "[formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text ">Servicio/Equipo</div>
+                                                                <select class="form-select form-select-sm"   formControlName="servicio">
+                                                                    <option value="" selected>
+                                                                        Seleccionar
+                                                                    </option>
+                                                                    <option *ngFor="
+                                                                            let servicio of servicioE
+                                                                        " value="{{ servicio.id }}">
+                                                                        {{ servicio.servicio }}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm "[formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text ">Cargo</div>
+                                                                <ng-select    formControlName="cargo"
+                                                                        [items]="cargo"
+                                                                        bindLabel ="descripcion" 
+                                                                        bindValue ="codigo" 
+                                                                        class="d-block"
+                                                                        style="font-size: 0.8rem; height: auto; width: 75%;"> 
+                                                                 </ng-select >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm "[formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text ">Nivel</div>
+                                                                <ng-select     formControlName="nivelCargo"
+                                                                [items]="nivelCargo"
+                                                                bindLabel ="nivel" 
+                                                                bindValue ="nivel" 
+                                                                class="d-block"
+                                                                style="font-size: 0.8rem; height: auto; width: 50%;"> 
+                                                         </ng-select >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm "[formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text d-personales">
+                                                                    C. AIRSHP
+                                                                </div>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    aria-label="Small"
+                                                                    aria-describedby="inputGroup-sizing-sm"  formControlName="airhsp">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="input-group input-group-sm "[formGroup]="valSituacionLaboral">
+                                                                <div class="input-group-text d-personales">
+                                                                    F. Ingreso
+                                                                </div>
+                                                                <input type="date" class="form-control form-control-sm"
+                                                                    [(ngModel)]="fechaIngreso" aria-label="Small"
+                                                                    aria-describedby="inputGroup-sizing-sm"  formControlName="fechaIngreso">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
 
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="panelsStayOpen-headingOne">

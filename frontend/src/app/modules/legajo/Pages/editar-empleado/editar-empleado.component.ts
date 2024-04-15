@@ -143,6 +143,7 @@ export class EditarEmpleadoComponent implements OnInit {
     valContactoEmergencia!: FormGroup;
     valDatosDomicilio!: FormGroup;
     valDatosProfesion!: FormGroup;
+    valSituacionLaboral!:FormGroup;
 
     inicializarVariables() {
         this.valDatosPersonales = new FormGroup({
@@ -165,6 +166,19 @@ export class EditarEmpleadoComponent implements OnInit {
             estadoCivil: new FormControl(''),
             rutaFoto: new FormControl(''),
             enfAlergias: new FormControl(''),
+        });
+        this.valSituacionLaboral = new FormGroup({
+            id: new FormControl(''),
+            condicion: new FormControl(''),
+            grupOcup: new FormControl(''),
+            regimen: new FormControl(''),
+            tipoRegimen: new FormControl(''),
+            unidad: new FormControl(''),
+            servicio: new FormControl(''),
+            cargo: new FormControl(''),
+            nivelCargo: new FormControl(''),
+            airhsp: new FormControl(''),
+            fechaIngreso: new FormControl('')
         });
 
         this.valContactoEmergencia = new FormGroup({
@@ -254,6 +268,7 @@ export class EditarEmpleadoComponent implements OnInit {
                     return;
                 }
                 this.setDatosEmpleado(datos.datosEmpleado[0]);
+                this.setSituacionLaboral(datos.datosEmpleado[0]);
                 this.setDatosConctactoEmergencia(
                     datos.datosContactoEmergencia[0]
                 );
@@ -281,101 +296,124 @@ export class EditarEmpleadoComponent implements OnInit {
         }
     }
     setDatosEmpleado(datos: any) {
-        this.valDatosPersonales.controls['tipoDocumento'].setValue(
+       console.log(datos)
+        this.valDatosPersonales.controls['tipoDocumento']?.setValue(
             datos.tipoDocumento
         );
-        this.valDatosPersonales.controls['numDoc'].setValue(
+        this.valDatosPersonales.controls['numDoc']?.setValue(
             datos.numeroDocumento
         );
-        this.valDatosPersonales.controls['nacionalidad'].setValue(
+        this.valDatosPersonales.controls['nacionalidad']?.setValue(
             datos.nacionalidad
         );
-        this.valDatosPersonales.controls['aPaterno'].setValue(
+        this.valDatosPersonales.controls['aPaterno']?.setValue(
             datos.apellidoPaterno
         );
-        this.valDatosPersonales.controls['aMaterno'].setValue(
+        this.valDatosPersonales.controls['aMaterno']?.setValue(
             datos.apellidoMaterno
         );
-        this.valDatosPersonales.controls['nombres'].setValue(datos.nombre);
-        this.valDatosPersonales.controls['sexo'].setValue(datos.sexo);
-        this.valDatosPersonales.controls['ruc'].setValue(datos.ruc);
-        this.valDatosPersonales.controls['fechaNacimiento'].setValue(datos.fechaNacimiento);
-        this.valDatosPersonales.controls['telFijo'].setValue(datos.telFijo);
-        this.valDatosPersonales.controls['telMovil'].setValue(datos.telMovil);
-        this.valDatosPersonales.controls['correo'].setValue(datos.correo);
+        this.valDatosPersonales.controls['nombres'].setValue(datos?.nombre);
+        this.valDatosPersonales.controls['sexo'].setValue(datos?.sexo);
+        this.valDatosPersonales.controls['ruc'].setValue(datos?.ruc);
+        this.valDatosPersonales.controls['fechaNacimiento'].setValue(datos?.fechaNacimiento);
+        this.valDatosPersonales.controls['telFijo'].setValue(datos?.telFijo);
+        this.valDatosPersonales.controls['telMovil'].setValue(datos?.telMovil);
+        this.valDatosPersonales.controls['correo'].setValue(datos?.correo);
         this.valDatosPersonales.controls['grupoSanguineo'].setValue(
-            datos.grupSanguineo
+            datos?.grupSanguineo
         );
         this.valDatosPersonales.controls['enfAlergias'].setValue(
-            datos.enferAlergia
+            datos?.enferAlergia
         );
         this.valDatosPersonales.controls['estadoCivil'].setValue(
-            datos.estadoCivil
+            datos?.estadoCivil
         );
-        this.valDatosPersonales.controls['rutaFoto'].setValue(datos.rutaFoto);
-        this.listarFoto(datos.rutaFoto);
-    }
+        this.valDatosPersonales.controls['rutaFoto'].setValue(datos?.rutaFoto);
+        this.listarFoto(datos?.rutaFoto);
 
+
+    }
+ 
+
+    setSituacionLaboral(datos:any){
+        this.valSituacionLaboral.controls['id'].setValue(datos?.idHistorial); 
+        this.valSituacionLaboral.controls['condicion'].setValue(datos?.idCondicion); 
+        this.valSituacionLaboral.controls['grupOcup'].setValue(datos?.idGrupO); 
+        this.valSituacionLaboral.controls['regimen'].setValue(datos?.idRegimen); 
+        this.listarTipoRegimen(datos?.idRegimen)
+        this.valSituacionLaboral.controls['tipoRegimen'].setValue(datos?.idTipoRegimen); 
+        this.valSituacionLaboral.controls['unidad'].setValue(datos?.idUnidadOrganica); 
+        this.valSituacionLaboral.controls['servicio'].setValue(datos?.idServicio); 
+        this.valSituacionLaboral.controls['cargo'].setValue(datos?.idCargo); 
+        this.valSituacionLaboral.controls['nivelCargo'].setValue(datos?.nivel); 
+        this.valSituacionLaboral.controls['airhsp'].setValue(datos?.codigoAirhsp); 
+        this.valSituacionLaboral.controls['fechaIngreso'].setValue(datos?.fechaIngreso); 
+
+
+    }
     setDatosConctactoEmergencia(datos: any) {
-        this.valContactoEmergencia.controls['nombreContacto'].setValue(
-            datos.nombre
-        );
-        this.valContactoEmergencia.controls['parentesco'].setValue(
-            datos.parentesco
-        );
-        this.valContactoEmergencia.controls['numContacto'].setValue(
-            datos.telefono
-        );
-        this.valContactoEmergencia.controls['id'].setValue(datos.id);
+
+            this.valContactoEmergencia.controls['nombreContacto'].setValue(
+                datos?.nombre
+            );
+            this.valContactoEmergencia.controls['parentesco'].setValue(
+                datos?.parentesco
+            );
+            this.valContactoEmergencia.controls['numContacto'].setValue(
+                datos?.telefono
+            );
+            this.valContactoEmergencia.controls['id'].setValue(datos?.id);
+        
+        
     }
     setDatosDomicilio(datos: any) {
         this.valDatosDomicilio.controls['departamento'].setValue(
-            datos.departamento
+            datos?.departamento
         );
-        this.valDatosDomicilio.controls['provincia'].setValue(datos.provincia);
-        this.valDatosDomicilio.controls['distrito'].setValue(datos.distrito);
-        this.valDatosDomicilio.controls['via'].setValue(datos.tipoVia);
-        this.valDatosDomicilio.controls['nombreVia'].setValue(datos.nombreVia);
-        this.valDatosDomicilio.controls['numeroVia'].setValue(datos.numeroVia);
+        this.valDatosDomicilio.controls['provincia'].setValue(datos?.provincia);
+        this.valDatosDomicilio.controls['distrito'].setValue(datos?.distrito);
+        this.valDatosDomicilio.controls['via'].setValue(datos?.tipoVia);
+        this.valDatosDomicilio.controls['nombreVia'].setValue(datos?.nombreVia);
+        this.valDatosDomicilio.controls['numeroVia'].setValue(datos?.numeroVia);
         this.valDatosDomicilio.controls['interiorVia'].setValue(
-            datos.interiorVia
+            datos?.interiorVia
         );
-        this.valDatosDomicilio.controls['zona'].setValue(datos.tipoZona);
+        this.valDatosDomicilio.controls['zona'].setValue(datos?.tipoZona);
         this.valDatosDomicilio.controls['nombreZona'].setValue(
-            datos.nombreZona
+            datos?.nombreZona
         );
         this.valDatosDomicilio.controls['numeroZona'].setValue(
-            datos.numeroZona
+            datos?.numeroZona
         );
         this.valDatosDomicilio.controls['interiorZona'].setValue(
-            datos.interiorZona
+            datos?.interiorZona
         );
         this.valDatosDomicilio.controls['referencia'].setValue(
-            datos.referencia
+            datos?.referencia
         );
-        this.valDatosDomicilio.controls['ubigeo'].setValue(datos.ubigeo);
-        this.valDatosDomicilio.controls['id'].setValue(datos.id);
+        this.valDatosDomicilio.controls['ubigeo'].setValue(datos?.ubigeo);
+        this.valDatosDomicilio.controls['id'].setValue(datos?.id);
     }
     setDatosProfesion(datos: any) {
-        this.valDatosProfesion.controls['profesion'].setValue(datos.profesion);
+        this.valDatosProfesion.controls['profesion'].setValue(datos?.profesion);
         this.valDatosProfesion.controls['fechColeg'].setValue(
-            datos.fechaInicio
+            datos?.fechaInicio
         );
         this.valDatosProfesion.controls['fechTerColeg'].setValue(
-            datos.fechaTermino
+            datos?.fechaTermino
         );
-        this.valDatosProfesion.controls['lugarColeg'].setValue(datos.lugar);
-        this.valDatosProfesion.controls['numColeg'].setValue(datos.numeroCole);
-        this.valDatosProfesion.controls['id'].setValue(datos.id);
+        this.valDatosProfesion.controls['lugarColeg'].setValue(datos?.lugar);
+        this.valDatosProfesion.controls['numColeg'].setValue(datos?.numeroCole);
+        this.valDatosProfesion.controls['id'].setValue(datos?.id);
     }
 
     setDatosFamiliar(datos: any, index: number) {
-        this.familiares[index].nombre = datos.nombres;
+        this.familiares[index].nombre = datos?.nombres;
         this.familiares[
             index
-        ].apellidos = `${datos.apellidoPaterno} ${datos.apellidoMaterno} `;
+        ].apellidos = `${datos.apellidoPaterno} ${datos?.apellidoMaterno} `;
         this.familiares[index].fechaNacimiento = this.obtenerFechaNacimiento(
-            datos.fechaNacimiento
+            datos?.fechaNacimiento
         );
     }
 
@@ -679,7 +717,7 @@ export class EditarEmpleadoComponent implements OnInit {
     }
 
     cambioTipo() {
-        let id = this.valDatosPersonales.controls['valorRegimen'].value;
+        let id = this.valSituacionLaboral.controls['regimen'].value;
         if (id.length > 0) {
             this.listarTipoRegimen(id);
         } else {
@@ -727,7 +765,9 @@ export class EditarEmpleadoComponent implements OnInit {
     }
 
     actualizarEmpleado() {
+        this.loading=true
         const datosDomicilio = this.valDatosDomicilio.getRawValue();
+        const situacionLaboral=this.valSituacionLaboral.value
         const datosFamiliares = this.familiares;
         const datosEstudioSuperior = this.estudioSuperior;
         const datosProfesion = this.valDatosProfesion.value;
@@ -748,6 +788,7 @@ export class EditarEmpleadoComponent implements OnInit {
 
         this.DatoGeneralesService$.editarDatosEmpleado(
             datosPersonales,
+            situacionLaboral,
             datosContacto,
             datosDiscapacidad,
             datosDomicilio,

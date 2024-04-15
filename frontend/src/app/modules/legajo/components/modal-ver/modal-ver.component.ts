@@ -87,10 +87,10 @@ export class ModalVerComponent {
     fechaIngreso: string = '';
 
     archivoUrl: any;
-    archEmb:any
+    imagenPdf:any
     fotoP: any;
-    
-
+    rutaF:any;
+  
     @ViewChild('selFocus') selFocus!: ElementRef;
     @ViewChild('modalDatos') modalEl!: any;
     @ViewChild(ModalVerArchivoComponent) modalFrame?: ModalVerArchivoComponent;
@@ -131,85 +131,88 @@ export class ModalVerComponent {
                   return;
               }
               this.setDatosEmpleado(datos.datosEmpleado[0])
-              this.setDatosConctactoEmergencia(datos.datosContactoEmergencia[0])
-              this.setDatosDomicilio(datos.datosDomicilio[0])
-              this.setDatosProfesion(datos.datosProfesion[0])
-              this.familiares=datos.datosFamiliares;
-              this.estudioSuperior=datos.datosEstudioSuperior
-              this.especializacion=datos.datosEstudioEspecializacion
-              this.estudioPostgrado=datos.datosEstudioPostgrado
-              this.cursos=datos.datosEstudioCursos
+              this.setDatosConctactoEmergencia(datos?.datosContactoEmergencia[0])
+              this.setDatosDomicilio(datos?.datosDomicilio[0])
+              this.setDatosProfesion(datos?.datosProfesion[0])
+              this.familiares=datos?.datosFamiliares;
+              this.estudioSuperior=datos?.datosEstudioSuperior
+              this.especializacion=datos?.datosEstudioEspecializacion
+              this.estudioPostgrado=datos?.datosEstudioPostgrado
+              this.cursos=datos?.datosEstudioCursos
               this.idiomas=datos.datosEstudioIdioma
-              this.tipoDiscapacidad=datos.datosDiscapacidad
-              this.experienciaLaboral=datos.datosExperienciaLaboral
-              this.laborDocencia=datos.datosExperienciaDocencia
+              this.tipoDiscapacidad=datos?.datosDiscapacidad
+              this.experienciaLaboral=datos?.datosExperienciaLaboral
+              this.laborDocencia=datos?.datosExperienciaDocencia
           });
     }
  
     listarFoto(ruta: any) {
         this.fotoP = '';
-        if (ruta !== '') {
-            this.descargarArchivo(ruta);
-            console.log(this.fotoP)
-            console.log('no hay ruta');
-        }
-    }
+        if (ruta =='default/perfil.png') {
+            this.fotoP="./assets/perfil.png"
+        }  
 
+        this.descargarArchivo(ruta);
+        
+    }
+  
     setDatosEmpleado(datos: any) {
-        this.tipoDoc = datos.tipoDocumento;
-        this.numeroDocumento = datos.numeroDocumento;
-        this.nacionalidad = datos.nacionalidad;
-        this.aPaterno = datos.apellidoPaterno;
-        this.aMaterno = datos.apellidoMaterno;
-        this.nombres = datos.nombre;
-        this.sexo = datos.sexo;
-        this.ruc = datos.ruc;
-        this.fNacimiento = datos.fechaNacimiento;
-        this.tFijo = datos.telFijo;
-        this.tMovil = datos.telMovil;
-        this.correoE = datos.correo;
-        this.gSanguineo = datos.grupSanguineo;
-        this.enfAlergias = datos.enferAlergia;
-        this.estadoCivil = datos.estadoCivil;
-        this.tipoEmp = datos.condicion;
-        this.grupOcup = datos.grupOcupacional;
-        this.valorRegimen = datos.regimen;
-        this.valortipRegimen = datos.tipoRegimen;
-        this.valorUnidad = datos.unidadOrganica;
-        this.valorServicio = datos.servicio;
-        this.valorCargo = datos.cargo;
-        this.valorNivel = datos.nivel;
-        this.codigoAirhsp = datos.codigoAirhsp;
-        this.fechaIngreso = datos.fechaIngreso;
-        this.estado = datos.estado;
-        this.listarFoto(datos.rutaFoto);
+        this.tipoDoc = datos?.tipoDocumento;
+        this.numeroDocumento = datos?.numeroDocumento;
+        this.nacionalidad = datos?.nacionalidad;
+        this.aPaterno = datos?.apellidoPaterno;
+        this.aMaterno = datos?.apellidoMaterno;
+        this.nombres = datos?.nombre;
+        this.sexo = datos?.sexo;
+        this.ruc = datos?.ruc;
+        this.fNacimiento = datos?.fechaNacimiento;
+        this.tFijo = datos?.telFijo;
+        this.tMovil = datos?.telMovil;
+        this.correoE = datos?.correo;
+        this.gSanguineo = datos?.grupSanguineo;
+        this.enfAlergias = datos?.enferAlergia;
+        this.estadoCivil = datos?.estadoCivil;
+        this.tipoEmp = datos?.condicion;
+        this.grupOcup = datos?.grupOcupacional;
+        this.valorRegimen = datos?.regimen;
+        this.valortipRegimen = datos?.tipoRegimen;
+        this.valorUnidad = datos?.unidadOrganica;
+        this.valorServicio = datos?.servicio;
+        this.valorCargo = datos?.cargo;
+        this.valorNivel = datos?.nivel;
+        this.codigoAirhsp = datos?.codigoAirhsp;
+        this.fechaIngreso = datos?.fechaIngreso;
+        this.estado = datos?.estado;
+        this.rutaF=datos?.rutaFoto
+
+        this.listarFoto(datos?.rutaFoto);
     }
 
     setDatosConctactoEmergencia(datos: any) {
-        this.nombreContacto = datos.nombre;
-        this.parentesco = datos.parentesco;
-        this.numContacto = datos.telefono;
+        this.nombreContacto = datos?.nombre;
+        this.parentesco = datos?.parentesco;
+        this.numContacto = datos?.telefono;
     }
     setDatosDomicilio(datos: any) {
-        this.departamento = datos.departamento;
-        this.provincia = datos.provincia;
-        this.distrito = datos.distrito;
-        this.via = datos.tipoVia;
-        this.nombreVia = datos.nombreVia;
-        this.numeroVia = datos.numeroVia;
-        this.interiorVia = datos.interiorVia;
-        this.zona = datos.tipoZona;
-        this.nombreZona = datos.nombreZona;
-        this.numeroZona = datos.numeroZona;
-        this.interiorZona = datos.interiorZona;
-        this.referenciaDomicilio = datos.referencia;
+        this.departamento = datos?.departamento;
+        this.provincia = datos?.provincia;
+        this.distrito = datos?.distrito;
+        this.via = datos?.tipoVia;
+        this.nombreVia = datos?.nombreVia;
+        this.numeroVia = datos?.numeroVia;
+        this.interiorVia = datos?.interiorVia;
+        this.zona = datos?.tipoZona;
+        this.nombreZona = datos?.nombreZona;
+        this.numeroZona = datos?.numeroZona;
+        this.interiorZona = datos?.interiorZona;
+        this.referenciaDomicilio = datos?.referencia;
     }
     setDatosProfesion(datos: any) {
-        this.profesion = datos.profesion;
-        this.fechColeg = datos.fechaInicio;
-        this.lugarColeg = datos.lugar;
-        this.fechTerColeg = datos.fechaTermino;
-        this.numColeg = datos.numeroCole;
+        this.profesion = datos?.profesion;
+        this.fechColeg = datos?.fechaInicio;
+        this.lugarColeg = datos?.lugar;
+        this.fechTerColeg = datos?.fechaTermino;
+        this.numColeg = datos?.numeroCole;
     }
 
     descargarArchivo(ruta: string, tipo?: string) {
@@ -221,6 +224,7 @@ export class ModalVerComponent {
                 })
             )
             .subscribe((data) => {
+                this.imagenPdf=data
                 this.archivoUrl = URL.createObjectURL(data);
                 switch (tipo) {
                     case 'descargar':
@@ -249,17 +253,36 @@ export class ModalVerComponent {
 
     mostrarArchivoEnFotoP() {
         this.fotoP = this.sanitizer.bypassSecurityTrustResourceUrl( this.archivoUrl );
+
     }
 
     generarReporte(){
-        this.ModalDatosService$.generarPdf(this.numeroDocumento)
+        this.guardarImagen(this.imagenPdf);
+        this.ModalDatosService$.generarPdf(this.numeroDocumento,this.fotoP)
             .pipe(
                 finalize(() => {
                   this.loading = false;
                 })
             )
-            .subscribe((data) => {
-               
+            .subscribe((response:Blob) => {
+                const file = new Blob([response], { type: 'application/pdf' });
+                const fileURL = URL.createObjectURL(file);
+                 window.open(fileURL); 
             });
     }
+    guardarImagen(imagen:any){
+        console.log(imagen)
+        const formData = new FormData();
+        formData.append('imagen',imagen,this.numeroDocumento);
+        this.ModalDatosService$.guardarImagen(formData)
+            .pipe(
+                finalize(() => {
+                  this.loading = false;
+                })
+            ) 
+            .subscribe((response:any) => {
+               console.log(response)
+            });            
+    }
+
 }
