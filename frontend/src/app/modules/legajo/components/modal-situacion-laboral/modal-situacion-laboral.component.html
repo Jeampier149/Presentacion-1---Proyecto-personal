@@ -34,7 +34,14 @@
                                             </div>
                                     
                                     </div>
-
+                                    <div class="row w-100 p-0 my-2 mx-0">
+                                        <div class="input-group input-group-sm " [formGroup]="valDatos">
+                                            <div class="input-group-text ">Apellidos y Nombres</div>
+                                            <input type="text" class="form-control form-control-sm"
+                                                aria-label="Small" formControlName="nombre"
+                                                aria-describedby="inputGroup-sizing-sm">
+                                        </div>      
+                                    </div>
                                     <div class="card border my-2 mx-0 px-0">
                                         <div class="card-header bg-transparent p-2">
                                             <h6 class="my-0 b-900">
@@ -63,7 +70,7 @@
                                                     </div>
                                                     <div class="col-xl-4 mb-1">
                                                         <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
-                                                            <div class="input-group-text d-personales ancho">
+                                                            <div class="input-group-text ancho rsp">
                                                                 G.Ocupacional
                                                             </div>
                                                             <select class="form-select form-select-sm" formControlName="grupOcup">
@@ -80,7 +87,7 @@
                                                     </div>
                                                     <div class="col-xl-5 mb-1">
                                                         <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
-                                                            <div class="input-group-text ancho">
+                                                            <div class="input-group-text ancho rspp">
                                                                 U.Organica/Dpto
                                                             </div>
                                                             <select class="form-select form-select-sm " formControlName="valorUnidad">
@@ -118,7 +125,7 @@
                                                     </div>
                                                     <div class="col-xl-4 mb-1">
                                                         <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
-                                                            <div class="input-group-text ancho">
+                                                            <div class="input-group-text ancho rsp">
                                                                 T.Regimen
                                                             </div>
                                                             <select class="form-select form-select-sm"
@@ -136,7 +143,7 @@
                                                     </div>
                                                     <div class="col-xl-5 mb-1">
                                                         <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
-                                                            <div class="input-group-text ancho">
+                                                            <div class="input-group-text ancho rspp">
                                                                 Servicio
                                                             </div>
                                                             <select class="form-select form-select-sm" formControlName="valorServicio">
@@ -165,7 +172,7 @@
                                                     </div>
                                                     <div class="col-xl-4 mb-1">
                                                         <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
-                                                            <div class="input-group-text d-personales ancho">
+                                                            <div class="input-group-text d-personales ancho rsp">
                                                                 F. Ingreso
                                                             </div>
                                                             <input type="date" class="form-control form-control-sm"
@@ -173,23 +180,23 @@
                                                                 aria-describedby="inputGroup-sizing-sm" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-3 mb-1">
+                                                    <div class="col-xl-5 mb-1">
                                                         <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
-                                                            <div class="input-group-text ancho">
+                                                            <div class="input-group-text ancho rspp">
                                                                 Cargo
                                                             </div>
                                                             <ng-select formControlName="valorCargo" [items]="cargo"
                                                                 bindLabel="descripcion" bindValue="codigo" class="d-block" style="
                                                                     font-size: 0.8rem;
                                                                     height: auto;
-                                                                    width: 75%;
+                                                                    width: 74%;
                                                                 ">
                                                             </ng-select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-2 mb-1">
+                                                    <div class="col-xl-4 mb-1">
                                                         <div class="input-group input-group-sm " [formGroup]="valSituacionLaboral">
-                                                            <div class="input-group-text ancho">
+                                                            <div class="input-group-text ancho d-personales">
                                                                 Nivel
                                                             </div>
                                                             <ng-select formControlName="valorNivel" [items]="nivelCargo"
@@ -270,6 +277,11 @@
                             Salir &ensp;
                             <i class="fas fa-door-open label-icon"></i>
                         </button>
+                        <button class="btn btn-primary waves-light waves-effect btn-label m-1" type="button"
+                        (click)="generarReporteHistorial()">
+                         Imprimir &ensp;
+                        <i class="fas fa-print label-icon"></i>
+                    </button>
                     </div>
                 </div>
             </div>

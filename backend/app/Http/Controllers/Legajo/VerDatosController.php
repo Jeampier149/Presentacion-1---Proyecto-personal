@@ -58,4 +58,15 @@ class VerDatosController extends JSONResponseController
             return response()->json(['mensaje' => 'Imagen guardada exitosamente']);
         }
     }
+    public function eliminarImagen(Request $request)
+    {
+
+        if ($request->post('numDoc')) {
+            $imagen = $request->post('numDoc');
+            $nombreImagen = $imagen.'.jpg';
+            $destino= 'img/'.$nombreImagen;
+            Storage::disk('public')->delete($destino);
+            return response()->json(['mensaje' => 'Imagen eliminada exitosamente']);
+        }
+    }
 }

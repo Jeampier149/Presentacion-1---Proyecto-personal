@@ -43,7 +43,7 @@ Route::controller(VerDatosController::class)->group(function () {
     Route::post('datos/datosEmpleado', 'listarTodosLosDatos');
     Route::get('datos/archivos', 'verArchivo');
     Route::post('datos/guardarImagen', 'guardarImagen');
-    Route::post('datos/generarPdf', 'listarTodosLosDatos');
+    Route::post('datos/eliminarImagen', 'eliminarImagen');
 });
 Route::controller(SituacionLaboralController::class)->group(function () {
     Route::post('situacion/datosSituacion', 'listarSituacionLaboral');
@@ -54,6 +54,7 @@ Route::controller(SituacionLaboralController::class)->group(function () {
 });
 Route::controller(ReporteDatosController::class)->group(function () {
     Route::get('datos/generarPdf', 'generarPDF');
+    Route::get('situacion/generarPdfHistorial', 'generarHistorialPDF');
 });
 
 Route::controller(ReniecController::class)->group(function () {

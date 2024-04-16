@@ -37,6 +37,7 @@ export class ModalSituacionLaboralComponent {
     @ViewChild(ModalDarTerminoComponent)
     modalTermino?: ModalDarTerminoComponent;
     valSituacionLaboral!: FormGroup;
+    valDatos!: FormGroup;
 
     constructor(
         private DatoGeneralesService$: DatoGeneralesService,
@@ -76,7 +77,12 @@ export class ModalSituacionLaboralComponent {
             valorEstado: new FormControl(''),
             motivo: new FormControl(''),
             tipoEmp: new FormControl(''),
+           
         });
+        this.valDatos=new FormGroup({
+            nombre:new FormControl({ value: '', disabled: true }),
+        })
+
     }
 
     listarSituacion(numDoc: string) {
@@ -151,39 +157,25 @@ export class ModalSituacionLaboralComponent {
     }
 
     setDatosSituacion(datos: any) {
-        this.valSituacionLaboral.controls['tipoEmp'].setValue(
-            datos.idCondicion
-        );
+        this.valSituacionLaboral.controls['tipoEmp'].setValue( datos.idCondicion );
         this.valSituacionLaboral.controls['grupOcup'].setValue(datos.idGrupO);
-        this.valSituacionLaboral.controls['valorRegimen'].setValue(
-            datos.idRegimen
-        );
+        this.valSituacionLaboral.controls['valorRegimen'].setValue(datos.idRegimen );
         this.listarTipoRegimen(datos.idRegimen);
-        this.valSituacionLaboral.controls['valorTipRegimen'].setValue(
-            datos.idTipoRegimen
-        );
+        this.valSituacionLaboral.controls['valorTipRegimen'].setValue( datos.idTipoRegimen);
         this.valSituacionLaboral.controls['valorCargo'].setValue(datos.idCargo);
         this.valSituacionLaboral.controls['valorNivel'].setValue(datos.nivel);
-        this.valSituacionLaboral.controls['valorUnidad'].setValue(
-            datos.idUnidadOrganica
-        );
-        this.valSituacionLaboral.controls['valorServicio'].setValue(
-            datos.idServicio
-        );
+        this.valSituacionLaboral.controls['valorUnidad'].setValue(datos.idUnidadOrganica);
+        this.valSituacionLaboral.controls['valorServicio'].setValue(datos.idServicio);
         this.valSituacionLaboral.controls['valorEstado'].setValue(datos.estado);
-        this.valSituacionLaboral.controls['codigoAirhsp'].setValue(
-            datos.codigoAirhsp
-        );
-        this.valSituacionLaboral.controls['fechaIngreso'].setValue(
-            datos.fechaIngreso
-        );
+        this.valSituacionLaboral.controls['codigoAirhsp'].setValue( datos.codigoAirhsp);
+        this.valSituacionLaboral.controls['fechaIngreso'].setValue(datos.fechaIngreso);
         this.idHistorial = datos.idHistorial;
-
         if (  this.valSituacionLaboral.controls['valorEstado'].value == 'ACTIVO' ) {
             this.valSituacionLaboral.disable();
-        }{
-          this.valSituacionLaboral.enable();
-        }
+        } else {
+          this.valSituacionLaboral.enable(); }
+
+        this.valDatos.controls['nombre'].setValue( datos.nombreC);
         this.idHistorial = datos.idHistorial;
         this.nombre=datos.nombreC
     }
@@ -245,6 +237,19 @@ export class ModalSituacionLaboralComponent {
                 } else {
                     errorAlerta('Error', mensaje).then();
                 }
+            });
+    }
+    generarReporteHistorial(){
+        this.DatoSituacionService$.generarPdf(this.numeroDocumento)
+            .pipe(
+                finalize(() => {
+                  this.loading = false;
+                })
+            )
+            .subscribe((response:Blob) => {
+                const file = new Blob([response], { type: 'application/pdf' });
+                const fileURL = URL.createObjectURL(file);
+                 window.open(fileURL); 
             });
     }
 }

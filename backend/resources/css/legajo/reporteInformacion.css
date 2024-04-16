@@ -16,7 +16,13 @@ th, td {
     text-align: center;
     text-transform: uppercase;
 }
-
+thead tr td{
+    font-weight: bold;
+}
+P{
+    font-size: 10px;
+    
+}
 .pegantina{
     width: 60%;
     height: 35px;

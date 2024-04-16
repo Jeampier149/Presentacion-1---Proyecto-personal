@@ -14,6 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalDatosService } from '@services/legajo/modal-datos.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModalTomarFotoComponent } from '@modules/legajo/components/modal-tomar-foto/modal-tomar-foto.component';
+import { reniecClass } from '@classes/servicios/reniec.class';
+import { MigracionesClass } from '@classes/servicios/migraciones.class';
 @Component({
     selector: 'app-editar-empleado',
     templateUrl: './editar-empleado.component.html',
@@ -153,19 +155,19 @@ export class EditarEmpleadoComponent implements OnInit {
             aPaterno: new FormControl({ value: '', disabled: true }),
             aMaterno: new FormControl({ value: '', disabled: true }),
             nombres: new FormControl({ value: '', disabled: true }),
-            sexo: new FormControl({ value: '', disabled: true }),
+            sexo: new FormControl(''),
             ruc: new FormControl('', [
                 Validators.required,
                 Validators.pattern('[0-9]{11}'),
             ]),
-            fechaNacimiento: new FormControl({ value: '', disabled: true }),
+            fechaNacimiento: new FormControl(''),
             telFijo: new FormControl('', [Validators.pattern('^[0-9]*$')]),
             telMovil: new FormControl('', [Validators.pattern('^[0-9]*$')]),
             correo: new FormControl('', { validators: Validators.email }),
-            grupoSanguineo: new FormControl({ value: '', disabled: true }),
+            grupoSanguineo: new FormControl(''),
             estadoCivil: new FormControl(''),
             rutaFoto: new FormControl(''),
-            enfAlergias: new FormControl(''),
+            enfAlergias: new FormControl('')
         });
         this.valSituacionLaboral = new FormGroup({
             id: new FormControl(''),
@@ -215,6 +217,76 @@ export class EditarEmpleadoComponent implements OnInit {
         });
     }
 
+    buscarDocumento(documento:string,index?:number) {
+        console.log(documento)
+        let tipoDocumento = this.valDatosPersonales.get('tipoDocumento')?.value;
+        this.loading = true;
+        this.mensajeLoading = 'Buscando Documento...';
+        if (tipoDocumento === '1') {
+          this.mensajeLoading = 'Buscando en RENIEC...';
+          this.ReniecService$.buscarDni(documento)
+            .pipe((
+              finalize(() => {
+                this.loading = false;
+                this.mensajeLoading = 'Cargando...';
+              }))
+            )
+            .subscribe(({ estado, datos }) => {
+    
+              if (estado && datos ) {
+                if(index == undefined){
+                    this.setDatosRENIEC(datos)
+                }else{
+                    this.setDatosFamiliar(datos,index)
+                }
+             
+              }
+            })
+        } else if (tipoDocumento === '2') {
+          this.mensajeLoading = 'Buscando en MIGRACIONES...';
+          this.ExtranjeriaService$. buscarMigraciones(documento)
+            .pipe((
+              finalize(() => {
+                this.loading = false;
+                this.mensajeLoading = 'Cargando...';
+              }))
+            )
+            .subscribe(({ estado, datos }) => {
+    
+              if (estado && datos) {
+                this.setDatosMigraciones(datos);
+              }
+            })
+        } else {
+         this.loading = false;
+          errorAlerta('Error', 'No se dispone del servicio en estos momentos.').then();
+        }
+      }
+      setDatosRENIEC(datos: reniecClass) {
+   
+        this.ubigeo=datos.obtenerUbigeo()
+
+        this.valDatosPersonales.controls['aPaterno']?.setValue(
+            datos.apellidoPaterno
+        );
+        this.valDatosPersonales.controls['aMaterno']?.setValue(
+            datos.apellidoMaterno
+        );
+        this.valDatosPersonales.controls['nombres'].setValue(datos?.nombres);
+        this.valDatosPersonales.controls['sexo'].setValue(datos?.obtenerSexo());
+        this.valDatosPersonales.controls['fechaNacimiento'].setValue(datos?.obtenerFechaNacimiento());
+      }
+
+      setDatosMigraciones(datos:MigracionesClass) {
+        this.valDatosPersonales.controls['aPaterno']?.setValue(
+            datos.apellidoPaterno
+        );
+        this.valDatosPersonales.controls['aMaterno']?.setValue(
+            datos.apellidoMaterno
+        );
+      
+        this.valDatosPersonales.controls['nombres'].setValue(datos?.nombres);
+      }
     buscarDocumentoFamiliar(documento: string, index: number, tipoD: string) {
         this.loading = true;
         this.mensajeLoading = 'Buscando Documento...';

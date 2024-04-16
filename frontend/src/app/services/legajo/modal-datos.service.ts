@@ -46,4 +46,13 @@ export class ModalDatosService {
         return this.http
         .post<HttpResponseApi>( '/api/datos/guardarImagen',formData, { responseType: 'json' }  )
     }
+     eliminarImagen(numDoc:any){
+        return this.http
+        .post<HttpResponseApi>(
+            '/api/datos/eliminarImagen',
+            { numDoc },
+            { responseType: 'json' }
+        )
+        .pipe(shareReplay(1));
+     }
 }

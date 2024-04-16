@@ -265,9 +265,14 @@ export class ModalVerComponent {
                 })
             )
             .subscribe((response:Blob) => {
-                const file = new Blob([response], { type: 'application/pdf' });
-                const fileURL = URL.createObjectURL(file);
-                 window.open(fileURL); 
+            const fileURL = URL.createObjectURL(response);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = fileURL;
+            downloadLink.download =this.numeroDocumento;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+
+             this.eliminarImagen(this.numeroDocumento)
             });
     }
     guardarImagen(imagen:any){
@@ -283,6 +288,17 @@ export class ModalVerComponent {
             .subscribe((response:any) => {
                console.log(response)
             });            
+    }
+    eliminarImagen(numDoc:any){
+        this.ModalDatosService$.eliminarImagen(numDoc)
+            .pipe(
+                finalize(() => {
+                  this.loading = false;
+                })
+            ) 
+            .subscribe((response:any) => {
+               console.log(response)
+            });     
     }
 
 }

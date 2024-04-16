@@ -236,6 +236,7 @@ rutaDiscapacidad:string=""
           }
         })
     } else {
+      this.loading = false;
       errorAlerta('Error', 'No se dispone del servicio en estos momentos.').then();
     }
   }
@@ -273,6 +274,7 @@ rutaDiscapacidad:string=""
           }
         })
     } else {
+      this.loading = false;
       errorAlerta('Error', 'No se dispone del servicio en estos momentos.').then();
     }
   }

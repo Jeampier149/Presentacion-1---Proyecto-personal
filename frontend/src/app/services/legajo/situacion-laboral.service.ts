@@ -57,4 +57,14 @@ export class SituacionLaboralService {
             )
             .pipe(shareReplay(1));
     }
+    generarPdf(nroDoc:string){
+        return this.http
+        .get('/api/situacion/generarPdfHistorial', {
+            params: {
+               nroDoc
+            },
+            responseType: 'blob',
+        })
+        .pipe(shareReplay(1));
+    }
 }

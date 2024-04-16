@@ -28,8 +28,13 @@
                                                         <input type="text" class="form-control form-control-sm"
                                                             aria-label="dni" formControlName="numDoc" maxlength="10"
                                                             aria-describedby="dni">
-    
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary btn-primary btn-sm"
+                                                                    type="button" (click)=" buscarDocumento(valDatosPersonales.controls['numDoc'].value)" ><i
+                                                                        class="fa-solid fa-magnifying-glass"></i></button>
+                                                            </div>
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -107,11 +112,13 @@
                                                         <div class="input-group input-group-sm "[formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Sexo
                                                             </div>
-                                                            <input type="text"
-                                                                class="form-control form-control-sm text-uppercase"
-                                                                id="sexo" name="sexo" aria-label="Small" 
-                                                                formControlName="sexo"
-                                                                aria-describedby="inputGroup-sizing-sm">
+                                                            <select class="form-select form-select-sm  " required
+                                                            bsInvalid  formControlName="sexo">
+                                                            <option value="" selected>Seleccionar</option>
+                                                            <option *ngFor="let tipoS of tipoSexo"
+                                                                value="{{tipoS.tipo}}">
+                                                                {{tipoS.tipo}}</option>
+                                                        </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
@@ -187,9 +194,13 @@
                                                         <div class="input-group input-group-sm " [formGroup]="valDatosPersonales">
                                                             <div class="input-group-text d-personales ">Estado Civil
                                                             </div>
-                                                            <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Small" formControlName="estadoCivil" 
-                                                            aria-describedby="inputGroup-sizing-sm">
+                                                            <select class="form-select form-select-sm"
+                                                            formControlName="estadoCivil" bsInvalid >
+                                                                <option value="" selected>Seleccionar</option>
+                                                                <option *ngFor="let tipoX of tipoEstadoCivil"
+                                                                    value="{{tipoX.descripcion}}">
+                                                                    {{tipoX.descripcion}}</option>
+                                                            </select>
 
                                                         </div>
                                                     </div>
@@ -412,7 +423,7 @@
                                                                     F. Ingreso
                                                                 </div>
                                                                 <input type="date" class="form-control form-control-sm"
-                                                                    [(ngModel)]="fechaIngreso" aria-label="Small"
+                                                                    aria-label="Small"
                                                                     aria-describedby="inputGroup-sizing-sm"  formControlName="fechaIngreso">
                                                             </div>
                                                         </div>
@@ -649,9 +660,7 @@
                                                                              </td>
                                                                                 <td>
                                                                                     <div class="form-group">
-                                                                                        <label for=""></label> 
-                                                                                        <div class="input-group ">
-                                          
+                                                                                        <div class="input-group ">         
                                                                                             <input type="text"
                                                                                                 class="form-control form-control-sm"
                                                                                                 id="dni{{i}}"

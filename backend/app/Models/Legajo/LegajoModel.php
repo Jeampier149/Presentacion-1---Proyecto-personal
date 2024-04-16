@@ -411,15 +411,18 @@ class LegajoModel extends Model
         try {
             // Iterar sobre los datos personales 
             try {
-                $resultado = DB::selectOne('EXEC dbo.pl_sp_editar_personal ?,?,?,?,?,?,?,?,?,?,?', [
+                $resultado = DB::selectOne('EXEC dbo.pl_sp_editar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
                     $datosPersonales['numDoc'],
-                    $datosPersonales['ruc'],
-                    $datosPersonales['estadoCivil'],
-                    $datosPersonales['telFijo'],
-                    $datosPersonales['telMovil'],
-                    $datosPersonales['correo'],
-                    $datosPersonales['enfAlergias'],
-                    $datosPersonales['rutaFoto'],
+                    $datosPersonales['sexo']??'',
+                    $datosPersonales['fechaNacimiento']??'',
+                    $datosPersonales['grupoSanguineo']??'',
+                    $datosPersonales['ruc']??'',
+                    $datosPersonales['estadoCivil']??'',
+                    $datosPersonales['telFijo']??'',
+                    $datosPersonales['telMovil']??'',
+                    $datosPersonales['correo']??'',
+                    $datosPersonales['enfAlergias']??'',
+                    $datosPersonales['rutaFoto']??'',
                     $usuario,
                     $equipo,
                     $perfil
@@ -433,9 +436,9 @@ class LegajoModel extends Model
             try {
                 if(!empty($datosContacto)){
                     DB::statement('EXEC dbo.pl_sp_editar_datos_contacto_emergencia ?,?,?,?,?,?,?,?', [
-                        $datosContacto['nombreContacto'],
-                        $datosContacto['parentesco'],
-                        $datosContacto['numContacto'],
+                        $datosContacto['nombreContacto']??'',
+                        $datosContacto['parentesco']??'',
+                        $datosContacto['numContacto']??'',
                         $numDocumento,
                         $datosContacto['id']??'',
                         $usuario,
@@ -452,17 +455,17 @@ class LegajoModel extends Model
             //editar situacion laboral
             try {
                    DB::statement('EXEC dbo.pl_sp_editar_situacion_laboral ?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
-                    $datosSituacionLaboral['condicion'],
-                    $datosSituacionLaboral['grupOcup'],
-                    $datosSituacionLaboral['regimen'],
-                    $datosSituacionLaboral['tipoRegimen'],
-                    $datosSituacionLaboral['unidad'],
-                    $datosSituacionLaboral['servicio'],
-                    $datosSituacionLaboral['cargo'],
-                    $datosSituacionLaboral['nivelCargo'],
-                    $datosSituacionLaboral['airhsp'],
-                    $datosSituacionLaboral['fechaIngreso'],
-                    $datosSituacionLaboral['id'],
+                    $datosSituacionLaboral['condicion']??'',
+                    $datosSituacionLaboral['grupOcup']??'',
+                    $datosSituacionLaboral['regimen']??'',
+                    $datosSituacionLaboral['tipoRegimen']??'',
+                    $datosSituacionLaboral['unidad']??'',
+                    $datosSituacionLaboral['servicio']??'',
+                    $datosSituacionLaboral['cargo']??'',
+                    $datosSituacionLaboral['nivelCargo']??'',
+                    $datosSituacionLaboral['airhsp']??'',
+                    $datosSituacionLaboral['fechaIngreso']??'',
+                    $datosSituacionLaboral['id']??'',
                     $usuario,
                     $equipo,
                     $perfil
@@ -482,19 +485,19 @@ class LegajoModel extends Model
             try {
           
                 DB::statement('EXEC dbo.pl_sp_editar_datos_direccion ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
-                    $datosDomicilio['departamento'],
-                    $datosDomicilio['provincia'],
-                    $datosDomicilio['distrito'],
-                    $datosDomicilio['via'],
-                    $datosDomicilio['nombreVia'],
-                    $datosDomicilio['numeroVia'],
-                    $datosDomicilio['interiorVia'],
-                    $datosDomicilio['zona'],
-                    $datosDomicilio['nombreZona'],
-                    $datosDomicilio['numeroZona'],
-                    $datosDomicilio['interiorZona'],
-                    $datosDomicilio['referencia'],
-                    $datosDomicilio['ubigeo'],
+                    $datosDomicilio['departamento']??'',
+                    $datosDomicilio['provincia']??'',
+                    $datosDomicilio['distrito']??'',
+                    $datosDomicilio['via']??'',
+                    $datosDomicilio['nombreVia']??'',
+                    $datosDomicilio['numeroVia']??'',
+                    $datosDomicilio['interiorVia']??'',
+                    $datosDomicilio['zona']??'',
+                    $datosDomicilio['nombreZona']??'',
+                    $datosDomicilio['numeroZona']??'',
+                    $datosDomicilio['interiorZona']??'',
+                    $datosDomicilio['referencia']??'',
+                    $datosDomicilio['ubigeo']??'',
                     $numDocumento,
                     $datosDomicilio['id']??'',
                     $usuario,
@@ -509,15 +512,15 @@ class LegajoModel extends Model
             try {
                 foreach ($datosFamiliares as $familiar) {
                     DB::statement('EXEC dbo.pl_sp_editar_datos_familiar ?,?,?,?,?,?,?,?,?,?,?,?,?', [
-                        $familiar['apellidos'],
-                        $familiar['nombre'],
-                        $familiar['fechaNacimiento'],
-                        $familiar['tipoD'],
-                        $familiar['dni'],
-                        $familiar['parentesco'],
-                        $familiar['centroLaboral'],
+                        $familiar['apellidos']??'',
+                        $familiar['nombre']??'',
+                        $familiar['fechaNacimiento']??'',
+                        $familiar['tipoD']??'',
+                        $familiar['dni']??'',
+                        $familiar['parentesco']??'',
+                        $familiar['centroLaboral']??'',
                         $numDocumento,
-                        $familiar['estado'],
+                        $familiar['estado']??'',
                         $familiar['id']??'',
                         $usuario,
                         $equipo,
@@ -529,20 +532,20 @@ class LegajoModel extends Model
             }
             //insertar datos profesion
             try {
-               if(!empty($datosProfesion)){
+               
                 DB::statement('EXEC dbo.pl_sp_editar_datos_profesion ?,?,?,?,?,?,?,?,?,?', [
-                    $datosProfesion['profesion'],
-                    $datosProfesion['lugarColeg'],
-                    $datosProfesion['fechColeg'],
-                    $datosProfesion['fechTerColeg'],
-                    $datosProfesion['numColeg'],
+                    $datosProfesion['profesion']??'',
+                    $datosProfesion['lugarColeg']??'',
+                    $datosProfesion['fechColeg']??'',
+                    $datosProfesion['fechTerColeg']??'',
+                    $datosProfesion['numColeg']??'',
                     $numDocumento,
                     $datosProfesion['id']??'',
                     $usuario,
                     $equipo,
                     $perfil
                 ]);
-               }
+               
               
             } catch (\Exception $e) {
                 echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_datos_profesion: ' . $e->getMessage();
@@ -552,15 +555,15 @@ class LegajoModel extends Model
 
                 foreach ($datosEstudioSuperior as $superior) {
                     DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_superior ?,?,?,?,?,?,?,?,?,?,?,?,?', [
-                        $superior['tipo'],
-                        $superior['centro'],
-                        $superior['especialidad'],
-                        $superior['inicio'],
-                        $superior['termino'],
-                        $superior['nivel'],
-                        $superior['ruta'],
+                        $superior['tipo']??'',
+                        $superior['centro']??'',
+                        $superior['especialidad']??'',
+                        $superior['inicio']??'',
+                        $superior['termino']??'',
+                        $superior['nivel']??'',
+                        $superior['ruta']??'',
                         $numDocumento,
-                        $superior['estado'],
+                        $superior['estado']??'',
                         $superior['id']??'',
                         $usuario,
                         $equipo,
@@ -576,15 +579,15 @@ class LegajoModel extends Model
 
                 foreach ($datosPostgrado as $postgrado) {
                     DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_postgrado ?,?,?,?,?,?,?,?,?,?,?,?,?', [
-                        $postgrado['tipo'],
-                        $postgrado['centro'],
-                        $postgrado['especialidad'],
-                        $postgrado['inicio'],
-                        $postgrado['termino'],
-                        $postgrado['nivel'],
-                        $postgrado['ruta'],
-                        $numDocumento,
-                        $postgrado['estado'],
+                        $postgrado['tipo']??'',
+                        $postgrado['centro']??'',
+                        $postgrado['especialidad']??'',
+                        $postgrado['inicio']??'',
+                        $postgrado['termino']??'',
+                        $postgrado['nivel']??'',
+                        $postgrado['ruta']??'',
+                        $numDocumento??'',
+                        $postgrado['estado']??'',
                         $postgrado['id']??'',
                         $usuario,
                         $equipo,
@@ -599,15 +602,15 @@ class LegajoModel extends Model
 
                 foreach ($datosEspecialidades as $especialidad) {
                     DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_especialidad ?,?,?,?,?,?,?,?,?,?,?,?,?', [
-                        $especialidad['tipo'],
-                        $especialidad['centro'],
-                        $especialidad['materia'],
-                        $especialidad['inicio'],
-                        $especialidad['termino'],
-                        $especialidad['certificacion'],
-                        $especialidad['ruta'],
+                        $especialidad['tipo']??'',
+                        $especialidad['centro']??'',
+                        $especialidad['materia']??'',
+                        $especialidad['inicio']??'',
+                        $especialidad['termino']??'',
+                        $especialidad['certificacion']??'',
+                        $especialidad['ruta']??'',
                         $numDocumento,
-                        $especialidad['estado'],
+                        $especialidad['estado']??'',
                         $especialidad['id']??'',
                         $usuario,
                         $equipo,
@@ -623,15 +626,15 @@ class LegajoModel extends Model
 
                 foreach ($datosCursos as $curso) {
                     DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_curso ?,?,?,?,?,?,?,?,?,?,?,?,?', [
-                        $curso['tipo'],
-                        $curso['centro'],
-                        $curso['materia'],
-                        $curso['inicio'],
-                        $curso['termino'],
-                        $curso['certificacion'],
-                        $curso['ruta'],
+                        $curso['tipo']??'',
+                        $curso['centro']??'',
+                        $curso['materia']??'',
+                        $curso['inicio']??'',
+                        $curso['termino']??'',
+                        $curso['certificacion']??'',
+                        $curso['ruta']??'',
                         $numDocumento,
-                        $curso['estado'],
+                        $curso['estado']??'',
                         $curso['id']??'',
                         $usuario,
                         $equipo,
@@ -647,11 +650,11 @@ class LegajoModel extends Model
 
                 foreach ($datosIdiomas as $idioma) {
                     DB::statement('EXEC dbo.pl_sp_editar_datos_estudio_idioma ?,?,?,?,?,?,?,?,?', [
-                        $idioma['lenguaE'],
-                        $idioma['nivel'],
-                        $idioma['ruta'],
+                        $idioma['lenguaE']??'',
+                        $idioma['nivel']??'',
+                        $idioma['ruta']??'',
                         $numDocumento,
-                        $idioma['estado'],
+                        $idioma['estado']??'',
                         $idioma['id']??'',
                         $usuario,
                         $equipo,
@@ -666,13 +669,13 @@ class LegajoModel extends Model
 
                 foreach ($datosExpLaboral as $laboral) {
                     DB::statement('EXEC dbo.pl_sp_editar_datos_experiencia_laboral ?,?,?,?,?,?,?,?,?,?,?', [
-                        $laboral['institucion'],
-                        $laboral['cargo'],
-                        $laboral['inicio'],
-                        $laboral['termino'],
-                        $laboral['ruta'],
+                        $laboral['institucion']??'',
+                        $laboral['cargo']??'',
+                        $laboral['inicio']??'',
+                        $laboral['termino']??'',
+                        $laboral['ruta']??'',
                         $numDocumento,
-                        $laboral['estado'],
+                        $laboral['estado']??'',
                         $laboral['id']??'',
                         $usuario,
                         $equipo,
@@ -688,13 +691,13 @@ class LegajoModel extends Model
 
                 foreach ($datosLaborDocencia as $docencia) {
                     DB::statement('EXEC dbo.pl_sp_editar_datos_experiencia_docencia ?,?,?,?,?,?,?,?,?,?,?', [
-                        $docencia['centro'],
-                        $docencia['curso'],
-                        $docencia['inicio'],
-                        $docencia['termino'],
-                        $docencia['ruta'],
+                        $docencia['centro']??'',
+                        $docencia['curso']??'',
+                        $docencia['inicio']??'',
+                        $docencia['termino']??'',
+                        $docencia['ruta']??'',
                         $numDocumento,
-                        $docencia['estado'],
+                        $docencia['estado']??'',
                         $docencia['id']??'',
                         $usuario,
                         $equipo,

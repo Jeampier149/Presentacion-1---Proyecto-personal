@@ -17,7 +17,7 @@ class ReporteDatosModel extends Model
         $datosEmergencia= $data->listarDatosContactoEmergencia($dni)[0]??[];
         $datosFamiliares= $data->listarDatosFamiliares($dni)??[];
         $datosDomicilio= $data->listarDatosDomicilio($dni)[0]??[];
-        $datosProfesion= $data->listarDatosProfesion($dni)??[];
+        $datosProfesion= $data->listarDatosProfesion($dni)[0]??[];
         $datosEstudioSuperior= $data->listarDatosEstudioSuperior($dni)??[];
         $datosEstudioPostgrado= $data->listarDatosEstudioPostgrado($dni)??[];
         $datosEstudioEspecializacion= $data->listarDatosEstudioEspecializacion($dni)??[];
@@ -53,7 +53,7 @@ class ReporteDatosModel extends Model
         $interiorZona=empty($datosDomicilio->interiorZona)?'sin datos':$datosDomicilio->interiorZona;
         $numeroZona=empty($datosDomicilio->numeroZona)?'sin datos':$datosDomicilio->numeroZona;
         $referencia=empty($datosDomicilio->referencia)?'sin datos':$datosDomicilio->referencia;
-
+        
         $condicion=empty($datosPersonales->condicion)?'sin datos':$datosPersonales->condicion;
         $regimen=empty($datosPersonales->regimen)?'sin datos':$datosPersonales->regimen;
         $tipoRegimen=empty($datosPersonales->tipoRegimen)?'sin datos':$datosPersonales->tipoRegimen;
@@ -63,6 +63,11 @@ class ReporteDatosModel extends Model
         $nivel=empty($datosPersonales->nivel_descripcion)?'sin datos':$datosPersonales->nivel_descripcion;
         $airhsp=empty($datosPersonales->codigoAirhsp)?'sin datos':$datosPersonales->codigoAirhsp;
         $fechaIngreso=empty($datosPersonales->fechaIngreso)?'sin datos':$datosPersonales->fechaIngreso;
+        $profesion=empty($datosProfesion->profesion)?'sin datos':$datosProfesion->profesion;
+        $inicio=empty($datosProfesion->fechaInicio)?'sin datos':$datosProfesion->fechaInicio;
+        $lugar=empty($datosProfesion->lugar)?'sin datos':$datosProfesion->lugar;
+        $fin=empty($datosProfesion->fechaTermino)?'sin datos':$datosProfesion->fechaTermino;
+        $numero_cole=empty($datosProfesion->numeroCole)?'sin datos':$datosProfesion->numeroCole;
         $rutaFoto=storage_path().'/app/public/img/'.$numeroDoc.'.jpg';
         $html='
         <table class="encabezado">
@@ -265,19 +270,20 @@ if(!empty($datosEstudioSuperior)){
                 </tr>
                 <tr>
                     <td style='width: 25%;text-align:left'>Profesión</td>
-                    <td colspan='4'></td>           
+                    <td colspan='4'>".$profesion."</td>           
                 </tr>
+               
                 <tr>
                         <td style='width: 25%;text-align:left'>Fecha Colegiatura</td>
-                        <td style='width: 25%;'></td>
+                        <td style='width: 25%;'>".$inicio."</td>
                         <td style='width: 25%;text-align:left'>Lugar Colegiatura</td>
-                        <td colspan='2' ></td>
+                        <td colspan='2' >".$lugar."</td>
                 </tr>
                 <tr>
                         <td style='width: 25%;text-align:left'>Fecha Final de Hablitación</td>
-                        <td style='width: 25%;'></td>
+                        <td style='width: 25%;'>".$fin."</td>
                         <td style='width: 25%;text-align:left'>N°Colegiatura</td>
-                        <td colspan='2' ></td>
+                        <td colspan='2' >".$numero_cole."</td>
                 </tr>
     </table>
 
