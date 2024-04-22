@@ -672,10 +672,13 @@
                                                                                             <td class="text-center" [innerHTML]="super.inicio"></td>
                                                                                             <td class="text-center" [innerHTML]="super.termino"></td>   
                                                                                             <td class="text-center"  [innerHTML]="super.nivel"></td>  
-                                                                                            <td class="text-center"> 
-                                                                                                <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(super.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                                <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(super.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                            </td>                                           
+                                                                                            @if(super.ruta!==''){
+                                                                                                <td class="text-center"> 
+                                                                                                    <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(super.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
+                                                                                                    <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(super.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
+                                                                                                </td>     
+                                                                                            }
+                                                                                                                                 
                                                                                      </tr>
                                                                                     }@empty {
                                                                                         <tr>
@@ -726,11 +729,14 @@
                                                                                             <td class="text-center" [innerHTML]="postgrado.especialidad"></td>
                                                                                             <td class="text-center" [innerHTML]="postgrado.inicio"></td>
                                                                                             <td class="text-center" [innerHTML]="postgrado.termino"></td>   
-                                                                                            <td class="text-center"  [innerHTML]="postgrado.nivel"></td>  
-                                                                                            <td class="text-center"> 
-                                                                                                <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(postgrado.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                                <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(postgrado.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                            </td>                                           
+                                                                                            <td class="text-center"  [innerHTML]="postgrado.nivel"></td> 
+                                                                                            @if(postgrado.ruta!='') {
+                                                                                                <td class="text-center"> 
+                                                                                                    <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(postgrado.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
+                                                                                                    <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(postgrado.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
+                                                                                                </td>    
+                                                                                            }
+                                                                                                                                
                                                                                      </tr>
                                                                                     }@empty {
                                                                                         <tr>
@@ -776,10 +782,13 @@
                                                                                             <td class="text-center" [innerHTML]="especialidad.inicio"></td>
                                                                                             <td class="text-center" [innerHTML]="especialidad.termino"></td>   
                                                                                             <td class="text-center"  [innerHTML]="especialidad.certificacion"></td>  
-                                                                                            <td class="text-center">
-                                                                                                <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(especialidad.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                                <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(especialidad.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                            </td>                                           
+                                                                                            @if(especialidad.ruta!=''){
+                                                                                                <td class="text-center">
+                                                                                                    <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(especialidad.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
+                                                                                                    <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(especialidad.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
+                                                                                                </td>    
+                                                                                            }
+                                                                                                                                  
                                                                                      </tr>
                                                                                     }@empty {
                                                                                         <tr>
@@ -826,10 +835,13 @@
                                                                                         <td class="text-center" [innerHTML]="curso.inicio"></td>
                                                                                         <td class="text-center" [innerHTML]="curso.termino"></td>   
                                                                                         <td class="text-center"  [innerHTML]="curso.certificacion"></td>  
-                                                                                        <td class="text-center"> 
-                                                                                            <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(curso.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                            <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(curso.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                        </td>                                           
+                                                                                        @if(curso.ruta!==''){
+                                                                                            <td class="text-center"> 
+                                                                                                <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(curso.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
+                                                                                                <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(curso.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
+                                                                                            </td>     
+                                                                                        }
+                                                                                                                            
                                                                                  </tr>
                                                                                 }@empty {
                                                                                     <tr>
@@ -870,10 +882,13 @@
                                                                                         <th scope="row" >{{index+1}}</th>
                                                                                         <td class="text-center" [innerHTML]="idioma.lenguaE"></td>
                                                                                         <td class="text-center" [innerHTML]="idioma.nivel"></td> 
-                                                                                        <td class="text-center"> 
-                                                                                            <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(idioma.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                            <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(idioma.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                        </td>                                           
+                                                                                        @if(idioma.ruta!==''){
+                                                                                            <td class="text-center"> 
+                                                                                                <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(idioma.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
+                                                                                                <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(idioma.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
+                                                                                            </td>   
+                                                                                        }
+                                                                                                                            
                                                                                  </tr>
                                                                                 }@empty {
                                                                                     <tr>
@@ -930,10 +945,13 @@
                                                                                     <td class="text-center" [innerHTML]="labor.cargo"></td>  
                                                                                     <td class="text-center" [innerHTML]="labor.inicio"></td>  
                                                                                     <td class="text-center" [innerHTML]="labor.termino"></td>  
-                                                                                    <td class="text-center"> 
-                                                                                        <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(labor.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                        <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(labor.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                    </td>                                           
+                                                                                    @if(labor.ruta !==''){
+                                                                                        <td class="text-center"> 
+                                                                                            <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(labor.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
+                                                                                            <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(labor.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
+                                                                                        </td>       
+                                                                                    }
+                                                                                                                        
                                                                              </tr>
                                                                             }@empty {
                                                                                 <tr>
@@ -978,10 +996,13 @@
                                                                                     <td class="text-center" [innerHTML]="docencia.curso"></td>  
                                                                                     <td class="text-center" [innerHTML]="docencia.inicio"></td>  
                                                                                     <td class="text-center" [innerHTML]="docencia.termino"></td>  
-                                                                                    <td class="text-center"> 
-                                                                                        <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(docencia.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                        <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(docencia.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                    </td>                                           
+                                                                                    @if(docencia.ruta!==''){
+                                                                                        <td class="text-center"> 
+                                                                                            <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(docencia.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
+                                                                                            <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(docencia.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
+                                                                                        </td> 
+                                                                                    }
+                                                                                                                           
                                                                                   
 
                                                                                 </tr>
