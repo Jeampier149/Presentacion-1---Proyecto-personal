@@ -221,8 +221,7 @@ class LegajoController extends JSONResponseController
         if ($validacionDatosContacto->fails()) {
             return $this->sendResponse(200, false, 'Error de validación', $validacionDatosContacto->errors());
         }
-        $datosDiscapacidad = json_decode($request->post('datosDiscapacidad'), true);
-
+      
         $datosDomicilio = json_decode($request->post('datosDomicilio'), true);
         $reglasDatosDomicilio = [
             'departamento' => 'string',
@@ -270,7 +269,6 @@ class LegajoController extends JSONResponseController
             $datosPersonales,
             $datosSituacionLaboral,
             $datosContacto,
-            $datosDiscapacidad,
             $datosDomicilio,
             $datosFamiliares,
             $datosProfesion,
@@ -287,6 +285,35 @@ class LegajoController extends JSONResponseController
 
         );
         return $this->sendResponse(200, true, $resultado->mensaje, $resultado->resultado);
+
+    }
+   public function editarDiscapacidad(Request $request): JsonResponse
+   {
+
+    $datosDiscapacidad = json_decode($request->post('datosDiscapacidad'), true);  
+    $numeroDocumento= json_decode($request->post('numeroDoc'), true);
+    if($request->hasFile('archivoD')){
+        $archivo = $request->file('archivoD');
+        $nameArchivo =$archivo->getClientOriginalName();
+        $name = str_replace(" ", "_", $nameArchivo);
+        $destino = $numeroDocumento . '/' . $name;
+    
+        try {
+            Storage::disk('ftp')->put($destino, file_get_contents($archivo));
+        } catch (\Exception $e) {
+            $errorMessage = $e->getMessage();
+            return response()->json(['error' => 'Error al subir el archivo al servidor FTP: ' . $errorMessage], 500);
+        }
+        
+    }
+    
+    $user = $request->user();
+    $usuario = $user->username;
+    $perfil = $user->id_perfil;
+    $equipo = Str::upper(explode(':', gethostbyaddr($_SERVER['REMOTE_ADDR']))[0] ?? '');
+    $legajoModel=new LegajoModel();
+    $resultado=$legajoModel->editarDiscapacidad($datosDiscapacidad,$usuario,$equipo,$perfil,$numeroDocumento);
+    return $this->sendResponse(200, true,'Datos de Discapacidad Actualizados Correctamente', 1);
 
     }
 }

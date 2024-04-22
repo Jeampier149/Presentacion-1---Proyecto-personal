@@ -502,9 +502,7 @@
                                                             <div class="col-xl-12">
                                                                 <div class="input-group input-group-sm ">
                                                                     <div class="input-group-text ">
-                                                                        Referencia(Indicar
-                                                                        institucion
-                                                                        cercana)</div>
+                                                                        Referencia</div>
                                                                     <input type="text"
                                                                         class="form-control form-control-sm"
                                                                         [(ngModel)]="referenciaDomicilio"   disabled
@@ -529,7 +527,7 @@
                                                                 <table class="table table-responsive">
                                                                     <thead  class="table-light">
                                                                         <tr>
-                                                                            <th scope="col">#</th>
+                                                                            <th style="max-width:10px ;"  scope="col">#</th>
                                                                             <th scope="col">TIPO DOC</th>
                                                                             <th scope="col">N °DOC</th>
                                                                             <th scope="col">NOMBRES</th>
@@ -541,18 +539,26 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="table-group-divider">
-                                                                        <tr
-                                                                            *ngFor="let familiar of familiares;let i=index">
-                                                                            <th scope="row"  [innerHTML]="i+1"> </th>
-                                                                            <td class="text-center"  [innerHTML]="familiar.tipoD"></td>
-                                                                            <td class="text-center"  [innerHTML]="familiar.dni"> </td>
-                                                                            <td class="text-center"  [innerHTML]="familiar.nombre"> </td>
-                                                                            <td class="text-center"  [innerHTML]="familiar.apellidos"> </td>
-                                                                            <td class="text-center"  [innerHTML]="familiar.fechaNacimiento"> </td>     
-                                                                            <td class="text-center"  [innerHTML]="familiar.parentesco"> </td>                                                                     
-                                                                            <td class="text-center"  [innerHTML]="familiar.centroLaboral"> </td>
-                                                                            
-                                                                        </tr>
+                                                                        @for( familiar of familiares ;track familiar ;let index=$index){
+                                                                            <tr>
+                                                                                <th scope="row" > {{index+1}}</th>
+                                                                                <td class="text-center"  [innerHTML]="familiar.tipoD"></td>
+                                                                                <td class="text-center"  [innerHTML]="familiar.dni"> </td>
+                                                                                <td class="text-center"  [innerHTML]="familiar.nombre"> </td>
+                                                                                <td class="text-center"  [innerHTML]="familiar.apellidos"> </td>
+                                                                                <td class="text-center"  [innerHTML]="familiar.fechaNacimiento"> </td>     
+                                                                                <td class="text-center"  [innerHTML]="familiar.parentesco"> </td>                                                                     
+                                                                                <td class="text-center"  [innerHTML]="familiar.centroLaboral"> </td>
+                                                                                
+                                                                            </tr>
+                                                                        }@empty {
+                                                                            <tr>
+                                                                                <td class="text-center" [colSpan]="8">
+                                                                                    <p class="text-center">NO HAY DATOS REGISTRADOS</p>
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+                                                                       
                                                                     </tbody>
                                                                 </table>
                                                             </form>                   

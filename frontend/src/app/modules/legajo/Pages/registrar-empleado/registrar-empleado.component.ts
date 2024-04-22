@@ -440,6 +440,7 @@ agregarDocencia() {
     this.laborDocencia[index].ruta=ruta
 
   }
+  
   seleccionarArchivoDiscapacidad(event: any) {
     const fileDo: File = event.target.files[0];
     const timestamp = new Date().getTime();
@@ -474,7 +475,7 @@ agregarDocencia() {
           this.tipoVia=datos.via
           this.tipoZona=datos.zona
           this.unidadOrganica = datos.unidadOrganica;
-          this.servicioE = datos.servicio;
+
 
         } else {
           errorAlerta('Error', mensaje).then();
@@ -516,10 +517,31 @@ agregarDocencia() {
         }
       });
   }
-  
-
-  
-  
+  listarServicio(id: any) {
+    this.DatoGeneralesService$.listarServicio(id)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (estado) {
+          datos.length > 0 ? this.agregable = false : this.agregable = true;
+          this.servicioE = datos;
+        } else {
+          errorAlerta('Error', mensaje).then();
+        }
+      });
+  }
+  cambioUnidad(){
+    let id = this.valorUnidad
+    if (id.length > 0) {
+      this.listarServicio(id)
+    } else {
+      warningAlerta('Atención!', 'Elija primero un regimen ')
+    }
+  }
+ 
   registrarEmpleado() {
     console.log(this.via)
     console.log(this.zona)

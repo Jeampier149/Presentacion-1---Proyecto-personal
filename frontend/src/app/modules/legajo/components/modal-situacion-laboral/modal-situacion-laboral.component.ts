@@ -149,12 +149,40 @@ export class ModalSituacionLaboralComponent {
                     this.nivelCargo = datos.nivel;
                     this.cargo = datos.cargo;
                     this.unidadOrganica = datos.unidadOrganica;
-                    this.servicioE = datos.servicio;
+
                 } else {
                     errorAlerta('Error', mensaje).then();
                 }
             });
     }
+    listarServicio(id: any) {
+        this.DatoGeneralesService$.listarServicio(id)
+          .pipe(
+            finalize(() => {
+              this.loading = false;
+            })
+          )
+          .subscribe(({ estado, mensaje, datos }) => {
+            if (estado) {
+              datos.length > 0 ? this.agregable = false : this.agregable = true;
+              console.log(estado)
+              this.servicioE = datos;
+            } else {
+              errorAlerta('Error', mensaje).then();
+            }
+          });
+
+      }
+      cambioUnidad(){
+        let id = this.valSituacionLaboral.get('valorUnidad')?.value
+        
+        if (id.length > 0) {
+          this.listarServicio(id)
+        } else {
+          warningAlerta('Atención!', 'Elija primero una unidad organica ')
+        }
+      }
+
 
     setDatosSituacion(datos: any) {
         this.valSituacionLaboral.controls['tipoEmp'].setValue( datos.idCondicion );
@@ -165,6 +193,7 @@ export class ModalSituacionLaboralComponent {
         this.valSituacionLaboral.controls['valorCargo'].setValue(datos.idCargo);
         this.valSituacionLaboral.controls['valorNivel'].setValue(datos.nivel);
         this.valSituacionLaboral.controls['valorUnidad'].setValue(datos.idUnidadOrganica);
+        this.listarServicio(datos.idUnidadOrganica);
         this.valSituacionLaboral.controls['valorServicio'].setValue(datos.idServicio);
         this.valSituacionLaboral.controls['valorEstado'].setValue(datos.estado);
         this.valSituacionLaboral.controls['codigoAirhsp'].setValue( datos.codigoAirhsp);

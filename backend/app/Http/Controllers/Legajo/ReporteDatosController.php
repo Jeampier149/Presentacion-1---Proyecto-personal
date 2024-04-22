@@ -17,12 +17,24 @@ class ReporteDatosController extends Controller
         $url=$request->get('url');
         $reporteDatosModel = new ReporteDatosModel();
         $html = $reporteDatosModel->generarPDF($dni,$url);
-   
+        
         $mpdf = new Mpdf();
         $css = file_get_contents(resource_path('css\\legajo\\reporteInformacion.css')); // css
-
+        $header='
+        <div>
+        <table class="encabezado">
+        <tr>
+           <td colspan="3" class="pega">
+             <img width = "100" src = "'.resource_path().'/img/img_personal.png" class="pegantina" alt="imagen no ecnontrada">
+           </td>
+           <td class="logo"><img width = "60" src = "'.resource_path().'/img/logo-hsb.jpg" class="log" alt="imagen no ecnontrada"></td>  </tr>            
+        </tr> 
+       </table></div>';
+        $mpdf->SetMargins(15, 60,30);
+        $mpdf->SetHTMLHeader($header);
         $mpdf->WriteHTML($css,1);
         $mpdf->WriteHTML($html,2);
+
         $mpdf->Output($dni.'_ReporteDatos.pdf', 'D'); // Descargar el PDF directamente
     }
     public function generarHistorialPDF(Request $request)

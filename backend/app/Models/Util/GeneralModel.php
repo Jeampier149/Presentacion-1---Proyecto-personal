@@ -46,6 +46,12 @@ class GeneralModel extends Model
     /** @lang SQL */
     'EXEC dbo.g_sp_listar_tipo_regimen ?', [$id]);
   }
+  public function listarServicio($id)
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_servicio ?', [$id]);
+  }
   public function listarSexo()
   {
     return $this->conexion->select(
@@ -112,10 +118,5 @@ class GeneralModel extends Model
     /** @lang SQL */
     'EXEC dbo.g_sp_listar_unidad_organica');
   }
-  public function listarServicio()
-  {
-    return $this->conexion->select(
-    /** @lang SQL */
-    'EXEC dbo.g_sp_listar_servicio');
-  }
+
 }

@@ -271,8 +271,10 @@ export class ModalVerComponent {
             downloadLink.download =this.numeroDocumento;
             document.body.appendChild(downloadLink);
             downloadLink.click();
-
-             this.eliminarImagen(this.numeroDocumento)
+            setTimeout(()=>{
+                this.eliminarImagen(this.numeroDocumento)
+            }, 15000);
+             
             });
     }
     guardarImagen(imagen:any){

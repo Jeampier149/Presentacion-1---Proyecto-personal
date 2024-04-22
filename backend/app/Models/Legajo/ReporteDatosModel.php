@@ -70,14 +70,8 @@ class ReporteDatosModel extends Model
         $numero_cole=empty($datosProfesion->numeroCole)?'sin datos':$datosProfesion->numeroCole;
         $rutaFoto=storage_path().'/app/public/img/'.$numeroDoc.'.jpg';
         $html='
-        <table class="encabezado">
-         <tr>
-            <td colspan="3" class="pega">
-              <img width = "100" src = "'.resource_path().'/img/img_personal.png" class="pegantina" alt="imagen no ecnontrada">
-            </td>
-            <td class="logo"><img width = "60" src = "'.resource_path().'/img/logo-hsb.jpg" class="log" alt="imagen no ecnontrada"></td>  </tr>            
-         </tr> 
-        </table>
+       
+       
          <table style="width: 100%;margin-bottom:20px; border:none;" >        
             <tr>        
                 <td  rowspan="6" class="logo"  style="text-align:center;width: 26%;"><img  class="perfil"  src = "'.$rutaFoto.'" alt="imagen no ecnontrada"></td>            

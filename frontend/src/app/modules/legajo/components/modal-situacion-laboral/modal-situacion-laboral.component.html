@@ -90,7 +90,7 @@
                                                             <div class="input-group-text ancho rspp">
                                                                 U.Organica/Dpto
                                                             </div>
-                                                            <select class="form-select form-select-sm " formControlName="valorUnidad">
+                                                            <select class="form-select form-select-sm " formControlName="valorUnidad" (change)="cambioUnidad()">
                                                                 <option value="" selected>
                                                                     Seleccionar
                                                                 </option>
@@ -186,10 +186,10 @@
                                                                 Cargo
                                                             </div>
                                                             <ng-select formControlName="valorCargo" [items]="cargo"
-                                                                bindLabel="descripcion" bindValue="codigo" class="d-block" style="
+                                                                bindLabel="descripcion" bindValue="codigo" class="d-block form-control" style="
                                                                     font-size: 0.8rem;
                                                                     height: auto;
-                                                                    width: 74%;
+                                                                   
                                                                 ">
                                                             </ng-select>
                                                         </div>
@@ -200,10 +200,10 @@
                                                                 Nivel
                                                             </div>
                                                             <ng-select formControlName="valorNivel" [items]="nivelCargo"
-                                                                bindLabel="nivel" bindValue="nivel" class="d-block" style="
+                                                                bindLabel="nivel" bindValue="nivel" class="d-block form-control" style="
                                                                     font-size: 0.8rem;
                                                                     height: auto;
-                                                                    width: 50%;
+                                                                    
                                                                 ">
                                                             </ng-select>
                                                         </div>

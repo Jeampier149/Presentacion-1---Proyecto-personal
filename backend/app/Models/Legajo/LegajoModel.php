@@ -389,7 +389,6 @@ class LegajoModel extends Model
         array $datosPersonales,
         array $datosSituacionLaboral,
         array $datosContacto,
-        array $datosDiscapacidad,
         array $datosDomicilio,
         array $datosFamiliares,
         array $datosProfesion,
@@ -476,10 +475,6 @@ class LegajoModel extends Model
                 echo 'Error al ejecutar el procedimiento almacenado pl_sp_editar_situacion_laboral: ' . $e->getMessage();
 
             }
-
-            //insertar datso de discapacidad 
-            //insertar datso de discapacidad 
-
 
             //editar datos domiclio
             try {
@@ -715,5 +710,24 @@ class LegajoModel extends Model
             // Retornar false para indicar que la inserción falló
             return false;
         }
+    }
+    public function editarDiscapacidad($datosDiscapacidad,$usuario,$equipo,$perfil,$numDocumento){
+        try {
+            DB::statement('EXEC dbo.pl_sp_eliminar_detalle_discapacidad ?',[$numDocumento] );
+
+            foreach ($datosDiscapacidad['tipos'] as $tipo) {
+                DB::statement('EXEC dbo.pl_sp_insertar_datos_discapacidad ?,?,?,?,?,?', [
+                    $tipo,
+                    $datosDiscapacidad['ruta'],
+                    $numDocumento,
+                    $usuario,
+                    $equipo,
+                    $perfil
+                ]);
+            }
+        } catch (\Exception $e) {
+            echo 'Error al ejecutar el procedimiento almacenado pl_sp_insertar_datos_discapacidad: ' . $e->getMessage();
+        }
+        
     }
 }

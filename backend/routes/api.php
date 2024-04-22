@@ -32,11 +32,13 @@ Route::controller(LegajoController::class)->group(function () {
     Route::get('legajo/listar-empleado', 'listarEmpleados'); 
     Route::post('legajo/registrar-empleado', 'registrarEmpleado');
     Route::post('legajo/editar-empleado', 'editarEmpleado');
+    Route::post('legajo/editar-discapacidad', 'editarDiscapacidad');
 });
 
 Route::controller(GeneralController::class)->group(function () {
     Route::post('general/listarSelects', 'listarSelects'); 
     Route::post('general/listarTipoRegimen', 'listarTipoRegimen');
+    Route::post('general/listarServicio', 'listarServicio');
 });
 
 Route::controller(VerDatosController::class)->group(function () {

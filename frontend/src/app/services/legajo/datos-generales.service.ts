@@ -33,10 +33,13 @@ export class DatoGeneralesService {
             responseType: "json"
         }).pipe(shareReplay(1));
     }
+
     listarTipoRegimen(id: number) {
         return this.http.post<HttpResponseApi>('/api/general/listarTipoRegimen', { id }, { responseType: "json" }).pipe(shareReplay(1));
     }
-    
+    listarServicio(id:number){
+        return this.http.post<HttpResponseApi>('/api/general/listarServicio', { id }, { responseType: "json" }).pipe(shareReplay(1));
+    }
     guardarDatosEmpleado(
         datosPersonales:any ,
         datosContacto:any,
@@ -120,7 +123,6 @@ export class DatoGeneralesService {
         datosPersonales:any ,
         situacionLaboral:any,
         datosContacto:any,
-        datosDiscapacidad:any,
         datosDomicilio:any,
         datosFamiliares:any,
         datosProfesion:any,
@@ -132,20 +134,16 @@ export class DatoGeneralesService {
         experienciaLaboral:any,
         laborDocencia:any,
         fotoPersonal:any,
-        archivoDiscapacidad:any
+     
         ) 
         
-        {
- 
+        { 
             const formData = new FormData();
             fotoPersonal.forEach((datos:any) => {
                 formData.append(`foto`, datos);
 
             });
-            archivoDiscapacidad.forEach((datos:any) => {
-                formData.append(`archivoD`, datos);
-
-            });
+   
             datosEstudioSuperior.forEach((datos:any, index:any) => {
                 formData.append(`estudioSuperior${index}_archivo`, datos.archivo);
 
@@ -178,7 +176,6 @@ export class DatoGeneralesService {
             formData.append('datosPersonales', JSON.stringify(datosPersonales));
             formData.append('situacionLaboral', JSON.stringify(situacionLaboral));
             formData.append('datosContacto', JSON.stringify(datosContacto));
-            formData.append('datosDiscapacidad', JSON.stringify(datosDiscapacidad));
             formData.append('datosDomicilio', JSON.stringify(datosDomicilio));
             formData.append('datosFamiliares', JSON.stringify(datosFamiliares));
             formData.append('datosProfesion', JSON.stringify(datosProfesion));
@@ -195,6 +192,21 @@ export class DatoGeneralesService {
         return this.http.post<HttpResponseApi>('/api/legajo/editar-empleado', formData,         
            {responseType: "json"} 
         );
+    }
+
+
+    actualizarDiscapacidad(datosDiscapacidad:any, archivoDiscapacidad:any,numeroDoc:any){
+        const formData = new FormData();
+            archivoDiscapacidad.forEach((datos:any) => {
+                formData.append(`archivoD`, datos);
+            })
+       
+        formData.append('datosDiscapacidad', JSON.stringify(datosDiscapacidad));
+        formData.append('numeroDoc', JSON.stringify(numeroDoc));         
+        return this.http.post<HttpResponseApi>('/api/legajo/editar-discapacidad', formData,         
+           {responseType: "json"} 
+        );
+
     }
    
 }
