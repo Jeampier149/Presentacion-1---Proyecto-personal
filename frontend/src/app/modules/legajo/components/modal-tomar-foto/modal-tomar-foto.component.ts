@@ -70,6 +70,7 @@ startCamera() {
                 this.capturarImagen.emit(file);
               });
               
+              this.closeModal()
             } else {
               console.error('No se pudo obtener el contexto 2D del canvas.');
             }
