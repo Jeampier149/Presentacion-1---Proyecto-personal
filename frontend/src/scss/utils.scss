@@ -45,5 +45,10 @@ ng-select {
   }
 
 .ng-select.ng-select-single .ng-select-container {
-    height: 30px;
+    height: 30px!important;
 }
+
+.ng-select .ng-select-container {
+   
+    min-height: 30px!important;
+ }

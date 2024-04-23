@@ -51,7 +51,7 @@ export class LoginComponent {
             })
         ).subscribe(({datos, mensaje, estado}) => {
             if (estado === 1) {
-                let mensaje: string = 'Bienvenido a SISP' ;
+                let mensaje: string = 'Bienvenido a SIGPER' ;
                 successAlerta('Éxito!', mensaje).then(() => {
                     let session: Session = {
                         logIn: '1',
