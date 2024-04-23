@@ -13,7 +13,7 @@ import { ModalVerArchivoComponent } from '../modal-ver-archivo/modal-ver-archivo
 export class ModalVerComponent {
     pkEmpleado: string = '';
     estado: string = '';
-
+    
     //--VALOR ---//
     valorRegimen: any = '';
     valortipRegimen: any = '';
@@ -90,10 +90,11 @@ export class ModalVerComponent {
     imagenPdf:any
     fotoP: any;
     rutaF:any;
-  
+    
     @ViewChild('selFocus') selFocus!: ElementRef;
     @ViewChild('modalDatos') modalEl!: any;
     @ViewChild(ModalVerArchivoComponent) modalFrame?: ModalVerArchivoComponent;
+    modal2: any;
 
     constructor(
         private ModalDatosService$: ModalDatosService,
@@ -101,7 +102,7 @@ export class ModalVerComponent {
     ) {}
 
     ngAfterViewInit() {
-        this.modalEl = new Modal(this.modalEl.nativeElement, {
+        this.modal2 = new Modal(this.modalEl.nativeElement, {
             backdrop: 'static',
             keyboard: false,
         });
@@ -109,11 +110,11 @@ export class ModalVerComponent {
 
     openModal(numeroDoc:string) {
         this.listarDatos(numeroDoc)        
-        this.modalEl.show();
+        this.modal2.show();
     }
 
     closeModal() {
-        this.modalEl.hide();
+        this.modal2.hide();
     }
 
     listarDatos(numeroDoc:string){
@@ -147,6 +148,7 @@ export class ModalVerComponent {
     }
  
     listarFoto(ruta: any) {
+        
         this.fotoP = '';
         if (ruta =='default/perfil.png') {
             this.fotoP="./assets/perfil.png"

@@ -730,6 +730,7 @@
                                                                                             <td class="text-center" [innerHTML]="postgrado.inicio"></td>
                                                                                             <td class="text-center" [innerHTML]="postgrado.termino"></td>   
                                                                                             <td class="text-center"  [innerHTML]="postgrado.nivel"></td> 
+
                                                                                             @if(postgrado.ruta!='') {
                                                                                                 <td class="text-center"> 
                                                                                                     <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(postgrado.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
@@ -737,7 +738,7 @@
                                                                                                 </td>    
                                                                                             }
                                                                                                                                 
-                                                                                     </tr>
+                                                                                        </tr>
                                                                                     }@empty {
                                                                                         <tr>
                                                                                             <td class="text-center" [colSpan]="8">
@@ -826,6 +827,7 @@
                                                                             }
                                                                        
                                                                             <tbody>
+                                                                             
                                                                                 @for( curso of cursos;track curso ;let index=$index){
                                                                                     <tr>                                                                           
                                                                                         <th scope="row" >{{index+1}}</th>
@@ -840,6 +842,8 @@
                                                                                                 <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(curso.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
                                                                                                 <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(curso.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
                                                                                             </td>     
+                                                                                        }@else {
+                                                                                            <p>No hay archivo</p>
                                                                                         }
                                                                                                                             
                                                                                  </tr>
@@ -851,7 +855,7 @@
                                                                                     </tr>
                                                                                     
                                                                                 }
-                                                                               
+                                                                          
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
