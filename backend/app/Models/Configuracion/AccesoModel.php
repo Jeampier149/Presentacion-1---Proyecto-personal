@@ -28,7 +28,7 @@ class AccesoModel extends Model
      */
     public function listarAcceso(stdClass $params): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_lst_xg_acceso ?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_lst_pg_acceso ?,?,?,?');
         $smtp->bindParam(1, $params->idPerfil);
         $smtp->bindParam(2, $params->idMenu);
         $smtp->bindParam(3, $params->longitud);
@@ -41,7 +41,7 @@ class AccesoModel extends Model
 
     public function agregarAcceso(stdClass $params, $usuario, $equipo, $perfil): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_insupd_xg_menu_perfil ?,?,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_insupd_pg_menu_perfil ?,?,?,?,?,?,?,?,?');
         $smtp->bindValue(1, 1);
         $smtp->bindParam(2, $params->idPerfil);
         $smtp->bindParam(3, $params->idMenu);
@@ -59,7 +59,7 @@ class AccesoModel extends Model
 
     public function anularAcceso(stdClass $params, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_insupd_xg_menu_perfil ?,?,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_insupd_pg_menu_perfil ?,?,?,?,?,?,?,?,?');
         $smtp->bindValue(1, 2);
         $smtp->bindParam(2, $params->idPerfil);
         $smtp->bindParam(3, $params->idMenu);

@@ -18,8 +18,7 @@
                                         <th style="min-width: 130px; width: 130px">Usuario
                                         </th>
                                         <th style="min-width: 300px; width: 300px">Nombres</th>
-                                        <th style="min-width: 150px; width: 150px">Perfil WEB</th>
-                                        <th style="min-width: 150px; width: 150px">Perfil FOX</th>
+                                        <th style="min-width: 150px; width: 150px">Perfil </th>
                                         <th class="text-center" style="width: 80px; min-width: 80px">Estado</th>
                                     </tr>
                                     <tr>
@@ -54,8 +53,7 @@
                                                 <td></td>
                                                 <td>{{ usuario.usuario }}</td>
                                                 <td>{{ usuario.nombres }}</td>
-                                                <td [bsTooltip]="usuario.descripcion_web">{{ usuario.perfil_web }}</td>
-                                                <td [bsTooltip]="usuario.descripcion_fox">{{ usuario.perfil_fox }}</td>
+                                                <td [bsTooltip]="usuario.descripcion_web">{{ usuario.perfil_web }}</td>                           
                                                 <td class="text-center">
                                                     @if (usuario.estado === 'A') {
                                                         <span class="badge rounded-pill text-bg-success">

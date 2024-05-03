@@ -5,6 +5,7 @@ namespace App\Models\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use PDO;
 class AuthModel extends Model
 {
@@ -34,7 +35,7 @@ class AuthModel extends Model
      */
     public function obtenerAccesos($perfil): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.gral_sp_lst_xg_accion_perfil ?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.gral_sp_lst_pg_accion_perfil ?');
         $smtp->bindParam(1, $perfil);
         $smtp->execute();
         $resultados = $smtp->columnCount() > 0 ? $smtp->fetchAll(PDO::FETCH_ASSOC) : [];
@@ -42,10 +43,18 @@ class AuthModel extends Model
         return $resultados;
     }
 
-    public function cambiarContrasena($usuario, $contrasena, $nuevaContrasena, $nuevaContrasenaHash, $equipo)
+    public function cambiarContrasena($usuario,$nuevaContrasenaHash,$equipo)
     {
         try {
-            return $this->conexion->selectOne('EXEC dbo_web.sp_upd_contrasena_usuario ?, ?, ?, ?, ?', [$usuario, $contrasena, $nuevaContrasena, $nuevaContrasenaHash, $equipo]);
+            return $this->conexion->selectOne('EXEC dbo.sp_upd_contrasena_usuario ?, ?, ?', [$usuario,$nuevaContrasenaHash,$equipo]);
+        } catch (\Error $e) {
+            return 0;
+        }
+    }
+    public function validarUsuario($usuario)
+    {
+        try {
+            return $this->conexion->selectOne('EXEC dbo.sp_validar_usuario ?', [$usuario]);
         } catch (\Error $e) {
             return 0;
         }

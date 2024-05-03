@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Respuesta;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class JSONResponseController extends Controller
 {
@@ -22,4 +23,18 @@ class JSONResponseController extends Controller
         }
         return response()->json($this->response, $code);
     }
+    public function getHost(Request $request = null): array
+    {
+        $usuario = 'SIN USUARIO';
+        $perfil = 'SIN PERFIL';
+        if ($request) {
+            $user = $request->user();
+            $usuario = $user->username;
+            $perfil = $user->id_perfil;
+        }
+        $equipo = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+        $equipo = strtoupper(preg_replace('/(.sbdomain.local)/', "", gethostbyaddr($equipo)));
+        return [$usuario, $perfil, $equipo];
+    }
 }
+

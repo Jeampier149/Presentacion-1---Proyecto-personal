@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Respuesta\JSONResponseController;
 use App\Models\Auth\AuthModel;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
     class AuthController extends JSONResponseController
 
@@ -56,10 +57,16 @@ use Illuminate\Support\Facades\Hash;
             $token = $user->createToken('personal', ["*"], $expirationDate)->plainTextToken;
             $auth = new AuthModel();
             $menus = $auth->obtenerMenu($user->id_perfil);
+            $accesos = $auth->obtenerAccesos($user->id_perfil);
+            $accesos = array_map(function ($value) {
+                return (int)$value['ID_ACCION'];
+            }, $accesos);
             $userData = [
                 'username' => $user->username,
                 'menu' => $menus,
+                'accesos' => $accesos,
                 'token' => $token,
+                'perfil' => trim($user->id_perfil),
                 'fecha_expiracion' => $expirationDate,
             ];
     
@@ -71,6 +78,69 @@ use Illuminate\Support\Facades\Hash;
                 $request->user()->tokens()->delete();
             }
             return $this->sendResponse(200, true, 'Sesión cerrada.');
+        }
+
+        public function validarUsuario(Request $request): JsonResponse
+        {
+            $validator = Validator::make($request->only(['nombreUsuario', 'contrasena']), [
+                'nombreUsuario' => 'required|string|min:3|max:15',
+
+            ]);
+    
+            if ($validator->fails()) {
+                return $this->sendResponse(200, 3, 'Error al validar.', $validator->errors());
+            }
+    
+            $nombreUsuario = Str::upper($request->nombreUsuario);
+            $contrasena = $request->contrasena;
+            
+            $autenticacionModel = new AuthModel();
+            $resultado = $autenticacionModel->validarUsuario($nombreUsuario);
+            
+
+            if($resultado->password==""){
+               if($contrasena==$request->password && $nombreUsuario==$resultado->username){
+                return $this->sendResponse(200, 1, 'Validación exitosa.');  
+               }else{
+                return $this->sendResponse(200, 0, 'Usuario o contraseña incorrectos.');
+               }
+            }else{
+                if(Hash::check($contrasena,$resultado->password) && $nombreUsuario == $resultado->username){
+                    return $this->sendResponse(200, 1, 'Validación exitosa.');  
+                 }else{
+                    return $this->sendResponse(200, 0, 'Usuario o contraseña incorrectos.');
+                 }    
+            }
+
+                  
+        
+        }
+        
+    
+        public function cambiarContrasena(Request $request): JsonResponse
+        {
+    
+            $validator = Validator::make($request->only(['nombreUsuario', 'contrasena', 'nuevaContrasena']), [
+                'nombreUsuario' => 'required|string|min:3|max:15',
+                'nuevaContrasena' => 'required|string|min:3|max:10',
+            ]);
+    
+            if ($validator->fails()) {
+                return $this->sendResponse(200, 3, 'Error al validar.', $validator->errors());
+            }
+    
+            $nombreUsuario = Str::upper($request->nombreUsuario);
+            $contrasena = Str::upper($request->contrasena);
+            $nuevaContrasena = Str::upper($request->nuevaContrasena);
+            $nuevaContrasenaHash = Hash::make($request->nuevaContrasena);
+            $equipo = strtoupper(explode('.', gethostbyaddr($_SERVER['REMOTE_ADDR']))[0] ?? '');
+    
+            $autenticacionModel = new AuthModel();
+    
+            
+            $respuesta = $autenticacionModel->cambiarContrasena($nombreUsuario,$nuevaContrasenaHash,$equipo);
+         
+            return $this->sendResponse(200, 1, 'Debe iniciar sesión con su nueva contraseña.');
         }
     
     

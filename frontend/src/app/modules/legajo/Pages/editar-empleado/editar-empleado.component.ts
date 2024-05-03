@@ -126,10 +126,7 @@ export class EditarEmpleadoComponent implements OnInit {
     datosContacto: string[] = [];
     mensajeLoading: string = '';
 
-    //arrays de archivos
-    archivoSuperior: any[] = [];
-    archivoPostgrado: any[] = [];
-    archivoCursos: any[] = [];
+
     fechaIngreso: string = '';
 
     //mostrar divs
@@ -152,7 +149,7 @@ export class EditarEmpleadoComponent implements OnInit {
     inicializarVariables() {
         this.valDatosPersonales = new FormGroup({
             tipoDocumento: new FormControl({ value: '', disabled: true }),
-            numDoc:  new FormControl(''),
+            numDoc:  new FormControl({ value: '', disabled: true }),
             nacionalidad: new FormControl({ value: '', disabled: true }),
             aPaterno: new FormControl({ value: '', disabled: true }),
             aMaterno: new FormControl({ value: '', disabled: true }),
@@ -220,10 +217,7 @@ export class EditarEmpleadoComponent implements OnInit {
     }
 
     buscarDocumento(documento:string,index?:number) {
-        console.log(documento)
-        let tipoDocumento = this.valDatosPersonales.get('tipoDocumento')?.value;
-        console.log(tipoDocumento)
-       
+        let tipoDocumento = this.valDatosPersonales.get('tipoDocumento')?.value;      
         this.loading = true;
         this.mensajeLoading = 'Buscando Documento...';
         if (tipoDocumento === '1') {
@@ -770,24 +764,26 @@ export class EditarEmpleadoComponent implements OnInit {
             });
     }
 
-    listarServicio(id: any) {
-        this.DatoGeneralesService$.listarServicio(id)
-          .pipe(
-            finalize(() => {
-              this.loading = false;
-            })
-          )
-          .subscribe(({ estado, mensaje, datos }) => {
-            if (estado) {
-              datos.length > 0 ? this.agregable = false : this.agregable = true;
-              console.log(estado)
-              this.servicioE = datos;
-            } else {
-              errorAlerta('Error', mensaje).then();
-            }
-          });
-          console.log(this.servicioE)
-      }
+
+    listarServicio(id: any) {    
+            this.DatoGeneralesService$.listarServicio(id)
+            .pipe(
+              finalize(() => {
+                this.loading = false;
+              })
+            )
+            .subscribe(({ estado, mensaje, datos }) => {
+              if (estado) {
+                datos.length > 0 ? this.agregable = false : this.agregable = true;
+                this.servicioE = datos;
+              } else {
+                errorAlerta('Error', mensaje).then();
+              }
+            });
+        
+        
+   }
+   
       cambioUnidad(){
         let id = this.valSituacionLaboral.get('unidad')?.value
         if (id.length > 0) {
@@ -862,7 +858,7 @@ export class EditarEmpleadoComponent implements OnInit {
                 })
             )
             .subscribe((respuesta) => {
-                console.log(respuesta);
+
                 const { estado, mensaje, datos } = respuesta;
                 if (!estado && datos) {
                     errorAlertaValidacion(mensaje, datos);
@@ -891,8 +887,8 @@ export class EditarEmpleadoComponent implements OnInit {
                 this.loading = false;
             })
         )
-        .subscribe((respuesta) => {
-            console.log(respuesta);
+        .subscribe((respuesta) => {           
+            this.limpiarArchivos()
             const { estado, mensaje, datos } = respuesta;
             if (!estado && datos) {
                 errorAlertaValidacion(mensaje, datos);
@@ -926,5 +922,15 @@ export class EditarEmpleadoComponent implements OnInit {
                 });
                 this.files.push(fotoD);
             });
+    }
+    limpiarArchivos(){
+            this.familiares=[];
+            this.estudioSuperior=[];
+            this.estudioPostgrado=[];
+            this.especializacion=[]
+            this.cursos=[];
+            this.idiomas=[];
+            this.experienciaLaboral=[];
+            this.laborDocencia=[]
     }
 }

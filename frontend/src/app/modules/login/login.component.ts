@@ -56,11 +56,11 @@ export class LoginComponent {
                     let session: Session = {
                         logIn: '1',
                         usuario: datos.username,
-                      //accesos: datos.accesos,
+                        accesos: datos.accesos,
                          menu: datos.menu,
                          token: datos.token,                    
                       //  nombres: datos.nombres,
-                      //  perfil: datos.perfil,
+                         perfil: datos.perfil,
                         fechaExpiracion: datos.fecha_expiracion
                     }
                     this.store.dispatch(guardarSession({session}));

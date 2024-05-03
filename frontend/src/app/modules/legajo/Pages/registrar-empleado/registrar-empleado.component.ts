@@ -533,7 +533,7 @@ agregarDocencia() {
         }
       });
   }
-  cambioUnidad(){
+  cambioUnidad(){  
     let id = this.valorUnidad
     if (id.length > 0) {
       this.listarServicio(id)

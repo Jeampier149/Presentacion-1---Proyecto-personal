@@ -56,7 +56,7 @@ export class InformacionComponent {
   constructor(private DatoGeneralesService$: DatoGeneralesService,
               private store: Store<Session>,private router:Router) {
       this.listarEmpleados();
-      //this.obtenerPermisos();
+      this.obtenerPermisos();
   }
 
   ngAfterViewInit() {

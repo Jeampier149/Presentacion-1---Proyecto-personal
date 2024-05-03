@@ -28,7 +28,7 @@ class PerfilModel extends Model
      */
     public function listarPerfil(stdClass $params): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_lst_xg_perfil ?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_lst_pg_perfil ?,?,?,?,?');
         $smtp->bindParam(1, $params->id);
         $smtp->bindParam(2, $params->descripcion);
         $smtp->bindParam(3, $params->estado);
@@ -42,7 +42,7 @@ class PerfilModel extends Model
 
     public function listarPerfilUsuario(stdClass $params): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_lst_xg_perfil_usuario ?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_lst_pg_perfil_usuario ?,?,?,?,?');
         $smtp->bindParam(1, $params->idPerfil);
         $smtp->bindParam(2, $params->codigoUsuario);
         $smtp->bindParam(3, $params->nombres);
@@ -56,7 +56,7 @@ class PerfilModel extends Model
 
     public function listarPerfilCombo(): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_lst_all_xg_perfil');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_lst_all_pg_perfil');
         $smtp->execute();
         $resultados = $smtp->columnCount() > 0 ? $smtp->fetchAll(PDO::FETCH_ASSOC) : [];
         $smtp->closeCursor();
@@ -65,7 +65,7 @@ class PerfilModel extends Model
 
     public function obtenerPerfil(string $idPerfil): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_get_xg_perfil ?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_get_pg_perfil ?,?,?');
         $smtp->bindParam(1, $idPerfil);
         $smtp->bindParam(2, $estado, PDO::PARAM_INT | PDO::PARAM_INPUT_OUTPUT, 1);
         $smtp->bindParam(3, $mensaje, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 300);
@@ -77,7 +77,7 @@ class PerfilModel extends Model
 
     public function editarPerfil(stdClass $params, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_insupd_xg_perfil 2,?,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_insupd_pg_perfil 2,?,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $params->id);
         $smtp->bindParam(2, $params->descripcion);
         $smtp->bindParam(3, $params->observacion);
@@ -94,7 +94,7 @@ class PerfilModel extends Model
 
     public function guardarPerfil(stdClass $params, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_insupd_xg_perfil 1,?,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_insupd_pg_perfil 1,?,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $params->id);
         $smtp->bindParam(2, $params->descripcion);
         $smtp->bindParam(3, $params->observacion);
@@ -111,7 +111,7 @@ class PerfilModel extends Model
 
     public function anularPerfil(string $id, string $motivo, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_upd_estado_xg_perfil 1,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_upd_estado_pg_perfil 1,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $id);
         $smtp->bindParam(2, $motivo);
         $smtp->bindParam(3, $usuario);
@@ -127,7 +127,7 @@ class PerfilModel extends Model
 
     public function activarPerfil(string $id, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_upd_estado_xg_perfil 2,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_upd_estado_pg_perfil 2,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $id);
         $smtp->bindValue(2, '');
         $smtp->bindParam(3, $usuario);

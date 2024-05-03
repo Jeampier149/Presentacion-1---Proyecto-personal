@@ -23,7 +23,7 @@ class AccionModel extends Model
 
     public function listarAccionXMenu(string $idMenu): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_lst_xg_accion ?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_lst_pg_accion ?');
         $smtp->bindParam(1, $idMenu, PDO::PARAM_INT);
         $smtp->execute();
         $resultados = $smtp->columnCount() > 0 ? $smtp->fetchAll(PDO::FETCH_ASSOC) : [];
@@ -34,7 +34,7 @@ class AccionModel extends Model
 
     public function guardarAccion($idMenu, $descripcion, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_ins_xg_accion ?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_ins_pg_accion ?,?,?,?,?,?,?');
         $smtp->bindParam(1, $idMenu, PDO::PARAM_INT);
         $smtp->bindParam(2, $descripcion);
         $smtp->bindParam(3, $usuario);
@@ -50,7 +50,7 @@ class AccionModel extends Model
 
     public function anularAccion(string $id, string $descripcion, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_upd_estado_xg_accion ?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_upd_estado_pg_accion ?,?,?,?,?,?,?');
         $smtp->bindParam(1, $id);
         $smtp->bindParam(2, $descripcion);
         $smtp->bindParam(3, $usuario);

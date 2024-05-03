@@ -24,7 +24,7 @@ class MenuModel extends Model
 
     public function listarMenuCombo(): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.gral_sp_lst_xg_menu');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.gral_sp_lst_pg_menu');
         $smtp->execute();
         $resultados = $smtp->columnCount() > 0 ? $smtp->fetchAll(PDO::FETCH_ASSOC) : [];
         $smtp->closeCursor();
@@ -33,7 +33,7 @@ class MenuModel extends Model
 
     public function listarMenu(stdClass $params): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_lst_xg_menu ?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_lst_pg_menu ?,?,?,?,?,?');
         $smtp->bindParam(1, $params->nombre);
         $smtp->bindParam(2, $params->padre);
         $smtp->bindParam(3, $params->orden);
@@ -48,7 +48,7 @@ class MenuModel extends Model
 
     public function obtenerMenu(string $idMenu): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_get_xg_menu ?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_get_pg_menu ?,?,?');
         $smtp->bindParam(1, $idMenu);
         $smtp->bindParam(2, $estado, PDO::PARAM_INT | PDO::PARAM_INPUT_OUTPUT, 1);
         $smtp->bindParam(3, $mensaje, PDO::PARAM_STR | PDO::PARAM_INPUT_OUTPUT, 300);
@@ -60,7 +60,7 @@ class MenuModel extends Model
 
     public function editarMenu(stdClass $params, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_insupd_xg_menu 2,?,?,?,?,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_insupd_pg_menu 2,?,?,?,?,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $params->id);
         $smtp->bindParam(2, $params->nombre);
         $smtp->bindParam(3, $params->orden);
@@ -80,7 +80,7 @@ class MenuModel extends Model
 
     public function guardarMenu(stdClass $params, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_insupd_xg_menu 1,?,?,?,?,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_insupd_pg_menu 1,?,?,?,?,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $params->id);
         $smtp->bindParam(2, $params->nombre);
         $smtp->bindParam(3, $params->orden);
@@ -100,7 +100,7 @@ class MenuModel extends Model
 
     public function anularMenu(string $id, string $descripcion, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_upd_estado_xg_menu 1,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_upd_estado_pg_menu 1,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $id);
         $smtp->bindParam(2, $descripcion);
         $smtp->bindParam(3, $usuario);
@@ -116,7 +116,7 @@ class MenuModel extends Model
 
     public function activarMenu(string $id, string $descripcion, $usuario, $perfil, $equipo): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo_web.conf_sp_upd_estado_xg_menu 2,?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.conf_sp_upd_estado_pg_menu 2,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $id);
         $smtp->bindParam(2, $descripcion);
         $smtp->bindParam(3, $usuario);

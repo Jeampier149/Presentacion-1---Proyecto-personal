@@ -13,7 +13,9 @@ import { ModalVerArchivoComponent } from '../modal-ver-archivo/modal-ver-archivo
 export class ModalVerComponent {
     pkEmpleado: string = '';
     estado: string = '';
-    
+    default:any="";
+
+
     //--VALOR ---//
     valorRegimen: any = '';
     valortipRegimen: any = '';
