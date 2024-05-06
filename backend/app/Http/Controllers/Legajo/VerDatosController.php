@@ -17,6 +17,7 @@ class VerDatosController extends JSONResponseController
         $resultado = [];
 
         $resultado['datosEmpleado'] = $datos->listarDatosEmpleadoVer($numeroDoc);
+        $resultado['datosSituacion'] = $datos->listarDatosSituacionLaboral($numeroDoc);
         $resultado['datosDiscapacidad'] = $datos->listarDatosDiscapacidades($numeroDoc);
         $resultado['datosContactoEmergencia'] = $datos->listarDatosContactoEmergencia($numeroDoc);
         $resultado['datosFamiliares'] = $datos->listarDatosFamiliares($numeroDoc);

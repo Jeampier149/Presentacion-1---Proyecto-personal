@@ -337,7 +337,7 @@ export class EditarEmpleadoComponent implements OnInit {
                     return;
                 }
                 this.setDatosEmpleado(datos.datosEmpleado[0]);
-                this.setSituacionLaboral(datos.datosEmpleado[0]);
+                this.setSituacionLaboral(datos.datosSituacion[0]);
                 this.setDatosConctactoEmergencia(datos.datosContactoEmergencia[0] );
                 this.setDatosDomicilio(datos.datosDomicilio[0]);
                 this.setDatosProfesion(datos.datosProfesion[0]);

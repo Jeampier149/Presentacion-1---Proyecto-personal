@@ -134,6 +134,7 @@ export class ModalVerComponent {
                   return;
               }
               this.setDatosEmpleado(datos.datosEmpleado[0])
+              this.setDatosSituacion(datos.datosSituacion[0])
               this.setDatosConctactoEmergencia(datos?.datosContactoEmergencia[0])
               this.setDatosDomicilio(datos?.datosDomicilio[0])
               this.setDatosProfesion(datos?.datosProfesion[0])
@@ -159,6 +160,18 @@ export class ModalVerComponent {
         this.descargarArchivo(ruta);
         
     }
+    setDatosSituacion(datos:any){
+        this.tipoEmp = datos?.condicion;
+        this.grupOcup = datos?.grupOcupacional;
+        this.valorRegimen = datos?.regimen;
+        this.valortipRegimen = datos?.tipoRegimen;
+        this.valorUnidad = datos?.unidadOrganica;
+        this.valorServicio = datos?.servicio;
+        this.valorCargo = datos?.cargo;
+        this.valorNivel = datos?.nivel;
+        this.codigoAirhsp = datos?.codigoAirhsp;
+        this.fechaIngreso = datos?.fechaIngreso;
+    }
   
     setDatosEmpleado(datos: any) {
         this.tipoDoc = datos?.tipoDocumento;
@@ -176,19 +189,8 @@ export class ModalVerComponent {
         this.gSanguineo = datos?.grupSanguineo;
         this.enfAlergias = datos?.enferAlergia;
         this.estadoCivil = datos?.estadoCivil;
-        this.tipoEmp = datos?.condicion;
-        this.grupOcup = datos?.grupOcupacional;
-        this.valorRegimen = datos?.regimen;
-        this.valortipRegimen = datos?.tipoRegimen;
-        this.valorUnidad = datos?.unidadOrganica;
-        this.valorServicio = datos?.servicio;
-        this.valorCargo = datos?.cargo;
-        this.valorNivel = datos?.nivel;
-        this.codigoAirhsp = datos?.codigoAirhsp;
-        this.fechaIngreso = datos?.fechaIngreso;
-        this.estado = datos?.estado;
         this.rutaF=datos?.rutaFoto
-
+        this.estado = datos?.estado;
         this.listarFoto(datos?.rutaFoto);
     }
 
