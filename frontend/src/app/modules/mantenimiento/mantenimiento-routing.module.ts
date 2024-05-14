@@ -6,7 +6,7 @@ const routes: Routes = [
     {
         path: 'usuarios',
         component: UsuarioComponent,
-        title: 'Usuarios | SIGHOS',
+        title: 'Usuarios | SIGPER',
     },
 ];
 
