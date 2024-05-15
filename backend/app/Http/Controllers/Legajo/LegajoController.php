@@ -185,21 +185,21 @@ class LegajoController extends JSONResponseController
         $datosPersonales = json_decode($request->post('datosPersonales'), true);
         $reglasDatosEmpleado = [
             'numDoc' => 'required',
-            'ruc' => 'max:99999999999|numeric',
+          //  'ruc' => 'max:99999999999|numeric',
             'estadoCivil' => 'required',
             'telFijo' => 'numeric',
             'telMovil' => 'numeric|max:999999999',
-            'correoE' => 'email'
+          //  'correoE' => 'email'
             
         ];
         
         $messagesEmpleado = [
             'numDoc.required' => 'El numero de documento es requerido.',
-            'ruc.max' => 'El ruc solo debe tener 11 dígitos.',
+          //  'ruc.max' => 'El ruc solo debe tener 11 dígitos.',
             'estadoCivil.required' => 'El estado civil es requerido.',
             'telFijo.numeric' => 'El teléfono fijo solo debe contener números.',
             'telMovil.numeric' => 'El teléfono móvil solo debe contener números.',
-            'correoE.email' => 'El correo electrónico no es válido.',
+           //'correoE.email' => 'El correo electrónico no es válido.',
             
         ];
         

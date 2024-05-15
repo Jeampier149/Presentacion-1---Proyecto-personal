@@ -61,8 +61,10 @@ export class EditarEmpleadoComponent implements OnInit {
     }
 
     onRemove(event: any) {
-        console.log(event);
         this.files.splice(this.files.indexOf(event), 1);
+        this.valDatosPersonales.controls['rutaFoto'].setValue('default/perfil.png')
+        console.log('eliminando.....')
+        console.log(this.files)
     }
     //FOTO PERSONAL
     fotoPersonal: File[] = [];
@@ -155,14 +157,11 @@ export class EditarEmpleadoComponent implements OnInit {
             aMaterno: new FormControl({ value: '', disabled: true }),
             nombres: new FormControl({ value: '', disabled: true }),
             sexo: new FormControl(''),
-            ruc: new FormControl('', [
-                Validators.required,
-                Validators.pattern('[0-9]{11}'),
-            ]),
+            ruc: new FormControl(''),
             fechaNacimiento: new FormControl(''),
             telFijo: new FormControl('', [Validators.pattern('^[0-9]*$')]),
             telMovil: new FormControl('', [Validators.pattern('^[0-9]*$')]),
-            correo: new FormControl('', { validators: Validators.email }),
+            correo: new FormControl(''),
             grupoSanguineo: new FormControl(''),
             estadoCivil: new FormControl(''),
             rutaFoto: new FormControl(''),
