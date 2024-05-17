@@ -569,7 +569,10 @@ export class EditarEmpleadoComponent implements OnInit {
 
     eliminarItem(index: number, nombre: keyof EditarEmpleadoComponent) {
         this[nombre][index].estado = '*';
+        console.log(this.familiares)
+        console.log('eliminando....')
     }
+
     sinDatosFamiliares() {
         this.divFamiliar = true;
         this.familiares = [];
@@ -816,7 +819,7 @@ export class EditarEmpleadoComponent implements OnInit {
 
 
     actualizarEmpleado() {
-
+ 
         this.loading=true
         const datosDomicilio = this.valDatosDomicilio.getRawValue();
         const situacionLaboral=this.valSituacionLaboral.value
