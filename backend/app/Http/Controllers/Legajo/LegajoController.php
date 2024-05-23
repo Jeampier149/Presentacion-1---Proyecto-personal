@@ -66,19 +66,19 @@ class LegajoController extends JSONResponseController
             'apellidoPaterno' => 'required',
             'apellidoMaterno' => 'required',
             'nombres' => 'required',
-            'ruc' => 'string| max:11',
-            'estadoCivil' => 'required',
+            'ruc' => 'string| max:11|nullable',
+            'estadoCivil' => 'required|nullable',
             'sexo' => 'required',
-            'grupoSanguineo' => 'required',
+            'grupoSanguineo' => 'required|nullable',
             'grupOcupacional' => 'required',
             'tipoEmpleado' => 'required',
             'regimen' => 'required',
             'tipoRegimen' => 'required',
             'fechaNacimiento' => 'string',
-            'telefonoFijo' => 'required',
-            'telefonoMovil' => 'required | max:9',
-            'correoElectronico' => 'required|email',
-            'enfAlergias' => 'string',
+            'telefonoFijo' => 'required|nullable',
+            'telefonoMovil' => 'required | max:9|nullable',
+            'correoElectronico' => 'required|email|nullable',
+            'enfAlergias' => 'string|nullable',
             'fechaIngreso' => 'string',
             'unidadOrganica' => 'required',
             'servicio' => 'required',
@@ -93,8 +93,8 @@ class LegajoController extends JSONResponseController
 
         $datosContacto = json_decode($request->post('datosContacto'), true);
         $reglasDatosContacto = [
-            'nombreContacto' => 'string',
-            'parentesco' => 'string',
+            'nombreContacto' => 'string|nullable',
+            'parentesco' => 'string|nullable',
 
 
         ];
@@ -111,14 +111,14 @@ class LegajoController extends JSONResponseController
             'provincia' => 'string',
             'distrito' => 'string',
             'via' => 'required',
-            'nombreVia' => 'string|required',
-            'numeroVia' => 'string|required',
-            'interiorVia' => 'string|required',
-            'zona' => 'string|required',
-            'nombreZona' => 'string|required',
-            'numeroZona' => 'string|required',
-            'interiorZona' => 'string|required',
-            'referenciaDomicilio' => 'string|required',
+            'nombreVia' => 'string|nullable',
+            'numeroVia' => 'string|nullable',
+            'interiorVia' => 'string|nullable',
+            'zona' => 'string|nullable',
+            'nombreZona' => 'string|nullable',
+            'numeroZona' => 'string|nullable',
+            'interiorZona' => 'string|nullable',
+            'referenciaDomicilio' => 'string|nullable',
             'ubigeo' => 'string',
 
         ];
@@ -185,21 +185,21 @@ class LegajoController extends JSONResponseController
         $datosPersonales = json_decode($request->post('datosPersonales'), true);
         $reglasDatosEmpleado = [
             'numDoc' => 'required',
-          //  'ruc' => 'max:99999999999|numeric',
-            'estadoCivil' => 'required',
-            'telFijo' => 'numeric',
-            'telMovil' => 'numeric|max:999999999',
-          //  'correoE' => 'email'
+            'ruc' => 'max:99999999999|numeric|nullable',
+            'estadoCivil' => 'required|nullable',
+            'telFijo' => 'numeric|nullable',
+            'telMovil' => 'numeric|max:999999999|nullable',
+            'correoE' => 'email|nullable'
             
         ];
         
         $messagesEmpleado = [
             'numDoc.required' => 'El numero de documento es requerido.',
-          //  'ruc.max' => 'El ruc solo debe tener 11 dígitos.',
+            'ruc.max' => 'El ruc solo debe tener 11 dígitos.',
             'estadoCivil.required' => 'El estado civil es requerido.',
             'telFijo.numeric' => 'El teléfono fijo solo debe contener números.',
             'telMovil.numeric' => 'El teléfono móvil solo debe contener números.',
-           //'correoE.email' => 'El correo electrónico no es válido.',
+            'correoE.email' => 'El correo electrónico no es válido.',
             
         ];
         

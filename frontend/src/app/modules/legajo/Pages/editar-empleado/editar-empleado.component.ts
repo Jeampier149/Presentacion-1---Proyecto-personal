@@ -613,7 +613,7 @@ export class EditarEmpleadoComponent implements OnInit {
         const nuevoNombre = timestamp + '_' + fileEs.name;
         const fileFinal: File = new File([fileEs], nuevoNombre);
         const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
+            this.valDatosPersonales.get('numDoc')?.value +
             '/' +
             fileFinal.name.replace(/\s+/g, '_');
         this.estudioSuperior[index].archivo = fileFinal;
