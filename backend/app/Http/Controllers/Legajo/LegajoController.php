@@ -144,10 +144,15 @@ class LegajoController extends JSONResponseController
         $equipo = Str::upper(explode(':', gethostbyaddr($_SERVER['REMOTE_ADDR']))[0] ?? '');
         $archivosT = $request->file();
 
+
+
         foreach ($archivosT as $archivo) {
+
             $nameArchivo =  $archivo->getClientOriginalName();
             $name = str_replace(" ", "_", $nameArchivo);
-            $destino = $numeroDocumento . '/' . $name;
+            $partes = explode('_', $nameArchivo);
+            $subcarpeta = reset($partes);
+            $destino = $numeroDocumento . '/'.$subcarpeta. '/'. $name;         
             try {
                 Storage::disk('ftp')->put($destino, file_get_contents($archivo));
             } catch (\Exception $e) {
@@ -155,8 +160,6 @@ class LegajoController extends JSONResponseController
                 return response()->json(['error' => 'Error al subir el archivo al servidor FTP: ' . $errorMessage], 500);
             }
         }
-
-
 
         $legajoModel = new LegajoModel();
         $resultado = $legajoModel->registrarEmpleado(
@@ -190,9 +193,9 @@ class LegajoController extends JSONResponseController
             'telFijo' => 'numeric|nullable',
             'telMovil' => 'numeric|max:999999999|nullable',
             'correoE' => 'email|nullable'
-            
+
         ];
-        
+
         $messagesEmpleado = [
             'numDoc.required' => 'El numero de documento es requerido.',
             'ruc.max' => 'El ruc solo debe tener 11 dígitos.',
@@ -200,16 +203,16 @@ class LegajoController extends JSONResponseController
             'telFijo.numeric' => 'El teléfono fijo solo debe contener números.',
             'telMovil.numeric' => 'El teléfono móvil solo debe contener números.',
             'correoE.email' => 'El correo electrónico no es válido.',
-            
+
         ];
-        
+
         $validacionDatosEmpleado = Validator::make($datosPersonales, $reglasDatosEmpleado, $messagesEmpleado);
-        
+
         if ($validacionDatosEmpleado->fails()) {
             return $this->sendResponse(200, false, 'Error de validación', $validacionDatosEmpleado->errors());
         }
-        
-      
+
+
         $datosContacto = json_decode($request->post('datosContacto'), true);
         $reglasDatosContacto = [
             'nombreContacto' => 'string',
@@ -221,7 +224,7 @@ class LegajoController extends JSONResponseController
         if ($validacionDatosContacto->fails()) {
             return $this->sendResponse(200, false, 'Error de validación', $validacionDatosContacto->errors());
         }
-      
+
         $datosDomicilio = json_decode($request->post('datosDomicilio'), true);
         $reglasDatosDomicilio = [
             'departamento' => 'string',
@@ -255,7 +258,9 @@ class LegajoController extends JSONResponseController
         foreach ($archivosT as $archivo) {
             $nameArchivo =  $archivo->getClientOriginalName();
             $name = str_replace(" ", "_", $nameArchivo);
-            $destino = $numeroDocumento . '/' . $name;
+            $partes = explode('_', $nameArchivo);
+            $subcarpeta = reset($partes);
+            $destino = $numeroDocumento . '/'.$subcarpeta. '/'. $name;         
             try {
                 Storage::disk('ftp')->put($destino, file_get_contents($archivo));
             } catch (\Exception $e) {
@@ -285,35 +290,33 @@ class LegajoController extends JSONResponseController
 
         );
         return $this->sendResponse(200, true, $resultado->mensaje, $resultado->resultado);
-
     }
-   public function editarDiscapacidad(Request $request): JsonResponse
-   {
+    public function editarDiscapacidad(Request $request): JsonResponse
+    {
 
-    $datosDiscapacidad = json_decode($request->post('datosDiscapacidad'), true);  
-    $numeroDocumento= json_decode($request->post('numeroDoc'), true);
-    if($request->hasFile('archivoD')){
-        $archivo = $request->file('archivoD');
-        $nameArchivo =$archivo->getClientOriginalName();
-        $name = str_replace(" ", "_", $nameArchivo);
-        $destino = $numeroDocumento . '/' . $name;
-    
-        try {
-            Storage::disk('ftp')->put($destino, file_get_contents($archivo));
-        } catch (\Exception $e) {
-            $errorMessage = $e->getMessage();
-            return response()->json(['error' => 'Error al subir el archivo al servidor FTP: ' . $errorMessage], 500);
+        $datosDiscapacidad = json_decode($request->post('datosDiscapacidad'), true);
+        $numeroDocumento = json_decode($request->post('numeroDoc'), true);
+        if ($request->hasFile('archivoD')) {
+            $archivo = $request->file('archivoD');
+            $nameArchivo = $archivo->getClientOriginalName();
+            $name = str_replace(" ", "_", $nameArchivo);
+            $partes = explode('_', $nameArchivo);
+            $subcarpeta = reset($partes);
+            $destino = $numeroDocumento . '/'.$subcarpeta. '/'. $name;         
+            try {
+                Storage::disk('ftp')->put($destino, file_get_contents($archivo));
+            } catch (\Exception $e) {
+                $errorMessage = $e->getMessage();
+                return response()->json(['error' => 'Error al subir el archivo al servidor FTP: ' . $errorMessage], 500);
+            }
         }
-        
-    }
-    
-    $user = $request->user();
-    $usuario = $user->username;
-    $perfil = $user->id_perfil;
-    $equipo = Str::upper(explode(':', gethostbyaddr($_SERVER['REMOTE_ADDR']))[0] ?? '');
-    $legajoModel=new LegajoModel();
-    $resultado=$legajoModel->editarDiscapacidad($datosDiscapacidad,$usuario,$equipo,$perfil,$numeroDocumento);
-    return $this->sendResponse(200, true,'Datos de Discapacidad Actualizados Correctamente', 1);
 
+        $user = $request->user();
+        $usuario = $user->username;
+        $perfil = $user->id_perfil;
+        $equipo = Str::upper(explode(':', gethostbyaddr($_SERVER['REMOTE_ADDR']))[0] ?? '');
+        $legajoModel = new LegajoModel();
+        $resultado = $legajoModel->editarDiscapacidad($datosDiscapacidad, $usuario, $equipo, $perfil, $numeroDocumento);
+        return $this->sendResponse(200, true, 'Datos de Discapacidad Actualizados Correctamente', 1);
     }
 }

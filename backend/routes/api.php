@@ -7,6 +7,7 @@ use App\Http\Controllers\Configuracion\AccesoController;
 use App\Http\Controllers\Configuracion\AccionController;
 use App\Http\Controllers\Configuracion\MenuController;
 use App\Http\Controllers\Configuracion\PerfilController;
+use App\Http\Controllers\Legajo\CompensacionController;
 use App\Http\Controllers\Legajo\LegajoController;
 use App\Http\Controllers\Legajo\ReporteDatosController;
 use App\Http\Controllers\Legajo\SituacionLaboralController;
@@ -42,10 +43,24 @@ Route::controller(LegajoController::class)->group(function () {
     Route::post('legajo/editar-discapacidad', 'editarDiscapacidad');
 });
 
+
+
+Route::controller(CompensacionController::class)->group(function () {   
+    Route::post('compensacion/registrarCompensacion', 'registrarCompensacion');
+    Route::get('compensacion/listar-compensacion', 'listarCompensaciones'); 
+    Route::post('compensacion/getCompensacion', 'getCompensacion'); 
+    Route::post('compensacion/editarCompensacion', 'editarCompensacion'); 
+    Route::get('compensacion/verArchivo', 'verArchivo'); 
+});
+
+
+
 Route::controller(GeneralController::class)->group(function () {
     Route::post('general/listarSelects', 'listarSelects'); 
     Route::post('general/listarTipoRegimen', 'listarTipoRegimen');
     Route::post('general/listarServicio', 'listarServicio');
+    Route::post('general/listarEmpleado', 'listarEmpleados');
+    Route::post('general/listarTipoCompensaciones', 'listarTipoCompensaciones');
 });
 
 Route::controller(VerDatosController::class)->group(function () {

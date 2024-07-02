@@ -71,31 +71,31 @@ export class DatoGeneralesService {
 
             });
             datosEstudioSuperior.forEach((datos:any, index:any) => {
-                formData.append(`estudioSuperior${index}_archivo`, datos.archivo);
+                formData.append(`estudioSuperior_${index}_archivo`, datos.archivo);
 
             });
             datosPostgrado.forEach((datos:any, index:any) => {
-                formData.append(`postgrado${index}_archivo`, datos.archivo);
+                formData.append(`postgrado_${index}_archivo`, datos.archivo);
 
             });
             datosEspecializacion.forEach((datos:any, index:any) => {
-                formData.append(`especializacion${index}_archivo`, datos.archivo);
+                formData.append(`especializacion_${index}_archivo`, datos.archivo);
 
             });
             datosCursos.forEach((datos:any, index:any) => {
-                formData.append(`curso${index}_archivo`, datos.archivo);
+                formData.append(`curso_${index}_archivo`, datos.archivo);
 
             });
             datosIdiomas.forEach((datos:any, index:any) => {
-                formData.append(`idioma${index}_archivo`, datos.archivo);
+                formData.append(`idioma_${index}_archivo`, datos.archivo);
 
             });
             experienciaLaboral.forEach((datos:any, index:any) => {
-                formData.append(`laboral${index}_archivo`, datos.archivo);
+                formData.append(`laboral_${index}_archivo`, datos.archivo);
 
             });
            laborDocencia.forEach((datos:any, index:any) => {
-                formData.append(`docencia${index}_archivo`, datos.archivo);
+                formData.append(`docencia_${index}_archivo`, datos.archivo);
 
             });
             // Aquí agregamos los datos al formData

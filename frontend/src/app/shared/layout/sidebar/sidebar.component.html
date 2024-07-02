@@ -25,11 +25,13 @@
                             <li *ngFor="let subMenu of obtenerHijos(menu['CODIGO'])">
                                 <ng-template [ngIf]="validarHijos(subMenu['CODIGO'])" [ngIfElse]=nivel2>
                                     <a href="#" (click)="$event.preventDefault()" class="has-arrow">
+                                        <i class="{{subMenu['ICONO']}}" style="font-size: 9px;"></i>
                                         <span>{{subMenu['NOMBRE']}}</span>
                                     </a>
                                     <ul class="sub-menu" aria-expanded="false">
                                         <li *ngFor="let subMenu2 of obtenerHijos(subMenu['CODIGO'])">
                                             <a href="#" (click)="irARuta($event, subMenu2['RUTA'])">
+                                                <i class="{{subMenu2['ICONO']}}"></i>
                                                 <span>{{subMenu2['NOMBRE']}}</span>
                                             </a>
                                         </li>
@@ -37,6 +39,7 @@
                                 </ng-template>
                                 <ng-template #nivel2>
                                     <a href="#" (click)="irARuta($event, subMenu['RUTA'])">
+                                        <i class="{{subMenu['ICONO']}}" style="font-size: 9px;"></i>
                                         <span>{{subMenu['NOMBRE']}}</span>
                                     </a>
                                 </ng-template>

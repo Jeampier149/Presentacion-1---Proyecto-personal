@@ -43,5 +43,15 @@ class GeneralController extends JSONResponseController
         $resultado=$tipoRegimen->listarServicio($id);
         return $this->sendResponse(200, true, '', $resultado);
     }
+    public function listarEmpleados(){
+        $empleado=new GeneralModel();
+        $resultado=$empleado->listarEmpleados();
+        return $this->sendResponse(200, true, '', $resultado);
+    }
+    public function listarTipoCompensaciones(){
+        $compensacion=new GeneralModel();
+        $resultado=$compensacion->listarTipoCompensaciones();
+        return $this->sendResponse(200, true, '', $resultado);
+    }
 }
 

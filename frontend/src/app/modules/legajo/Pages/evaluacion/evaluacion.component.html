@@ -1,14 +1,19 @@
-<app-breadcrumb [rutas]="rutas" [titulo]="'Datos Generales'"></app-breadcrumb>
+<app-breadcrumb [rutas]="rutas" [titulo]="'Evaluación'"></app-breadcrumb>
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-xl-auto col-md-auto col-sm-auto">
+                <div class="row  ">
+
+                    <div class="col-xl-4 col-md-auto col-sm-auto d-flex ">
                         @if(accesos?.includes(1)){
-                            <button class="btn w-100 btn-sm btn-primary waves-light waves-effect btn-label"
-                            routerLink="/legajo/agregarEmpleado">
-                        <i class="fa fa-file label-icon"></i> Nuevo Personal
+                            <button class="btn  btn-sm btn-primary waves-light waves-effect btn-label me-1" style="width: 190px;"
+                          (click)="nuevoDocumento()" >
+                        <i class="fa fa-file label-icon"></i> Nuevo Documento
+                </button>
+                <button class="btn  btn-sm btn-primary waves-light waves-effect btn-label" style="width: 150px;"
+                (click)="nuevoDocumento()" >
+              <i class="fa fa-file label-icon"></i> Exportar
                 </button>
                         }
                         
@@ -17,6 +22,27 @@
                 <div class="row pt-2">
                     <div class="col-xl-12">
                         <app-loading [mostrar]="loading">
+                            <div class="row mb-4 mt-3">                     
+                            
+                                <div class="col-7">
+                                    <div class="row g-3 align-items-center">
+                                        <div class="col-auto">
+                                          <label for="inputPassword6" class="col-form-label" style="font-size: 12px;">APELLIDOS Y NOMBRES:</label>
+                                        </div>
+                                        <div class="col">
+                                            <ng-select                                                          
+                                              [items]="emp"
+                                              bindLabel ="nombreC" 
+                                              bindValue ="NUMERO_DOCUMENTO"    
+                                              [(ngModel)]="filtroDni" 
+                                              (change)="changeEmp()"                                 
+                                       > 
+                                       </ng-select >
+                                        </div>
+                                       
+                                      </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="table-responsive">
@@ -28,64 +54,49 @@
                                                 </th>
                                             </tr>
                                             <tr>
-                                                <th class="limpiar">
+                                                <th class="limpiar" style="text-align: center;">
                                                     <button
-                                                        class="btn w-50 btn-sm btn-danger waves-effect waves-light "
+                                                        class="btn  btn-sm btn-danger waves-effect waves-light w-50 "
                                                         (click)="limpiarCampos()"><i class="fa-solid fa-trash-can"></i>
                                                     </button>
+                                                </th>
+                                                <th>
+                                                  
                                                 </th>
                                                 <th>
                                                     <input #inpFocus
                                                            inputmode="text"
                                                            class="form-control form-control-sm text-uppercase"
-                                                           name="filtroDocumento" [(ngModel)]="filtroDocumento"
+                                                           name="filtroTipo" [(ngModel)]="filtroTipo"
                                                            (keydown.enter)="filtrarEmpleado()">
                                                 </th>
-                                                <th></th>
+                                               
                                                 <th>
                                                     <input
                                                         inputmode="text"
                                                         class="form-control form-control-sm text-uppercase"
-                                                        name="appPaternoFiltro"
-                                                        [(ngModel)]="filtroAppPaterno"
+                                                        name="filtroDocumento"
+                                                        [(ngModel)]="filtroDocumento"
                                                         (keydown.enter)="filtrarEmpleado()">
                                                 </th>
                                                 <th>
                                                     <input
                                                         inputmode="text"
                                                         class="form-control form-control-sm text-uppercase"
-                                                        name="appMaternoFiltro"
-                                                        [(ngModel)]="filtroAppMaterno"
+                                                        name="filtroAsunto"
+                                                        [(ngModel)]="filtroAsunto"
                                                         (keydown.enter)="filtrarEmpleado()">
                                                 </th>
                                                 <th>
                                                     <input
-                                                        inputmode="text"
+                                            
+                                                        type="date"
                                                         class="form-control form-control-sm text-uppercase"
-                                                        name="nombresFiltro"
-                                                        [(ngModel)]="filtroNombres"
+                                                        name="filtroFecha"
+                                                        [(ngModel)]="filtroFecha"
                                                         (keydown.enter)="filtrarEmpleado()">
                                                 </th>
-                                    
-                                                <th><input
-                                                    inputmode="text"
-                                                    type="text" class="form-control form-control-sm text-center"
-                                                    name="filtroUnidadOrganica" [(ngModel)]="filtroUnidadOrganica"
-                                                    (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th><input
-                                                    inputmode="text"
-                                                    type="text" class="form-control form-control-sm text-center"
-                                                    name="filtroServicioEquipo" [(ngModel)]="filtroServicioEquipo"
-                                                    (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th><input
-                                                    inputmode="text"
-                                                    type="text" class="form-control form-control-sm text-center"
-                                                    name="filtroEstado" [(ngModel)]="filtroEstado"
-                                                    (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                           
+                                                             
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -93,43 +104,31 @@
                                                 <tr *ngFor="let dato of datos">
                                                     <td>
                                                         <div class="d-flex gap-1 flex-wrap justify-content-center">
-                                                              @if(accesos?.includes(3)){
-                                                                <button [bsTooltip]="'SItuacion Laboral'"
-                                                                class="btn btn-sm waves-light waves-effect btn-primary"
-                                                                (click)="situacionLaboral(dato.numeroDocumento)"
-                                                                >
-                                                              <i class="fa fa-user"></i></button>
-                                                              } 
-                                                              
+                                                                                                                        
                                                              @if(accesos?.includes(2)){
                                                                 <button [bsTooltip]="'Editar'"
                                                                 class="btn btn-sm waves-light waves-effect btn-primary"
-                                                                 (click)="editarEmpleado(dato.numeroDocumento)"
+                                                                
+                                                                (click)="editarDocumento(dato.id)"
                                                                >
                                                             <i class="fa fa-pencil"></i></button>
                                                              }
                                                          
-                                                                <button [bsTooltip]="'ver'"
-                                                                class="btn btn-sm waves-light waves-effect bg-secundary-new"
-                                                                (click)="verDatos(dato.numeroDocumento)"
-                                                               
-                                                                >
+                                                                <button [bsTooltip]="'ver'"  
+                                                                class="btn btn-sm waves-light waves-effect  btn-dark"
+                                                                (click)="descargarArchivo(dato.ruta)" >
                                                                  <i class="fa fa-eye"></i></button>
-
                                                         </div>
                                                     </td>
                                                     <td class="text-center">{{ dato.numeroDocumento}}</td>
-                                                    <td class="text-center">{{ dato.tipoDocumento}}</td>
-                                                    <td>{{ dato.apellidoPaterno }}</td>
-                                                    <td>{{ dato.apellidoMaterno }}</td>
-                                                    <td>{{ dato.nombres }}</td>
-                                                    <td >{{ dato.unidadOrganica }}</td>
-                                                    <td >{{ dato.servicio}}</td>
-                                                    <td  class="text-center">
+                                                    <td class="text-center">{{ dato.tipo}}</td>
+                                                    <td class="text-center">{{ dato.documento}}</td>
+                                                    <td class="text-center">{{ dato.asunto }}</td>
+                                                    <td class="text-center">{{ dato.fecha }}</td>
+                                                    <!-- <td  class="text-center">
                                                         <span class="badge estado W-100" [ngClass]="dato.estado === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{ dato.estado}}</span>    
-                                                    
-                                                    
-                                                    </td>
+                                                                                           
+                                                    </td> -->
                                                 </tr>
                                             </ng-template>
                                             <ng-template #vacio>
@@ -154,5 +153,6 @@
         </div>
     </div>
 </div>
-<app-modal-ver></app-modal-ver>
-<app-modal-situacion-laboral></app-modal-situacion-laboral>
+<app-modal-nueva-compensacion></app-modal-nueva-compensacion>
+<app-modal-editar-compensacion></app-modal-editar-compensacion>
+<app-modal-ver-compensacion></app-modal-ver-compensacion>

@@ -17,6 +17,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalSituacionLaboralComponent } from './components/modal-situacion-laboral/modal-situacion-laboral.component';
 import { ModalDarTerminoComponent } from './components/modal-dar-termino/modal-dar-termino.component';
 import { ModalTomarFotoComponent } from './components/modal-tomar-foto/modal-tomar-foto.component';
+import { CompensacionesComponent } from './Pages/compensaciones/compensaciones.component';
+import { ModalNuevaCompensacionComponent } from './components/modal-nueva-compensacion/modal-nueva-compensacion.component';
+import { ModalEditarCompensacionComponent } from './components/modal-editar-compensacion/modal-editar-compensacion.component';
+import { ModalVerCompensacionComponent } from './components/modal-ver-compensacion/modal-ver-compensacion.component';
+import { EvaluacionComponent } from './Pages/evaluacion/evaluacion.component';
 
 
 
@@ -30,7 +35,12 @@ import { ModalTomarFotoComponent } from './components/modal-tomar-foto/modal-tom
     EditarEmpleadoComponent,
     ModalSituacionLaboralComponent,
     ModalDarTerminoComponent,
-    ModalTomarFotoComponent
+    ModalTomarFotoComponent,
+    ModalNuevaCompensacionComponent,
+    ModalEditarCompensacionComponent,
+    ModalVerCompensacionComponent,
+    CompensacionesComponent,
+    EvaluacionComponent
     
   
   ],

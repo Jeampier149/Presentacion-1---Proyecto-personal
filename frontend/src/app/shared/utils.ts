@@ -57,3 +57,15 @@ function formatearMensaje(mensaje: string): string {
 
     return html.slice(0, -5);
 }
+export async function infoAlerta(titulo: string, mensaje: string, html: string, opciones?: SweetAlertOptions): Promise<SweetAlertResult> {
+    let modal = document.getElementsByClassName('modal show')[0];
+    let target = (modal as HTMLElement) ?? 'body';
+    return await Swal.fire({
+        icon: 'info',
+        title: titulo,
+        text: mensaje,
+        html: html,
+        target: target,
+        ...opciones
+    })
+}

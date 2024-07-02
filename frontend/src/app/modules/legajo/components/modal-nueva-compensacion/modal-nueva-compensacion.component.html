@@ -1,0 +1,72 @@
+<div #modalNuevaCompensacion class="modal fade" tabIndex="-1" *teleportTo="'body'" >
+    <div class="modal-dialog modal-dialog-centered modal-md modal-fullscreen-lg-down" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nueva Compensacion</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <app-loading [mostrar]="loading">
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label" style="font-size: 12px;">APELLIDOS Y NOMBRES:</label>
+                              </div>
+                              <div class="col">
+                                  <ng-select                                                          
+                                    [items]="empl"
+                                    bindLabel ="nombreC" 
+                                    bindValue ="NUMERO_DOCUMENTO"
+                                    [(ngModel)]="dni"                                      
+                             > 
+                             </ng-select >
+                              </div>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <label for="" class="form-label">Tipo Compensación</label>
+                            <ng-select                                                          
+                            [items]="tipo"
+                            bindLabel ="tipo" 
+                            bindValue ="tipo" 
+                            [(ngModel)]="tipoC"                                      
+                             > 
+                            </ng-select > 
+                        </div>
+                       <div class="col-6 mb-2">
+                        <label for="" class="form-label">Fecha Documento</label>
+                        <input type="date" class="form-control form-control-sm " id=""  [(ngModel)]="fecha" >
+                       </div>
+                       <div class="col-12 mb-2">                   
+                        <label for="" class="form-label">Documento</label>
+                        <input type="text" class="form-control form-control-sm " id=""  [(ngModel)]="documento" > 
+                       </div>
+                       <div class="col-12 mb-3">
+                        <label for="" class="form-label">Asunto</label>  
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  [(ngModel)]="asunto" ></textarea>
+                       </div>
+                       <div class="col-12">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file"   accept="application/pdf" (change)="archivoCompensacion($event)">
+                       </div>
+                                                                                  
+                    </div>
+              
+                </app-loading>
+                <div class="modal-footer justify-content-end mt-1">
+                    <div>
+                        <button class="btn btn-danger waves-light waves-effect btn-label m-1" type="button"
+                            (click)="closeModal()">
+                            Salir &ensp;
+                            <i class="fas fa-door-open label-icon"></i>
+                        </button>
+                        <button class="btn btn-primary waves-light waves-effect btn-label m-1" type="button" (click)="registrarCompensacion()"
+                      >
+                         Guardar &ensp;
+                        <i class="fas fa-save label-icon"></i>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -118,5 +118,16 @@ class GeneralModel extends Model
     /** @lang SQL */
     'EXEC dbo.g_sp_listar_unidad_organica');
   }
-
+  public function listarEmpleados()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_select_empleado');
+  }
+  public function listarTipoCompensaciones()
+  {
+    return $this->conexion->select(
+    /** @lang SQL */
+    'EXEC dbo.g_sp_listar_select_compensaciones');
+  }
 }

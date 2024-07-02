@@ -367,14 +367,15 @@ agregarDocencia() {
     this.divExperienciaDocencia=true
     this.laborDocencia=[]
   }
-
+ 
 
   seleccionarArchivoEst(event: any, index: number) {
     const fileEs: File = event.target.files[0];
     const timestamp = new Date().getTime();
-    const nuevoNombre=timestamp + '_' + fileEs.name
-    const fileFinal: File = new File([fileEs], nuevoNombre);
-    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const nuevoNombre='Superior_'+timestamp+'_'+fileEs.name 
+    const fileFinal: File = new File([fileEs],nuevoNombre);
+    const ruta =this.numeroDocumento+'/Superior/'+fileFinal.name.replace(/\s+/g, '_');
+    console.log(ruta)
     this.estudioSuperior[index].archivo = fileFinal;
     this.estudioSuperior[index].ruta=ruta
 
@@ -383,9 +384,9 @@ agregarDocencia() {
   seleccionarArchivoPg(event: any, index: number) {
     const filePost: File = event.target.files[0];
     const timestamp = new Date().getTime();
-    const nuevoNombre=timestamp + '_' + filePost.name
+    const nuevoNombre='Postgrado'+'_'+timestamp+'_' +filePost.name 
     const fileFinal: File = new File([filePost], nuevoNombre);
-    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.numeroDocumento+'/Postgrado/'+fileFinal.name.replace(/\s+/g, '_');
     this.estudioPostgrado[index].archivo = fileFinal;
     this.estudioPostgrado[index].ruta=ruta
 
@@ -393,9 +394,9 @@ agregarDocencia() {
   seleccionarArchivoEspecialidad(event: any, index: number) {
     const fileEsp: File = event.target.files[0];
     const timestamp = new Date().getTime();
-    const nuevoNombre=timestamp + '_' + fileEsp.name
+    const nuevoNombre='Especialidad'+ '_'+timestamp+'_' + fileEsp.name
     const fileFinal: File = new File([fileEsp], nuevoNombre);
-    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.numeroDocumento+'/Especialidad/'+fileFinal.name.replace(/\s+/g, '_');
     this.especializacion[index].archivo = fileFinal;
     this.especializacion[index].ruta=ruta
 
@@ -403,9 +404,9 @@ agregarDocencia() {
   seleccionarArchivoCurso(event: any, index: number) {
     const fileCu: File = event.target.files[0];
     const timestamp = new Date().getTime();
-    const nuevoNombre=timestamp + '_' + fileCu.name
+    const nuevoNombre='Curso'+ '_'+timestamp+'_' + fileCu.name
     const fileFinal: File = new File([fileCu], nuevoNombre);
-    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.numeroDocumento+'/Curso/'+fileFinal.name.replace(/\s+/g, '_');
     this.cursos[index].archivo = fileFinal;
     this.cursos[index].ruta=ruta
 
@@ -413,9 +414,9 @@ agregarDocencia() {
   seleccionarArchivoIdioma(event: any, index: number) {
     const fileId: File = event.target.files[0];
     const timestamp = new Date().getTime();
-    const nuevoNombre=timestamp + '_' + fileId.name
+    const nuevoNombre='Idioma'+ '_'+timestamp +'_'+ fileId.name
     const fileFinal: File = new File([fileId], nuevoNombre);
-    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.numeroDocumento+'/Idioma/'+fileFinal.name.replace(/\s+/g, '_');
     this.idiomas[index].archivo = fileFinal;
     this.idiomas[index].ruta=ruta
 
@@ -423,9 +424,9 @@ agregarDocencia() {
   seleccionarArchivoExpLaboral(event: any, index: number) {
     const fileLa: File = event.target.files[0];
     const timestamp = new Date().getTime();
-    const nuevoNombre=timestamp + '_' + fileLa.name
+    const nuevoNombre='ExpLaboral'+ '_'+timestamp +'_'+ fileLa.name
     const fileFinal: File = new File([fileLa], nuevoNombre);
-    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.numeroDocumento+'/ExpLaboral/'+fileFinal.name.replace(/\s+/g, '_');
     this.experienciaLaboral[index].archivo = fileFinal;
     this.experienciaLaboral[index].ruta=ruta
 
@@ -433,9 +434,9 @@ agregarDocencia() {
   seleccionarArchivoExpDocencia(event: any, index: number) {
     const fileDo: File = event.target.files[0];
     const timestamp = new Date().getTime();
-    const nuevoNombre=timestamp + '_' + fileDo.name
+    const nuevoNombre='ExpDocencia'+ '_'+timestamp+'_'+fileDo.name
     const fileFinal: File = new File([fileDo], nuevoNombre);
-    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.numeroDocumento+'/ExpDocencia/'+fileFinal.name.replace(/\s+/g, '_');
     this.laborDocencia[index].archivo = fileFinal;
     this.laborDocencia[index].ruta=ruta
 
@@ -444,9 +445,9 @@ agregarDocencia() {
   seleccionarArchivoDiscapacidad(event: any) {
     const fileDo: File = event.target.files[0];
     const timestamp = new Date().getTime();
-    const nuevoNombre=timestamp + '_' + fileDo.name
+    const nuevoNombre='Discapacidad'+'_'+timestamp + '_' + fileDo.name
     const fileFinal: File = new File([fileDo], nuevoNombre);
-    const ruta =this.numeroDocumento+'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta =this.numeroDocumento+'/Discapacidad/'+fileFinal.name.replace(/\s+/g, '_');
     this.archivoDiscapacidad.push(fileFinal) ;
     this.rutaDiscapacidad=ruta
 

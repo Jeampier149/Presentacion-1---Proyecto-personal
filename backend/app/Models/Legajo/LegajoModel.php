@@ -52,7 +52,6 @@ class LegajoModel extends Model
         return $resultados;
     }
     public function registrarEmpleado(
-
         array $datosPersonales,
         array $datosContacto,
         array $datosDiscapacidad,
@@ -76,8 +75,6 @@ class LegajoModel extends Model
         DB::beginTransaction();
 
         try {
-
-
             // Iterar sobre los datos personales 
             try {
                 $resultado = DB::selectOne('EXEC dbo.pl_sp_insertar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [

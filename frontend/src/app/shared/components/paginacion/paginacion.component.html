@@ -5,7 +5,7 @@
                 <li class="page-item" [ngClass]="{'disabled':!hasAtras()}">
                     <a class="page-link" href="#" (click)="irAnterior($event)" tabindex="-1">Atrás</a>
                 </li>
-                <li class="page-item" [ngClass]="{'disabled':!hasSiguiente()}">
+                <li class="page-item" [ngClass]="{'disabled':hasSiguiente()}">
                     <a class="page-link" href="#" (click)="irSiguiente($event)">Siguiente</a>
                 </li>
             </ul>

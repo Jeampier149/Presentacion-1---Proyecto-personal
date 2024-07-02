@@ -16,6 +16,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ModalTomarFotoComponent } from '@modules/legajo/components/modal-tomar-foto/modal-tomar-foto.component';
 import { reniecClass } from '@classes/servicios/reniec.class';
 import { MigracionesClass } from '@classes/servicios/migraciones.class';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-editar-empleado',
     templateUrl: './editar-empleado.component.html',
@@ -30,7 +31,8 @@ export class EditarEmpleadoComponent implements OnInit {
         private ExtranjeriaService$: ExtranjeriaService,
         private route: ActivatedRoute,
         private ModalDatosService$: ModalDatosService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private router:Router
     ) {
         this.inicializarVariables();
         this.listarSelects();
@@ -610,11 +612,11 @@ export class EditarEmpleadoComponent implements OnInit {
     seleccionarArchivoEst(event: any, index: number) {
         const fileEs: File = event.target.files[0];
         const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + fileEs.name;
+        const nuevoNombre ='Superior_'+timestamp+'_'+ fileEs.name;
         const fileFinal: File = new File([fileEs], nuevoNombre);
         const ruta =
             this.valDatosPersonales.get('numDoc')?.value +
-            '/' +
+            '/Superior/' +
             fileFinal.name.replace(/\s+/g, '_');
         this.estudioSuperior[index].archivo = fileFinal;
         this.estudioSuperior[index].ruta = ruta;
@@ -623,11 +625,11 @@ export class EditarEmpleadoComponent implements OnInit {
     seleccionarArchivoPg(event: any, index: number) {
         const filePost: File = event.target.files[0];
         const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + filePost.name;
+        const nuevoNombre ='Postgrado_'+timestamp+'_'+filePost.name
         const fileFinal: File = new File([filePost], nuevoNombre);
         const ruta =
             this.valDatosPersonales?.get('numDoc')?.value +
-            '/' +
+            '/Postgrado/' +
             fileFinal.name.replace(/\s+/g, '_');
         this.estudioPostgrado[index].archivo = fileFinal;
         this.estudioPostgrado[index].ruta = ruta;
@@ -635,11 +637,11 @@ export class EditarEmpleadoComponent implements OnInit {
     seleccionarArchivoEspecialidad(event: any, index: number) {
         const fileEsp: File = event.target.files[0];
         const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + fileEsp.name;
+        const nuevoNombre ='Especialidad'+'_'+timestamp+'_'+fileEsp.name
         const fileFinal: File = new File([fileEsp], nuevoNombre);
         const ruta =
             this.valDatosPersonales?.get('numDoc')?.value +
-            '/' +
+            '/Especialidad/' +
             fileFinal.name.replace(/\s+/g, '_');
         this.especializacion[index].archivo = fileFinal;
         this.especializacion[index].ruta = ruta;
@@ -647,11 +649,11 @@ export class EditarEmpleadoComponent implements OnInit {
     seleccionarArchivoCurso(event: any, index: number) {
         const fileCu: File = event.target.files[0];
         const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + fileCu.name;
+        const nuevoNombre ='Curso_'+timestamp+'_'+ fileCu.name;
         const fileFinal: File = new File([fileCu], nuevoNombre);
         const ruta =
             this.valDatosPersonales?.get('numDoc')?.value +
-            '/' +
+            '/Curso/' +
             fileFinal.name.replace(/\s+/g, '_');
         this.cursos[index].archivo = fileFinal;
         this.cursos[index].ruta = ruta;
@@ -659,11 +661,11 @@ export class EditarEmpleadoComponent implements OnInit {
     seleccionarArchivoIdioma(event: any, index: number) {
         const fileId: File = event.target.files[0];
         const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + fileId.name;
+        const nuevoNombre ='Idioma' + '_'+timestamp+'_' + fileId.name
         const fileFinal: File = new File([fileId], nuevoNombre);
         const ruta =
             this.valDatosPersonales?.get('numDoc')?.value +
-            '/' +
+            '/Idioma/' +
             fileFinal.name.replace(/\s+/g, '_');
         this.idiomas[index].archivo = fileFinal;
         this.idiomas[index].ruta = ruta;
@@ -671,11 +673,11 @@ export class EditarEmpleadoComponent implements OnInit {
     seleccionarArchivoExpLaboral(event: any, index: number) {
         const fileLa: File = event.target.files[0];
         const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + fileLa.name;
+        const nuevoNombre ='ExpLaboral'+ '_' +timestamp+'_'+ fileLa.name
         const fileFinal: File = new File([fileLa], nuevoNombre);
         const ruta =
             this.valDatosPersonales?.get('numDoc')?.value +
-            '/' +
+            '/ExpLaboral/' +
             fileFinal.name.replace(/\s+/g, '_');
         this.experienciaLaboral[index].archivo = fileFinal;
         this.experienciaLaboral[index].ruta = ruta;
@@ -683,11 +685,11 @@ export class EditarEmpleadoComponent implements OnInit {
     seleccionarArchivoExpDocencia(event: any, index: number) {
         const fileDo: File = event.target.files[0];
         const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + fileDo.name;
+        const nuevoNombre ='ExpDocencia'+ '_'+timestamp +'_'+ fileDo.name;
         const fileFinal: File = new File([fileDo], nuevoNombre);
         const ruta =
             this.valDatosPersonales?.get('numDoc')?.value +
-            '/' +
+            '/ExpDocencia/' +
             fileFinal.name.replace(/\s+/g, '_');
         this.laborDocencia[index].archivo = fileFinal;
         this.laborDocencia[index].ruta = ruta;
@@ -695,11 +697,11 @@ export class EditarEmpleadoComponent implements OnInit {
     seleccionarArchivoDiscapacidad(event: any) {
         const fileDo: File = event.target.files[0];
         const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + fileDo.name;
+        const nuevoNombre ='Discapacidad_'+timestamp + '_' + fileDo.name;
         const fileFinal: File = new File([fileDo], nuevoNombre);
         const ruta =
             this.valDatosPersonales?.get('numDoc')?.value +
-            '/' +
+            '/Discapacidad/' +
             fileFinal.name.replace(/\s+/g, '_');
         this.archivoDiscapacidad.push(fileFinal);
         this.rutaDiscapacidad = ruta;
@@ -869,6 +871,7 @@ export class EditarEmpleadoComponent implements OnInit {
                     warningAlerta('Alerta', mensaje);
                 } else if (datos == 1) {
                     successAlerta('Éxito', mensaje);
+                    this.router.navigate(['/legajo/informacion'])
                 } else {
                     errorAlerta('Error', mensaje);
                 }
