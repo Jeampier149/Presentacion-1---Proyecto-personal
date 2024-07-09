@@ -8,7 +8,9 @@ use App\Http\Controllers\Configuracion\AccionController;
 use App\Http\Controllers\Configuracion\MenuController;
 use App\Http\Controllers\Configuracion\PerfilController;
 use App\Http\Controllers\Legajo\CompensacionController;
+use App\Http\Controllers\Legajo\EvaluacionController;
 use App\Http\Controllers\Legajo\LegajoController;
+use App\Http\Controllers\Legajo\ReconocimientoSancionController;
 use App\Http\Controllers\Legajo\ReporteDatosController;
 use App\Http\Controllers\Legajo\SituacionLaboralController;
 use App\Http\Controllers\legajo\VerDatosController;
@@ -48,11 +50,28 @@ Route::controller(LegajoController::class)->group(function () {
 Route::controller(CompensacionController::class)->group(function () {   
     Route::post('compensacion/registrarCompensacion', 'registrarCompensacion');
     Route::get('compensacion/listar-compensacion', 'listarCompensaciones'); 
+
     Route::post('compensacion/getCompensacion', 'getCompensacion'); 
     Route::post('compensacion/editarCompensacion', 'editarCompensacion'); 
     Route::get('compensacion/verArchivo', 'verArchivo'); 
 });
 
+Route::controller(EvaluacionController::class)->group(function () {   
+    Route::post('evaluacion/registrarEvaluacion', 'registrarEvaluacion');
+    Route::post('evaluacion/editarEvaluacion', 'editarEvaluacion');
+    Route::post('evaluacion/listarEvalDoc', 'listarEvalDoc');
+    Route::post('evaluacion/obtenerEvaluacion', 'obtenerEvaluacion');
+    Route::post('evaluacion/listarEvalTipoDoc', 'listarEvalTipoDoc');
+    Route::get('evaluacion/listar-evaluaciones', 'listarEvaluacion'); 
+
+});
+Route::controller(ReconocimientoSancionController::class)->group(function () {   
+    Route::post('reconocimiento-sancion/registrarReconocimientoSancion', 'registrarReconocimientoSancion');
+    Route::post('reconocimiento-sancion/editarReconocimientoSancion', 'editarReconocimientoSancion');
+    Route::post('reconocimiento-sancion/obtenerReconocimientoSancion', 'obtenerReconocimientoSancion');
+    Route::get('reconocimiento-sancion/listar-reconocimiento-sancion', 'listarReconocimientoSanciones'); 
+    Route::get('reconocimiento-sancion/verArchivo', 'verArchivo'); 
+});
 
 
 Route::controller(GeneralController::class)->group(function () {

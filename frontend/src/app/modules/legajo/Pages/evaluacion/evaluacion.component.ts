@@ -6,11 +6,9 @@ import { errorAlerta, successAlerta } from '@shared/utils';
 import { Session } from '@store/session.actions';
 import { SessionSelectors } from '@store/index.session';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
-import { ModalNuevaCompensacionComponent } from '@modules/legajo/components/modal-nueva-compensacion/modal-nueva-compensacion.component';
-import { CompensacionService } from '@services/compensacion/compensacion.service';
-import { ModalEditarCompensacionComponent } from '@modules/legajo/components/modal-editar-compensacion/modal-editar-compensacion.component';
 import { ModalVerCompensacionComponent } from '@modules/legajo/components/modal-ver-compensacion/modal-ver-compensacion.component';
+import { ModalEvaluacionComponent } from '@modules/legajo/components/modal-evaluacion/modal-evaluacion.component';
+import { EvaluacionService } from '@services/legajo/evaluacion.service';
 
 
 @Component({
@@ -19,8 +17,7 @@ import { ModalVerCompensacionComponent } from '@modules/legajo/components/modal-
   styleUrl: './evaluacion.component.scss'
 })
 export class EvaluacionComponent {
-  @ViewChild(ModalNuevaCompensacionComponent) modalNuevaComp?: any;
-    @ViewChild(ModalEditarCompensacionComponent) modalEditarComp?: any;
+    @ViewChild(ModalEvaluacionComponent) modalEva?: any;
     @ViewChild(ModalVerCompensacionComponent) modalVerComp?: any;
     @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
     
@@ -31,11 +28,14 @@ export class EvaluacionComponent {
     public loading: boolean = false;
     public datos: any[] = [];
     public emp:any[]=[];
+
     public agregable: boolean = false;
+    
     public filtroEstado: string = '';
     public filtroTipo: string = '';
     public filtroDn: string = '';
     public filtroDocumento: string = '';
+    public filtroDesDocumento: string = '';
     public filtroAsunto: string = '';
     public filtroFecha: string = '';
     public filtroDni: string = '';
@@ -55,15 +55,21 @@ export class EvaluacionComponent {
             clase: 'text-center',
         },
         {
-            nombre: 'Tip. Compensacion',
-            estilo: 'width: 50px; min-width: 50px;',
+            nombre: 'Documento',
+            estilo: 'width: 150px; min-width: 115px',
             clase: 'text-center',
         },
         {
-            nombre: 'Documento',
-            estilo: 'width: 220px; min-width: 220px',
+            nombre: 'Tip. Documento',
+            estilo: 'width: 200px; min-width: 50px;',
             clase: 'text-center',
         },
+        {
+            nombre: 'Descripcion Doc',
+            estilo: 'width: 150px; min-width: 50px;',
+            clase: 'text-center',
+        },
+       
         {
             nombre: 'Asunto',
             estilo: 'width: 270px; min-width: 270px',
@@ -76,16 +82,15 @@ export class EvaluacionComponent {
         },
     
 
-        //{nombre: 'Estado', estilo: 'width: 140px; min-width: 40px', clase: 'text-center'}
     ];
 
     constructor(
-        private CompensacionService$: CompensacionService,
+        private EvaluacionService$: EvaluacionService,
         private store: Store<Session>
     ) {
         this.obtenerPermisos();
         this.listarEmpleados();
-        this.listarCompensaciones();
+       this.listarEvaluaciones();
     }
 
     ngAfterViewInit() {
@@ -97,20 +102,20 @@ export class EvaluacionComponent {
             this.accesos = e.accesos;
         });
     }
-    listarCompensaciones() {
+    listarEvaluaciones() {
        this.loading = true;
-       let datos:any = {
-           
+       let datos:any = {         
            dni: this.filtroDni,
            tipo: this.filtroTipo,        
            documento: this.filtroDocumento,
+           desDoc:this.filtroDesDocumento,
            asunto: this.filtroAsunto,
            fecha: this.filtroFecha,
            pagina: this.pagina,
            longitud: this.longitud,
 
        }
-     this.CompensacionService$.listarCompensaciones(datos)
+     this.EvaluacionService$.listarEvaluaciones(datos)
            .pipe(
                   finalize(() => {
                    this.loading = false;
@@ -127,12 +132,12 @@ export class EvaluacionComponent {
 
     filtrarEmpleado() {
         this.pagina = 1;
-        this.listarCompensaciones();
+        this.listarEvaluaciones();
     }
 
     cambioPagina(pagina: number) {
         this.pagina = pagina;
-        this.listarCompensaciones();
+        this.listarEvaluaciones();
     }
 
     limpiarCampos() {
@@ -141,12 +146,12 @@ export class EvaluacionComponent {
         this.filtroAsunto = '';
         this.filtroFecha = '';
         this.pagina = 1;
-        this.listarCompensaciones();
+        this.listarEvaluaciones();
         this.inpFocus.nativeElement.focus();
     }
     listarEmpleados() {
         this.loading = true;
-        this.CompensacionService$.listarSelectEmpleado()
+        this.EvaluacionService$.listarSelectEmpleado()
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -163,13 +168,13 @@ export class EvaluacionComponent {
             });
     }
     changeEmp(){
-       this.listarCompensaciones()
+       this.listarEvaluaciones()
     }
     
 
     descargarArchivo(ruta: string) {
         this.loading = true;
-        this.CompensacionService$.verArchivo(ruta)
+        this.EvaluacionService$.verArchivo(ruta)
             .pipe(
                 finalize(() => {
                   this.loading = false;
@@ -181,12 +186,23 @@ export class EvaluacionComponent {
             }
             );
     }
-
-    nuevoDocumento() {
-        this.modalNuevaComp?.openModal();
+  exportarCarpeta(){
+          
     }
-    editarDocumento(id:any){
-        this.modalEditarComp?.openModal(id);
+
+   async nuevoDocumento() {
+        let respuesta = await  this.modalEva?.openModal(1);
+        if (respuesta) {
+           this.listarEvaluaciones()
+        }
+      
+    }
+    async editarDocumento(id:any) {
+        let respuesta = await  this.modalEva?.openModal(2,id);
+        if (respuesta) {
+           this.listarEvaluaciones()
+        }
+      
     }
 
 }

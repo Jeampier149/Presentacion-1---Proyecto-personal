@@ -51,14 +51,10 @@ export class EditarEmpleadoComponent implements OnInit {
         this.files.push(event.addedFiles[0]);
         const file = event.addedFiles[0];
         const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + file.name;
+        const nuevoNombre = 'Foto_ejemplo_'+timestamp + '_' + file.name;
         const fileFinal: File = new File([file], nuevoNombre);
         this.fotoFile.push(fileFinal);
-
-        const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
-            '/' +
-            fileFinal.name.replace(/\s+/g, '_');
+        const ruta = this.valDatosPersonales?.get('numDoc')?.value + '/Foto/' +fileFinal.name.replace(/\s+/g, '_');
         this.valDatosPersonales.controls['rutaFoto'].setValue(ruta);
     }
 

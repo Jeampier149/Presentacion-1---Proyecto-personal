@@ -1,0 +1,74 @@
+<div #modalReconocimiento class="modal fade" tabIndex="-1" *teleportTo="'body'">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    @if (tipo == 1) {
+                        Nuevo Documento
+                    } @else {
+                        Editar Documento 
+                    }</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-loading [mostrar]="loading">
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label" style="font-size: 12px;">APELLIDOS Y NOMBRES:</label>
+                              </div>
+                              <div class="col">
+                                  <ng-select                                                          
+                                    [items]="empl"
+                                    bindLabel ="nombreC" 
+                                    bindValue ="NUMERO_DOCUMENTO"
+                                    [(ngModel)]="formulario.dni"                                      
+                             > 
+                             </ng-select >
+                              </div>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <label for="" class="form-label"> Documento</label>
+                            <input type="text" class="form-control form-control-sm " id=""  [(ngModel)]="formulario.documento" >
+                        </div>
+                        <div class="col-6 mb-2">
+                            <label for="" class="form-label">Tipo </label>
+                            <ng-select                                                          
+                            [items]="tipoDE"
+                            bindLabel ="tipo" 
+                            bindValue ="id" 
+                            [(ngModel)]="formulario.tipo"                                      
+                             > 
+                            </ng-select > 
+                        </div>
+                       <div class="col-6 mb-2">
+                        <label for="" class="form-label">Fecha Documento</label>
+                        <input type="date" class="form-control form-control-sm " id=""  [(ngModel)]="formulario.fecha" >
+                       </div>
+                       <div class="col-12 mb-3">
+                        <label for="" class="form-label">Asunto</label>  
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"  [(ngModel)]="formulario.asunto" ></textarea>
+                       </div>
+                       <div class="col-12">
+                        <input class="form-control form-control-sm" id="formFileSm" type="file"   accept="application/pdf" (change)="archivoEvaluacion($event)">
+                       </div>
+                                                                                  
+                    </div>
+
+                   
+                </app-loading>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary waves-effect waves-light btn-label" type="button"
+                     (click)="guardarReconocientoSancion()"   >Guardar &ensp;<i
+                    class="fa-solid fa-floppy-disk label-icon"></i></button>
+                <button class="btn btn-danger waves-light waves-effect btn-label" type="button" (click)="closeModal()">
+                    Salir &ensp;<i
+                    class="fas fa-door-open label-icon"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

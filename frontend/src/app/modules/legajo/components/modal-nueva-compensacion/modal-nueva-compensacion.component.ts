@@ -3,7 +3,7 @@ import {Modal} from 'bootstrap';
 import { finalize } from "rxjs";
 import { errorAlerta, successAlerta, warningAlerta, errorAlertaValidacion } from "@shared/utils";
 import { SituacionLaboralService } from '@services/legajo/situacion-laboral.service';
-import { CompensacionService } from '@services/compensacion/compensacion.service';
+import { CompensacionService } from '@services/legajo/compensacion.service';
 
 
 @Component({
@@ -31,18 +31,24 @@ export class ModalNuevaCompensacionComponent {
   public documento:string=""
   public archivoC:any
   public ruta:any
+  public resolve: any;
+  public reject: any;
   ngAfterViewInit() {
     this.modalNuevaComp=new Modal(this.modalNuevaComp.nativeElement, {
         backdrop: 'static',
         keyboard: false
     });
   }
-  openModal() {
+  openModal(): Promise<boolean>  {
     this.modalNuevaComp.show(); 
-  
+    return new Promise((resolve, reject) => {
+      this.resolve = resolve;
+      this.reject = reject;
+  })
   }
   closeModal() {
     this.modalNuevaComp.hide();
+    this.resolve(false);
     
   }
   listarSelectTipo(){
@@ -105,8 +111,9 @@ export class ModalNuevaCompensacionComponent {
     )
     .subscribe(({estado, mensaje, datos}) => {
       if (estado) {
-          datos.length > 0 ? this.agregable = false : this.agregable = true;
           successAlerta('Éxito', 'Compensación registrada correctamente');
+          this.closeModal()
+         // this.resolve(true);
       } else {
           errorAlerta('Error', mensaje).then();
       }

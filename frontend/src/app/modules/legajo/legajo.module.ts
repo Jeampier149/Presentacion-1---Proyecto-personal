@@ -22,6 +22,9 @@ import { ModalNuevaCompensacionComponent } from './components/modal-nueva-compen
 import { ModalEditarCompensacionComponent } from './components/modal-editar-compensacion/modal-editar-compensacion.component';
 import { ModalVerCompensacionComponent } from './components/modal-ver-compensacion/modal-ver-compensacion.component';
 import { EvaluacionComponent } from './Pages/evaluacion/evaluacion.component';
+import { ModalEvaluacionComponent } from './components/modal-evaluacion/modal-evaluacion.component';
+import { ReconocimientoSancionComponent } from './Pages/reconocimiento-sancion/reconocimiento-sancion.component';
+import { ModalReconocimientoSancionComponent } from './components/modal-reconocimiento-sancion/modal-reconocimiento-sancion.component';
 
 
 
@@ -40,7 +43,10 @@ import { EvaluacionComponent } from './Pages/evaluacion/evaluacion.component';
     ModalEditarCompensacionComponent,
     ModalVerCompensacionComponent,
     CompensacionesComponent,
-    EvaluacionComponent
+    EvaluacionComponent,
+    ModalEvaluacionComponent,
+    ReconocimientoSancionComponent,
+    ModalReconocimientoSancionComponent
     
   
   ],

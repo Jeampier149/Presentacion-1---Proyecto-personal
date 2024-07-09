@@ -150,8 +150,7 @@ class LegajoController extends JSONResponseController
 
             $nameArchivo =  $archivo->getClientOriginalName();
             $name = str_replace(" ", "_", $nameArchivo);
-            $partes = explode('_', $nameArchivo);
-            $subcarpeta = reset($partes);
+            $subcarpeta = explode('_', $nameArchivo)[0];
             $destino = $numeroDocumento . '/'.$subcarpeta. '/'. $name;         
             try {
                 Storage::disk('ftp')->put($destino, file_get_contents($archivo));
@@ -258,8 +257,7 @@ class LegajoController extends JSONResponseController
         foreach ($archivosT as $archivo) {
             $nameArchivo =  $archivo->getClientOriginalName();
             $name = str_replace(" ", "_", $nameArchivo);
-            $partes = explode('_', $nameArchivo);
-            $subcarpeta = reset($partes);
+            $subcarpeta = explode('_', $nameArchivo)[0];
             $destino = $numeroDocumento . '/'.$subcarpeta. '/'. $name;         
             try {
                 Storage::disk('ftp')->put($destino, file_get_contents($archivo));

@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import {Modal} from 'bootstrap';
 import { finalize } from "rxjs";
 import { errorAlerta, successAlerta, warningAlerta, errorAlertaValidacion } from "@shared/utils";
-import { CompensacionService } from '@services/compensacion/compensacion.service';
+import { CompensacionService } from '@services/legajo/compensacion.service';
 
 
 @Component({
@@ -31,22 +31,31 @@ export class ModalEditarCompensacionComponent {
   public archivoC:any
   public ruta:string=''
   public id:any
+resolve: any;
+ reject: any;
+modal: any;
   ngAfterViewInit() {
-    this.modalEditarComp=new Modal(this.modalEditarComp.nativeElement, {
+    this.modal=new Modal(this.modalEditarComp.nativeElement, {
         backdrop: 'static',
         keyboard: false
     });
   }
-  openModal(id:any) {
+  openModal(id:any) : Promise<boolean>{
     this.getCompensacion(id)
     this.id=id
-    this.modalEditarComp.show(); 
+    this.modal.show(); 
+
+    return new Promise((resolve, reject) => {
+      this.resolve = resolve;
+      this.reject = reject;
+  })
  
     
   }
   closeModal() {
-    this.modalEditarComp.hide();
-    
+    this.modal.hide();
+    this.resolve(false);
+
   }
   listarSelectTipo(){
     this.CompensacionService$.listartipoCompensacion()
@@ -133,10 +142,12 @@ export class ModalEditarCompensacionComponent {
         this.loading = false;
     })
     )
-    .subscribe(({estado, mensaje, datos}) => {
+    .subscribe(({estado, mensaje}) => {
       if (estado) {
-          successAlerta('Éxito', 'Datos actualizados correctamente');
-          this.closeModal()
+          successAlerta('Éxito!', 'Datos Actualizados').then(() => {
+          this.modal.hide();
+          this.resolve(true);      
+      });
       } else {
           errorAlerta('Error', mensaje).then();
       }

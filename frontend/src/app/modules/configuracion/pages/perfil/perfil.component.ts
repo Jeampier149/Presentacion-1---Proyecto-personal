@@ -77,6 +77,7 @@ export class PerfilComponent {
 
     async abrirNuevoPerfil() {
         let respuesta = await this.modalPerfil.openModal(1);
+        
         if (respuesta) {
             this.listarPerfil();
         }
@@ -84,6 +85,7 @@ export class PerfilComponent {
 
     async abrirEditarPerfil(idMenu: string) {
         let respuesta = await this.modalPerfil.openModal(2, idMenu);
+        console.log(respuesta)
         if (respuesta) {
             this.listarPerfil();
         }

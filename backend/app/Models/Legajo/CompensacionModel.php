@@ -43,7 +43,7 @@ class CompensacionModel extends Model
 
             ]);
         } catch (\Exception $e) {
-            echo 'Error al ejecutar el procedimiento almacenado pl_sp_insertar_datos_contacto_emergencia: ' . $e->getMessage();
+            echo 'Error al ejecutar el procedimiento almacenado pl_sp_insertar_compensacion: ' . $e->getMessage();
         }
     }
     public function getCompensacion($id){

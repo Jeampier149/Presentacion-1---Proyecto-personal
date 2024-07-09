@@ -6,9 +6,8 @@ import { errorAlerta, successAlerta } from '@shared/utils';
 import { Session } from '@store/session.actions';
 import { SessionSelectors } from '@store/index.session';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 import { ModalNuevaCompensacionComponent } from '@modules/legajo/components/modal-nueva-compensacion/modal-nueva-compensacion.component';
-import { CompensacionService } from '@services/compensacion/compensacion.service';
+import { CompensacionService } from '@services/legajo/compensacion.service';
 import { ModalEditarCompensacionComponent } from '@modules/legajo/components/modal-editar-compensacion/modal-editar-compensacion.component';
 import { ModalVerCompensacionComponent } from '@modules/legajo/components/modal-ver-compensacion/modal-ver-compensacion.component';
 
@@ -19,7 +18,7 @@ import { ModalVerCompensacionComponent } from '@modules/legajo/components/modal-
 })
 export class CompensacionesComponent {
     @ViewChild(ModalNuevaCompensacionComponent) modalNuevaComp?: any;
-    @ViewChild(ModalEditarCompensacionComponent) modalEditarComp?: any;
+    @ViewChild(ModalEditarCompensacionComponent) modalEditarComp!: ModalEditarCompensacionComponent;
     @ViewChild(ModalVerCompensacionComponent) modalVerComp?: any;
     @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
     
@@ -137,6 +136,7 @@ export class CompensacionesComponent {
     limpiarCampos() {
         this.filtroDni = '';
         this.filtroDocumento = '';
+        this.filtroTipo = '';
         this.filtroAsunto = '';
         this.filtroFecha = '';
         this.pagina = 1;
@@ -164,10 +164,10 @@ export class CompensacionesComponent {
     changeEmp(){
        this.listarCompensaciones()
     }
-    
-
+   
     descargarArchivo(ruta: string) {
         this.loading = true;
+        console.log(ruta)
         this.CompensacionService$.verArchivo(ruta)
             .pipe(
                 finalize(() => {
@@ -175,17 +175,28 @@ export class CompensacionesComponent {
                 })
             )
             .subscribe((data) => {
+                
                 this.archivoCmp = URL.createObjectURL(data);
+                console.log(this.archivoCmp)
                 this.modalVerComp?.openModal(this.archivoCmp);
             }
             );
     }
 
-    nuevoDocumento() {
-        this.modalNuevaComp?.openModal();
+    async nuevoDocumento() {
+       let response= await this.modalNuevaComp.openModal();    
+        this.listarCompensaciones()         
     }
-    editarDocumento(id:any){
-        this.modalEditarComp?.openModal(id);
+    async editarDocumento(id:any){
+        let response= await this.modalEditarComp.openModal(id);   
+        if(response){
+         this.listarCompensaciones()
+        }
+ 
+    // if(response){
+      //  this.listarCompensaciones()
+    // }
+ 
     }
 
 

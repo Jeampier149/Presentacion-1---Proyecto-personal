@@ -1,10 +1,9 @@
-<app-breadcrumb [rutas]="rutas" [titulo]="'Evaluación'"></app-breadcrumb>
+<app-breadcrumb [rutas]="rutas" [titulo]="'Reconocimiento y Sanciones'"></app-breadcrumb>
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
                 <div class="row  ">
-
                     <div class="col-xl-4 col-md-auto col-sm-auto d-flex ">
                         @if(accesos?.includes(1)){
                             <button class="btn  btn-sm btn-primary waves-light waves-effect btn-label me-1" style="width: 190px;"
@@ -12,8 +11,8 @@
                         <i class="fa fa-file label-icon"></i> Nuevo Documento
                 </button>
                 <button class="btn  btn-sm btn-primary waves-light waves-effect btn-label" style="width: 150px;"
-                (click)="exportarCarpeta()" >
-                            <i class="fa fa-file label-icon"></i> Exportar
+                (click)="nuevoDocumento()" >
+              <i class="fa fa-file label-icon"></i> Exportar
                 </button>
                         }
                         
@@ -67,7 +66,7 @@
                                                         inputmode="text"
                                                         class="form-control form-control-sm text-uppercase"
                                                         name="filtroDocumento"
-                                                        [(ngModel)]="filtroDni"
+                                                        [(ngModel)]="filtroDocumento"
                                                         (keydown.enter)="filtrarEmpleado()">
                                                 </th>
                                                 <th>
@@ -85,14 +84,7 @@
                                                         [(ngModel)]="filtroDocumento"
                                                         (keydown.enter)="filtrarEmpleado()">
                                                 </th>
-                                                <th>
-                                                    <input
-                                                        inputmode="text"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="filtroDocumento"
-                                                        [(ngModel)]="filtroDesDocumento"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
+                                   
                                                 <th>
                                                     <input
                                                         inputmode="text"
@@ -137,7 +129,6 @@
                                                     <td class="text-center">{{ dato.numeroDocumento}}</td>
                                                     <td class="text-center">{{ dato.documento}}</td>
                                                     <td class="text-center">{{ dato.tipo}}</td>
-                                                    <td class="text-center">{{ dato.descripcion_doc}}</td>
                                                     <td class="text-center">{{ dato.asunto }}</td>
                                                     <td class="text-center">{{ dato.fecha }}</td>
                                                     <!-- <td  class="text-center">
@@ -168,5 +159,5 @@
         </div>
     </div>
 </div>
-<app-modal-evaluacion></app-modal-evaluacion>
+<app-modal-reconocimiento-sancion></app-modal-reconocimiento-sancion>
 <app-modal-ver-compensacion></app-modal-ver-compensacion>
