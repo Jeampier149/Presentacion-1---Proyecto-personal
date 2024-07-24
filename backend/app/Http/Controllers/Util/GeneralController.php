@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Util;
 use App\Http\Controllers\Respuesta\JSONResponseController;
 use App\Models\Util\GeneralModel;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use ZipArchive;
 class GeneralController extends JSONResponseController
 {
     public  function listarSelects(){
@@ -53,5 +55,45 @@ class GeneralController extends JSONResponseController
         $resultado=$compensacion->listarTipoCompensaciones();
         return $this->sendResponse(200, true, '', $resultado);
     }
+    
+    public function exportarCarpeta(Request $request)
+{
+    try {
+        $documento = $request->get('documento');
+        $carpeta = $request->get('carpeta');
+        $subcarpeta = $request->get('subcarpeta');
+        $ruta = ($subcarpeta) ? $documento . '/' . $carpeta . '/' . $subcarpeta . '/' : $documento . '/' . $carpeta . '/';
+
+        // Obtener lista de archivos y carpetas en la ruta
+        $archivosYCarpetas = Storage::disk('ftp')->allFiles($ruta);
+
+        if (empty($archivosYCarpetas)) {
+            return response()->json(['error' => 'No se encontraron archivos en la ruta proporcionada.'], 300);
+        }
+
+        // Crear un archivo ZIP
+        $zip = new ZipArchive;
+        $zipFileName = $carpeta . '.zip';
+        $zipFilePath = storage_path('app/' . $zipFileName);
+
+        if ($zip->open($zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            // Añadir cada archivo y carpeta al ZIP
+            foreach ($archivosYCarpetas as $archivo) {
+                $contenidoArchivo = Storage::disk('ftp')->get($archivo);
+                $nombreArchivo = str_replace($ruta, '', $archivo); // Mantener la estructura de carpetas
+                $zip->addFromString($nombreArchivo, $contenidoArchivo);
+            }
+            $zip->close();
+        } else {
+            return response()->json(['error' => 'No se pudo crear el archivo ZIP.'], 500);
+        }
+
+        return response()->download($zipFilePath)->deleteFileAfterSend(true);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Error al obtener los archivos desde FTP: ' . $e->getMessage()], 500);
+    }
+}
+
+   
 }
 

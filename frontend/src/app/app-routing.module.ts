@@ -19,6 +19,10 @@ const routes: Routes = [
                 loadChildren: () => import('@modules/legajo/legajo.module').then(m => m.LegajoModule),
             },
             {
+                path: 'remuneraciones',
+                loadChildren: () => import('@modules/remuneraciones/remuneraciones.module').then(m => m.RemuneracionesModule),
+            },
+            {
                 path: 'configuracion',
                 loadChildren: () => import('@modules/configuracion/configuracion.module').then(m => m.ConfiguracionModule),
             },

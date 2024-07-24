@@ -35,6 +35,10 @@ export class InterceptorService implements HttpInterceptor {
                         }
                         break;
                     }
+                    case 300: {
+                        mensaje = 'Archivos no encontrados';
+                        break;
+                    }
                     default: {
                         mensaje = error.statusText;
                     }

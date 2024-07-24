@@ -8,7 +8,7 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li>
                     <a routerLink="/inicio">
-                        <i class="fa-solid fa-house"></i>
+                        <i class="fa-solid fa-house" style="font-size: 16px;"></i>
                         <span>Inicio</span>
                     </a>
                 </li>
@@ -18,7 +18,7 @@
                 <li *ngFor="let menu of base;">
                     <ng-template [ngIf]="validarHijos(menu['CODIGO'])" [ngIfElse]=nivel1>
                         <a href="#" (click)="$event.preventDefault()" class="has-arrow">
-                            <i class="{{menu['ICONO']}}"></i>
+                            <i class="{{menu['ICONO']}}" style="font-size: 16px;"></i>
                             <span>{{menu['NOMBRE']}}</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">

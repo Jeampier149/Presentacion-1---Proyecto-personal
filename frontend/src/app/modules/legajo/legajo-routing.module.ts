@@ -6,6 +6,7 @@ import { EditarEmpleadoComponent } from './Pages/editar-empleado/editar-empleado
 import { CompensacionesComponent } from './Pages/compensaciones/compensaciones.component';
 import { EvaluacionComponent } from './Pages/evaluacion/evaluacion.component';
 import { ReconocimientoSancionComponent } from './Pages/reconocimiento-sancion/reconocimiento-sancion.component';
+import { RelacionesLaboralesComponent } from './Pages/relaciones-laborales/relaciones-laborales.component';
 
 const routes: Routes = [
     {path: 'informacion', component:InformacionComponent},
@@ -13,7 +14,9 @@ const routes: Routes = [
     {path: 'editarEmpleado/:numDoc', component:EditarEmpleadoComponent},
     {path: 'compensaciones', component:CompensacionesComponent},
     {path: 'evaluacion', component:EvaluacionComponent},
-    {path: 'reconocimientos-sanciones', component:ReconocimientoSancionComponent}
+    {path: 'reconocimientos-sanciones', component:ReconocimientoSancionComponent},
+    {path: 'relaciones-laborales', component:RelacionesLaboralesComponent}
+    
 ];
 
 @NgModule({

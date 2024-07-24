@@ -1,0 +1,49 @@
+<div #modalExporta class="modal fade" tabIndex="-1" *teleportTo="'body'" >
+    <div class="modal-dialog modal-dialog-centered modal-md modal-fullscreen-lg-down" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Exportar</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+            </div>
+            <div class="modal-body">
+                <app-loading [mostrar]="loading">
+                    <div class="row " style="margin-bottom: 250px;">
+                        <div class="col-12 ">
+                            <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label" style="font-size: 12px;">APELLIDOS Y NOMBRES:</label>
+                              </div>
+                              <div class="col">
+                                  <ng-select                                                          
+                                    [items]="empl"
+                                    bindLabel ="nombreC" 
+                                    bindValue ="NUMERO_DOCUMENTO"
+                                    [(ngModel)]="dni"                                      
+                             > 
+                             </ng-select >
+                              </div>
+                        </div>
+                        
+                                                                                  
+                    </div>
+              
+                </app-loading>
+                <div class="modal-footer justify-content-end mt-3 ">
+                    <div>
+                        <button class="btn btn-danger waves-light waves-effect btn-label m-1" type="button"
+                            (click)="closeModal()">
+                            Salir &ensp;
+                            <i class="fas fa-door-open label-icon"></i>
+                        </button>
+                        <button class="btn btn-primary waves-light waves-effect btn-label m-1" type="button" (click)="exportar()"
+                      >
+                         Exportar &ensp;
+                         <i class="fa-solid fa-download label-icon"></i>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

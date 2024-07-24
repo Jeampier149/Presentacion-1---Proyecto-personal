@@ -1,16 +1,15 @@
-<app-breadcrumb [rutas]="rutas" [titulo]="'Compensaciones'"></app-breadcrumb>
+<app-breadcrumb [rutas]="rutas" [titulo]="'Relaciones Laborales'"></app-breadcrumb>
 <div class="row">
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
                 <div class="row  ">
-
                     <div class="col-xl-4 col-md-auto col-sm-auto d-flex ">
                         @if(accesos?.includes(1)){
                             <button class="btn  btn-sm btn-primary waves-light waves-effect btn-label me-1" style="width: 190px;"
                           (click)="nuevoDocumento()" >
                         <i class="fa fa-file label-icon"></i> Nuevo Documento
-                        </button>
+                </button>
                 <button class="btn  btn-sm btn-primary waves-light waves-effect btn-label" style="width: 150px;"
                 (click)="exportarCarpeta()" >
                 <i class="fa-solid fa-download label-icon"></i> Exportar
@@ -60,16 +59,7 @@
                                                         (click)="limpiarCampos()"><i class="fa-solid fa-trash-can"></i>
                                                     </button>
                                                 </th>
-                                                <th>
-                                                  
-                                                </th>
-                                                <th>
-                                                    <input #inpFocus
-                                                           inputmode="text"
-                                                           class="form-control form-control-sm text-uppercase"
-                                                           name="filtroTipo" [(ngModel)]="filtroTipo"
-                                                           (keydown.enter)="filtrarEmpleado()">
-                                                </th>
+                                                                                              
                                                
                                                 <th>
                                                     <input
@@ -79,6 +69,16 @@
                                                         [(ngModel)]="filtroDocumento"
                                                         (keydown.enter)="filtrarEmpleado()">
                                                 </th>
+                                        
+                                                <th>
+                                                    <input
+                                                        inputmode="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="filtroDocumento"
+                                                        [(ngModel)]="filtroDocumento"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                   
                                                 <th>
                                                     <input
                                                         inputmode="text"
@@ -108,8 +108,8 @@
                                                              @if(accesos?.includes(2)){
                                                                 <button [bsTooltip]="'Editar'"
                                                                 class="btn btn-sm waves-light waves-effect btn-primary"
-                                                                
                                                                 (click)="editarDocumento(dato.id)"
+                                                          
                                                                >
                                                             <i class="fa fa-pencil"></i></button>
                                                              }
@@ -121,7 +121,6 @@
                                                         </div>
                                                     </td>
                                                     <td class="text-center">{{ dato.numeroDocumento}}</td>
-                                                    <td class="text-center">{{ dato.tipo}}</td>
                                                     <td class="text-center">{{ dato.documento}}</td>
                                                     <td class="text-center">{{ dato.asunto }}</td>
                                                     <td class="text-center">{{ dato.fecha }}</td>
@@ -136,7 +135,7 @@
                                                     <td class="text-center" [colSpan]="cabeceras.length">No hay
                                                         resultados
                                                     </td>
-                                                </tr>
+                                             </tr>
                                             </ng-template>
                                             </tbody>
                                         </table>
@@ -153,7 +152,7 @@
         </div>
     </div>
 </div>
-<app-modal-nueva-compensacion></app-modal-nueva-compensacion>
-<app-modal-editar-compensacion></app-modal-editar-compensacion>
-<app-modal-ver-compensacion></app-modal-ver-compensacion>
+<app-modal-relaciones-laborales></app-modal-relaciones-laborales>
+<app-modal-ver-archivo></app-modal-ver-archivo>
 <app-modal-exportar></app-modal-exportar>
+

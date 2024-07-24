@@ -279,7 +279,7 @@ export class ModalVerComponent {
             downloadLink.click();
             setTimeout(()=>{
                 this.eliminarImagen(this.numeroDocumento)
-            }, 15000);
+            }, 19000);
              
             });
     }

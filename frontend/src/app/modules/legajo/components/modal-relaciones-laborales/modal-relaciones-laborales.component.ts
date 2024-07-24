@@ -3,13 +3,14 @@ import {Modal} from 'bootstrap';
 import {finalize} from "rxjs";
 import {errorAlerta, successAlerta} from "@shared/utils";
 import { RecocimientoSancionService } from '@services/legajo/reconocimiento-sancion.service';
+import { RelacionesLaboralesService } from '@services/legajo/relaciones-laborales.service';
 @Component({
-  selector: 'app-modal-reconocimiento-sancion',
-  templateUrl: './modal-reconocimiento-sancion.component.html',
-  styleUrl: './modal-reconocimiento-sancion.component.scss'
+  selector: 'app-modal-relaciones-laborales',
+  templateUrl: './modal-relaciones-laborales.component.html',
+  styleUrl: './modal-relaciones-laborales.component.scss'
 })
-export class ModalReconocimientoSancionComponent {
-  @ViewChild('modalReconocimiento') modalEl!: any;
+export class ModalRelacionesLaboralesComponent {
+  @ViewChild('modalRelaciones') modalEl!: any;
   public modal: any;
   public  resolve: any;
   public  reject: any;
@@ -17,22 +18,12 @@ export class ModalReconocimientoSancionComponent {
   public  loading: boolean = false;
   public  empl:any[]=[]
   public  tipoD:any[]=[]
-  public  tipoDE:any[]=[
-    {
-      id:'sancion',
-      tipo:'Sanción'
-    },
-    {
-      id:'reconocimiento',
-      tipo:'Reconocimiento'
-    }
-  ]
+  
   public  formulario = {
       id: '',
       documento: '',
       asunto: '',
       fecha:'',
-      tipo:'',
       dni:'',
       ruta:''
 
@@ -41,7 +32,7 @@ export class ModalReconocimientoSancionComponent {
   public  subcarpeta:any
   public idDocumento:any
 
-  constructor(private ReconocimientoSancion$: RecocimientoSancionService) {
+  constructor(private RelacionLaboral$: RelacionesLaboralesService) {
     this.listarSelectEmpleado()
  
   }
@@ -58,7 +49,7 @@ export class ModalReconocimientoSancionComponent {
       this.tipo = tipo;
       if (tipo === 2) {
           this.idDocumento =idDocumento!;
-          this.obtenerReconocimientoSancion();
+          this.obtenerRelacionLaboral();
       }
       return new Promise((resolve, reject) => {
           this.resolve = resolve;
@@ -75,15 +66,15 @@ export class ModalReconocimientoSancionComponent {
   archivoEvaluacion(event:any){ 
     const fileDo: File = event.target.files[0];
     const timestamp = new Date().getTime();
-    const nuevoNombre =this.formulario.tipo+'_'+timestamp + '_' + fileDo.name;
+    const nuevoNombre ='RelacionesLaborales_'+timestamp + '_' + fileDo.name;
     const fileFinal: File = new File([fileDo], nuevoNombre);
-    const ruta = this.formulario.dni+'/ReconocimientoYSanciones/'+this.formulario.tipo +'/'+fileFinal.name.replace(/\s+/g, '_');
+    const ruta = this.formulario.dni+'/RelacionesLaborales/'+fileFinal.name.replace(/\s+/g, '_');
      this.archivoC=fileFinal;
      this.formulario.ruta= ruta;
   }
 
   listarSelectEmpleado(){
-    this.ReconocimientoSancion$.listarSelectEmpleado()
+    this.RelacionLaboral$.listarSelectEmpleado()
     .pipe(
       finalize(() => {
         this.loading = false;
@@ -98,38 +89,16 @@ export class ModalReconocimientoSancionComponent {
   });
   }
 
-
-  cambioTipo(id:any){
-        if(id){
-            this.listarSelectTipoDoc(id)
-        }
-  }
-  listarSelectTipoDoc(id:any){
-    this.ReconocimientoSancion$.listarSelectTipoDoc(id)
-    .pipe(
-      finalize(() => {
-        this.loading = false;
-    })
-    )
-    .subscribe(({estado, mensaje, datos}) => {
-      if (estado) {
-          this.tipoDE = datos;
-      } else {
-          errorAlerta('Error', mensaje).then();
-      }
-  });
-  }
-
-   obtenerReconocimientoSancion() {
+  
+   obtenerRelacionLaboral() {
        this.loading = true;
-       this.ReconocimientoSancion$.obtenerReconocimientoSancion(this.idDocumento)
+       this.RelacionLaboral$.obtenerRelacionLaboral(this.idDocumento)
            .pipe(finalize(() => this.loading = false))
            .subscribe(({estado, mensaje, datos}) => {
                if (estado) {
                     this.formulario.dni= datos!.numeroDocumento;
                      this.formulario.id = datos!.id;
                      this.formulario.asunto = datos!.asunto;
-                     this.formulario.tipo= datos!.tipo;
                      this.formulario.fecha= datos!.fecha;
                      this.formulario.documento= datos!.documento;
                      this.formulario.asunto= datos!.asunto;
@@ -140,12 +109,11 @@ export class ModalReconocimientoSancionComponent {
            })
    }
 
- guardarReconocientoSancion() {
+ guardarRelacionLaboral() {
      this.loading = true;
      let params = {
           id:this.formulario.id,
           documento: this.formulario.documento,
-          tipo: this.formulario.tipo,
           fecha: this.formulario.fecha,
           asunto: this.formulario.asunto,
           numeroDocumento: this.formulario.dni,
@@ -153,7 +121,7 @@ export class ModalReconocimientoSancionComponent {
      }
 
      if (this.tipo === 1) {
-         this.ReconocimientoSancion$.registrarReconocimientoSancion(params,this.archivoC,this.formulario.dni)
+         this.RelacionLaboral$.registrarRelacionLaboral(params,this.archivoC,this.formulario.dni)
               .pipe(finalize(() => this.loading = false))
              .subscribe(({estado, mensaje}) => {
                  if (estado) {
@@ -169,7 +137,7 @@ export class ModalReconocimientoSancionComponent {
      }
 
      if (this.tipo === 2) {
-         this.ReconocimientoSancion$.editarReconocimientoSancion(params,this.archivoC,this.formulario.dni)
+         this.RelacionLaboral$.editarRelacionLaboral(params,this.archivoC,this.formulario.dni)
              .pipe(finalize(() => this.loading = false))
              .subscribe(({estado, mensaje}) => {
                  if (estado) {
@@ -194,7 +162,6 @@ export class ModalReconocimientoSancionComponent {
       documento: '',
       asunto: '',
       fecha:'',
-      tipo:'',
       dni:'',
       ruta:''
     }
@@ -206,4 +173,6 @@ export class ModalReconocimientoSancionComponent {
   ngOnDestroy() {
       this.modal.dispose();
   }
+
+
 }

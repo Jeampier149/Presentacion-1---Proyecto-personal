@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { ModalVerCompensacionComponent } from '@modules/legajo/components/modal-ver-compensacion/modal-ver-compensacion.component';
 import { ModalEvaluacionComponent } from '@modules/legajo/components/modal-evaluacion/modal-evaluacion.component';
 import { EvaluacionService } from '@services/legajo/evaluacion.service';
+import { ModalExportarComponent } from '@modules/legajo/components/modal-exportar/modal-exportar.component';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class EvaluacionComponent {
     @ViewChild(ModalEvaluacionComponent) modalEva?: any;
     @ViewChild(ModalVerCompensacionComponent) modalVerComp?: any;
     @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
-    
+    @ViewChild(ModalExportarComponent) modalExporta?: any;
     public rutas: rutaBreadCrumb[] = [{ nombre: 'Legajo' }];
     public accesos: any[] | undefined = [];
     public longitud: number = 15;
@@ -186,8 +187,8 @@ export class EvaluacionComponent {
             }
             );
     }
-  exportarCarpeta(){
-          
+    exportarCarpeta(){
+        this.modalExporta.openModal('Evaluacion');    
     }
 
    async nuevoDocumento() {
@@ -204,5 +205,6 @@ export class EvaluacionComponent {
         }
       
     }
+
 
 }

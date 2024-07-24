@@ -11,6 +11,7 @@ use App\Http\Controllers\Legajo\CompensacionController;
 use App\Http\Controllers\Legajo\EvaluacionController;
 use App\Http\Controllers\Legajo\LegajoController;
 use App\Http\Controllers\Legajo\ReconocimientoSancionController;
+use App\Http\Controllers\Legajo\RelacionLaboralController;
 use App\Http\Controllers\Legajo\ReporteDatosController;
 use App\Http\Controllers\Legajo\SituacionLaboralController;
 use App\Http\Controllers\legajo\VerDatosController;
@@ -72,10 +73,19 @@ Route::controller(ReconocimientoSancionController::class)->group(function () {
     Route::get('reconocimiento-sancion/listar-reconocimiento-sancion', 'listarReconocimientoSanciones'); 
     Route::get('reconocimiento-sancion/verArchivo', 'verArchivo'); 
 });
+Route::controller(RelacionLaboralController::class)->group(function () {   
+    Route::post('relacion-laboral/registrarRelacionLaboral', 'registrarRelacionLaboral');
+    Route::post('relacion-laboral/editarRelacionLaboral', 'registrarRelacionLaboral');
+    Route::post('relacion-laboral/obtenerRelacionLaboral', 'obtenerRelacionLaboral');
+    Route::get('relacion-laboral/listar-relacion-laboral', 'listarRelacionLaboral'); 
+    Route::get('relacion-laboral/verArchivo', 'verArchivo'); 
+});
+
 
 
 Route::controller(GeneralController::class)->group(function () {
     Route::post('general/listarSelects', 'listarSelects'); 
+    Route::get('general/exportarCarpeta', 'exportarCarpeta'); 
     Route::post('general/listarTipoRegimen', 'listarTipoRegimen');
     Route::post('general/listarServicio', 'listarServicio');
     Route::post('general/listarEmpleado', 'listarEmpleados');

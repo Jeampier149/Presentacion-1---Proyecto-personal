@@ -25,6 +25,9 @@ import { EvaluacionComponent } from './Pages/evaluacion/evaluacion.component';
 import { ModalEvaluacionComponent } from './components/modal-evaluacion/modal-evaluacion.component';
 import { ReconocimientoSancionComponent } from './Pages/reconocimiento-sancion/reconocimiento-sancion.component';
 import { ModalReconocimientoSancionComponent } from './components/modal-reconocimiento-sancion/modal-reconocimiento-sancion.component';
+import { ModalExportarComponent } from './components/modal-exportar/modal-exportar.component';
+import { RelacionesLaboralesComponent } from './Pages/relaciones-laborales/relaciones-laborales.component';
+import { ModalRelacionesLaboralesComponent } from './components/modal-relaciones-laborales/modal-relaciones-laborales.component';
 
 
 
@@ -46,7 +49,10 @@ import { ModalReconocimientoSancionComponent } from './components/modal-reconoci
     EvaluacionComponent,
     ModalEvaluacionComponent,
     ReconocimientoSancionComponent,
-    ModalReconocimientoSancionComponent
+    ModalReconocimientoSancionComponent,
+    ModalExportarComponent,
+    RelacionesLaboralesComponent,
+    ModalRelacionesLaboralesComponent
     
   
   ],

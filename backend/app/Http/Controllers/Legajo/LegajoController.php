@@ -317,4 +317,6 @@ class LegajoController extends JSONResponseController
         $resultado = $legajoModel->editarDiscapacidad($datosDiscapacidad, $usuario, $equipo, $perfil, $numeroDocumento);
         return $this->sendResponse(200, true, 'Datos de Discapacidad Actualizados Correctamente', 1);
     }
+    
+   
 }

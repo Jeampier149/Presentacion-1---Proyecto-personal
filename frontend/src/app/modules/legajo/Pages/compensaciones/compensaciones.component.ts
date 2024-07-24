@@ -10,6 +10,7 @@ import { ModalNuevaCompensacionComponent } from '@modules/legajo/components/moda
 import { CompensacionService } from '@services/legajo/compensacion.service';
 import { ModalEditarCompensacionComponent } from '@modules/legajo/components/modal-editar-compensacion/modal-editar-compensacion.component';
 import { ModalVerCompensacionComponent } from '@modules/legajo/components/modal-ver-compensacion/modal-ver-compensacion.component';
+import { ModalExportarComponent } from '@modules/legajo/components/modal-exportar/modal-exportar.component';
 
 @Component({
     selector: 'app-compensaciones',
@@ -20,6 +21,7 @@ export class CompensacionesComponent {
     @ViewChild(ModalNuevaCompensacionComponent) modalNuevaComp?: any;
     @ViewChild(ModalEditarCompensacionComponent) modalEditarComp!: ModalEditarCompensacionComponent;
     @ViewChild(ModalVerCompensacionComponent) modalVerComp?: any;
+    @ViewChild(ModalExportarComponent) modalExporta?: any;
     @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
     
     public rutas: rutaBreadCrumb[] = [{ nombre: 'Legajo' }];
@@ -181,6 +183,9 @@ export class CompensacionesComponent {
                 this.modalVerComp?.openModal(this.archivoCmp);
             }
             );
+    }
+    exportarCarpeta(){
+        this.modalExporta.openModal('Compensaciones');    
     }
 
     async nuevoDocumento() {
