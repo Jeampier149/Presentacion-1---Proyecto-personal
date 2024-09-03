@@ -17,6 +17,7 @@ use App\Http\Controllers\Legajo\SituacionLaboralController;
 use App\Http\Controllers\legajo\VerDatosController;
 use App\Http\Controllers\Mantenimiento\UsuarioController;
 use App\Http\Controllers\Mantenimiento\ListarController;
+use App\Http\Controllers\Remuneraciones\ResumenController;
 use App\Http\Controllers\Service\ExtranjeriaController;
 use App\Http\Controllers\Service\ReniecController;
 use App\Http\Controllers\Util\GeneralController;
@@ -46,7 +47,12 @@ Route::controller(LegajoController::class)->group(function () {
     Route::post('legajo/editar-discapacidad', 'editarDiscapacidad');
 });
 
-
+Route::controller(ResumenController::class)->group(function () {
+    Route::get('remmuneraciones/listar-resumen', 'listarResumen'); 
+    Route::get('remuneraciones/generar-resumen', 'generarResumen');
+ //   Route::post('remmuneraciones/editar-empleado', 'editarEmpleado');
+  //  Route::post('remmuneraciones/editar-discapacidad', 'editarDiscapacidad');
+});
 
 Route::controller(CompensacionController::class)->group(function () {   
     Route::post('compensacion/registrarCompensacion', 'registrarCompensacion');

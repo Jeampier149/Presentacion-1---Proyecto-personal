@@ -66,14 +66,14 @@
                                                         inputmode="text"
                                                         class="form-control form-control-sm text-uppercase"
                                                         name="filtroDocumento"
-                                                        [(ngModel)]="filtroDocumento"
+                                                        [(ngModel)]="filtroDni"
                                                         (keydown.enter)="filtrarEmpleado()">
                                                 </th>
                                                 <th>
                                                     <input #inpFocus
                                                            inputmode="text"
                                                            class="form-control form-control-sm text-uppercase"
-                                                           name="filtroTipo" [(ngModel)]="filtroTipo"
+                                                           name="filtroTipo" [(ngModel)]="filtroDocumento"
                                                            (keydown.enter)="filtrarEmpleado()">
                                                 </th>
                                                 <th>
@@ -81,7 +81,7 @@
                                                         inputmode="text"
                                                         class="form-control form-control-sm text-uppercase"
                                                         name="filtroDocumento"
-                                                        [(ngModel)]="filtroDocumento"
+                                                        [(ngModel)]="filtroTipo"
                                                         (keydown.enter)="filtrarEmpleado()">
                                                 </th>
                                    

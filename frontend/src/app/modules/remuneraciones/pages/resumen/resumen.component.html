@@ -1,1 +1,125 @@
-<p>resumen works!</p>
+<app-breadcrumb [rutas]="rutas" [titulo]="'Resumen'"></app-breadcrumb>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row  ">
+
+                    <div class="col-xl-4 col-md-auto col-sm-auto d-flex ">
+                        @if(accesos?.includes(1)){
+                            <button class="btn  btn-sm btn-primary waves-light waves-effect btn-label me-1" style="width: 190px;"
+                          (click)="nuevoResumen()" >
+                        <i class="fa fa-file label-icon"></i> Nuevo Resumen
+                        </button>
+               
+                        }
+                        
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-xl-12">
+                        <app-loading [mostrar]="loading">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-sm">
+                                            <thead>
+                                            <tr>
+                                                <th *ngFor="let cabecera of cabeceras;" class="{{cabecera.clase}}"
+                                                   [style]="cabecera.estilo">{{ cabecera.nombre }}
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="limpiar" style="text-align: center;">
+                                                    <button
+                                                        class="btn  btn-sm btn-danger waves-effect waves-light w-50 "
+                                                        (click)="limpiarCampos()"><i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </th>
+                                              
+                                                <th>
+                                                    <input #inpFocus
+                                                           inputmode="text"
+                                                           class="form-control form-control-sm text-uppercase"
+                                                           name="filtroTipo" [(ngModel)]="filtroYear"
+                                                           (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                               
+                                                <th>
+                                                    <input
+                                                        inputmode="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="filtroMes"
+                                                        [(ngModel)]="filtroMes"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>                                          
+                                                <th>
+                                                    <input
+                                            
+                                                        type="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="filtroFecha"
+                                                        [(ngModel)]="filtroUsuario"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th>                                                 
+                                                </th>
+                                                             
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ng-template [ngIf]="datos.length !== 0" [ngIfElse]="vacio">
+                                                <tr *ngFor="let dato of datos">
+                                                    <td>
+                                                        <div class="d-flex gap-1 flex-wrap justify-content-center">
+                                                                                                                        
+                                                             @if(accesos?.includes(2)){
+                                                                <button [bsTooltip]="'Editar'"
+                                                                class="btn btn-sm waves-light waves-effect btn-primary"
+                                                                
+                                                                (click)="editarDocumento(dato.id)"
+                                                               >
+                                                            <i class="fa fa-pencil"></i></button>
+                                                             }
+                                                         
+                                                                <button [bsTooltip]="'ver'"  
+                                                                class="btn btn-sm waves-light waves-effect  btn-dark"
+                                                                (click)="descargarArchivo(dato.ruta)" >
+                                                                 <i class="fa fa-eye"></i></button>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">{{ dato.numeroDocumento}}</td>
+                                                    <td class="text-center">{{ dato.tipo}}</td>
+                                                    <td class="text-center">{{ dato.documento}}</td>
+                                                    <td class="text-center">{{ dato.asunto }}</td>
+                                                    <td class="text-center">{{ dato.fecha }}</td>
+                                                    <!-- <td  class="text-center">
+                                                        <span class="badge estado W-100" [ngClass]="dato.estado === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{ dato.estado}}</span>    
+                                                                                           
+                                                    </td> -->
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template #vacio>
+                                                <tr>
+                                                    <td class="text-center" [colSpan]="cabeceras.length">No hay
+                                                        resultados
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <app-paginado [datos]="datos" [(longitud)]="longitud" [pagina]="pagina"
+                                          (cambioVer)="filtrarEmpleado()"
+                                          [ver]="true" (cambioPagina)="cambioPagina($event)"></app-paginado>
+                        </app-loading>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal-resumen></app-modal-resumen>
+

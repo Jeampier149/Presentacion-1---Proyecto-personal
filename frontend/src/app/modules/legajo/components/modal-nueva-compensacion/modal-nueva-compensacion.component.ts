@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import {Modal} from 'bootstrap';
 import { finalize } from "rxjs";
 import { errorAlerta, successAlerta, warningAlerta, errorAlertaValidacion } from "@shared/utils";
-import { SituacionLaboralService } from '@services/legajo/situacion-laboral.service';
 import { CompensacionService } from '@services/legajo/compensacion.service';
 
 

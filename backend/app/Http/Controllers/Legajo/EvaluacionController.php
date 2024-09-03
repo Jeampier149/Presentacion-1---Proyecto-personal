@@ -73,9 +73,10 @@ class EvaluacionController extends JSONResponseController
         [$usuario, $perfil, $equipo] = $this->getHost($request);
          $datos = json_decode($request->post('datos'), true);
          $numeroDocumento = json_decode($request->post('numeroDoc'), true);
-         $ruta = $datos['ruta'];
-         $sbn=explode('/',$ruta)[2];
+        
          if ($request->hasFile('archivo')) {
+            $ruta = $datos['ruta'];
+            $sbn=explode('/',$ruta)[2];
              $archivo = $request->file('archivo');
              $nameArchivo = $archivo->getClientOriginalName();
              $name = str_replace(" ", "_", $nameArchivo);
