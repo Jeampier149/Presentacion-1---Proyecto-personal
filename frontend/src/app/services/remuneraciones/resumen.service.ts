@@ -44,7 +44,7 @@ export class ResumenService {
         .post<HttpResponseApi>(
             '/api/reconocimiento-sancion/registrarReconocimientoSancion',
              formData,
-            { responseType: 'blob' }
+            { responseType: 'json' }
         )
         .pipe(shareReplay(1));
     }

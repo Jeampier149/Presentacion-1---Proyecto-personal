@@ -95,18 +95,7 @@ export class ModalResumenComponent {
      }
 
      if (this.tipo === 1) {
-        console.log(this.archivoDatosPLH);
-         this.ResumenService$.generarResumen(params,this.archivoDatosPLH)      
-              .pipe(finalize(() => this.loading = false))
-              .subscribe((response:Blob) => {
-                const fileURL = URL.createObjectURL(response);
-                const downloadLink = document.createElement('a');
-                downloadLink.href = fileURL;
-                downloadLink.download ='this.numeroDocumento';
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-             
-            });
+                    
         }
      if (this.tipo === 2) {
          this.ResumenService$.editarResumen(params,this.archivoDatosPLH)
