@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import { CompensacionService } from '@services/legajo/compensacion.service';
 import { ModalVerCompensacionComponent } from '@modules/legajo/components/modal-ver-compensacion/modal-ver-compensacion.component';
 import { ModalExportarComponent } from '@modules/legajo/components/modal-exportar/modal-exportar.component';
-import { ModalResumenComponent } from '@modules/remuneraciones/components/modal-resumen/modal-resumen.component';
+
 
 
 
@@ -19,7 +19,7 @@ import { ModalResumenComponent } from '@modules/remuneraciones/components/modal-
   styleUrl: './resumen.component.scss'
 })
 export class ResumenComponent {
-  @ViewChild(ModalResumenComponent) modalResumen?: any;
+
   @ViewChild(ModalVerCompensacionComponent) modalVerComp?: any;
   @ViewChild(ModalExportarComponent) modalExporta?: any;
   @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
@@ -153,21 +153,11 @@ export class ResumenComponent {
       this.modalExporta.openModal('');    
   }
 
-  async nuevoResumen() {
-     let response= await this.modalResumen.openModal(1);    
-     if(response){
-      //  this.listarCompensaciones()
-       }        
-  }
-  async editarDocumento(id:any){
-      let response= await this.modalResumen.openModal(2,id);   
-      if(response){
-      /// this.listarCompensaciones()
-      }
 
+ 
   // if(response){
     //  this.listarCompensaciones()
   // }
 
   }
-}
+

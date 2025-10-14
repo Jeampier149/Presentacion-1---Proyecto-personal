@@ -1,5 +1,5 @@
-<?php
-
+ <?php
+/** 
 namespace App\Http\Controllers\Remuneraciones;
 
 use App\Http\Controllers\Controller;
@@ -383,4 +383,4 @@ class ResumenController extends Controller
          }
      }
      
-}
+} */ ?>

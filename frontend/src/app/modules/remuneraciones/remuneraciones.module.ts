@@ -11,16 +11,13 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ResumenComponent } from './pages/resumen/resumen.component';
 import { EjecucionGastosComponent } from './pages/ejecucion-gastos/ejecucion-gastos.component';
-import { ModalResumenComponent } from './components/modal-resumen/modal-resumen.component';
 import { ModalEjecucionGastosComponent } from './components/modal-ejecucion-gastos/modal-ejecucion-gastos.component';
-
 
 
 @NgModule({
   declarations: [
     ResumenComponent,
     EjecucionGastosComponent,
-    ModalResumenComponent,
     ModalEjecucionGastosComponent
   ],
   imports: [
