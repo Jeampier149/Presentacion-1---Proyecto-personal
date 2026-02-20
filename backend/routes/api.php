@@ -117,7 +117,7 @@ Route::controller(ReporteDatosController::class)->group(function () {
 });
 
 Route::controller(ReniecController::class)->group(function () {
-    Route::get('reniec/buscarReniec', 'buscarDNI');
+    Route::post('reniec/buscarReniec', 'buscarDNI');
 
 });
 Route::controller(ExtranjeriaController::class)->group(function () {

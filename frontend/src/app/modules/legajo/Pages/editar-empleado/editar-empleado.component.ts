@@ -1,937 +1,803 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DatoGeneralesService } from '@services/legajo/datos-generales.service';
-import {
-    errorAlerta,
-    successAlerta,
-    warningAlerta,
-    errorAlertaValidacion,
-} from '@shared/utils';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { finalize } from 'rxjs';
+
+import { DatoGeneralesService } from '@services/legajo/datos-generales.service';
 import { ReniecService } from '@services/general/reniec.service';
 import { ExtranjeriaService } from '@services/general/extranjeria.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { ModalDatosService } from '@services/legajo/modal-datos.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ModalTomarFotoComponent } from '@modules/legajo/components/modal-tomar-foto/modal-tomar-foto.component';
 import { reniecClass } from '@classes/servicios/reniec.class';
 import { MigracionesClass } from '@classes/servicios/migraciones.class';
-import { Router } from '@angular/router';
+import { errorAlerta, successAlerta, warningAlerta, errorAlertaValidacion } from '@shared/utils';
+
+// ─── Interfaces ────────────────────────────────────────────────────────────────
+
+interface Familiar {
+  id: string; tipoD: string; dni: string; nombre: string;
+  apellidos: string; fechaNacimiento: string; parentesco: string;
+  centroLaboral: string; estado: string;
+}
+
+interface EstudioAcademico {
+  id: string; tipo: string; centro: string; especialidad: string;
+  inicio: string; termino: string; nivel: string;
+  archivo: File | null; ruta: string; estado: string;
+}
+
+interface Especializacion {
+  id: string; tipo: string; centro: string; materia: string;
+  inicio: string; termino: string; certificacion: string;
+  archivo: File | null; ruta: string; estado: string;
+}
+
+interface Idioma {
+  id: string; lenguaE: string; nivel: string;
+  archivo: File | null; ruta: string; estado: string;
+}
+
+interface ExperienciaLaboral {
+  id: string; institucion: string; cargo: string;
+  inicio: string; termino: string;
+  archivo: File | null; ruta: string; estado: string;
+}
+
+interface LaborDocencia {
+  id: string; centro: string; curso: string;
+  inicio: string; termino: string;
+  archivo: File | null; ruta: string; estado: string;
+}
+
+// ─── Component ─────────────────────────────────────────────────────────────────
+
 @Component({
-    selector: 'app-editar-empleado',
-    templateUrl: './editar-empleado.component.html',
-    styleUrl: './editar-empleado.component.scss',
+  selector: 'app-editar-empleado',
+  templateUrl: './editar-empleado.component.html',
+  styleUrl: './editar-empleado.component.scss',
 })
 export class EditarEmpleadoComponent implements OnInit {
-    numDoc: string = '';
-    @ViewChild(ModalTomarFotoComponent) modalTomarFoto?: any;
-    constructor(
-        private DatoGeneralesService$: DatoGeneralesService,
-        private ReniecService$: ReniecService,
-        private ExtranjeriaService$: ExtranjeriaService,
-        private route: ActivatedRoute,
-        private ModalDatosService$: ModalDatosService,
-        private sanitizer: DomSanitizer,
-        private router:Router
-    ) {
-        this.inicializarVariables();
-        this.listarSelects();
-    }
-    ngOnInit() {
-        this.numDoc = this.route.snapshot.paramMap.get('numDoc')!;
-        this.listarDatos(this.numDoc);
-    }
 
-    //DORPZONE IMAGEN
-    files: File[] = [];
-    fotoFile: any[] = [];
-    archivoDiscapacidad: File[] = [];
-    onSelect(event: any) {
-        this.files = [];
-        this.files.push(event.addedFiles[0]);
-        const file = event.addedFiles[0];
-        const timestamp = new Date().getTime();
-        const nuevoNombre = 'Foto_ejemplo_'+timestamp + '_' + file.name;
-        const fileFinal: File = new File([file], nuevoNombre);
-        this.fotoFile.push(fileFinal);
-        const ruta = this.valDatosPersonales?.get('numDoc')?.value + '/Foto/' +fileFinal.name.replace(/\s+/g, '_');
-        this.valDatosPersonales.controls['rutaFoto'].setValue(ruta);
-    }
+  @ViewChild(ModalTomarFotoComponent) modalTomarFoto?: ModalTomarFotoComponent;
 
-    onRemove(event: any) {
-        this.files.splice(this.files.indexOf(event), 1);
-        this.valDatosPersonales.controls['rutaFoto'].setValue('default/perfil.png')
-        console.log('eliminando.....')
-        console.log(this.files)
-    }
-    //FOTO PERSONAL
-    fotoPersonal: File[] = [];
+  // ── Estado general ────────────────────────────────────────────────────────
+  numDoc         = '';
+  loading        = false;
+  mensajeLoading = 'Cargando...';
+  rutas: any;
+  agregable      = false;
 
-    archivoUrl: any;
-    fotoP: any;
-    //DEFAULT
-    rutas: any;
-    loading: boolean = false;
+  // ── Foto ──────────────────────────────────────────────────────────────────
+  files:     File[]          = [];
+  fotoFile:  File[]          = [];
+  fotoP:     SafeResourceUrl = '';
+  archivoUrl = '';
+  intentoGuardar = false;
+  // ── Discapacidad ──────────────────────────────────────────────────────────
+  archivoDiscapacidad: File[]   = [];
+  rutaDiscapacidad               = '';
+  discapacidades:      string[] = [];
+  arrayDiscapacidad:   any[]    = [];
 
-    discapacidad: string = 'Si';
-    agregable: boolean = false;
-    //---ARRAYS DE SELECTS---//
-    datos: any[] = [];
-    tipoEmpleado: any[] = [];
-    tipoGrupo: any[] = [];
-    regimen: any[] = [];
-    tipoRegimen: any[] = [];
-    tipoSexo: any[] = [];
-    tipoGrupoSanguineo: any[] = [];
-    tipoEstadoCivil: any[] = [];
-    tipoParentesco: any[] = [];
-    tipoProfesiones: any[] = [];
-    nivelIdioma: any[] = [];
-    cargo: any[] = [];
-    nivelCargo: any[] = [];
-    tipoVia: any[] = [];
-    tipoZona: any[] = [];
-    unidadOrganica: any[] = [];
-    servicioE: any[] = [];
+  // ✅ FIX TOGGLE: propiedades booleanas para detección de cambios inmediata
+  // Las variables de template (#ref) causan que Angular no detecte el cambio
+  // hasta el siguiente ciclo (click en otro lado). Usando props del componente
+  // con (change)="prop = !prop" el @if se actualiza en el mismo evento.
+  tieneDiscapacidad = false;
+  tieneColegiatura  = false;
 
-    ubigeo: string = '';
-    //---Datos discapacidad---//
-    rutaDiscapacidad: string = '';
+  tipoDiscapacidad = [
+    { id: 1, tipo: 'Fisica'      },
+    { id: 2, tipo: 'Sensorial'   },
+    { id: 3, tipo: 'Mental'      },
+    { id: 4, tipo: 'Intelectual' },
+  ];
 
-    atp = [
-        { id: 1, tipo: 'Fisica'},
-        { id: 2, tipo: 'Sensorial' },
-        { id: 4, tipo: 'Mental' },
-        { id: 3, tipo: 'Intelectual'},
-    ];
-    discapacidades: any[] = [];
-    arrayDiscapacidad:any[]=[]
+  // ── Listas de selects ─────────────────────────────────────────────────────
+  datos:              any[] = [];
+  tipoEmpleado:       any[] = [];
+  tipoGrupo:          any[] = [];
+  regimenList:        any[] = []; // ✅ renombrado para evitar colisión con formControlName="regimen"
+  tipoRegimen:        any[] = [];
+  tipoSexo:           any[] = [];
+  tipoGrupoSanguineo: any[] = [];
+  tipoEstadoCivil:    any[] = [];
+  tipoParentesco:     any[] = [];
+  tipoProfesiones:    any[] = [];
+  nivelIdioma:        any[] = [];
+  cargo:              any[] = [];
+  nivelCargo:         any[] = [];
+  tipoVia:            any[] = [];
+  tipoZona:           any[] = [];
+  unidadOrganica:     any[] = [];
+  servicioE:          any[] = [];
 
-    //--TABLAS DE INGRESO DE DATOS---
-    familiares: any[] = [];
-    estudioSuperior: any[] = [];
+  // ── Tablas ────────────────────────────────────────────────────────────────
+  familiares:         Familiar[]           = [];
+  estudioSuperior:    EstudioAcademico[]   = [];
+  estudioPostgrado:   EstudioAcademico[]   = [];
+  especializacion:    Especializacion[]    = [];
+  cursos:             Especializacion[]    = [];
+  idiomas:            Idioma[]             = [];
+  experienciaLaboral: ExperienciaLaboral[] = [];
+  laborDocencia:      LaborDocencia[]      = [];
 
-    profesion: string = '';
-    lugarColeg: string = '';
-    fechColeg: string = '';
-    fechTerColeg: string = '';
-    numColeg: string = '';
+  // ── Flags "sin datos" ─────────────────────────────────────────────────────
+  divFamiliar:            boolean = false;
+  divSuperior:            boolean = false;
+  divPostgrado:           boolean = false;
+  divEspecializacion:     boolean = false;
+  divCursos:              boolean = false;
+  divIdioma:              boolean = false;
+  divExperienciaLaboral:  boolean = false;
+  divExperienciaDocencia: boolean = false;
 
-    estudioPostgrado: any[] = [];
-    especializacion: any[] = [];
-    cursos: any[] = [];
-    idiomas: any[] = [];
-    experienciaLaboral: any[] = [];
-    laborDocencia: any[] = [];
-    datosContacto: string[] = [];
-    mensajeLoading: string = '';
+  // ── FormGroups ────────────────────────────────────────────────────────────
+  valDatosPersonales!:    FormGroup;
+  valContactoEmergencia!: FormGroup;
+  valDatosDomicilio!:     FormGroup;
+  valDatosProfesion!:     FormGroup;
+  valSituacionLaboral!:   FormGroup;
 
+  // ─── Constructor ──────────────────────────────────────────────────────────
 
-    fechaIngreso: string = '';
+  constructor(
+    private datosGeneralesService: DatoGeneralesService,
+    private reniecService:         ReniecService,
+    private extranjeriaService:    ExtranjeriaService,
+    private route:                 ActivatedRoute,
+    private modalDatosService:     ModalDatosService,
+    private sanitizer:             DomSanitizer,
+    private router:                Router
+  ) {}
 
-    //mostrar divs
-    divFamiliar: boolean = false;
-    divSuperior: boolean = false;
-    divPostgrado: boolean = false;
-    divEspecializacion: boolean = false;
-    divCursos: boolean = false;
-    divIdioma: boolean = false;
-    divExperienciaLaboral: boolean = false;
-    divExperienciaDocencia: boolean = false;
-    //formocntrol
+  // ─── Ciclo de vida ─────────────────────────────────────────────────────────
 
-    valDatosPersonales!: FormGroup;
-    valContactoEmergencia!: FormGroup;
-    valDatosDomicilio!: FormGroup;
-    valDatosProfesion!: FormGroup;
-    valSituacionLaboral!:FormGroup;
+  ngOnInit(): void {
+    // ✅ FIX: toda la inicialización en ngOnInit, nunca en el constructor
+    this.inicializarFormularios();
+    this.listarSelects();
+    this.numDoc = this.route.snapshot.paramMap.get('numDoc')!;
+    this.listarDatos(this.numDoc);
+  }
 
-    inicializarVariables() {
-        this.valDatosPersonales = new FormGroup({
-            tipoDocumento: new FormControl({ value: '', disabled: true }),
-            numDoc:  new FormControl({ value: '', disabled: true }),
-            nacionalidad: new FormControl({ value: '', disabled: true }),
-            aPaterno: new FormControl({ value: '', disabled: true }),
-            aMaterno: new FormControl({ value: '', disabled: true }),
-            nombres: new FormControl({ value: '', disabled: true }),
-            sexo: new FormControl(''),
-            ruc: new FormControl(''),
-            fechaNacimiento: new FormControl(''),
-            telFijo: new FormControl('', [Validators.pattern('^[0-9]*$')]),
-            telMovil: new FormControl('', [Validators.pattern('^[0-9]*$')]),
-            correo: new FormControl(''),
-            grupoSanguineo: new FormControl(''),
-            estadoCivil: new FormControl(''),
-            rutaFoto: new FormControl(''),
-            enfAlergias: new FormControl('')
+  // ─── Formularios ───────────────────────────────────────────────────────────
+
+  private inicializarFormularios(): void {
+    this.valDatosPersonales = new FormGroup({
+      tipoDocumento:   new FormControl({ value: '', disabled: true }),
+      numDoc:          new FormControl({ value: '', disabled: true }),
+      nacionalidad:    new FormControl({ value: '', disabled: true }),
+      aPaterno:        new FormControl({ value: '', disabled: true }),
+      aMaterno:        new FormControl({ value: '', disabled: true }),
+      nombres:         new FormControl({ value: '', disabled: true }),
+      sexo:            new FormControl(''),
+      ruc:             new FormControl('', [Validators.pattern('[0-9]{11}')]),
+      fechaNacimiento: new FormControl(''),
+      telFijo:         new FormControl('', [Validators.pattern('^[0-9]*$')]),
+      telMovil:        new FormControl('', [Validators.pattern('^[0-9]*$')]),
+      correo:          new FormControl('', [Validators.email]),
+      grupoSanguineo:  new FormControl(''),
+      estadoCivil:     new FormControl(''),
+      rutaFoto:        new FormControl(''),
+      enfAlergias:     new FormControl(''),
+    });
+
+    this.valSituacionLaboral = new FormGroup({
+      id:           new FormControl(''),
+      condicion:    new FormControl(''),
+      grupOcup:     new FormControl(''),
+      regimen:      new FormControl(''),
+      tipoRegimen:  new FormControl(''),
+      unidad:       new FormControl(''),
+      servicio:     new FormControl(''),
+      cargo:        new FormControl(''),
+      nivelCargo:   new FormControl(''),
+      airhsp:       new FormControl(''),
+      fechaIngreso: new FormControl(''),
+    });
+
+    this.valContactoEmergencia = new FormGroup({
+      id:             new FormControl(''),
+      nombreContacto: new FormControl(''),
+      parentesco:     new FormControl(''),
+      numContacto:    new FormControl('', [Validators.pattern('^[0-9]*$')]),
+    });
+
+    this.valDatosDomicilio = new FormGroup({
+      id:           new FormControl(''),
+      departamento: new FormControl(''),
+      provincia:    new FormControl(''),
+      distrito:     new FormControl(''),
+      ubigeo:       new FormControl(''),
+      via:          new FormControl(''),
+      nombreVia:    new FormControl(''),
+      numeroVia:    new FormControl(''),
+      interiorVia:  new FormControl(''),
+      zona:         new FormControl(''),
+      nombreZona:   new FormControl(''),
+      numeroZona:   new FormControl(''),
+      interiorZona: new FormControl(''),
+      referencia:   new FormControl(''),
+    });
+
+    this.valDatosProfesion = new FormGroup({
+      id:           new FormControl(''),
+      profesion:    new FormControl(''),
+      lugarColeg:   new FormControl(''),
+      fechColeg:    new FormControl(''),
+      fechTerColeg: new FormControl(''),
+      numColeg:     new FormControl(''),
+    });
+  }
+
+  // ─── Carga de datos del empleado ───────────────────────────────────────────
+
+  private listarDatos(numeroDoc: string): void {
+    this.loading = true;
+    this.modalDatosService.listarDatos(numeroDoc)
+      .pipe(finalize(() => { this.loading = false; }))
+      .subscribe(({ estado, datos }) => {
+        if (!estado) { return; }
+
+        this.setDatosEmpleado(datos.datosEmpleado?.[0]);
+        this.setSituacionLaboral(datos.datosSituacion?.[0]);
+        this.setDatosContactoEmergencia(datos.datosContactoEmergencia?.[0]);
+        this.setDatosDomicilio(datos.datosDomicilio?.[0]);
+        this.setDatosProfesion(datos.datosProfesion?.[0]);
+
+        this.familiares         = datos.datosFamiliares             ?? [];
+        this.estudioSuperior    = datos.datosEstudioSuperior        ?? [];
+        this.estudioPostgrado   = datos.datosEstudioPostgrado       ?? [];
+        this.especializacion    = datos.datosEstudioEspecializacion ?? [];
+        this.cursos             = datos.datosEstudioCursos          ?? [];
+        this.idiomas            = datos.datosEstudioIdioma          ?? [];
+        this.experienciaLaboral = datos.datosExperienciaLaboral     ?? [];
+        this.laborDocencia      = datos.datosExperienciaDocencia    ?? [];
+        this.arrayDiscapacidad  = datos.datosDiscapacidad           ?? [];
+
+        // ✅ FIX: map() en lugar de forEach+push para evitar acumulación en recargas
+        this.discapacidades    = this.arrayDiscapacidad.map((t: any) => t.tipo);
+        this.tieneDiscapacidad = this.discapacidades.length > 0;
+      });
+  }
+
+  // ─── Setters: patchValue en lugar de setValue uno por uno ─────────────────
+
+  private setDatosEmpleado(datos: any): void {
+    if (!datos) { return; }
+    this.valDatosPersonales.patchValue({
+      tipoDocumento:   datos.idTipoDoc,
+      numDoc:          datos.numeroDocumento,
+      nacionalidad:    datos.nacionalidad,
+      aPaterno:        datos.apellidoPaterno,
+      aMaterno:        datos.apellidoMaterno,
+      nombres:         datos.nombre,
+      sexo:            datos.sexo,
+      ruc:             datos.ruc,
+      fechaNacimiento: datos.fechaNacimiento,
+      telFijo:         datos.telFijo,
+      telMovil:        datos.telMovil,
+      correo:          datos.correo,
+      grupoSanguineo:  datos.grupSanguineo,
+      enfAlergias:     datos.enferAlergia,
+      estadoCivil:     datos.estadoCivil,
+      rutaFoto:        datos.rutaFoto,
+    });
+    this.listarFoto(datos.rutaFoto);
+  }
+
+  private setSituacionLaboral(datos: any): void {
+    if (!datos) { return; }
+    this.valSituacionLaboral.patchValue({
+      id:           datos.idHistorial,
+      condicion:    datos.idCondicion,
+      grupOcup:     datos.idGrupO,
+      regimen:      datos.idRegimen,
+      tipoRegimen:  datos.idTipoRegimen,
+      unidad:       datos.idUnidadOrganica,
+      servicio:     datos.idServicio,
+      cargo:        datos.idCargo,
+      nivelCargo:   datos.nivel,
+      airhsp:       datos.codigoAirhsp,
+      fechaIngreso: datos.fechaIngreso,
+    });
+    if (datos.idRegimen)        { this.listarTipoRegimen(datos.idRegimen); }
+    if (datos.idUnidadOrganica) { this.listarServicio(datos.idUnidadOrganica); }
+  }
+
+  private setDatosContactoEmergencia(datos: any): void {
+    if (!datos) { return; }
+    this.valContactoEmergencia.patchValue({
+      id:             datos.id,
+      nombreContacto: datos.nombre,
+      parentesco:     datos.parentesco,
+      numContacto:    datos.telefono,
+    });
+  }
+
+  private setDatosDomicilio(datos: any): void {
+    if (!datos) { return; }
+    this.valDatosDomicilio.patchValue({
+      id:           datos.id,
+      departamento: datos.departamento,
+      provincia:    datos.provincia,
+      distrito:     datos.distrito,
+      ubigeo:       datos.ubigeo,
+      via:          datos.tipoVia,
+      nombreVia:    datos.nombreVia,
+      numeroVia:    datos.numeroVia,
+      interiorVia:  datos.interiorVia,
+      zona:         datos.tipoZona,
+      nombreZona:   datos.nombreZona,
+      numeroZona:   datos.numeroZona,
+      interiorZona: datos.interiorZona,
+      referencia:   datos.referencia,
+    });
+  }
+
+  private setDatosProfesion(datos: any): void {
+    if (!datos) { return; }
+    this.valDatosProfesion.patchValue({
+      id:           datos.id,
+      profesion:    datos.profesion,
+      lugarColeg:   datos.lugar,
+      fechColeg:    datos.fechaInicio,
+      fechTerColeg: datos.fechaTermino,
+      numColeg:     datos.numeroCole,
+    });
+    // ✅ inicializa el toggle según datos existentes al cargar
+    this.tieneColegiatura = !!(datos.numeroCole || datos.lugar);
+  }
+
+  private setDatosRENIEC(datos: reniecClass): void {
+    this.valDatosPersonales.patchValue({
+      aPaterno:        datos.apellidoPaterno,
+      aMaterno:        datos.apellidoMaterno,
+      nombres:         datos.nombres,
+      sexo:            datos.obtenerSexo(),
+      fechaNacimiento: datos.obtenerFechaNacimiento(),
+    });
+    this.valDatosDomicilio.patchValue({
+      departamento: datos.departamento,
+      provincia:    datos.provincia,
+      distrito:     datos.distrito,
+      ubigeo:       datos.obtenerUbigeo(),
+    });
+  }
+
+  private setDatosMigraciones(datos: MigracionesClass): void {
+    this.valDatosPersonales.patchValue({
+      aPaterno: datos.apellidoPaterno,
+      aMaterno: datos.apellidoMaterno,
+      nombres:  datos.nombres,
+    });
+  }
+
+  private setDatosFamiliar(datos: any, index: number): void {
+    this.familiares[index].nombre         = datos.nombres;
+    this.familiares[index].apellidos      = `${datos.apellidoPaterno} ${datos.apellidoMaterno}`;
+    this.familiares[index].fechaNacimiento = this.parsearFecha(datos.fechaNacimiento);
+  }
+
+  private parsearFecha(fecha: string): string {
+    return `${fecha.slice(0, 4)}-${fecha.slice(4, 6)}-${fecha.slice(6, 8)}`;
+  }
+
+  // ─── Búsqueda de documentos ────────────────────────────────────────────────
+
+  buscarDocumento(documento: string, index?: number): void {
+    const tipoDocumento = this.valDatosPersonales.get('tipoDocumento')?.value;
+    this.loading = true;
+
+    if (tipoDocumento === '1') {
+      this.mensajeLoading = 'Buscando en RENIEC...';
+      this.reniecService.buscarDni(documento, '1')
+        .pipe(finalize(() => this.resetLoading()))
+        .subscribe(({ estado, datos }) => {
+          if (estado && datos) {
+            index !== undefined
+              ? this.setDatosFamiliar(datos, index)
+              : this.setDatosRENIEC(datos);
+          }
         });
-        this.valSituacionLaboral = new FormGroup({
-            id: new FormControl(''),
-            condicion: new FormControl(''),
-            grupOcup: new FormControl(''),
-            regimen: new FormControl(''),
-            tipoRegimen: new FormControl(''),
-            unidad: new FormControl(''),
-            servicio: new FormControl(''),
-            cargo: new FormControl(''),
-            nivelCargo: new FormControl(''),
-            airhsp: new FormControl(''),
-            fechaIngreso: new FormControl('')
+
+    } else if (tipoDocumento === '2') {
+      this.mensajeLoading = 'Buscando en MIGRACIONES...';
+      this.extranjeriaService.buscarMigraciones(documento)
+        .pipe(finalize(() => this.resetLoading()))
+        .subscribe(({ estado, datos }) => {
+          if (estado && datos) { this.setDatosMigraciones(datos); }
         });
 
-        this.valContactoEmergencia = new FormGroup({
-            nombreContacto: new FormControl(''),
-            parentesco: new FormControl(''),
-            id: new FormControl(''),
-            numContacto: new FormControl('', [Validators.pattern('^[0-9]*$')]),
-        });
-
-        this.valDatosDomicilio = new FormGroup({
-            departamento: new FormControl(''),
-            provincia: new FormControl(''),
-            distrito: new FormControl(''),
-            via: new FormControl(''),
-            nombreVia: new FormControl(''),
-            ubigeo: new FormControl(''),
-            numeroVia: new FormControl(''),
-            interiorVia: new FormControl(''),
-            zona: new FormControl(''),
-            nombreZona: new FormControl(''),
-            numeroZona: new FormControl(''),
-            interiorZona: new FormControl(''),
-            referencia: new FormControl(''),
-            id: new FormControl(''),
-        });
-
-        this.valDatosProfesion = new FormGroup({
-            profesion: new FormControl(''),
-            lugarColeg: new FormControl(''),
-            fechColeg: new FormControl(''),
-            fechTerColeg: new FormControl(''),
-            numColeg: new FormControl(''),
-            id: new FormControl(''),
-        });
+    } else {
+      this.loading = false;
+      errorAlerta('Error', 'No se dispone del servicio en estos momentos.');
     }
+  }
 
-    buscarDocumento(documento:string,index?:number) {
-        let tipoDocumento = this.valDatosPersonales.get('tipoDocumento')?.value;      
-        this.loading = true;
-        this.mensajeLoading = 'Buscando Documento...';
-        if (tipoDocumento === '1') {
-          this.mensajeLoading = 'Buscando en RENIEC...';
-          this.ReniecService$.buscarDni(documento)
-            .pipe((
-              finalize(() => {
-                this.loading = false;
-                this.mensajeLoading = 'Cargando...';
-              }))
-            )
-            .subscribe(({ estado, datos }) => {
-    
-              if (estado && datos ) {
-                if(index == undefined){
-                    this.setDatosRENIEC(datos)
-                }else{
-                    this.setDatosFamiliar(datos,index)
-                }
-             
-              }
-            })
-        } else if (tipoDocumento === '2') {
-          this.mensajeLoading = 'Buscando en MIGRACIONES...';
-          this.ExtranjeriaService$. buscarMigraciones(documento)
-            .pipe((
-              finalize(() => {
-                this.loading = false;
-                this.mensajeLoading = 'Cargando...';
-              }))
-            )
-            .subscribe(({ estado, datos }) => {
-    
-              if (estado && datos) {
-                this.setDatosMigraciones(datos);
-              }
-            })
+  buscarDocumentoFamiliar(documento: string, index: number, tipoD: string): void {
+    this.loading = true;
+
+    if (tipoD === 'DNI') {
+      this.mensajeLoading = 'Buscando en RENIEC...';
+      this.reniecService.buscarDni(documento, '1')
+        .pipe(finalize(() => this.resetLoading()))
+        .subscribe(({ estado, datos }) => {
+          if (estado && datos) { this.setDatosFamiliar(datos, index); }
+        });
+
+    } else if (tipoD === 'CARNET EXTRANJERIA') {
+      this.mensajeLoading = 'Buscando en MIGRACIONES...';
+      this.extranjeriaService.buscarMigraciones(documento)
+        .pipe(finalize(() => this.resetLoading()))
+        .subscribe(({ estado, datos }) => {
+          if (estado && datos) { this.setDatosFamiliar(datos, index); }
+        });
+
+    } else {
+      this.loading = false;
+      errorAlerta('Error', 'No se dispone del servicio en estos momentos.');
+    }
+  }
+
+  private resetLoading(): void {
+    this.loading        = false;
+    this.mensajeLoading = 'Cargando...';
+  }
+
+  // ─── Foto ──────────────────────────────────────────────────────────────────
+
+  onSelect(event: any): void {
+    this.procesarArchivoFoto(event.addedFiles[0]);
+  }
+
+  onRemove(event: any): void {
+    this.files.splice(this.files.indexOf(event), 1);
+    this.valDatosPersonales.controls['rutaFoto'].setValue('default/perfil.png');
+  }
+
+  tomarFoto(): void {
+    this.modalTomarFoto?.openModal();
+  }
+
+  mandarImagen(foto: File): void {
+    this.procesarArchivoFoto(foto);
+  }
+
+  private procesarArchivoFoto(file: File): void {
+    const timestamp   = new Date().getTime();
+    const nuevoNombre = `Foto_${timestamp}_${file.name}`;
+    const fileFinal   = new File([file], nuevoNombre);
+    const numDoc      = this.valDatosPersonales.get('numDoc')?.value ?? '';
+    const ruta        = `${numDoc}/Foto/${fileFinal.name.replace(/\s+/g, '_')}`;
+
+    this.files    = [file];
+    this.fotoFile = [fileFinal];
+    this.valDatosPersonales.controls['rutaFoto'].setValue(ruta);
+  }
+
+  private listarFoto(ruta: string): void {
+    this.fotoP = '';
+    if (ruta) { this.descargarArchivo(ruta); }
+  }
+
+  private descargarArchivo(ruta: string): void {
+    this.loading = true;
+    this.modalDatosService.verArchivo(ruta)
+      .pipe(finalize(() => { this.loading = false; }))
+      .subscribe((data) => {
+        this.archivoUrl = URL.createObjectURL(data);
+        this.fotoP      = this.sanitizer.bypassSecurityTrustResourceUrl(this.archivoUrl);
+        this.files      = [new File([data], 'perfil.jpg', { type: 'image/jpeg' })];
+      });
+  }
+
+  // ─── Selects encadenados ───────────────────────────────────────────────────
+
+  cambioTipo(): void {
+    const id = this.valSituacionLaboral.get('regimen')?.value;
+    id?.length > 0
+      ? this.listarTipoRegimen(id)
+      : warningAlerta('Atención!', 'Elija primero un régimen.');
+  }
+
+  cambioUnidad(): void {
+    const id = this.valSituacionLaboral.get('unidad')?.value;
+    id?.length > 0
+      ? this.listarServicio(id)
+      : warningAlerta('Atención!', 'Elija primero una unidad orgánica.');
+  }
+
+  // ─── Servicios de listado ──────────────────────────────────────────────────
+
+  private listarSelects(): void {
+    this.datosGeneralesService.listarSelects()
+      .pipe(finalize(() => { this.loading = false; }))
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (!estado) { errorAlerta('Error', mensaje); return; }
+        this.datos              = datos.tipoDocumento;
+        this.tipoEmpleado       = datos.tipoEmpleado;
+        this.tipoGrupo          = datos.grupo;
+        this.regimenList        = datos.regimen;
+        this.tipoSexo           = datos.sexo;
+        this.tipoGrupoSanguineo = datos.grupoSanguineo;
+        this.tipoEstadoCivil    = datos.estadoCivil;
+        this.tipoParentesco     = datos.parentesco;
+        this.tipoProfesiones    = datos.profesiones;
+        this.nivelIdioma        = datos.idioma;
+        this.nivelCargo         = datos.nivel;
+        this.cargo              = datos.cargo;
+        this.tipoVia            = datos.via;
+        this.tipoZona           = datos.zona;
+        this.unidadOrganica     = datos.unidadOrganica;
+      });
+  }
+
+  private listarTipoRegimen(id: any): void {
+    this.datosGeneralesService.listarTipoRegimen(id)
+      .pipe(finalize(() => { this.loading = false; }))
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (!estado) { errorAlerta('Error', mensaje); return; }
+        this.agregable   = datos.length === 0;
+        this.tipoRegimen = datos;
+      });
+  }
+
+  private listarServicio(id: any): void {
+    this.datosGeneralesService.listarServicio(id)
+      .pipe(finalize(() => { this.loading = false; }))
+      .subscribe(({ estado, mensaje, datos }) => {
+        if (!estado) { errorAlerta('Error', mensaje); return; }
+        this.agregable = datos.length === 0;
+        this.servicioE = datos;
+      });
+  }
+
+  // ─── Agregar filas ─────────────────────────────────────────────────────────
+
+  agregarFamiliar(): void {
+    this.divFamiliar = false;
+    if (this.familiares.length <= 5) {
+      this.familiares.push({ id: '', tipoD: '', dni: '', nombre: '', apellidos: '', fechaNacimiento: '', parentesco: '', centroLaboral: '', estado: '' });
+    }
+  }
+
+  agregarEstudioSuperior(): void {
+    this.divSuperior = false;
+    if (this.estudioSuperior.length <= 5) {
+      this.estudioSuperior.push({ id: '', tipo: '', centro: '', especialidad: '', inicio: '', termino: '', nivel: '', archivo: null, ruta: '', estado: '' });
+    }
+  }
+
+  agregarEstudioPostgrado(): void {
+    this.divPostgrado = false;
+    if (this.estudioPostgrado.length <= 5) {
+      this.estudioPostgrado.push({ id: '', tipo: '', centro: '', especialidad: '', inicio: '', termino: '', nivel: '', archivo: null, ruta: '', estado: '' });
+    }
+  }
+
+  agregarEspecializacion(): void {
+    this.divEspecializacion = false;
+    if (this.especializacion.length <= 5) {
+      this.especializacion.push({ id: '', tipo: '', centro: '', materia: '', inicio: '', termino: '', certificacion: '', archivo: null, ruta: '', estado: '' });
+    }
+  }
+
+  agregarCursos(): void {
+    this.divCursos = false;
+    if (this.cursos.length <= 5) {
+      this.cursos.push({ id: '', tipo: '', centro: '', materia: '', inicio: '', termino: '', certificacion: '', archivo: null, ruta: '', estado: '' });
+    }
+  }
+
+  agregarIdioma(): void {
+    this.divIdioma = false;
+    if (this.idiomas.length <= 4) {
+      this.idiomas.push({ id: '', lenguaE: '', nivel: '', archivo: null, ruta: '', estado: '' });
+    }
+  }
+
+  agregarExperiencia(): void {
+    this.divExperienciaLaboral = false;
+    if (this.experienciaLaboral.length <= 10) {
+      this.experienciaLaboral.push({ id: '', institucion: '', cargo: '', inicio: '', termino: '', archivo: null, ruta: '', estado: '' });
+    }
+  }
+
+  agregarDocencia(): void {
+    this.divExperienciaDocencia = false;
+    if (this.laborDocencia.length <= 10) {
+      this.laborDocencia.push({ id: '', centro: '', curso: '', inicio: '', termino: '', archivo: null, ruta: '', estado: '' });
+    }
+  }
+
+  // ─── Limpiar secciones ─────────────────────────────────────────────────────
+
+  sinDatosFamiliares():          void { this.divFamiliar = true;            this.familiares = []; }
+  sinDatosSuperiores():          void { this.divSuperior = true;            this.estudioSuperior = []; }
+  sinDatosPostgrado():           void { this.divPostgrado = true;           this.estudioPostgrado = []; }
+  sinDatosEspecializacion():     void { this.divEspecializacion = true;     this.especializacion = []; }
+  sinDatosCursos():              void { this.divCursos = true;              this.cursos = []; }
+  sinDatosIdiomas():             void { this.divIdioma = true;              this.idiomas = []; }
+  sinDatosExperienciaLaboral():  void { this.divExperienciaLaboral = true;  this.experienciaLaboral = []; }
+  sinDatosExperienciaDocencia(): void { this.divExperienciaDocencia = true; this.laborDocencia = []; }
+
+  // ─── Eliminar fila (soft-delete: marca estado '*') ────────────────────────
+
+  eliminarItem(index: number, nombre: keyof EditarEmpleadoComponent): void {
+    (this[nombre] as any[])[index].estado = '*';
+  }
+
+  // ─── Selección de archivos (método genérico) ───────────────────────────────
+
+  private get numDocValue(): string {
+    return this.valDatosPersonales.get('numDoc')?.value ?? '';
+  }
+
+  private procesarArchivo(event: any, index: number, array: any[], carpeta: string, prefijo: string): void {
+    const file: File = event.target.files[0];
+    if (!file) { return; }
+    const timestamp   = new Date().getTime();
+    const nuevoNombre = `${prefijo}_${timestamp}_${file.name}`;
+    const fileFinal   = new File([file], nuevoNombre);
+    array[index].archivo = fileFinal;
+    array[index].ruta    = `${this.numDocValue}/${carpeta}/${fileFinal.name.replace(/\s+/g, '_')}`;
+     console.log(fileFinal)
+  }
+
+  seleccionarArchivoEst(e: any, i: number):          void { this.procesarArchivo(e, i, this.estudioSuperior,    'Superior',     'Superior'); }
+  seleccionarArchivoPg(e: any, i: number):           void { this.procesarArchivo(e, i, this.estudioPostgrado,   'Postgrado',    'Postgrado'); }
+  seleccionarArchivoEspecialidad(e: any, i: number): void { this.procesarArchivo(e, i, this.especializacion,    'Especialidad', 'Especialidad'); }
+  seleccionarArchivoCurso(e: any, i: number):        void { this.procesarArchivo(e, i, this.cursos,             'Curso',        'Curso'); }
+  seleccionarArchivoIdioma(e: any, i: number):       void { this.procesarArchivo(e, i, this.idiomas,            'Idioma',       'Idioma'); }
+  seleccionarArchivoExpLaboral(e: any, i: number):   void { this.procesarArchivo(e, i, this.experienciaLaboral, 'ExpLaboral',   'ExpLaboral'); }
+  seleccionarArchivoExpDocencia(e: any, i: number):  void { this.procesarArchivo(e, i, this.laborDocencia,      'ExpDocencia',  'ExpDocencia'); }
+
+  seleccionarArchivoDiscapacidad(event: any): void {
+    const file: File = event.target.files[0];
+    if (!file) { return; }
+    const timestamp   = new Date().getTime();
+    const nuevoNombre = `Discapacidad_${timestamp}_${file.name}`;
+    const fileFinal   = new File([file], nuevoNombre);
+    this.archivoDiscapacidad = [fileFinal];
+    this.rutaDiscapacidad    = `${this.numDocValue}/Discapacidad/${fileFinal.name.replace(/\s+/g, '_')}`;
+  }
+
+  // ─── Guardar / Actualizar ──────────────────────────────────────────────────
+
+  actualizarEmpleado(): void {
+ this.intentoGuardar = true;
+  // Validar tablas dinámicas
+  const { valido, errores } = this.validarTablasDinamicas();
+  console.log(valido)
+  if (!valido) {
+    console.log('entroo')
+  warningAlerta('Alerta','Datos incompletos ');
+    return;
+  }
+    this.loading = true;
+    this.datosGeneralesService.editarDatosEmpleado(
+      this.valDatosPersonales.getRawValue(),
+      this.valSituacionLaboral.value,
+      this.valContactoEmergencia.value,
+      this.valDatosDomicilio.getRawValue(),
+      this.familiares,
+      this.valDatosProfesion.value,
+      this.estudioSuperior,
+      this.estudioPostgrado,
+      this.especializacion,
+      this.cursos,
+      this.idiomas,
+      this.experienciaLaboral,
+      this.laborDocencia,
+      this.fotoFile,
+    ).pipe(finalize(() => { this.loading = false; }))
+     .subscribe(({ estado, mensaje, datos }) => {
+       if (!estado && datos) {
+         errorAlertaValidacion(mensaje, datos);
+       } else if (datos === 2) {
+         warningAlerta('Alerta', mensaje);
+       } else if (datos == 1) {
+         successAlerta('Éxito', mensaje);
+         this.router.navigate(['/legajo/informacion']);
+       } else {
+         errorAlerta('Error', mensaje);
+       }
+     });
+  }
+
+  actualizarDiscapacidad(): void {
+    this.loading = true;
+    const datosDiscapacidad = { tipos: this.discapacidades, ruta: this.rutaDiscapacidad };
+
+    this.datosGeneralesService.actualizarDiscapacidad(datosDiscapacidad, this.archivoDiscapacidad, this.numDoc)
+      .pipe(finalize(() => { this.loading = false; }))
+      .subscribe(({ estado, mensaje, datos }) => {
+        this.resetTablas();
+        if (!estado && datos) {
+          errorAlertaValidacion(mensaje, datos);
+        } else if (datos === 2) {
+          warningAlerta('Alerta', mensaje);
+        } else if (datos === 1) {
+          successAlerta('Éxito', mensaje);
         } else {
-         this.loading = false;
-          errorAlerta('Error', 'No se dispone del servicio en estos momentos.').then();
+          errorAlerta('Error', mensaje);
         }
-      }
-      setDatosRENIEC(datos: reniecClass) {
-   
-        this.ubigeo=datos.obtenerUbigeo()
+      });
+  }
 
-        this.valDatosPersonales.controls['aPaterno'].setValue(datos.apellidoPaterno);
-        this.valDatosPersonales.controls['aMaterno'].setValue( datos.apellidoMaterno );
-        this.valDatosPersonales.controls['nombres'].setValue(datos?.nombres);
-        this.valDatosPersonales.controls['sexo'].setValue(datos?.obtenerSexo());
-        this.valDatosPersonales.controls['fechaNacimiento'].setValue(datos?.obtenerFechaNacimiento());
-        this.valDatosDomicilio.controls['departamento'].setValue(datos.departamento)
-        this.valDatosDomicilio.controls['provincia'].setValue(datos.provincia)
-        this.valDatosDomicilio.controls['distrito'].setValue(datos.distrito)
-      }
+  private resetTablas(): void {
+    this.familiares         = [];
+    this.estudioSuperior    = [];
+    this.estudioPostgrado   = [];
+    this.especializacion    = [];
+    this.cursos             = [];
+    this.idiomas            = [];
+    this.experienciaLaboral = [];
+    this.laborDocencia      = [];
+  }
 
-      setDatosMigraciones(datos:MigracionesClass) {
-        this.valDatosPersonales.controls['aPaterno']?.setValue(
-            datos.apellidoPaterno
-        );
-        this.valDatosPersonales.controls['aMaterno']?.setValue(
-            datos.apellidoMaterno
-        );
-      
-        this.valDatosPersonales.controls['nombres'].setValue(datos?.nombres);
-      }
-    buscarDocumentoFamiliar(documento: string, index: number, tipoD: string) {
-        this.loading = true;
-        this.mensajeLoading = 'Buscando Documento...';
-        if (tipoD == 'DNI') {
-            this.mensajeLoading = 'Buscando en RENIEC...';
-            this.ReniecService$.buscarDni(documento)
-                .pipe(
-                    finalize(() => {
-                        this.loading = false;
-                        this.mensajeLoading = 'Cargando...';
-                    })
-                )
-                .subscribe(({ estado, datos }) => {
-                    if (estado && datos) {
-                        this.setDatosFamiliar(datos, index);
-                    }
-                });
-        } else if (tipoD == 'CARNET EXTRANJERIA') {
-            this.mensajeLoading = 'Buscando en MIGRACIONES...';
-            this.ExtranjeriaService$.buscarMigraciones(documento)
-                .pipe(
-                    finalize(() => {
-                        this.loading = false;
-                        this.mensajeLoading = 'Cargando...';
-                    })
-                )
-                .subscribe(({ estado, datos }) => {
-                    if (estado && datos) {
-                        this.setDatosFamiliar(datos, index);
-                    }
-                });
-        } else {
-            errorAlerta(
-                'Error',
-                'No se dispone del servicio en estos momentos.'
-            ).then();
-        }
-    }
+    private validarTablasDinamicas(): { valido: boolean; errores: string[] } {
+  const errores: string[] = [];
 
-    listarDatos(numeroDoc: string) {
-        this.loading = true;
-        this.ModalDatosService$.listarDatos(numeroDoc)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-                const { estado, datos } = respuesta;
-                if (!estado) {
-                    return;
-                }
-                this.setDatosEmpleado(datos.datosEmpleado[0]);
-                this.setSituacionLaboral(datos.datosSituacion[0]);
-                this.setDatosConctactoEmergencia(datos.datosContactoEmergencia[0] );
-                this.setDatosDomicilio(datos.datosDomicilio[0]);
-                this.setDatosProfesion(datos.datosProfesion[0]);
-                this.familiares = datos.datosFamiliares;
-                this.estudioSuperior = datos.datosEstudioSuperior;
-                this.especializacion = datos.datosEstudioEspecializacion;
-                this.estudioPostgrado = datos.datosEstudioPostgrado;
-                this.cursos = datos.datosEstudioCursos;
-                this.idiomas = datos.datosEstudioIdioma;
-                this.experienciaLaboral = datos.datosExperienciaLaboral;
-                this.laborDocencia = datos.datosExperienciaDocencia;
-                this.arrayDiscapacidad=datos.datosDiscapacidad   
-                datos.datosDiscapacidad.forEach((t: any) => {
-                    this.discapacidades.push(t.tipo);
-                });
-   
-            });       
-    }
-    listarFoto(ruta: any) {
-        this.fotoP = '';
-        if (ruta !== '') {
-            this.descargarArchivo(ruta);
-        }
-    }
-    setDatosEmpleado(datos: any) {
-        this.valDatosPersonales.controls['tipoDocumento'].setValue( datos?.idTipoDoc);
-        this.valDatosPersonales.controls['numDoc'].setValue( datos?.numeroDocumento);
-        this.valDatosPersonales.controls['nacionalidad'].setValue(datos?.nacionalidad);
-        this.valDatosPersonales.controls['aPaterno'].setValue( datos?.apellidoPaterno);
-        this.valDatosPersonales.controls['aMaterno'].setValue(datos?.apellidoMaterno);
-        this.valDatosPersonales.controls['nombres'].setValue(datos?.nombre);
-        this.valDatosPersonales.controls['sexo'].setValue(datos?.sexo);
-        this.valDatosPersonales.controls['ruc'].setValue(datos?.ruc);
-        this.valDatosPersonales.controls['fechaNacimiento'].setValue(datos?.fechaNacimiento);
-        this.valDatosPersonales.controls['telFijo'].setValue(datos?.telFijo);
-        this.valDatosPersonales.controls['telMovil'].setValue(datos?.telMovil);
-        this.valDatosPersonales.controls['correo'].setValue(datos?.correo);
-        this.valDatosPersonales.controls['grupoSanguineo'].setValue(datos?.grupSanguineo);
-        this.valDatosPersonales.controls['enfAlergias'].setValue(datos?.enferAlergia);
-        this.valDatosPersonales.controls['estadoCivil'].setValue( datos?.estadoCivil);
-        this.valDatosPersonales.controls['rutaFoto'].setValue(datos?.rutaFoto);
-        this.listarFoto(datos?.rutaFoto);
+  // ── Estudios Superiores ──────────────────────────────────────────────────
+  this.estudioSuperior.forEach((item, i) => {
+    const n = i + 1;
+    if (!item.tipo)        errores.push(`Estudio Superior #${n}: Tipo es requerido.`);
+    if (!item.centro)      errores.push(`Estudio Superior #${n}: Centro es requerido.`);
+    if (!item.especialidad) errores.push(`Estudio Superior #${n}: Especialidad es requerida.`);
+    if (!item.inicio)      errores.push(`Estudio Superior #${n}: Fecha de inicio es requerida.`);
+    if (!item.nivel)       errores.push(`Estudio Superior #${n}: Nivel es requerido.`);
+    if (item.inicio && item.termino && item.termino < item.inicio)
+      errores.push(`Estudio Superior #${n}: La fecha de término no puede ser anterior al inicio.`);
+  });
 
+  // ── Postgrado ────────────────────────────────────────────────────────────
+  this.estudioPostgrado.forEach((item, i) => {
+    const n = i + 1;
+    if (!item.tipo)        errores.push(`Postgrado #${n}: Tipo es requerido.`);
+    if (!item.centro)      errores.push(`Postgrado #${n}: Centro es requerido.`);
+    if (!item.especialidad) errores.push(`Postgrado #${n}: Especialidad es requerida.`);
+    if (!item.inicio)      errores.push(`Postgrado #${n}: Fecha de inicio es requerida.`);
+    if (item.inicio && item.termino && item.termino < item.inicio)
+      errores.push(`Postgrado #${n}: La fecha de término no puede ser anterior al inicio.`);
+  });
 
-    }
- 
-    setSituacionLaboral(datos:any){
-        this.valSituacionLaboral.controls['id'].setValue(datos?.idHistorial); 
-        this.valSituacionLaboral.controls['condicion'].setValue(datos?.idCondicion); 
-        this.valSituacionLaboral.controls['grupOcup'].setValue(datos?.idGrupO); 
-        this.valSituacionLaboral.controls['regimen'].setValue(datos?.idRegimen); 
-        this.listarTipoRegimen(datos?.idRegimen)
-        this.valSituacionLaboral.controls['tipoRegimen'].setValue(datos?.idTipoRegimen); 
-        this.valSituacionLaboral.controls['unidad'].setValue(datos?.idUnidadOrganica); 
-        this.listarServicio(datos?.idUnidadOrganica)
-        this.valSituacionLaboral.controls['servicio'].setValue(datos?.idServicio); 
-        this.valSituacionLaboral.controls['cargo'].setValue(datos?.idCargo); 
-        this.valSituacionLaboral.controls['nivelCargo'].setValue(datos?.nivel); 
-        this.valSituacionLaboral.controls['airhsp'].setValue(datos?.codigoAirhsp); 
-        this.valSituacionLaboral.controls['fechaIngreso'].setValue(datos?.fechaIngreso); 
+  // ── Especializaciones ────────────────────────────────────────────────────
+  this.especializacion.forEach((item, i) => {
+    const n = i + 1;
+    if (!item.tipo)   errores.push(`Especialización #${n}: Tipo es requerido.`);
+    if (!item.centro) errores.push(`Especialización #${n}: Centro es requerido.`);
+    if (!item.materia) errores.push(`Especialización #${n}: Materia es requerida.`);
+    if (!item.inicio) errores.push(`Especialización #${n}: Fecha de inicio es requerida.`);
+  });
 
+  // ── Cursos ───────────────────────────────────────────────────────────────
+  this.cursos.forEach((item, i) => {
+    const n = i + 1;
+    if (!item.centro) errores.push(`Curso #${n}: Centro es requerido.`);
+    if (!item.materia) errores.push(`Curso #${n}: Materia es requerida.`);
+    if (!item.inicio) errores.push(`Curso #${n}: Fecha de inicio es requerida.`);
+  });
+  // ── Datos Laborales ───────────────────────────────────────────────────────────────
+  this.experienciaLaboral.forEach((item, i) => {
+    const n = i + 1;
+    if (!item.institucion) errores.push(`Institucion #${n}: Institucion es requerido.`);
+    if (!item.cargo) errores.push(`Institucion #${n}: cargo es requerida.`);
+    if (!item.inicio) errores.push(`Institucion #${n}: Fecha de inicio es requerida.`);
+    if (!item.termino) errores.push(`Institucion #${n}: Fecha de inicio es requerida.`);
+  });
 
-    }
-    setDatosConctactoEmergencia(datos: any) {
-            this.valContactoEmergencia.controls['nombreContacto'].setValue(datos?.nombre);
-            this.valContactoEmergencia.controls['parentesco'].setValue( datos?.parentesco);
-            this.valContactoEmergencia.controls['numContacto'].setValue( datos?.telefono);
-            this.valContactoEmergencia.controls['id'].setValue(datos?.id);          
-    }
-    setDatosDomicilio(datos: any) {
-        this.valDatosDomicilio.controls['departamento'].setValue( datos?.departamento);
-        this.valDatosDomicilio.controls['provincia'].setValue(datos?.provincia);
-        this.valDatosDomicilio.controls['distrito'].setValue(datos?.distrito);
-        this.valDatosDomicilio.controls['via'].setValue(datos?.tipoVia);
-        this.valDatosDomicilio.controls['nombreVia'].setValue(datos?.nombreVia);
-        this.valDatosDomicilio.controls['numeroVia'].setValue(datos?.numeroVia);
-        this.valDatosDomicilio.controls['interiorVia'].setValue( datos?.interiorVia);
-        this.valDatosDomicilio.controls['zona'].setValue(datos?.tipoZona);
-        this.valDatosDomicilio.controls['nombreZona'].setValue(   datos?.nombreZona );
-        this.valDatosDomicilio.controls['numeroZona'].setValue( datos?.numeroZona);
-        this.valDatosDomicilio.controls['interiorZona'].setValue(datos?.interiorZona);
-        this.valDatosDomicilio.controls['referencia'].setValue(datos?.referencia);
-        this.valDatosDomicilio.controls['ubigeo'].setValue(datos?.ubigeo);
-        this.valDatosDomicilio.controls['id'].setValue(datos?.id);
-    }
-    setDatosProfesion(datos: any) {
-        this.valDatosProfesion.controls['profesion'].setValue(datos?.profesion);
-        this.valDatosProfesion.controls['fechColeg'].setValue( datos?.fechaInicio);
-        this.valDatosProfesion.controls['fechTerColeg'].setValue( datos?.fechaTermino);
-        this.valDatosProfesion.controls['lugarColeg'].setValue(datos?.lugar);
-        this.valDatosProfesion.controls['numColeg'].setValue(datos?.numeroCole);
-        this.valDatosProfesion.controls['id'].setValue(datos?.id);
-    }
-
-    setDatosFamiliar(datos: any, index: number) {
-        this.familiares[index].nombre = datos?.nombres;
-        this.familiares[index].apellidos = `${datos.apellidoPaterno} ${datos?.apellidoMaterno} `;
-        this.familiares[index].fechaNacimiento = this.obtenerFechaNacimiento(datos?.fechaNacimiento);
-    }
-
-    obtenerFechaNacimiento(fechaNacimiento: any) {
-        return (
-            fechaNacimiento.slice(0, 4) +
-            '-' +
-            fechaNacimiento.slice(4, 6) +
-            '-' +
-            fechaNacimiento.slice(6, 8)
-        );
-    }
-
-    agregarFamiliar() {
-        this.divFamiliar = false;
-        if (this.familiares.length <= 5)
-            this.familiares.push({
-                id: '',
-                nombre: '',
-                apellidos: '',
-                fechaNacimiento: '',
-                tipoD: '',
-                dni: '',
-                parentesco: '',
-                centroLaboral: '',
-                estado: '',
-            });
-    }
-
-    agregarEstudioSuperior() {
-        this.divSuperior = false;
-        if (this.estudioSuperior.length <= 5)
-            this.estudioSuperior.push({
-                id: '',
-                tipo: '',
-                centro: '',
-                especialidad: '',
-                inicio: '',
-                termino: '',
-                nivel: '',
-                archivo: null,
-                ruta: '',
-                estado: '',
-            });
-    }
-    agregarEstudioPostgrado() {
-        this.divPostgrado = false;
-        if (this.estudioPostgrado.length <= 5)
-            this.estudioPostgrado.push({
-                id: '',
-                tipo: '',
-                centro: '',
-                especialidad: '',
-                inicio: '',
-                termino: '',
-                nivel: '',
-                archivo: null,
-                ruta: '',
-                estado: '',
-            });
-    }
-    agregarEspecializacion() {
-        this.divEspecializacion = false;
-        if (this.especializacion.length <= 5)
-            this.especializacion.push({
-                id: '',
-                tipo: '',
-                centro: '',
-                materia: '',
-                inicio: '',
-                termino: '',
-                certificacion: '',
-                archivo: null,
-                ruta: '',
-                estado: '',
-            });
-    }
-    agregarCursos() {
-        this.divCursos = false;
-        if (this.cursos.length <= 5)
-            this.cursos.push({
-                id: '',
-                tipo: '',
-                centro: '',
-                materia: '',
-                inicio: '',
-                termino: '',
-                certificacion: '',
-                archivo: null,
-                ruta: '',
-                estado: '',
-            });
-    }
-    agregarIdioma() {
-        this.divIdioma = false;
-        if (this.idiomas.length <= 4)
-            this.idiomas.push({
-                id: '',
-                lenguaE: '',
-                nivel: '',
-                archivo: null,
-                ruta: '',
-                estado: '',
-            });
-    }
-    agregarExperiencia() {
-        this.divExperienciaLaboral = false;
-        if (this.experienciaLaboral.length <= 10)
-            this.experienciaLaboral.push({
-                id: '',
-                institucion: '',
-                cargo: '',
-                inicio: '',
-                termino: '',
-                archivo: null,
-                ruta: '',
-                estado: '',
-            });
-    }
-    agregarDocencia() {
-        this.divExperienciaDocencia = false;
-        if (this.laborDocencia.length <= 10)
-            this.laborDocencia.push({
-                id: '',
-                centro: '',
-                curso: '',
-                inicio: '',
-                termino: '',
-                archivo: null,
-                ruta: '',
-            });
-    }
-
-    eliminarItem(index: number, nombre: keyof EditarEmpleadoComponent) {
-        this[nombre][index].estado = '*';
-        console.log(this.familiares)
-        console.log('eliminando....')
-    }
-
-    sinDatosFamiliares() {
-        this.divFamiliar = true;
-        this.familiares = [];
-    }
-    sinDatosSuperiores() {
-        this.divSuperior = true;
-        this.estudioSuperior = [];
-    }
-    sinDatosPostgrado() {
-        this.divPostgrado = true;
-        this.estudioPostgrado = [];
-    }
-    sinDatosEspecializacion() {
-        this.divEspecializacion = true;
-        this.especializacion = [];
-    }
-    sinDatosCursos() {
-        this.divCursos = true;
-        this.cursos = [];
-    }
-    sinDatosIdiomas() {
-        this.divIdioma = true;
-        this.idiomas = [];
-    }
-    sinDatosExperienciaLaboral() {
-        this.divExperienciaLaboral = true;
-        this.experienciaLaboral = [];
-    }
-
-    sinDatosExperienciaDocencia() {
-        this.divExperienciaDocencia = true;
-        this.laborDocencia = [];
-    }
-
-    seleccionarArchivoEst(event: any, index: number) {
-        const fileEs: File = event.target.files[0];
-        const timestamp = new Date().getTime();
-        const nuevoNombre ='Superior_'+timestamp+'_'+ fileEs.name;
-        const fileFinal: File = new File([fileEs], nuevoNombre);
-        const ruta =
-            this.valDatosPersonales.get('numDoc')?.value +
-            '/Superior/' +
-            fileFinal.name.replace(/\s+/g, '_');
-        this.estudioSuperior[index].archivo = fileFinal;
-        this.estudioSuperior[index].ruta = ruta;
-    }
-
-    seleccionarArchivoPg(event: any, index: number) {
-        const filePost: File = event.target.files[0];
-        const timestamp = new Date().getTime();
-        const nuevoNombre ='Postgrado_'+timestamp+'_'+filePost.name
-        const fileFinal: File = new File([filePost], nuevoNombre);
-        const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
-            '/Postgrado/' +
-            fileFinal.name.replace(/\s+/g, '_');
-        this.estudioPostgrado[index].archivo = fileFinal;
-        this.estudioPostgrado[index].ruta = ruta;
-    }
-    seleccionarArchivoEspecialidad(event: any, index: number) {
-        const fileEsp: File = event.target.files[0];
-        const timestamp = new Date().getTime();
-        const nuevoNombre ='Especialidad'+'_'+timestamp+'_'+fileEsp.name
-        const fileFinal: File = new File([fileEsp], nuevoNombre);
-        const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
-            '/Especialidad/' +
-            fileFinal.name.replace(/\s+/g, '_');
-        this.especializacion[index].archivo = fileFinal;
-        this.especializacion[index].ruta = ruta;
-    }
-    seleccionarArchivoCurso(event: any, index: number) {
-        const fileCu: File = event.target.files[0];
-        const timestamp = new Date().getTime();
-        const nuevoNombre ='Curso_'+timestamp+'_'+ fileCu.name;
-        const fileFinal: File = new File([fileCu], nuevoNombre);
-        const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
-            '/Curso/' +
-            fileFinal.name.replace(/\s+/g, '_');
-        this.cursos[index].archivo = fileFinal;
-        this.cursos[index].ruta = ruta;
-    }
-    seleccionarArchivoIdioma(event: any, index: number) {
-        const fileId: File = event.target.files[0];
-        const timestamp = new Date().getTime();
-        const nuevoNombre ='Idioma' + '_'+timestamp+'_' + fileId.name
-        const fileFinal: File = new File([fileId], nuevoNombre);
-        const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
-            '/Idioma/' +
-            fileFinal.name.replace(/\s+/g, '_');
-        this.idiomas[index].archivo = fileFinal;
-        this.idiomas[index].ruta = ruta;
-    }
-    seleccionarArchivoExpLaboral(event: any, index: number) {
-        const fileLa: File = event.target.files[0];
-        const timestamp = new Date().getTime();
-        const nuevoNombre ='ExpLaboral'+ '_' +timestamp+'_'+ fileLa.name
-        const fileFinal: File = new File([fileLa], nuevoNombre);
-        const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
-            '/ExpLaboral/' +
-            fileFinal.name.replace(/\s+/g, '_');
-        this.experienciaLaboral[index].archivo = fileFinal;
-        this.experienciaLaboral[index].ruta = ruta;
-    }
-    seleccionarArchivoExpDocencia(event: any, index: number) {
-        const fileDo: File = event.target.files[0];
-        const timestamp = new Date().getTime();
-        const nuevoNombre ='ExpDocencia'+ '_'+timestamp +'_'+ fileDo.name;
-        const fileFinal: File = new File([fileDo], nuevoNombre);
-        const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
-            '/ExpDocencia/' +
-            fileFinal.name.replace(/\s+/g, '_');
-        this.laborDocencia[index].archivo = fileFinal;
-        this.laborDocencia[index].ruta = ruta;
-    }
-    seleccionarArchivoDiscapacidad(event: any) {
-        const fileDo: File = event.target.files[0];
-        const timestamp = new Date().getTime();
-        const nuevoNombre ='Discapacidad_'+timestamp + '_' + fileDo.name;
-        const fileFinal: File = new File([fileDo], nuevoNombre);
-        const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
-            '/Discapacidad/' +
-            fileFinal.name.replace(/\s+/g, '_');
-        this.archivoDiscapacidad.push(fileFinal);
-        this.rutaDiscapacidad = ruta;
-    }
-
-    listarSelects() {
-        this.DatoGeneralesService$.listarSelects()
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe(({ estado, mensaje, datos }) => {
-                if (estado) {
-                    datos.length > 0
-                        ? (this.agregable = false)
-                        : (this.agregable = true);
-                    this.datos = datos.tipoDocumento;
-                    this.tipoEmpleado = datos.tipoEmpleado;
-                    this.tipoGrupo = datos.grupo;
-                    this.regimen = datos.regimen;
-                    this.tipoSexo = datos.sexo;
-                    this.tipoGrupoSanguineo = datos.grupoSanguineo;
-                    this.tipoEstadoCivil = datos.estadoCivil;
-                    this.tipoParentesco = datos.parentesco;
-                    this.tipoProfesiones = datos.profesiones;
-                    this.nivelIdioma = datos.idioma;
-                    this.nivelCargo = datos.nivel;
-                    this.cargo = datos.cargo;
-                    this.tipoVia = datos.via;
-                    this.tipoZona = datos.zona;
-                    this.unidadOrganica = datos.unidadOrganica;
-                } else {
-                    errorAlerta('Error', mensaje).then();
-                }
-            });
-    }
-
-    cambioTipo() {
-        let id = this.valSituacionLaboral.controls['regimen'].value;
-        if (id.length > 0) {
-            this.listarTipoRegimen(id);
-        } else {
-            warningAlerta('Atención!', 'Elija primero un regimen ');
-        }
-    }
-
-    listarTipoRegimen(id: any) {
-        this.DatoGeneralesService$.listarTipoRegimen(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe(({ estado, mensaje, datos }) => {
-                if (estado) {
-                    datos.length > 0
-                        ? (this.agregable = false)
-                        : (this.agregable = true);
-                    this.tipoRegimen = datos;
-                } else {
-                    errorAlerta('Error', mensaje).then();
-                }
-            });
-    }
-
-
-    listarServicio(id: any) {    
-            this.DatoGeneralesService$.listarServicio(id)
-            .pipe(
-              finalize(() => {
-                this.loading = false;
-              })
-            )
-            .subscribe(({ estado, mensaje, datos }) => {
-              if (estado) {
-                datos.length > 0 ? this.agregable = false : this.agregable = true;
-                this.servicioE = datos;
-              } else {
-                errorAlerta('Error', mensaje).then();
-              }
-            });
-        
-        
-   }
-   
-      cambioUnidad(){
-        let id = this.valSituacionLaboral.get('unidad')?.value
-        if (id.length > 0) {
-          this.listarServicio(id)
-        } else {
-          warningAlerta('Atención!', 'Elija primero una unidad organica ')
-        }
-      }
-
-
-    tomarFoto() {
-        this.modalTomarFoto?.openModal();
-    }
-    mandarImagen(foto: File) {
-        this.files = [];
-        this.files.push(foto);
-
-        const file = foto;
-        const timestamp = new Date().getTime();
-        const nuevoNombre = timestamp + '_' + file.name;
-        const fileFinal: File = new File([file], nuevoNombre);
-        this.fotoFile.push(fileFinal);
-
-        const ruta =
-            this.valDatosPersonales?.get('numDoc')?.value +
-            '/' +
-            fileFinal.name.replace(/\s+/g, '_');
-        this.valDatosPersonales.controls['rutaFoto'].setValue(ruta);
-    }
-
-
-
-    actualizarEmpleado() {
- 
-        this.loading=true
-        const datosDomicilio = this.valDatosDomicilio.getRawValue();
-        const situacionLaboral=this.valSituacionLaboral.value
-        const datosFamiliares = this.familiares;
-        const datosEstudioSuperior = this.estudioSuperior;
-        const datosProfesion = this.valDatosProfesion.value;
-        const datosPostgrado = this.estudioPostgrado;
-        const datosEspecializacion = this.especializacion;
-        const datosCursos = this.cursos;
-        const datosIdiomas = this.idiomas;
-        const experienciaLaboral = this.experienciaLaboral;
-        const laborDocencia = this.laborDocencia;
-        const datosPersonales = this.valDatosPersonales.getRawValue();
-        const datosContacto = this.valContactoEmergencia.value;
-        const fotoPersonal = this.fotoFile;
-
-        this.DatoGeneralesService$.editarDatosEmpleado(
-            
-            datosPersonales,
-            situacionLaboral,
-            datosContacto,
-            datosDomicilio,
-            datosFamiliares,
-            datosProfesion,
-            datosEstudioSuperior,
-            datosPostgrado,
-            datosEspecializacion,
-            datosCursos,
-            datosIdiomas,
-            experienciaLaboral,
-            laborDocencia,
-            fotoPersonal,
-  
-        )
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((respuesta) => {
-
-                const { estado, mensaje, datos } = respuesta;
-                if (!estado && datos) {
-                    errorAlertaValidacion(mensaje, datos);
-                    return;
-                } else if (datos == 2) {
-                    warningAlerta('Alerta', mensaje);
-                } else if (datos == 1) {
-                    successAlerta('Éxito', mensaje);
-                    this.router.navigate(['/legajo/informacion'])
-                } else {
-                    errorAlerta('Error', mensaje);
-                }
-            });
-    }
-
-
-   actualizarDiscapacidad(){
-    const numeroDoc=this.numDoc
-    const datosDiscapacidad = {
-        tipos: this.discapacidades,
-        ruta: this.rutaDiscapacidad,
-    };
-    const archivoDiscapacidad = this.archivoDiscapacidad;
-    this.DatoGeneralesService$.actualizarDiscapacidad(datosDiscapacidad,archivoDiscapacidad,numeroDoc)
-        .pipe(
-            finalize(() => {
-                this.loading = false;
-            })
-        )
-        .subscribe((respuesta) => {           
-            this.limpiarArchivos()
-            const { estado, mensaje, datos } = respuesta;
-            if (!estado && datos) {
-                errorAlertaValidacion(mensaje, datos);
-                return;
-            } else if (datos == 2) {
-                warningAlerta('Alerta', mensaje);
-            } else if (datos == 1) {
-                successAlerta('Éxito', mensaje);
-            } else {
-                errorAlerta('Error', mensaje);
-            }
-        });
-   }
-
-
-    descargarArchivo(ruta: string) {
-        this.loading = true;
-        this.ModalDatosService$.verArchivo(ruta)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .subscribe((data) => {
-                this.archivoUrl = URL.createObjectURL(data);
-                this.fotoP = this.sanitizer.bypassSecurityTrustResourceUrl(
-                    this.archivoUrl
-                );
-                const fotoD = new File([data], 'archivo.jpg', {
-                    type: 'image/*',
-                });
-                this.files.push(fotoD);
-            });
-    }
-    limpiarArchivos(){
-            this.familiares=[];
-            this.estudioSuperior=[];
-            this.estudioPostgrado=[];
-            this.especializacion=[]
-            this.cursos=[];
-            this.idiomas=[];
-            this.experienciaLaboral=[];
-            this.laborDocencia=[]
-    }
+  // ── Idiomas ──────────────────────────────────────────────────────────────
+  this.idiomas.forEach((item, i) => {
+    const n = i + 1;
+    if (!item.lenguaE) errores.push(`Idioma #${n}: Lengua es requerida.`);
+    if (!item.nivel)   errores.push(`Idioma #${n}: Nivel es requerido.`);
+  });
+  console.log(this.experienciaLaboral)
+ console.log(errores)
+  return { valido: errores.length == 0, errores };
+}
 }

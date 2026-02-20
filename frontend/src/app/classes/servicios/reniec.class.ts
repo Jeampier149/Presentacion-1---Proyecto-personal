@@ -40,8 +40,11 @@ export class reniecClass {
         return nombresArray ? nombresArray.join(' ') : '';
     }
 
-    obtenerFechaNacimiento() {
-        return this.fechaNacimiento.slice(0, 4) + '-' + this.fechaNacimiento.slice(4, 6) + '-' + this.fechaNacimiento.slice(6, 8)
+  obtenerFechaNacimiento() {
+       if (!this.fechaNacimiento) return '';
+
+  const [dia, mes, anio] = this.fechaNacimiento.split('/');
+  return `${anio}-${mes}-${dia}`;
     }
 
     obtenerUbigeo() {

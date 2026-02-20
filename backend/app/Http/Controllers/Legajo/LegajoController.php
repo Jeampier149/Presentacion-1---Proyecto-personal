@@ -254,18 +254,68 @@ class LegajoController extends JSONResponseController
         $equipo = Str::upper(explode(':', gethostbyaddr($_SERVER['REMOTE_ADDR']))[0] ?? '');
         $archivosT = $request->file();
 
-        foreach ($archivosT as $archivo) {
-            $nameArchivo =  $archivo->getClientOriginalName();
-            $name = str_replace(" ", "_", $nameArchivo);
-            $subcarpeta = explode('_', $nameArchivo)[0];
-            $destino = $numeroDocumento . '/'.$subcarpeta. '/'. $name;         
-            try {
-                Storage::disk('ftp')->put($destino, file_get_contents($archivo));
-            } catch (\Exception $e) {
-                $errorMessage = $e->getMessage();
-                return response()->json(['error' => 'Error al subir el archivo al servidor FTP: ' . $errorMessage], 500);
-            }
+foreach ($archivosT as $archivo) {
+
+    $nameArchivo = $archivo->getClientOriginalName();
+    $name        = str_replace(' ', '_', $nameArchivo);
+    $subcarpeta  = explode('_', $name)[0];
+    $directorio1 = $numeroDocumento;
+    $directorio2 = $numeroDocumento . '/' . $subcarpeta;
+    $destino     = $directorio2 . '/' . $name;
+
+
+
+    if (!$archivo->isValid()) {
+        return $this->sendResponse(500, false, 'Archivo inválido: ' . $name, null);
+    }
+
+    try {
+        $disco = Storage::disk('ftp');
+
+        if (!$disco->exists($directorio1)) {
+            $disco->makeDirectory($directorio1);
         }
+
+       
+        if (!$disco->exists($directorio2)) {
+            $disco->makeDirectory($directorio2);
+        }
+
+        $subido = $disco->putFileAs(
+            $directorio2,
+            $archivo,
+            $name
+        );
+
+        if (!$subido) {
+            return $this->sendResponse(
+                500,
+                false,
+                'El FTP rechazó el archivo: ' . $destino,
+                null
+            );
+        }
+
+        if (!$disco->exists($destino)) {
+            return $this->sendResponse(
+                500,
+                false,
+                'El archivo no se encontró después de subirlo: ' . $destino,
+                null
+            );
+        }
+
+    } catch (\Throwable $e) {
+
+        return $this->sendResponse(
+            500,
+            false,
+            'Error FTP: ' . $e->getMessage(),
+            null
+        );
+    }
+}
+
 
         $legajoModel = new LegajoModel();
         $resultado = $legajoModel->editarEmpleado(

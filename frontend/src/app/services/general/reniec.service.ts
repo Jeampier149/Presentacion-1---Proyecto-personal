@@ -12,11 +12,8 @@ export class ReniecService {
 
   }
 
-  buscarDni(dni: string): Observable<HttpResponseApi<reniecClass>> {
-      return this.http.get<HttpResponseApi>('/api/reniec/buscarReniec', {
-          params: {dni},
-          responseType: "json",
-      }).pipe(
+  buscarDni(documento: string,tipo:string) {
+       return this.http.post<HttpResponseApi>('/api/reniec/buscarReniec', {documento,tipo},{responseType: "json"}).pipe(
           map(response => {
                   return {...response, datos: new reniecClass(response.datos)}
               }

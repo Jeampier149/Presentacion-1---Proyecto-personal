@@ -130,4 +130,6 @@ class GeneralModel extends Model
     /** @lang SQL */
     'EXEC dbo.g_sp_listar_select_compensaciones');
   }
+
+
 }
