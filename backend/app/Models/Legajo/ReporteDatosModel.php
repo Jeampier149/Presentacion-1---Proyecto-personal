@@ -5,71 +5,83 @@ namespace App\Models\Legajo;
 use App\Models\legajo\verDatosModel;
 use Illuminate\Database\Eloquent\Model;
 
-
 class ReporteDatosModel extends Model
 {
-
-    public function generarPDF($dni ,$imagen)
+    public function generarPDF($dni, $imagen)
     {
-        $data= new  verDatosModel();
-        $datosPersonales= $data->listarDatosEmpleadoVer($dni)[0];
-        $datosDiscapacidades= $data->listarDatosDiscapacidades($dni)[0]??[];
-        $datosEmergencia= $data->listarDatosContactoEmergencia($dni)[0]??[];
-        $datosFamiliares= $data->listarDatosFamiliares($dni)??[];
-        $datosDomicilio= $data->listarDatosDomicilio($dni)[0]??[];
-        $datosProfesion= $data->listarDatosProfesion($dni)[0]??[];
-        $datosEstudioSuperior= $data->listarDatosEstudioSuperior($dni)??[];
-        $datosEstudioPostgrado= $data->listarDatosEstudioPostgrado($dni)??[];
-        $datosEstudioEspecializacion= $data->listarDatosEstudioEspecializacion($dni)??[];
-        $datosEstudioCurso= $data->listarDatosEstudioCursos($dni)??[];
-        $datosEstudioIdioma= $data->listarDatosEstudioIdioma($dni)??[];
-        $datosExpeLaboral= $data->listarDatosExperienciaLaboral($dni)??[];
-        $datosExpeDocencia= $data->listarDatosExperienciaDocencia($dni)??[];
+        $data = new verDatosModel();
 
+        // ── Obtener datos ──────────────────────────────────────────
+        $datosPersonales           = $data->listarDatosEmpleadoVer($dni)[0];
+        $datosDiscapacidades       = $data->listarDatosDiscapacidades($dni)[0]        ?? [];
+        $datosEmergencia           = $data->listarDatosContactoEmergencia($dni)[0]    ?? [];
+        $datosFamiliares           = $data->listarDatosFamiliares($dni)               ?? [];
+        $datosDomicilio            = $data->listarDatosDomicilio($dni)[0]             ?? [];
+        $datosProfesion            = $data->listarDatosProfesion($dni)[0]             ?? [];
+        $datosEstudioSuperior      = $data->listarDatosEstudioSuperior($dni)          ?? [];
+        $datosEstudioPostgrado     = $data->listarDatosEstudioPostgrado($dni)         ?? [];
+        $datosEstudioEspecializacion = $data->listarDatosEstudioEspecializacion($dni) ?? [];
+        $datosEstudioCurso         = $data->listarDatosEstudioCursos($dni)            ?? [];
+        $datosEstudioIdioma        = $data->listarDatosEstudioIdioma($dni)            ?? [];
+        $datosExpeLaboral          = $data->listarDatosExperienciaLaboral($dni)       ?? [];
+        $datosExpeDocencia         = $data->listarDatosExperienciaDocencia($dni)      ?? [];
 
-        $nombreCompleto=empty($datosPersonales->nombreCompleto)?'sin datos': $datosPersonales->nombreCompleto;
-        $numeroDoc=empty($datosPersonales->numeroDocumento)?'sin datos':$datosPersonales->numeroDocumento;
-        $ruc=empty($datosPersonales->ruc)?'sin datos':$datosPersonales->ruc;
-        $ruc=empty($datosPersonales->ruc)?'sin datos':$datosPersonales->ruc;
-        $fechaNacimiento=empty($datosPersonales->fechaNacimiento)?'sin datos':$datosPersonales->fechaNacimiento;
-        $nacionalidad=empty($datosPersonales->nacionalidad)?'sin datos':$datosPersonales->nacionalidad;
-        $telFijo=empty($datosPersonales->telFijo)?'sin datos':$datosPersonales->telFijo;
-        $telMovil=empty($datosPersonales->telMovil)?'sin datos':$datosPersonales->telMovil;
-        $correo=empty($datosPersonales->correo)?'sin datos':$datosPersonales->correo;
-        $grupSanguineo=empty($datosPersonales->grupSanguineo)?'sin datos':$datosPersonales->grupSanguineo;
-        $enferAlergia=empty($datosPersonales->enferAlergia)?'sin datos':$datosPersonales->enferAlergia;
-        $nombreContacto=empty($datosEmergencia->nombre)?'sin datos':$datosEmergencia->nombre;
-        $parentescoE=empty($datosEmergencia->parentesco)?'sin datos':$datosEmergencia->parentesco;
-        $telefonoE=empty($datosEmergencia->telefono)?'sin datos':$datosEmergencia->telefono;
-        $estadoCivil=empty($datosPersonales->estadoCivil)?'sin datos':$datosPersonales->estadoCivil;
-        $departamento=empty($datosDomicilio->departamento)?'sin datos':$datosDomicilio->departamento;
-        $provincia=empty($datosDomicilio->provincia)?'sin datos':$datosDomicilio->provincia;
-        $distrito=empty($datosDomicilio->distrito)?'sin datos':$datosDomicilio->distrito;
-        $tipoVia=empty($datosDomicilio->tipoVia)?'sin datos':$datosDomicilio->tipoVia;
-        $nombreVia=empty($datosDomicilio->nombreVia)?'sin datos':$datosDomicilio->nombreVia;
-        $interiorVia=empty($datosDomicilio->interiorVia)?'sin datos':$datosDomicilio->interiorVia;
-        $tipoZona=empty($datosDomicilio->tipoZona)?'sin datos':$datosDomicilio->tipoZona;
-        $nombreZona=empty($datosDomicilio->nombreZona)?'sin datos':$datosDomicilio->nombreZona;
-        $interiorZona=empty($datosDomicilio->interiorZona)?'sin datos':$datosDomicilio->interiorZona;
-        $numeroZona=empty($datosDomicilio->numeroZona)?'sin datos':$datosDomicilio->numeroZona;
-        $referencia=empty($datosDomicilio->referencia)?'sin datos':$datosDomicilio->referencia;
-        
-        $condicion=empty($datosPersonales->condicion)?'sin datos':$datosPersonales->condicion;
-        $regimen=empty($datosPersonales->regimen)?'sin datos':$datosPersonales->regimen;
-        $tipoRegimen=empty($datosPersonales->tipoRegimen)?'sin datos':$datosPersonales->tipoRegimen;
-        $unidad=empty($datosPersonales->unidadOrganica)?'sin datos':$datosPersonales->unidadOrganica;
-        $servicio=empty($datosPersonales->servicio)?'sin datos':$datosPersonales->servicio;
-        $grupo=empty($datosPersonales->grupOcupacional)?'sin datos':$datosPersonales->grupOcupacional;
-        $nivel=empty($datosPersonales->nivel_descripcion)?'sin datos':$datosPersonales->nivel_descripcion;
-        $airhsp=empty($datosPersonales->codigoAirhsp)?'sin datos':$datosPersonales->codigoAirhsp;
-        $fechaIngreso=empty($datosPersonales->fechaIngreso)?'sin datos':$datosPersonales->fechaIngreso;
-        $profesion=empty($datosProfesion->profesion)?'sin datos':$datosProfesion->profesion;
-        $inicio=empty($datosProfesion->fechaInicio)?'sin datos':$datosProfesion->fechaInicio;
-        $lugar=empty($datosProfesion->lugar)?'sin datos':$datosProfesion->lugar;
-        $fin=empty($datosProfesion->fechaTermino)?'sin datos':$datosProfesion->fechaTermino;
-        $numero_cole=empty($datosProfesion->numeroCole)?'sin datos':$datosProfesion->numeroCole;
-        $rutaFoto=storage_path().'/app/public/img/'.$numeroDoc.'.jpg';
-        $html='
+        // ── Variables personales ───────────────────────────────────
+        $nombreCompleto  = empty($datosPersonales->nombreCompleto)    ? 'sin datos' : $datosPersonales->nombreCompleto;
+        $numeroDoc       = empty($datosPersonales->numeroDocumento)   ? 'sin datos' : $datosPersonales->numeroDocumento;
+        $ruc             = empty($datosPersonales->ruc)               ? 'sin datos' : $datosPersonales->ruc;
+        $fechaNacimiento = empty($datosPersonales->fechaNacimiento)   ? 'sin datos' : $datosPersonales->fechaNacimiento;
+        $nacionalidad    = empty($datosPersonales->nacionalidad)      ? 'sin datos' : $datosPersonales->nacionalidad;
+        $telFijo         = empty($datosPersonales->telFijo)           ? 'sin datos' : $datosPersonales->telFijo;
+        $telMovil        = empty($datosPersonales->telMovil)          ? 'sin datos' : $datosPersonales->telMovil;
+        $correo          = empty($datosPersonales->correo)            ? 'sin datos' : $datosPersonales->correo;
+        $grupSanguineo   = empty($datosPersonales->grupSanguineo)     ? 'sin datos' : $datosPersonales->grupSanguineo;
+        $enferAlergia    = empty($datosPersonales->enferAlergia)      ? 'sin datos' : $datosPersonales->enferAlergia;
+        $estadoCivil     = empty($datosPersonales->estadoCivil)       ? 'sin datos' : $datosPersonales->estadoCivil;
+        $discapacidad    = empty($datosDiscapacidades->descripcion)   ? 'sin datos' : $datosDiscapacidades->descripcion;
+
+        // ── Variables emergencia ───────────────────────────────────
+        $nombreContacto  = empty($datosEmergencia->nombre)            ? 'sin datos' : $datosEmergencia->nombre;
+        $parentescoE     = empty($datosEmergencia->parentesco)        ? 'sin datos' : $datosEmergencia->parentesco;
+        $telefonoE       = empty($datosEmergencia->telefono)          ? 'sin datos' : $datosEmergencia->telefono;
+
+        // ── Variables domicilio ────────────────────────────────────
+        $departamento    = empty($datosDomicilio->departamento)       ? 'sin datos' : $datosDomicilio->departamento;
+        $provincia       = empty($datosDomicilio->provincia)          ? 'sin datos' : $datosDomicilio->provincia;
+        $distrito        = empty($datosDomicilio->distrito)           ? 'sin datos' : $datosDomicilio->distrito;
+        $tipoVia         = empty($datosDomicilio->tipoVia)            ? 'sin datos' : $datosDomicilio->tipoVia;
+        $nombreVia       = empty($datosDomicilio->nombreVia)          ? 'sin datos' : $datosDomicilio->nombreVia;
+        $interiorVia     = empty($datosDomicilio->interiorVia)        ? 'sin datos' : $datosDomicilio->interiorVia;
+        $tipoZona        = empty($datosDomicilio->tipoZona)           ? 'sin datos' : $datosDomicilio->tipoZona;
+        $nombreZona      = empty($datosDomicilio->nombreZona)         ? 'sin datos' : $datosDomicilio->nombreZona;
+        $interiorZona    = empty($datosDomicilio->interiorZona)       ? 'sin datos' : $datosDomicilio->interiorZona;
+        $numeroZona      = empty($datosDomicilio->numeroZona)         ? 'sin datos' : $datosDomicilio->numeroZona;
+        $referencia      = empty($datosDomicilio->referencia)         ? 'sin datos' : $datosDomicilio->referencia;
+
+        // ── Variables situación laboral ────────────────────────────
+        $condicion       = empty($datosPersonales->condicion)         ? 'sin datos' : $datosPersonales->condicion;
+        $regimen         = empty($datosPersonales->regimen)           ? 'sin datos' : $datosPersonales->regimen;
+        $tipoRegimen     = empty($datosPersonales->tipoRegimen)       ? 'sin datos' : $datosPersonales->tipoRegimen;
+        $unidad          = empty($datosPersonales->unidadOrganica)    ? 'sin datos' : $datosPersonales->unidadOrganica;
+        $servicio        = empty($datosPersonales->servicio)          ? 'sin datos' : $datosPersonales->servicio;
+        $grupo           = empty($datosPersonales->grupOcupacional)   ? 'sin datos' : $datosPersonales->grupOcupacional;
+        $nivel           = empty($datosPersonales->nivel_descripcion) ? 'sin datos' : $datosPersonales->nivel_descripcion;
+        $airhsp          = empty($datosPersonales->codigoAirhsp)      ? 'sin datos' : $datosPersonales->codigoAirhsp;
+        $fechaIngreso    = empty($datosPersonales->fechaIngreso)      ? 'sin datos' : $datosPersonales->fechaIngreso;
+
+        // ── Variables profesión ────────────────────────────────────
+        $profesion       = empty($datosProfesion->profesion)          ? 'sin datos' : $datosProfesion->profesion;
+        $inicio          = empty($datosProfesion->fechaInicio)        ? 'sin datos' : $datosProfesion->fechaInicio;
+        $lugar           = empty($datosProfesion->lugar)              ? 'sin datos' : $datosProfesion->lugar;
+        $fin             = empty($datosProfesion->fechaTermino)       ? 'sin datos' : $datosProfesion->fechaTermino;
+        $numero_cole     = empty($datosProfesion->numeroCole)         ? 'sin datos' : $datosProfesion->numeroCole;
+
+        $rutaFoto = storage_path() . '/app/public/img/' . $numeroDoc . '.jpg';
+
+        // ══════════════════════════════════════════════════════════
+        //  SITUACIÓN LABORAL + FOTO
+        // ══════════════════════════════════════════════════════════
+ $html='
        
        
          <table style="width: 100%;margin-bottom:20px; border:none;" >        
@@ -517,10 +529,8 @@ if(!empty($datosExpeDocencia)){
 }  
           
 $html.= "  </tbody></table>";
+        }
 
-}
         return $html;
     }
- 
- 
 }

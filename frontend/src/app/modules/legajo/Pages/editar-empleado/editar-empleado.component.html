@@ -1,1236 +1,540 @@
-<!-- ═══════════════════════════════════════════════════════════
-     EDITAR EMPLEADO
-     ═══════════════════════════════════════════════════════════ -->
-<app-breadcrumb [rutas]="rutas" [titulo]="'EDITAR DATOS'"></app-breadcrumb>
+<app-breadcrumb [rutas]="rutas" [titulo]="'Editar Datos'"></app-breadcrumb>
 
-<div class="row">
-  <div class="col-xl-12 me-0 pe-0">
-    <div class="card pt-4 ps-lg-4">
-      <div class="card-body me-0 pe-0">
-        <div class="row pt-2 me-0 pe-0">
-          <div class="col-xl-12 pe-0">
+<div class="re-page">
+  <app-loading [mostrar]="loading">
 
-            <app-loading [mostrar]="loading">
-              <div class="row w-100 d-block pe-0 me-0">
+    <!-- ── ENCABEZADO ────────────────────────────────────────────────────── -->
+    <div class="re-page-header re-page-header--edit">
+      <div class="re-page-header-icon"><i class="fas fa-user-edit"></i></div>
+      <div>
+        <h4 class="re-page-title">Editar Empleado</h4>
+        <p class="re-page-subtitle">Modifique los campos necesarios y guarde los cambios</p>
+      </div>
+    </div>
 
-                <!-- ═══ DATOS PERSONALES ═══════════════════════════════════ -->
-                <div class="row data-local d-flex justify-content-between">
-
-                  <!-- Tipo doc + N° doc -->
-                  <div class="col-xl-4">
-                    <div class="row me-1" [formGroup]="valDatosPersonales">
-                      <div class="col-xl-6 col-sm-6">
-                        <div class="form-group">
-                          <label>TIPO DOCUMENTO</label>
-                          <select class="form-select form-select-sm" formControlName="tipoDocumento">
-                            <option value="">Seleccionar</option>
-                            <option *ngFor="let tipoD of datos" [value]="tipoD.id">{{ tipoD.descripcion }}</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-xl-6 col-sm-6">
-                        <div class="form-group">
-                          <label>N° DOCUMENTO</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control form-control-sm"
-                              formControlName="numDoc" maxlength="10" aria-label="Número de documento">
-                            <button class="btn btn-primary btn-sm" type="button"
-                              (click)="buscarDocumento(valDatosPersonales.get('numDoc')?.value)">
-                              <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Nacionalidad -->
-                  <div class="col-xl-3 mt-lg-4 me-4 mb-sm-2 mt-3 mb-lg-0">
-                    <div class="input-group input-group-sm" [formGroup]="valDatosPersonales">
-                      <div class="input-group-text d-personales">Nacionalidad</div>
-                      <input type="text" class="form-control text-uppercase"
-                        formControlName="nacionalidad" aria-label="Nacionalidad">
-                    </div>
-                  </div>
-                </div><!-- fin fila tipo doc / nacionalidad -->
-
-                <!-- Foto + campos personales -->
-                <div class="row w-100 d-block">
-                  <div class="row mt-4">
-
-                    <!-- Dropzone foto -->
-                    <div class="col-xl-2 col-md-3 col-sm-12 d-flex flex-column">
-                      <ngx-dropzone class="d-flex justify-content-center mb-3 mb-lg-0"
-                        (change)="onSelect($event)" [multiple]="false" accept="image/*">
-                        <ngx-dropzone-label>Arrastre o elija una imagen</ngx-dropzone-label>
-                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
-                          *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                        </ngx-dropzone-image-preview>
-                      </ngx-dropzone>
-                      <div class="row mt-3 w-100">
-                        <div class="col-12 d-flex justify-content-center mb-3 ms-4">
-                          <button type="button" class="btn btn-primary btn-sm" (click)="tomarFoto()">
-                            <i class="fas fa-camera"></i> Tomar Foto
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Campos personales -->
-                    <div class="col-xl-10 col-md-9 col-sm-12 mt-lg-4" [formGroup]="valDatosPersonales">
-                      <div class="row">
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">Apll. Paterno</div>
-                            <input type="text" class="form-control text-uppercase"
-                              formControlName="aPaterno" aria-label="Apellido Paterno">
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">Apll. Materno</div>
-                            <input type="text" class="form-control text-uppercase"
-                              formControlName="aMaterno" aria-label="Apellido Materno">
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">Nombres</div>
-                            <input type="text" class="form-control text-uppercase"
-                              formControlName="nombres" aria-label="Nombres">
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">Sexo</div>
-                            <select class="form-select form-select-sm" formControlName="sexo">
-                              <option value="">Seleccionar</option>
-                              <option *ngFor="let tipoS of tipoSexo" [value]="tipoS.tipo">{{ tipoS.tipo }}</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">RUC N°</div>
-                            <input type="text" class="form-control form-control-sm"
-                              formControlName="ruc" maxlength="11" aria-label="RUC">
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">F. Nacimiento</div>
-                            <input type="date" class="form-control form-control-sm"
-                              formControlName="fechaNacimiento" aria-label="Fecha de nacimiento">
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">Teléfono Fijo</div>
-                            <input type="text" class="form-control form-control-sm"
-                              formControlName="telFijo" aria-label="Teléfono fijo">
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">Teléfono Móvil</div>
-                            <input type="text" class="form-control form-control-sm"
-                              formControlName="telMovil" aria-label="Teléfono móvil">
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">Correo E.</div>
-                            <input type="email" class="form-control form-control-sm"
-                              formControlName="correo" aria-label="Correo electrónico">
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">G. Sanguíneo</div>
-                            <select class="form-select form-select-sm" formControlName="grupoSanguineo">
-                              <option value="">Seleccionar</option>
-                              <option *ngFor="let tipoGs of tipoGrupoSanguineo" [value]="tipoGs.id">
-                                {{ tipoGs.descripcion }}
-                              </option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">Enf./Alergias</div>
-                            <input type="text" class="form-control form-control-sm"
-                              formControlName="enfAlergias" aria-label="Enfermedades o alergias">
-                          </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 col-sm-6 mb-1">
-                          <div class="input-group input-group-sm">
-                            <div class="input-group-text d-personales">Estado Civil</div>
-                            <select class="form-select form-select-sm" formControlName="estadoCivil">
-                              <option value="">Seleccionar</option>
-                              <option *ngFor="let tipoX of tipoEstadoCivil" [value]="tipoX.descripcion">
-                                {{ tipoX.descripcion }}
-                              </option>
-                            </select>
-                          </div>
-                        </div>
-
-                      </div><!-- fin row campos -->
-                    </div><!-- fin col campos personales -->
-                  </div><!-- fin row foto + campos -->
-                </div>
-
-                <!-- ═══ CONTACTO DE EMERGENCIA ════════════════════════════ -->
-                <div class="card border mt-3">
-                  <div class="card-header bg-transparent p-2">
-                    <h6 class="my-0 fw-bold">En caso de emergencia contactar a:</h6>
-                  </div>
-                  <div class="card-body p-3" [formGroup]="valContactoEmergencia">
-                    <div class="row">
-                      <div class="col-xl-6 mb-1 ps-0">
-                        <div class="input-group input-group-sm">
-                          <div class="input-group-text d-ancho">Nombre contacto</div>
-                          <input type="text" class="form-control form-control-sm"
-                            formControlName="nombreContacto" aria-label="Nombre de contacto">
-                        </div>
-                      </div>
-                      <div class="col-xl-3 mb-1 ps-0">
-                        <div class="input-group input-group-sm">
-                          <div class="input-group-text d-ancho">Parentesco</div>
-                          <select class="form-select form-select-sm" formControlName="parentesco">
-                            <option value="">Seleccionar</option>
-                            <option *ngFor="let tipoPa of tipoParentesco" [value]="tipoPa.parentesco">
-                              {{ tipoPa.parentesco }}
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 mb-1 ps-0">
-                        <div class="input-group input-group-sm">
-                          <div class="input-group-text d-ancho">N° de contacto</div>
-                          <input type="text" class="form-control form-control-sm"
-                            formControlName="numContacto" aria-label="Número de contacto">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- ═══ DISCAPACIDAD ══════════════════════════════════════ -->
-                <div class="card border mt-2">
-                  <div class="card-header bg-transparent p-2">
-                    <h6 class="my-0">Discapacidades:</h6>
-                  </div>
-                  <div class="card-body p-3">
-                    <div class="row">
-                      <div class="row d-flex align-items-baseline">
-
-                        <!-- ✅ FIX TOGGLE: (change) sobre prop del componente para detección inmediata -->
-                        <div class="col-xl-3 p-4 col-12">
-                          <div class="form-check form-switch">
-                            <label class="form-check-label" for="switchDiscapacidad">
-                              <span>{{ tieneDiscapacidad ? 'Sí' : 'No' }}</span> Presenta Discapacidad
-                            </label>
-                            <input class="form-check-input position-end" type="checkbox"
-                              id="switchDiscapacidad"
-                              [checked]="tieneDiscapacidad"
-                              (change)="tieneDiscapacidad = !tieneDiscapacidad">
-                          </div>
-                        </div>
-
-                        @if(tieneDiscapacidad) {
-                          <div class="col-xl-7 col-12 d-xl-flex justify-content-between align-items-baseline">
-                            <div class="input-group input-group-sm custom-select col-12">
-                              <div class="input-group-text col-auto">T. Discapacidad</div>
-                              <ng-select [(ngModel)]="discapacidades"
-                                [multiple]="true"
-                                [items]="tipoDiscapacidad"
-                                bindLabel="tipo"
-                                bindValue="tipo"
-                                class="d-block form-control"
-                                style="font-size: 0.8rem; height: auto;">
-                              </ng-select>
-                            </div>
-                            <div class="col-xl-4">
-                              <input class="form-control form-control-sm w-100 mt-2 mt-xl-0"
-                                type="file" (change)="seleccionarArchivoDiscapacidad($event)"
-                                accept="application/pdf">
-                            </div>
-                          </div>
-                        }
-
-                      </div>
-                      <div class="col-xl-2 d-flex justify-content-end w-100">
-                        <button class="btn btn-primary btn-sm mt-2" (click)="actualizarDiscapacidad()">
-                          Actualizar
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div><!-- fin datos generales -->
-
-              <!-- ═══ ACORDEÓN ══════════════════════════════════════════════ -->
-              <div class="row d-block pe-0 me-0">
-                <div class="accordion mt-4 px-0 mx-0" id="acordionEditar">
-
-                  <!-- ─── SITUACIÓN LABORAL ───────────────────────────────── -->
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading-situacion">
-                      <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapse-situacion"
-                        aria-expanded="false" aria-controls="collapse-situacion">
-                        SITUACIÓN LABORAL ACTUAL
-                      </button>
-                    </h2>
-                    <div id="collapse-situacion" class="accordion-collapse collapse"
-                      aria-labelledby="heading-situacion">
-                      <div class="accordion-body text-muted" [formGroup]="valSituacionLaboral">
-                        <div class="row w-100 d-block">
-
-                          <div class="row mt-2">
-                            <div class="col-xl-3">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Condición</div>
-                                <select class="form-select form-select-sm" formControlName="condicion">
-                                  <option value="">Seleccionar</option>
-                                  <option *ngFor="let tipoE of tipoEmpleado" [value]="tipoE.idTipo">
-                                    {{ tipoE.tipo }}
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-xl-4">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">G. Ocupacional</div>
-                                <select class="form-select form-select-sm" formControlName="grupOcup">
-                                  <option value="">Seleccionar</option>
-                                  <option *ngFor="let tipoG of tipoGrupo" [value]="tipoG.id">
-                                    {{ tipoG.tipoG }}
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-xl-5">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">U. Orgánica / Dpto</div>
-                                <select class="form-select form-select-sm"
-                                  formControlName="unidad" (change)="cambioUnidad()">
-                                  <option value="">Seleccionar</option>
-                                  <option *ngFor="let unidad of unidadOrganica" [value]="unidad.id">
-                                    {{ unidad.unidad }}
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row mt-2">
-                            <div class="col-xl-3">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Régimen</div>
-                                <!-- ✅ FIX: variable local "regimenList" evita colisión con formControlName="regimen" -->
-                                <select class="form-select form-select-sm"
-                                  formControlName="regimen" (change)="cambioTipo()">
-                                  <option value="">Seleccionar</option>
-                                  <option *ngFor="let r of regimenList" [value]="r.id">{{ r.regimen }}</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-xl-4">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">T. Régimen</div>
-                                <select class="form-select form-select-sm" formControlName="tipoRegimen">
-                                  <option value="">Seleccionar</option>
-                                  <option *ngFor="let tipoR of tipoRegimen" [value]="tipoR.id">
-                                    {{ tipoR.tipoRegimen }}
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-xl-5">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Servicio / Equipo</div>
-                                <select class="form-select form-select-sm" formControlName="servicio">
-                                  <option value="">Seleccionar</option>
-                                  <option *ngFor="let servicio of servicioE" [value]="servicio.id">
-                                    {{ servicio.servicio }}
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row mt-2">
-                            <div class="col-xl-3">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">C. AIRHSP</div>
-                                <input type="text" class="form-control form-control-sm"
-                                  formControlName="airhsp" aria-label="Código AIRHSP">
-                              </div>
-                            </div>
-                            <div class="col-xl-4">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">F. Ingreso</div>
-                                <input type="date" class="form-control form-control-sm"
-                                  formControlName="fechaIngreso" aria-label="Fecha de ingreso">
-                              </div>
-                            </div>
-                            <div class="col-xl-5">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Cargo</div>
-                                <ng-select formControlName="cargo"
-                                  [items]="cargo" bindLabel="descripcion" bindValue="codigo"
-                                  class="d-block form-control" style="font-size:0.8rem;height:auto;">
-                                </ng-select>
-                              </div>
-                            </div>
-                            <div class="col-xl-3 mt-2">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Nivel</div>
-                                <ng-select formControlName="nivelCargo"
-                                  [items]="nivelCargo" bindLabel="nivel" bindValue="nivel"
-                                  class="d-block form-control" style="font-size:0.8rem;height:auto;">
-                                </ng-select>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div><!-- fin situación laboral -->
-
-                  <!-- ─── DATOS DEL DOMICILIO ────────────────────────────── -->
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading-domicilio">
-                      <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapse-domicilio"
-                        aria-expanded="false" aria-controls="collapse-domicilio">
-                        DATOS DEL DOMICILIO
-                      </button>
-                    </h2>
-                    <div id="collapse-domicilio" class="accordion-collapse collapse"
-                      aria-labelledby="heading-domicilio">
-                      <div class="accordion-body text-muted">
-                        <div class="row w-100 d-block mt-3" [formGroup]="valDatosDomicilio">
-
-                          <span>Ubicación Geográfica</span>
-                          <div class="row mt-2">
-                            <div class="col-xl-4 mb-1">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Departamento</div>
-                                <input type="text" class="form-control form-control-sm"
-                                  formControlName="departamento" aria-label="Departamento">
-                              </div>
-                            </div>
-                            <div class="col-xl-4 mb-1">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Provincia</div>
-                                <input type="text" class="form-control form-control-sm"
-                                  formControlName="provincia" aria-label="Provincia">
-                              </div>
-                            </div>
-                            <div class="col-xl-4 mb-1">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Distrito</div>
-                                <input type="text" class="form-control form-control-sm"
-                                  formControlName="distrito" aria-label="Distrito">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row mt-2">
-                            <div class="col-xl-4 mb-1">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Vía</div>
-                                <ng-select formControlName="via"
-                                  [items]="tipoVia" bindLabel="tipo" bindValue="tipo"
-                                  class="d-block form-control" style="font-size:0.8rem;height:auto;">
-                                </ng-select>
-                              </div>
-                            </div>
-
-                            @if(valDatosDomicilio.get('via')?.value) {
-                              <div class="col-xl-4 mb-1">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text d-personales">Nombre de la vía</div>
-                                  <input type="text" class="form-control"
-                                    formControlName="nombreVia" maxlength="150" aria-label="Nombre de la vía">
-                                </div>
-                              </div>
-                              <div class="col-xl-2 mb-1">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text d-personales">Número</div>
-                                  <input type="number" class="form-control form-control-sm"
-                                    formControlName="numeroVia" aria-label="Número de vía">
-                                </div>
-                              </div>
-                              <div class="col-xl-2 mb-1">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text d-personales">Interior</div>
-                                  <input type="text" class="form-control form-control-sm"
-                                    formControlName="interiorVia" aria-label="Interior de vía">
-                                </div>
-                              </div>
-                            }
-                          </div>
-
-                          <div class="row mt-2">
-                            <div class="col-xl-4">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text d-personales">Zona</div>
-                                <ng-select formControlName="zona"
-                                  [items]="tipoZona" bindLabel="tipo" bindValue="tipo"
-                                  class="d-block form-control" style="font-size:0.8rem;height:auto;">
-                                </ng-select>
-                              </div>
-                            </div>
-
-                            @if(valDatosDomicilio.get('zona')?.value) {
-                              <div class="col-xl-4">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text d-personales">Nombre de Zona</div>
-                                  <input type="text" class="form-control" maxlength="150"
-                                    formControlName="nombreZona" aria-label="Nombre de zona">
-                                </div>
-                              </div>
-                              <div class="col-xl-2">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text d-personales">Número</div>
-                                  <input type="number" class="form-control form-control-sm"
-                                    formControlName="numeroZona" aria-label="Número de zona">
-                                </div>
-                              </div>
-                              <div class="col-xl-2">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text d-personales">Interior</div>
-                                  <input type="text" class="form-control form-control-sm"
-                                    formControlName="interiorZona" aria-label="Interior de zona">
-                                </div>
-                              </div>
-                            }
-                          </div>
-
-                          <div class="row mt-4">
-                            <div class="col-xl-12">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text">Referencia</div>
-                                <input type="text" class="form-control form-control-sm"
-                                  formControlName="referencia" maxlength="250" aria-label="Referencia">
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div><!-- fin domicilio -->
-
-                  <!-- ─── DATOS FAMILIARES ───────────────────────────────── -->
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading-familiares">
-                      <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapse-familiares"
-                        aria-expanded="false" aria-controls="collapse-familiares">
-                        DATOS FAMILIARES
-                      </button>
-                    </h2>
-                    <div id="collapse-familiares" class="accordion-collapse collapse"
-                      aria-labelledby="heading-familiares">
-                      <div class="accordion-body text-muted">
-                        <div class="row d-block w-100 mt-3">
-
-                          <div class="row mb-2">
-                            <div class="col-xl-4">
-                              <button type="button" class="btn bg-agg btn-sm" (click)="agregarFamiliar()">
-                                <i class="fa-solid fa-square-plus"></i> Agregar
-                              </button>
-                              <button type="button" class="btn bg-delete btn-sm ms-4" (click)="sinDatosFamiliares()">
-                                <i class="fas fa-dot-circle"></i> Sin Datos
-                              </button>
-                            </div>
-                          </div>
-
-                          <div class="row table-responsive">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th style="min-width:130px">Tipo Documento</th>
-                                  <th style="min-width:130px">N° Doc</th>
-                                  <th style="min-width:130px">Nombres</th>
-                                  <th style="min-width:130px">Apellidos</th>
-                                  <th style="min-width:130px">F. Nacimiento</th>
-                                  <th style="min-width:130px">Parentesco</th>
-                                  <th style="min-width:150px">Institución / Entidad laboral</th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr *ngFor="let familiar of familiares; let i = index"
-                                  [hidden]="familiar.estado === '*'">
-                                  <td>
-                                    <select class="form-select form-select-sm"
-                                      [(ngModel)]="familiar.tipoD"
-                                      [id]="'tipoD-fam-' + i" [name]="'tipoD-fam-' + i">
-                                      <option value="">Seleccionar</option>
-                                      <option *ngFor="let tipoD of datos" [value]="tipoD.descripcion">
-                                        {{ tipoD.desCorta }}
-                                      </option>
-                                    </select>
-                                  </td>
-                                  <td>
-                                    <div class="input-group">
-                                      <input type="text" class="form-control form-control-sm"
-                                        [(ngModel)]="familiar.dni"
-                                        [id]="'dni-fam-' + i" [name]="'dni-fam-' + i">
-                                      <button class="btn btn-primary btn-sm" type="button"
-                                        (click)="buscarDocumentoFamiliar(familiar.dni, i, familiar.tipoD)">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
-                                      </button>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <input type="text" class="form-control form-control-sm"
-                                      [(ngModel)]="familiar.nombre"
-                                      [id]="'nombre-fam-' + i" [name]="'nombre-fam-' + i">
-                                  </td>
-                                  <td>
-                                    <input type="text" class="form-control form-control-sm"
-                                      [(ngModel)]="familiar.apellidos"
-                                      [id]="'apellidos-fam-' + i" [name]="'apellidos-fam-' + i">
-                                  </td>
-                                  <td>
-                                    <input type="date" class="form-control form-control-sm"
-                                      [(ngModel)]="familiar.fechaNacimiento"
-                                      [id]="'fnac-fam-' + i" [name]="'fnac-fam-' + i">
-                                  </td>
-                                  <td>
-                                    <select class="form-select form-select-sm"
-                                      [(ngModel)]="familiar.parentesco"
-                                      [id]="'parentesco-fam-' + i" [name]="'parentesco-fam-' + i">
-                                      <option value="">Seleccionar</option>
-                                      <option *ngFor="let tipoPa of tipoParentesco" [value]="tipoPa.parentesco">
-                                        {{ tipoPa.parentesco }}
-                                      </option>
-                                    </select>
-                                  </td>
-                                  <td>
-                                    <input type="text" class="form-control form-control-sm"
-                                      [(ngModel)]="familiar.centroLaboral"
-                                      [id]="'centroL-fam-' + i" [name]="'centroL-fam-' + i">
-                                  </td>
-                                  <td>
-                                    <button type="button" class="btn bg-delete btn-sm" title="Eliminar"
-                                      (click)="eliminarItem(i, 'familiares')">
-                                      <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            @if(divFamiliar) {
-                              <p class="text-center fw-bold">SIN DATOS POR REGISTRAR</p>
-                            }
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div><!-- fin familiares -->
-
-                  <!-- ─── INFORMACIÓN PROFESIONAL Y/O ACADÉMICA ───────────── -->
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading-academico">
-                      <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapse-academico"
-                        aria-expanded="false" aria-controls="collapse-academico">
-                        INFORMACIÓN PROFESIONAL Y/O ACADÉMICA
-                      </button>
-                    </h2>
-                    <div id="collapse-academico" class="accordion-collapse collapse"
-                      aria-labelledby="heading-academico">
-                      <div class="accordion-body text-muted">
-                        <div class="row d-block w-100 mt-3">
-
-                          <!-- Profesión + Toggle colegiatura -->
-                          <div class="row mt-2">
-                            <div class="col-xl-6" [formGroup]="valDatosProfesion">
-                              <div class="input-group input-group-sm">
-                                <div class="input-group-text">Profesión</div>
-                                <input type="text" list="listaProfesiones"
-                                  class="form-control form-control-sm"
-                                  formControlName="profesion" aria-label="Profesión">
-                                <datalist id="listaProfesiones">
-                                  <option *ngFor="let tipProfe of tipoProfesiones"
-                                    [value]="tipProfe.profesion">{{ tipProfe.profesion }}</option>
-                                </datalist>
-                              </div>
-                            </div>
-
-                            <!-- ✅ FIX TOGGLE colegiatura: prop del componente -->
-                            <div class="col-xl-6">
-                              <div class="form-check form-switch my-3 my-lg-0">
-                                <label class="form-check-label" for="switchColegiatura">
-                                  <span>{{ tieneColegiatura ? 'Sí' : 'No' }}</span> Tiene Colegiatura
-                                </label>
-                                <input class="form-check-input position-end" type="checkbox"
-                                  id="switchColegiatura"
-                                  [checked]="tieneColegiatura"
-                                  (change)="tieneColegiatura = !tieneColegiatura">
-                              </div>
-                            </div>
-                          </div>
-
-                          @if(tieneColegiatura) {
-                            <div class="row mt-2" [formGroup]="valDatosProfesion">
-                              <div class="col-xl-3 mb-1">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text">Lugar de Colegiatura</div>
-                                  <input type="text" class="form-control form-control-sm"
-                                    formControlName="lugarColeg" aria-label="Lugar de colegiatura">
-                                </div>
-                              </div>
-                              <div class="col-xl-3 mb-1">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text d-cole">F. de Colegiatura</div>
-                                  <input type="date" class="form-control form-control-sm"
-                                    formControlName="fechColeg" aria-label="Fecha de colegiatura">
-                                </div>
-                              </div>
-                              <div class="col-xl-3 mb-1">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text d-cole">F. Fin de Habilitación</div>
-                                  <input type="date" class="form-control form-control-sm"
-                                    formControlName="fechTerColeg" aria-label="Fecha fin de habilitación">
-                                </div>
-                              </div>
-                              <div class="col-xl-3 mb-3 mb-lg-0">
-                                <div class="input-group input-group-sm">
-                                  <div class="input-group-text d-cole">N° Colegiatura</div>
-                                  <input type="text" class="form-control form-control-sm"
-                                    formControlName="numColeg" aria-label="Número de colegiatura">
-                                </div>
-                              </div>
-                            </div>
-                          }
-
-                          <!-- ── Estudios Superiores ──────────────────────── -->
-                          <div class="card border mt-3">
-                            <div class="card-header bg-transparent p-2">
-                              <h6 class="my-0">Estudios Superiores (Universitarios - Técnicos)</h6>
-                            </div>
-                            <div class="card-body p-3">
-                              <div class="row mb-2">
-                                <div class="col-xl-4">
-                                  <button type="button" class="btn bg-agg btn-sm" (click)="agregarEstudioSuperior()">
-                                    <i class="fa-solid fa-square-plus"></i> Agregar
-                                  </button>
-                                  <button type="button" class="btn bg-delete btn-sm ms-4" (click)="sinDatosSuperiores()">
-                                    <i class="fas fa-dot-circle"></i> Sin Datos
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th style="min-width:180px">Tipo</th>
-                                      <th style="min-width:200px">Centro de estudios</th>
-                                      <th style="min-width:180px">Especialidad</th>
-                                      <th style="min-width:130px">F. Inicio</th>
-                                      <th style="min-width:130px">F. Término</th>
-                                      <th style="min-width:160px">Nivel alcanzado</th>
-                                      <th style="min-width:180px">Documento</th>
-                                      <th></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr *ngFor="let sup of estudioSuperior; let i = index"
-                                      [hidden]="sup.estado === '*'">
-                                      <td>
-                                        <select class="form-select form-select-sm"
-                                          [(ngModel)]="sup.tipo"
-                                          [id]="'tipo-sup-' + i" [name]="'tipo-sup-' + i" [class.is-invalid]="!sup.tipo && intentoGuardar">
-                                          <option value="UNIVERSITARIO">Universitario</option>
-                                          <option value="TECNICO">Técnico</option>
-                                        </select>
-                                        <div class="invalid-feedback"></div>
-                                      </td>
-                                      <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                          [(ngModel)]="sup.centro"
-                                          [id]="'centro-sup-' + i" [name]="'centro-sup-' + i" [class.is-invalid]="!sup.centro && intentoGuardar">
-                                          <div class="invalid-feedback"></div>
-                                      </td>
-                                      <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                          [(ngModel)]="sup.especialidad"
-                                          [id]="'espe-sup-' + i" [name]="'espe-sup-' + i" [class.is-invalid]="!sup.especialidad && intentoGuardar">
-                                          <div class="invalid-feedback"></div>
-                                      </td>
-                                      <td>
-                                        <input type="date" class="form-control form-control-sm"
-                                          [(ngModel)]="sup.inicio"
-                                          [id]="'ini-sup-' + i" [name]="'ini-sup-' + i" [class.is-invalid]="!sup.inicio && intentoGuardar">
-                                          <div class="invalid-feedback"></div>
-                                      </td>
-                                      <td>
-                                        <input type="date" class="form-control form-control-sm"
-                                          [(ngModel)]="sup.termino"
-                                          [id]="'ter-sup-' + i" [name]="'ter-sup-' + i" [class.is-invalid]="!sup.termino && intentoGuardar">
-                                          <div class="invalid-feedback"></div>
-                                      </td>
-                                      <td>
-                                        <select class="form-select form-select-sm"
-                                          [(ngModel)]="sup.nivel"
-                                          [id]="'nivel-sup-' + i" [name]="'nivel-sup-' + i" [class.is-invalid]="!sup.centro && intentoGuardar">
-                                          <option value="TITULADO">Titulado</option>
-                                          <option value="BACHILLER">Bachiller</option>
-                                          <option value="EGRESADO">Egresado</option>
-                                          <option value="ESTUDIANTE">Estudiante</option>
-                                        </select>
-                                        <div class="invalid-feedback"></div>
-                                      </td>
-                                      <td>
-                                        <input type="file" class="form-control form-control-sm"
-                                          accept="application/pdf"
-                                          [id]="'file-sup-' + i" [name]="'file-sup-' + i"
-                                          (change)="seleccionarArchivoEst($event, i)">
-                                          
-                                      </td>
-                                      <td>
-                                        <button type="button" class="btn bg-delete btn-sm" title="Eliminar"
-                                          (click)="eliminarItem(i, 'estudioSuperior')">
-                                          <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                                @if(divSuperior) {
-                                  <p class="text-center fw-bold">SIN DATOS ESTUDIO SUPERIOR</p>
-                                }
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- ── Postgrado ────────────────────────────────── -->
-                          <div class="card border">
-                            <div class="card-header bg-transparent p-2">
-                              <h6 class="my-0">Estudios Postgrado (Maestría - Doctorado)</h6>
-                            </div>
-                            <div class="card-body p-3">
-                              <div class="row mb-2">
-                                <div class="col-xl-4">
-                                  <button type="button" class="btn bg-agg btn-sm" (click)="agregarEstudioPostgrado()">
-                                    <i class="fa-solid fa-square-plus"></i> Agregar
-                                  </button>
-                                  <button type="button" class="btn bg-delete btn-sm ms-4" (click)="sinDatosPostgrado()">
-                                    <i class="fas fa-dot-circle"></i> Sin Datos
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th style="min-width:180px">Tipo</th>
-                                      <th style="min-width:200px">Centro de estudios</th>
-                                      <th style="min-width:180px">Especialidad</th>
-                                      <th style="min-width:130px">F. Inicio</th>
-                                      <th style="min-width:130px">F. Término</th>
-                                      <th style="min-width:160px">Nivel alcanzado</th>
-                                      <th style="min-width:180px">Documento</th>
-                                      <th></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr *ngFor="let postg of estudioPostgrado; let i = index"
-                                      [hidden]="postg.estado === '*'">
-                                      <td>
-                                        <select class="form-select form-select-sm"
-                                          [(ngModel)]="postg.tipo"
-                                          [id]="'tipo-pg-' + i" [name]="'tipo-pg-' + i">
-                                          <option value="MAESTRIA">Maestría</option>
-                                          <option value="DOCTORADO">Doctorado</option>
-                                        </select>
-                                      </td>
-                                      <td><input type="text" class="form-control form-control-sm" [(ngModel)]="postg.centro" [id]="'centro-pg-'+i" [name]="'centro-pg-'+i" [class.is-invalid]="!postg.centro && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                      <td><input type="text" class="form-control form-control-sm" [(ngModel)]="postg.especialidad" [id]="'espe-pg-'+i" [name]="'espe-pg-'+i" [class.is-invalid]="!postg.especialidad && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                      <td><input type="date" class="form-control form-control-sm" [(ngModel)]="postg.inicio" [id]="'ini-pg-'+i" [name]="'ini-pg-'+i" [class.is-invalid]="!postg.inicio && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                      <td><input type="date" class="form-control form-control-sm" [(ngModel)]="postg.termino" [id]="'ter-pg-'+i" [name]="'ter-pg-'+i"[class.is-invalid]="!postg.termino && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                      <td>
-                                        <select class="form-select form-select-sm"
-                                          [(ngModel)]="postg.nivel"
-                                          [id]="'nivel-pg-' + i" [name]="'nivel-pg-' + i" [class.is-invalid]="!postg.nivel && intentoGuardar">
-                                          <option value="MAESTRIA">Maestría</option>
-                                          <option value="DOCTORADO">Doctorado</option>
-                                          <option value="EGRESADO">Egresado</option>
-                                          <option value="ESTUDIANTE">Estudiante</option>
-                                        </select>
-                                        <div class="invalid-feedback"></div>
-                                      </td>
-                                      <td><input type="file" class="form-control form-control-sm" accept="application/pdf" [id]="'file-pg-'+i" [name]="'file-pg-'+i" (change)="seleccionarArchivoPg($event, i)"></td>
-                                      <td>
-                                        <button type="button" class="btn bg-delete btn-sm" title="Eliminar"
-                                          (click)="eliminarItem(i, 'estudioPostgrado')">
-                                          <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                                @if(divPostgrado) { <p class="text-center fw-bold">SIN DATOS POSTGRADO</p> }
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- ── Especialización ─────────────────────────── -->
-                          <div class="card border">
-                            <div class="card-header bg-transparent p-2">
-                              <h6 class="my-0">Especialización - Diplomados</h6>
-                            </div>
-                            <div class="card-body p-3">
-                              <div class="row mb-2">
-                                <div class="col-xl-4">
-                                  <button type="button" class="btn bg-agg btn-sm" (click)="agregarEspecializacion()">
-                                    <i class="fa-solid fa-square-plus"></i> Agregar
-                                  </button>
-                                  <button type="button" class="btn bg-delete btn-sm ms-4" (click)="sinDatosEspecializacion()">
-                                    <i class="fas fa-dot-circle"></i> Sin Datos
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th style="min-width:160px">Tipo</th>
-                                      <th style="min-width:200px">Centro</th>
-                                      <th style="min-width:180px">Materia</th>
-                                      <th style="min-width:130px">F. Inicio</th>
-                                      <th style="min-width:130px">F. Término</th>
-                                      <th style="min-width:160px">Certificado</th>
-                                      <th style="min-width:180px">Documento</th>
-                                      <th></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr *ngFor="let espe of especializacion; let i = index"
-                                      [hidden]="espe.estado === '*'">
-                                      <td>
-                                        <select class="form-select form-select-sm"
-                                          [(ngModel)]="espe.tipo"
-                                          [id]="'tipo-esp-'+i" [name]="'tipo-esp-'+i">
-                                          <option value="ESPECIALIZACION">Especialización</option>
-                                          <option value="DIPLOMADO">Diplomado</option>
-                                        </select>
-                                      </td>
-                                      <td><input type="text" class="form-control form-control-sm" [(ngModel)]="espe.centro" [id]="'centro-esp-'+i" [name]="'centro-esp-'+i" [class.is-invalid]="!espe.centro && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                      <td><input type="text" class="form-control form-control-sm" [(ngModel)]="espe.materia" [id]="'materia-esp-'+i" [name]="'materia-esp-'+i"[class.is-invalid]="!espe.materia && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                      <td><input type="date" class="form-control form-control-sm" [(ngModel)]="espe.inicio" [id]="'ini-esp-'+i" [name]="'ini-esp-'+i"[class.is-invalid]="!espe.inicio && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                      <td><input type="date" class="form-control form-control-sm" [(ngModel)]="espe.termino" [id]="'ter-esp-'+i" [name]="'ter-esp-'+i" [class.is-invalid]="!espe.termino && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                      <td><input type="text" class="form-control form-control-sm" [(ngModel)]="espe.certificacion" [id]="'cert-esp-'+i" [name]="'cert-esp-'+i"[class.is-invalid]="!espe.certificacion && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                      <td><input type="file" class="form-control form-control-sm" accept="application/pdf" [id]="'file-esp-'+i" [name]="'file-esp-'+i" (change)="seleccionarArchivoEspecialidad($event, i)"><div class="invalid-feedback"></div></td>
-                                      <td>
-                                        <button type="button" class="btn bg-delete btn-sm" title="Eliminar"
-                                          (click)="eliminarItem(i, 'especializacion')">
-                                          <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                                @if(divEspecializacion) { <p class="text-center fw-bold">SIN DATOS DE ESPECIALIZACIÓN</p> }
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- ── Cursos - Seminarios ─────────────────────── -->
-                          <div class="card border">
-                            <div class="card-header bg-transparent p-2">
-                              <h6 class="my-0">Curso - Seminario</h6>
-                            </div>
-                            <div class="card-body p-3">
-                              <div class="row mb-2">
-                                <div class="col-xl-4">
-                                  <button type="button" class="btn bg-agg btn-sm" (click)="agregarCursos()">
-                                    <i class="fa-solid fa-square-plus"></i> Agregar
-                                  </button>
-                                  <button type="button" class="btn bg-delete btn-sm ms-4" (click)="sinDatosCursos()">
-                                    <i class="fas fa-dot-circle"></i> Sin Datos
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th style="min-width:160px">Tipo</th>
-                                      <th style="min-width:200px">Centro</th>
-                                      <th style="min-width:180px">Materia</th>
-                                      <th style="min-width:130px">F. Inicio</th>
-                                      <th style="min-width:130px">F. Término</th>
-                                      <th style="min-width:160px">Certificación</th>
-                                      <th style="min-width:180px">Documento</th>
-                                      <th></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr *ngFor="let curso of cursos; let i = index"
-                                      [hidden]="curso.estado === '*'">
-                                      <td>
-                                        <select class="form-select form-select-sm"
-                                          [(ngModel)]="curso.tipo"
-                                          [id]="'tipo-cur-'+i" [name]="'tipo-cur-'+i">
-                                          <option value="CURSO">Curso</option>
-                                          <option value="SEMINARIO">Seminario</option>
-                                        </select>
-                                      </td>
-                                      <td><input type="text" class="form-control form-control-sm" [(ngModel)]="curso.centro" [id]="'centro-cur-'+i" [name]="'centro-cur-'+i"[class.is-invalid]="!curso.centro && intentoGuardar"> <div class="invalid-feedback"></div></td>
-                                      <td><input type="text" class="form-control form-control-sm" [(ngModel)]="curso.materia" [id]="'materia-cur-'+i" [name]="'materia-cur-'+i" [class.is-invalid]="!curso.materia && intentoGuardar"> <div class="invalid-feedback"></div></td>
-                                      <td><input type="date" class="form-control form-control-sm" [(ngModel)]="curso.inicio" [id]="'ini-cur-'+i" [name]="'ini-cur-'+i"[class.is-invalid]="!curso.inicio && intentoGuardar"> <div class="invalid-feedback"></div></td>
-                                      <td><input type="date" class="form-control form-control-sm" [(ngModel)]="curso.termino" [id]="'ter-cur-'+i" [name]="'ter-cur-'+i"[class.is-invalid]="!curso.termino && intentoGuardar"> <div class="invalid-feedback"></div></td>
-                                      <td><input type="text" class="form-control form-control-sm" [(ngModel)]="curso.certificacion" [id]="'cert-cur-'+i" [name]="'cert-cur-'+i"[class.is-invalid]="!curso.certificacion && intentoGuardar"> <div class="invalid-feedback"></div></td>
-                                      <td><input type="file" class="form-control form-control-sm" accept="application/pdf" [id]="'file-cur-'+i" [name]="'file-cur-'+i" (change)="seleccionarArchivoCurso($event, i)"> <div class="invalid-feedback"></div></td>
-                                      <td>
-                                        <button type="button" class="btn bg-delete btn-sm" title="Eliminar"
-                                          (click)="eliminarItem(i, 'cursos')">
-                                          <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                                @if(divCursos) { <p class="text-center fw-bold">SIN DATOS DE CURSOS</p> }
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- ── Idiomas ─────────────────────────────────── -->
-                          <div class="card border">
-                            <div class="card-header bg-transparent p-2">
-                              <h6 class="my-0">Idiomas</h6>
-                            </div>
-                            <div class="card-body p-3">
-                              <div class="row mb-2">
-                                <div class="col-xl-4">
-                                  <button type="button" class="btn bg-agg btn-sm" (click)="agregarIdioma()">
-                                    <i class="fa-solid fa-square-plus"></i> Agregar
-                                  </button>
-                                  <button type="button" class="btn bg-delete btn-sm ms-4" (click)="sinDatosIdiomas()">
-                                    <i class="fas fa-dot-circle"></i> Sin Datos
-                                  </button>
-                                </div>
-                              </div>
-                              <div class="table-responsive">
-                                <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th>Lengua Extranjera</th>
-                                      <th>Nivel</th>
-                                      <th>Documento</th>
-                                      <th></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr *ngFor="let idioma of idiomas; let i = index"
-                                      [hidden]="idioma.estado === '*'">
-                                      <td>
-                                        <input type="text" class="form-control form-control-sm"
-                                          [(ngModel)]="idioma.lenguaE"
-                                          [id]="'lengua-' + i" [name]="'lengua-' + i">
-                                      </td>
-                                      <td>
-                                        <!-- ✅ FIX: list apunta al datalist correcto (nivelIdioma) -->
-                                        <input type="text" list="listaNivelIdioma"
-                                          class="form-control form-control-sm"
-                                          [(ngModel)]="idioma.nivel"
-                                          [id]="'nivel-id-' + i" [name]="'nivel-id-' + i">
-                                        <datalist id="listaNivelIdioma">
-                                          <option *ngFor="let nive of nivelIdioma" [value]="nive.nivel">
-                                            {{ nive.nivel }}
-                                          </option>
-                                        </datalist>
-                                      </td>
-                                      <td>
-                                        <input type="file" class="form-control form-control-sm"
-                                          accept="application/pdf"
-                                          [id]="'file-id-' + i" [name]="'file-id-' + i"
-                                          (change)="seleccionarArchivoIdioma($event, i)">
-                                      </td>
-                                      <td>
-                                        <button type="button" class="btn bg-delete btn-sm" title="Eliminar"
-                                          (click)="eliminarItem(i, 'idiomas')">
-                                          <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                                @if(divIdioma) { <p class="text-center fw-bold">SIN DATOS DE IDIOMAS</p> }
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div><!-- fin académico -->
-
-                  <!-- ─── DATOS LABORALES ────────────────────────────────── -->
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading-laboral">
-                      <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapse-laboral"
-                        aria-expanded="false" aria-controls="collapse-laboral">
-                        DATOS LABORALES
-                      </button>
-                    </h2>
-                    <div id="collapse-laboral" class="accordion-collapse collapse"
-                      aria-labelledby="heading-laboral">
-                      <div class="accordion-body text-muted">
-
-                        <!-- ── Experiencia Laboral ────────────────────────── -->
-                        <div class="card border">
-                          <div class="card-header bg-transparent p-2">
-                            <h6 class="my-0">Experiencia Laboral</h6>
-                          </div>
-                          <div class="card-body p-3">
-                            <div class="row mb-2">
-                              <div class="col-xl-4">
-                                <button type="button" class="btn bg-agg btn-sm" (click)="agregarExperiencia()">
-                                  <i class="fa-solid fa-square-plus"></i> Agregar
-                                </button>
-                                <button type="button" class="btn bg-delete btn-sm ms-4" (click)="sinDatosExperienciaLaboral()">
-                                  <i class="fas fa-dot-circle"></i> Sin Datos
-                                </button>
-                              </div>
-                            </div>
-                            <div class="table-responsive">
-                              <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th>Institución / Empresa</th>
-                                    <th>Cargo / Actividad Desempeñada</th>
-                                    <th>F. Inicio</th>
-                                    <th>F. Término</th>
-                                    <th>Documento</th>
-                                    <th></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr *ngFor="let expL of experienciaLaboral; let i = index"
-                                    [hidden]="expL.estado === '*'">
-                                    <td><input type="text" class="form-control form-control-sm" [(ngModel)]="expL.institucion" [id]="'inst-el-'+i" [name]="'inst-el-'+i"[class.is-invalid]="!expL.institucion && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                    <td><input type="text" class="form-control form-control-sm" [(ngModel)]="expL.cargo" [id]="'cargo-el-'+i" [name]="'cargo-el-'+i"[class.is-invalid]="!expL.cargo && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                    <td><input type="date" class="form-control form-control-sm" [(ngModel)]="expL.inicio" [id]="'ini-el-'+i" [name]="'ini-el-'+i"[class.is-invalid]="!expL.inicio && intentoGuardar"><div class="invalid-feedback"></div></td>
-                                    <td><input type="date" class="form-control form-control-sm" [(ngModel)]="expL.termino" [id]="'ter-el-'+i" [name]="'ter-el-'+i"[class.is-invalid]="!expL.termino&& intentoGuardar"><div class="invalid-feedback"></div></td>
-                                    <td><input type="file" class="form-control form-control-sm" accept="application/pdf" [id]="'file-el-'+i" [name]="'file-el-'+i" (change)="seleccionarArchivoExpLaboral($event, i)"><div class="invalid-feedback"></div></td>
-                                    <td>
-                                      <button type="button" class="btn bg-delete btn-sm" title="Eliminar"
-                                        (click)="eliminarItem(i, 'experienciaLaboral')">
-                                        <i class="fa-solid fa-xmark"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              @if(divExperienciaLaboral) {
-                                <p class="text-center fw-bold">SIN DATOS DE EXPERIENCIA LABORAL</p>
-                              }
-                            </div>
-                          </div>
-                        </div>
-
-                        <!-- ── Experiencia Docencia ────────────────────────── -->
-                        <div class="card border">
-                          <div class="card-header bg-transparent p-2">
-                            <h6 class="my-0">Experiencia de Docencia</h6>
-                          </div>
-                          <div class="card-body p-3">
-                            <div class="row mb-2">
-                              <div class="col-xl-4">
-                                <button type="button" class="btn bg-agg btn-sm" (click)="agregarDocencia()">
-                                  <i class="fa-solid fa-square-plus"></i> Agregar
-                                </button>
-                                <button type="button" class="btn bg-delete btn-sm ms-4" (click)="sinDatosExperienciaDocencia()">
-                                  <i class="fas fa-dot-circle"></i> Sin Datos
-                                </button>
-                              </div>
-                            </div>
-                            <div class="table-responsive">
-                              <table class="table">
-                                <thead>
-                                  <tr>
-                                    <th>Centro de Enseñanza</th>
-                                    <th>Curso Dictado</th>
-                                    <th>F. Inicio</th>
-                                    <th>F. Término</th>
-                                    <th>Documento</th>
-                                    <th></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr *ngFor="let expD of laborDocencia; let i = index"
-                                    [hidden]="expD.estado === '*'">
-                                    <td><input type="text" class="form-control form-control-sm" [(ngModel)]="expD.centro" [id]="'centro-ed-'+i" [name]="'centro-ed-'+i"></td>
-                                    <td><input type="text" class="form-control form-control-sm" [(ngModel)]="expD.curso" [id]="'curso-ed-'+i" [name]="'curso-ed-'+i"></td>
-                                    <td><input type="date" class="form-control form-control-sm" [(ngModel)]="expD.inicio" [id]="'ini-ed-'+i" [name]="'ini-ed-'+i"></td>
-                                    <td><input type="date" class="form-control form-control-sm" [(ngModel)]="expD.termino" [id]="'ter-ed-'+i" [name]="'ter-ed-'+i"></td>
-                                    <td><input type="file" class="form-control form-control-sm" accept="application/pdf" [id]="'file-ed-'+i" [name]="'file-ed-'+i" (change)="seleccionarArchivoExpDocencia($event, i)"></td>
-                                    <td>
-                                      <button type="button" class="btn bg-delete btn-sm" title="Eliminar"
-                                        (click)="eliminarItem(i, 'laborDocencia')">
-                                        <i class="fa-solid fa-xmark"></i>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              @if(divExperienciaDocencia) {
-                                <p class="text-center fw-bold">SIN DATOS DE EXPERIENCIA EN DOCENCIA</p>
-                              }
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div><!-- fin datos laborales -->
-
-                </div><!-- fin acordeón -->
-              </div>
-
-              <!-- ═══ BOTONES DE ACCIÓN ══════════════════════════════════ -->
-              <div class="mt-4 d-flex justify-content-evenly">
-                <button type="button" class="btn bg-delete" routerLink="/legajo/informacion">
-                  <i class="fa-solid fa-circle-arrow-left"></i> Regresar
-                </button>
-                <button type="button" class="btn btn-primary" (click)="actualizarEmpleado()">
-                  <i class="fa-solid fa-floppy-disk"></i> Actualizar
-                </button>
-              </div>
-
-            </app-loading>
+    <!-- ══ SECCIÓN 1 · IDENTIFICACIÓN ══════════════════════════════════════ -->
+    <div class="re-section">
+      <div class="re-section-header"><i class="fas fa-id-card"></i><span>Identificación</span></div>
+      <div class="re-section-body">
+        <div class="re-grid re-grid--4" [formGroup]="valDatosPersonales">
+          <div class="re-field">
+            <label class="re-label">Tipo de Documento</label>
+            <select class="re-select" formControlName="tipoDocumento">
+              <option value="">Seleccionar</option>
+              <option *ngFor="let tipoD of datos" [value]="tipoD.id">{{ tipoD.descripcion }}</option>
+            </select>
+          </div>
+          <div class="re-field">
+            <label class="re-label">N° Documento</label>
+            <div class="re-input-group">
+              <input type="text" class="re-input" formControlName="numDoc" maxlength="10">
+              <button class="re-input-btn" type="button"
+                (click)="buscarDocumento(valDatosPersonales.get('numDoc')?.value)">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </div>
+          <div class="re-field">
+            <label class="re-label">Nacionalidad</label>
+            <input type="text" class="re-input re-input--upper" formControlName="nacionalidad">
           </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- ══ SECCIÓN 2 · DATOS PERSONALES ════════════════════════════════════ -->
+    <div class="re-section">
+      <div class="re-section-header"><i class="fas fa-user"></i><span>Datos Personales</span></div>
+      <div class="re-section-body">
+        <div class="re-personal-layout">
+          <div class="re-foto-col">
+            <ngx-dropzone class="re-dropzone" (change)="onSelect($event)" [multiple]="false" accept="image/*">
+              <ngx-dropzone-label>
+                <i class="fas fa-cloud-upload-alt re-dropzone-icon"></i>
+                <span>Arrastra o elige</span>
+              </ngx-dropzone-label>
+              <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+              </ngx-dropzone-image-preview>
+            </ngx-dropzone>
+            <button type="button" class="re-btn re-btn--secondary re-btn--full mt-2" (click)="tomarFoto()">
+              <i class="fas fa-camera"></i> Tomar Foto
+            </button>
+          </div>
+
+          <div class="re-personal-fields" [formGroup]="valDatosPersonales">
+            <div class="re-grid re-grid--3">
+              <div class="re-field"><label class="re-label">Apellido Paterno</label><input type="text" class="re-input re-input--upper" formControlName="aPaterno"></div>
+              <div class="re-field"><label class="re-label">Apellido Materno</label><input type="text" class="re-input re-input--upper" formControlName="aMaterno"></div>
+              <div class="re-field"><label class="re-label">Nombres</label><input type="text" class="re-input re-input--upper" formControlName="nombres"></div>
+              <div class="re-field">
+                <label class="re-label">Sexo</label>
+                <select class="re-select" formControlName="sexo">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let s of tipoSexo" [value]="s.tipo">{{ s.tipo }}</option>
+                </select>
+              </div>
+              <div class="re-field"><label class="re-label">RUC N°</label><input type="text" class="re-input" formControlName="ruc" maxlength="11"></div>
+              <div class="re-field"><label class="re-label">Fecha de Nacimiento</label><input type="date" class="re-input" formControlName="fechaNacimiento"></div>
+              <div class="re-field"><label class="re-label">Teléfono Fijo</label><input type="text" class="re-input" formControlName="telFijo"></div>
+              <div class="re-field"><label class="re-label">Teléfono Móvil</label><input type="text" class="re-input" formControlName="telMovil"></div>
+              <div class="re-field"><label class="re-label">Correo Electrónico</label><input type="email" class="re-input" formControlName="correo"></div>
+              <div class="re-field">
+                <label class="re-label">Grupo Sanguíneo</label>
+                <select class="re-select" formControlName="grupoSanguineo">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let gs of tipoGrupoSanguineo" [value]="gs.id">{{ gs.descripcion }}</option>
+                </select>
+              </div>
+              <div class="re-field"><label class="re-label">Enfermedades / Alergias</label><input type="text" class="re-input" formControlName="enfAlergias"></div>
+              <div class="re-field">
+                <label class="re-label">Estado Civil</label>
+                <select class="re-select" formControlName="estadoCivil">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let ec of tipoEstadoCivil" [value]="ec.descripcion">{{ ec.descripcion }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECCIÓN 3 · CONTACTO EMERGENCIA ═════════════════════════════════ -->
+    <div class="re-section">
+      <div class="re-section-header"><i class="fas fa-phone-alt"></i><span>Contacto de Emergencia</span></div>
+      <div class="re-section-body">
+        <div class="re-grid re-grid--3" [formGroup]="valContactoEmergencia">
+          <div class="re-field re-field--wide"><label class="re-label">Nombre del Contacto</label><input type="text" class="re-input" formControlName="nombreContacto"></div>
+          <div class="re-field">
+            <label class="re-label">Parentesco</label>
+            <select class="re-select" formControlName="parentesco">
+              <option value="">Seleccionar</option>
+              <option *ngFor="let pa of tipoParentesco" [value]="pa.parentesco">{{ pa.parentesco }}</option>
+            </select>
+          </div>
+          <div class="re-field"><label class="re-label">N° de Contacto</label><input type="text" class="re-input" formControlName="numContacto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECCIÓN 4 · DISCAPACIDAD ════════════════════════════════════════ -->
+    <div class="re-section">
+      <div class="re-section-header"><i class="fas fa-universal-access"></i><span>Discapacidad</span></div>
+      <div class="re-section-body">
+        <div class="re-toggle-row">
+          <label class="re-toggle">
+            <input type="checkbox" id="switchDiscapacidad" [checked]="tieneDiscapacidad"
+              (change)="tieneDiscapacidad = !tieneDiscapacidad">
+            <span class="re-toggle-slider"></span>
+          </label>
+          <span class="re-toggle-label">{{ tieneDiscapacidad ? 'Sí presenta discapacidad' : 'No presenta discapacidad' }}</span>
+        </div>
+        @if(tieneDiscapacidad) {
+          <div class="re-grid re-grid--3 mt-3">
+            <div class="re-field re-field--wide">
+              <label class="re-label">Tipo de Discapacidad</label>
+              <ng-select [(ngModel)]="discapacidades" [multiple]="true" [items]="tipoDiscapacidad"
+                bindLabel="tipo" bindValue="tipo" placeholder="Seleccionar tipos..." class="re-ngselect">
+              </ng-select>
+            </div>
+            <div class="re-field">
+              <label class="re-label">Documento (PDF)</label>
+              <input type="file" class="re-file" (change)="seleccionarArchivoDiscapacidad($event)" accept="application/pdf">
+            </div>
+          </div>
+        }
+        <div class="re-disc-footer">
+          <button class="re-btn re-btn--primary re-btn--sm" type="button" (click)="actualizarDiscapacidad()">
+            <i class="fas fa-save"></i> Actualizar Discapacidad
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ACORDEONES ════════════════════════════════════════════════════════ -->
+    <div class="accordion re-accordion-group" id="acordionEditar">
+
+      <!-- SITUACIÓN LABORAL -->
+      <div class="accordion-item re-accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed re-accordion-btn" type="button"
+            data-bs-toggle="collapse" data-bs-target="#re-situacion">
+            <i class="fas fa-building"></i> Situación Laboral Actual
+          </button>
+        </h2>
+        <div id="re-situacion" class="accordion-collapse collapse">
+          <div class="accordion-body re-accordion-body" [formGroup]="valSituacionLaboral">
+            <div class="re-grid re-grid--3">
+              <div class="re-field"><label class="re-label">Condición</label>
+                <select class="re-select" formControlName="condicion">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let te of tipoEmpleado" [value]="te.idTipo">{{ te.tipo }}</option>
+                </select>
+              </div>
+              <div class="re-field"><label class="re-label">Grupo Ocupacional</label>
+                <select class="re-select" formControlName="grupOcup">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let g of tipoGrupo" [value]="g.id">{{ g.tipoG }}</option>
+                </select>
+              </div>
+              <div class="re-field re-field--wide"><label class="re-label">Área / Unidad Orgánica</label>
+                <ng-select formControlName="unidad" [items]="unidadOrganica" bindLabel="unidad" bindValue="id" placeholder="Seleccionar..." class="re-ngselect"></ng-select>
+              </div>
+              <div class="re-field"><label class="re-label">Régimen</label>
+                <select class="re-select" formControlName="regimen" (change)="cambioTipo()">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let r of regimenList" [value]="r.id">{{ r.regimen }}</option>
+                </select>
+              </div>
+              <div class="re-field"><label class="re-label">Tipo de Régimen</label>
+                <select class="re-select" formControlName="tipoRegimen">
+                  <option value="">Seleccionar</option>
+                  <option *ngFor="let tr of tipoRegimen" [value]="tr.id">{{ tr.tipoRegimen }}</option>
+                </select>
+              </div>
+              <div class="re-field"><label class="re-label">Código AIRHSP</label><input type="text" class="re-input" formControlName="airhsp"></div>
+              <div class="re-field"><label class="re-label">Fecha de Ingreso</label><input type="date" class="re-input" formControlName="fechaIngreso"></div>
+              <div class="re-field re-field--wide"><label class="re-label">Cargo</label>
+                <ng-select formControlName="cargo" [items]="cargo" bindLabel="descripcion" bindValue="codigo" placeholder="Buscar cargo..." class="re-ngselect"></ng-select>
+              </div>
+              <div class="re-field"><label class="re-label">Nivel</label>
+                <ng-select formControlName="nivelCargo" [items]="nivelCargo" bindLabel="nivel" bindValue="nivel" placeholder="Nivel..." class="re-ngselect"></ng-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOMICILIO -->
+      <div class="accordion-item re-accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed re-accordion-btn" type="button"
+            data-bs-toggle="collapse" data-bs-target="#re-domicilio">
+            <i class="fas fa-map-marker-alt"></i> Datos del Domicilio
+          </button>
+        </h2>
+        <div id="re-domicilio" class="accordion-collapse collapse">
+          <div class="accordion-body re-accordion-body" [formGroup]="valDatosDomicilio">
+            <p class="re-subsection-label">Ubicación Geográfica</p>
+            <div class="re-grid re-grid--3 mb-3">
+              <div class="re-field"><label class="re-label">Departamento</label><input type="text" class="re-input" formControlName="departamento"></div>
+              <div class="re-field"><label class="re-label">Provincia</label><input type="text" class="re-input" formControlName="provincia"></div>
+              <div class="re-field"><label class="re-label">Distrito</label><input type="text" class="re-input" formControlName="distrito"></div>
+            </div>
+            <div class="re-grid re-grid--3">
+              <div class="re-field"><label class="re-label">Tipo de Vía</label>
+                <ng-select formControlName="via" [items]="tipoVia" bindLabel="tipo" bindValue="tipo" placeholder="Seleccionar..." class="re-ngselect"></ng-select>
+              </div>
+              @if(valDatosDomicilio.get('via')?.value) {
+                <div class="re-field re-field--wide"><label class="re-label">Nombre de la Vía</label><input type="text" class="re-input" formControlName="nombreVia" maxlength="150"></div>
+                <div class="re-field"><label class="re-label">Número</label><input type="number" class="re-input" formControlName="numeroVia"></div>
+                <div class="re-field"><label class="re-label">Interior</label><input type="text" class="re-input" formControlName="interiorVia"></div>
+              }
+              <div class="re-field"><label class="re-label">Tipo de Zona</label>
+                <ng-select formControlName="zona" [items]="tipoZona" bindLabel="tipo" bindValue="tipo" placeholder="Seleccionar..." class="re-ngselect"></ng-select>
+              </div>
+              @if(valDatosDomicilio.get('zona')?.value) {
+                <div class="re-field re-field--wide"><label class="re-label">Nombre de Zona</label><input type="text" class="re-input" formControlName="nombreZona" maxlength="150"></div>
+                <div class="re-field"><label class="re-label">Número Zona</label><input type="number" class="re-input" formControlName="numeroZona"></div>
+                <div class="re-field"><label class="re-label">Interior Zona</label><input type="text" class="re-input" formControlName="interiorZona"></div>
+              }
+              <div class="re-field re-field--full"><label class="re-label">Referencia</label><input type="text" class="re-input" formControlName="referencia" maxlength="250" placeholder="Av., calle o institución cercana"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAMILIARES -->
+      <div class="accordion-item re-accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed re-accordion-btn" type="button"
+            data-bs-toggle="collapse" data-bs-target="#re-familiares">
+            <i class="fas fa-users"></i> Datos Familiares
+          </button>
+        </h2>
+        <div id="re-familiares" class="accordion-collapse collapse">
+          <div class="accordion-body re-accordion-body">
+            <div class="re-table-toolbar">
+              <button type="button" class="re-btn re-btn--primary re-btn--sm" (click)="agregarFamiliar()"><i class="fa-solid fa-plus"></i> Agregar</button>
+              <button type="button" class="re-btn re-btn--ghost re-btn--sm" (click)="sinDatosFamiliares()"><i class="fas fa-minus-circle"></i> Sin Datos</button>
+            </div>
+            <div class="re-table-wrap">
+              <table class="re-table">
+                <thead><tr><th>T. Doc</th><th>N° Doc</th><th>Nombres</th><th>Apellidos</th><th>F. Nacimiento</th><th>Parentesco</th><th>Institución</th><th></th></tr></thead>
+                <tbody>
+                  <tr *ngFor="let familiar of familiares; let i = index" [hidden]="familiar.estado === '*'">
+                    <td><select class="re-select re-select--sm" [(ngModel)]="familiar.tipoD" [id]="'tipoD-fam-'+i" [name]="'tipoD-fam-'+i"><option value="">—</option><option *ngFor="let td of datos" [value]="td.descripcion">{{ td.desCorta }}</option></select></td>
+                    <td>
+                      <div class="re-input-group">
+                        <input type="text" class="re-input re-input--sm" [(ngModel)]="familiar.dni" [id]="'dni-fam-'+i" [name]="'dni-fam-'+i">
+                        <button class="re-input-btn" type="button" (click)="buscarDocumentoFamiliar(familiar.dni, i, familiar.tipoD)"><i class="fa-solid fa-magnifying-glass"></i></button>
+                      </div>
+                    </td>
+                    <td><input type="text" class="re-input re-input--sm" [(ngModel)]="familiar.nombre" [id]="'nombre-fam-'+i" [name]="'nombre-fam-'+i"></td>
+                    <td><input type="text" class="re-input re-input--sm" [(ngModel)]="familiar.apellidos" [id]="'apellidos-fam-'+i" [name]="'apellidos-fam-'+i"></td>
+                    <td><input type="date" class="re-input re-input--sm" [(ngModel)]="familiar.fechaNacimiento" [id]="'fnac-fam-'+i" [name]="'fnac-fam-'+i"></td>
+                    <td><select class="re-select re-select--sm" [(ngModel)]="familiar.parentesco" [id]="'parentesco-fam-'+i" [name]="'parentesco-fam-'+i"><option value="">—</option><option *ngFor="let pa of tipoParentesco" [value]="pa.parentesco">{{ pa.parentesco }}</option></select></td>
+                    <td><input type="text" class="re-input re-input--sm" [(ngModel)]="familiar.centroLaboral" [id]="'centroL-fam-'+i" [name]="'centroL-fam-'+i"></td>
+                    <td><button type="button" class="re-btn re-btn--danger re-btn--icon" (click)="eliminarItem(i, 'familiares')"><i class="fa-solid fa-xmark"></i></button></td>
+                  </tr>
+                </tbody>
+              </table>
+              @if(divFamiliar){ <div class="re-empty-row">SIN DATOS FAMILIARES</div> }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACADÉMICA -->
+      <div class="accordion-item re-accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed re-accordion-btn" type="button"
+            data-bs-toggle="collapse" data-bs-target="#re-academica">
+            <i class="fas fa-graduation-cap"></i> Información Profesional y/o Académica
+          </button>
+        </h2>
+        <div id="re-academica" class="accordion-collapse collapse">
+          <div class="accordion-body re-accordion-body">
+
+            <div class="re-grid re-grid--3 mb-3">
+              <div class="re-field re-field--wide" [formGroup]="valDatosProfesion">
+                <label class="re-label">Profesión</label>
+                <input type="text" list="listaProfesiones" class="re-input" formControlName="profesion">
+                <datalist id="listaProfesiones"><option *ngFor="let p of tipoProfesiones" [value]="p.profesion">{{ p.profesion }}</option></datalist>
+              </div>
+              <div class="re-field d-flex align-items-end pb-1">
+                <label class="re-toggle me-2">
+                  <input type="checkbox" id="switchColegiatura" [checked]="tieneColegiatura" (change)="tieneColegiatura = !tieneColegiatura">
+                  <span class="re-toggle-slider"></span>
+                </label>
+                <span class="re-toggle-label">{{ tieneColegiatura ? 'Tiene Colegiatura' : 'Sin Colegiatura' }}</span>
+              </div>
+            </div>
+
+            @if(tieneColegiatura) {
+              <div class="re-grid re-grid--4 mb-4" [formGroup]="valDatosProfesion">
+                <div class="re-field re-field--wide"><label class="re-label">Lugar de Colegiatura</label><input type="text" class="re-input" formControlName="lugarColeg"></div>
+                <div class="re-field"><label class="re-label">F. Colegiatura</label><input type="date" class="re-input" formControlName="fechColeg"></div>
+                <div class="re-field"><label class="re-label">F. Fin Habilitación</label><input type="date" class="re-input" formControlName="fechTerColeg"></div>
+                <div class="re-field"><label class="re-label">N° Colegiatura</label><input type="text" class="re-input" formControlName="numColeg"></div>
+              </div>
+            }
+
+            <!-- Estudios Superiores -->
+            <div class="re-subtable mt-3">
+              <div class="re-subtable-header">Estudios Superiores (Universitarios - Técnicos)</div>
+              <div class="re-table-toolbar">
+                <button type="button" class="re-btn re-btn--primary re-btn--sm" (click)="agregarEstudioSuperior()"><i class="fa-solid fa-plus"></i> Agregar</button>
+                <button type="button" class="re-btn re-btn--ghost re-btn--sm" (click)="sinDatosSuperiores()"><i class="fas fa-minus-circle"></i> Sin Datos</button>
+              </div>
+              <div class="re-table-wrap">
+                <table class="re-table">
+                  <thead><tr><th>Tipo</th><th>Centro</th><th>Especialidad</th><th>F.Inicio</th><th>F.Término</th><th>Nivel</th><th>Doc.</th><th></th></tr></thead>
+                  <tbody>
+                    <tr *ngFor="let sup of estudioSuperior; let i = index" [hidden]="sup.estado === '*'">
+                      <td><select class="re-select re-select--sm" [(ngModel)]="sup.tipo" [id]="'tipo-sup-'+i" [name]="'tipo-sup-'+i"><option value="UNIVERSITARIO">Universitario</option><option value="TECNICO">Técnico</option></select></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="sup.centro" [id]="'centro-sup-'+i" [name]="'centro-sup-'+i" [class.re-invalid]="!sup.centro && intentoGuardar"></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="sup.especialidad" [id]="'espe-sup-'+i" [name]="'espe-sup-'+i" [class.re-invalid]="!sup.especialidad && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="sup.inicio" [id]="'ini-sup-'+i" [name]="'ini-sup-'+i" [class.re-invalid]="!sup.inicio && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="sup.termino" [id]="'ter-sup-'+i" [name]="'ter-sup-'+i"></td>
+                      <td><select class="re-select re-select--sm" [(ngModel)]="sup.nivel" [id]="'nivel-sup-'+i" [name]="'nivel-sup-'+i" [class.re-invalid]="!sup.nivel && intentoGuardar"><option value="TITULADO">Titulado</option><option value="BACHILLER">Bachiller</option><option value="EGRESADO">Egresado</option><option value="ESTUDIANTE">Estudiante</option></select></td>
+                      <td><input type="file" class="re-file" accept="application/pdf" [id]="'file-sup-'+i" [name]="'file-sup-'+i" (change)="seleccionarArchivoEst($event, i)"></td>
+                      <td><button type="button" class="re-btn re-btn--danger re-btn--icon" (click)="eliminarItem(i, 'estudioSuperior')"><i class="fa-solid fa-xmark"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                @if(divSuperior){ <div class="re-empty-row">SIN DATOS DE ESTUDIO SUPERIOR</div> }
+              </div>
+            </div>
+
+            <!-- Postgrado -->
+            <div class="re-subtable mt-3">
+              <div class="re-subtable-header">Estudios Postgrado (Maestría - Doctorado)</div>
+              <div class="re-table-toolbar">
+                <button type="button" class="re-btn re-btn--primary re-btn--sm" (click)="agregarEstudioPostgrado()"><i class="fa-solid fa-plus"></i> Agregar</button>
+                <button type="button" class="re-btn re-btn--ghost re-btn--sm" (click)="sinDatosPostgrado()"><i class="fas fa-minus-circle"></i> Sin Datos</button>
+              </div>
+              <div class="re-table-wrap">
+                <table class="re-table">
+                  <thead><tr><th>Tipo</th><th>Centro</th><th>Especialidad</th><th>F.Inicio</th><th>F.Término</th><th>Nivel</th><th>Doc.</th><th></th></tr></thead>
+                  <tbody>
+                    <tr *ngFor="let p of estudioPostgrado; let i = index" [hidden]="p.estado === '*'">
+                      <td><select class="re-select re-select--sm" [(ngModel)]="p.tipo" [id]="'tipo-pg-'+i" [name]="'tipo-pg-'+i"><option value="MAESTRIA">Maestría</option><option value="DOCTORADO">Doctorado</option></select></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="p.centro" [id]="'centro-pg-'+i" [name]="'centro-pg-'+i" [class.re-invalid]="!p.centro && intentoGuardar"></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="p.especialidad" [id]="'espe-pg-'+i" [name]="'espe-pg-'+i" [class.re-invalid]="!p.especialidad && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="p.inicio" [id]="'ini-pg-'+i" [name]="'ini-pg-'+i" [class.re-invalid]="!p.inicio && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="p.termino" [id]="'ter-pg-'+i" [name]="'ter-pg-'+i" [class.re-invalid]="!p.termino && intentoGuardar"></td>
+                      <td><select class="re-select re-select--sm" [(ngModel)]="p.nivel" [id]="'nivel-pg-'+i" [name]="'nivel-pg-'+i" [class.re-invalid]="!p.nivel && intentoGuardar"><option value="MAESTRIA">Maestría</option><option value="DOCTORADO">Doctorado</option><option value="EGRESADO">Egresado</option><option value="ESTUDIANTE">Estudiante</option></select></td>
+                      <td><input type="file" class="re-file" accept="application/pdf" [id]="'file-pg-'+i" [name]="'file-pg-'+i" (change)="seleccionarArchivoPg($event, i)"></td>
+                      <td><button type="button" class="re-btn re-btn--danger re-btn--icon" (click)="eliminarItem(i, 'estudioPostgrado')"><i class="fa-solid fa-xmark"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                @if(divPostgrado){ <div class="re-empty-row">SIN DATOS DE POSTGRADO</div> }
+              </div>
+            </div>
+
+            <!-- Especialización -->
+            <div class="re-subtable mt-3">
+              <div class="re-subtable-header">Especialización - Diplomados</div>
+              <div class="re-table-toolbar">
+                <button type="button" class="re-btn re-btn--primary re-btn--sm" (click)="agregarEspecializacion()"><i class="fa-solid fa-plus"></i> Agregar</button>
+                <button type="button" class="re-btn re-btn--ghost re-btn--sm" (click)="sinDatosEspecializacion()"><i class="fas fa-minus-circle"></i> Sin Datos</button>
+              </div>
+              <div class="re-table-wrap">
+                <table class="re-table">
+                  <thead><tr><th>Tipo</th><th>Centro</th><th>Materia</th><th>F.Inicio</th><th>F.Término</th><th>Certificación</th><th>Doc.</th><th></th></tr></thead>
+                  <tbody>
+                    <tr *ngFor="let e of especializacion; let i = index" [hidden]="e.estado === '*'">
+                      <td><select class="re-select re-select--sm" [(ngModel)]="e.tipo" [id]="'tipo-esp-'+i" [name]="'tipo-esp-'+i"><option value="ESPECIALIZACION">Especialización</option><option value="DIPLOMADO">Diplomado</option></select></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="e.centro" [id]="'centro-esp-'+i" [name]="'centro-esp-'+i" [class.re-invalid]="!e.centro && intentoGuardar"></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="e.materia" [id]="'materia-esp-'+i" [name]="'materia-esp-'+i" [class.re-invalid]="!e.materia && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="e.inicio" [id]="'ini-esp-'+i" [name]="'ini-esp-'+i" [class.re-invalid]="!e.inicio && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="e.termino" [id]="'ter-esp-'+i" [name]="'ter-esp-'+i" [class.re-invalid]="!e.termino && intentoGuardar"></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="e.certificacion" [id]="'cert-esp-'+i" [name]="'cert-esp-'+i" [class.re-invalid]="!e.certificacion && intentoGuardar"></td>
+                      <td><input type="file" class="re-file" accept="application/pdf" [id]="'file-esp-'+i" [name]="'file-esp-'+i" (change)="seleccionarArchivoEspecialidad($event, i)"></td>
+                      <td><button type="button" class="re-btn re-btn--danger re-btn--icon" (click)="eliminarItem(i, 'especializacion')"><i class="fa-solid fa-xmark"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                @if(divEspecializacion){ <div class="re-empty-row">SIN DATOS DE ESPECIALIZACIÓN</div> }
+              </div>
+            </div>
+
+            <!-- Cursos -->
+            <div class="re-subtable mt-3">
+              <div class="re-subtable-header">Cursos - Seminarios</div>
+              <div class="re-table-toolbar">
+                <button type="button" class="re-btn re-btn--primary re-btn--sm" (click)="agregarCursos()"><i class="fa-solid fa-plus"></i> Agregar</button>
+                <button type="button" class="re-btn re-btn--ghost re-btn--sm" (click)="sinDatosCursos()"><i class="fas fa-minus-circle"></i> Sin Datos</button>
+              </div>
+              <div class="re-table-wrap">
+                <table class="re-table">
+                  <thead><tr><th>Tipo</th><th>Centro</th><th>Materia</th><th>F.Inicio</th><th>F.Término</th><th>Certificación</th><th>Doc.</th><th></th></tr></thead>
+                  <tbody>
+                    <tr *ngFor="let c of cursos; let i = index" [hidden]="c.estado === '*'">
+                      <td><select class="re-select re-select--sm" [(ngModel)]="c.tipo" [id]="'tipo-cur-'+i" [name]="'tipo-cur-'+i"><option value="CURSO">Curso</option><option value="SEMINARIO">Seminario</option></select></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="c.centro" [id]="'centro-cur-'+i" [name]="'centro-cur-'+i" [class.re-invalid]="!c.centro && intentoGuardar"></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="c.materia" [id]="'materia-cur-'+i" [name]="'materia-cur-'+i" [class.re-invalid]="!c.materia && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="c.inicio" [id]="'ini-cur-'+i" [name]="'ini-cur-'+i" [class.re-invalid]="!c.inicio && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="c.termino" [id]="'ter-cur-'+i" [name]="'ter-cur-'+i" [class.re-invalid]="!c.termino && intentoGuardar"></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="c.certificacion" [id]="'cert-cur-'+i" [name]="'cert-cur-'+i" [class.re-invalid]="!c.certificacion && intentoGuardar"></td>
+                      <td><input type="file" class="re-file" accept="application/pdf" [id]="'file-cur-'+i" [name]="'file-cur-'+i" (change)="seleccionarArchivoCurso($event, i)"></td>
+                      <td><button type="button" class="re-btn re-btn--danger re-btn--icon" (click)="eliminarItem(i, 'cursos')"><i class="fa-solid fa-xmark"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                @if(divCursos){ <div class="re-empty-row">SIN DATOS DE CURSOS</div> }
+              </div>
+            </div>
+
+            <!-- Idiomas -->
+            <div class="re-subtable mt-3">
+              <div class="re-subtable-header">Idiomas</div>
+              <div class="re-table-toolbar">
+                <button type="button" class="re-btn re-btn--primary re-btn--sm" (click)="agregarIdioma()"><i class="fa-solid fa-plus"></i> Agregar</button>
+                <button type="button" class="re-btn re-btn--ghost re-btn--sm" (click)="sinDatosIdiomas()"><i class="fas fa-minus-circle"></i> Sin Datos</button>
+              </div>
+              <div class="re-table-wrap">
+                <table class="re-table">
+                  <thead><tr><th>Lengua Extranjera</th><th>Nivel</th><th>Documento</th><th></th></tr></thead>
+                  <tbody>
+                    <tr *ngFor="let id of idiomas; let i = index" [hidden]="id.estado === '*'">
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="id.lenguaE" [id]="'lengua-'+i" [name]="'lengua-'+i"></td>
+                      <td>
+                        <input type="text" list="listaNivelIdioma" class="re-input re-input--sm" [(ngModel)]="id.nivel" [id]="'nivel-id-'+i" [name]="'nivel-id-'+i">
+                        <datalist id="listaNivelIdioma"><option *ngFor="let nv of nivelIdioma" [value]="nv.nivel">{{ nv.nivel }}</option></datalist>
+                      </td>
+                      <td><input type="file" class="re-file" accept="application/pdf" [id]="'file-id-'+i" [name]="'file-id-'+i" (change)="seleccionarArchivoIdioma($event, i)"></td>
+                      <td><button type="button" class="re-btn re-btn--danger re-btn--icon" (click)="eliminarItem(i, 'idiomas')"><i class="fa-solid fa-xmark"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                @if(divIdioma){ <div class="re-empty-row">SIN DATOS DE IDIOMAS</div> }
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- DATOS LABORALES -->
+      <div class="accordion-item re-accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed re-accordion-btn" type="button"
+            data-bs-toggle="collapse" data-bs-target="#re-laboral">
+            <i class="fas fa-briefcase"></i> Datos Laborales
+          </button>
+        </h2>
+        <div id="re-laboral" class="accordion-collapse collapse">
+          <div class="accordion-body re-accordion-body">
+
+            <div class="re-subtable">
+              <div class="re-subtable-header">Experiencia Laboral</div>
+              <div class="re-table-toolbar">
+                <button type="button" class="re-btn re-btn--primary re-btn--sm" (click)="agregarExperiencia()"><i class="fa-solid fa-plus"></i> Agregar</button>
+                <button type="button" class="re-btn re-btn--ghost re-btn--sm" (click)="sinDatosExperienciaLaboral()"><i class="fas fa-minus-circle"></i> Sin Datos</button>
+              </div>
+              <div class="re-table-wrap">
+                <table class="re-table">
+                  <thead><tr><th>Institución / Empresa</th><th>Cargo / Actividad</th><th>F.Inicio</th><th>F.Término</th><th>Doc.</th><th></th></tr></thead>
+                  <tbody>
+                    <tr *ngFor="let l of experienciaLaboral; let i = index" [hidden]="l.estado === '*'">
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="l.institucion" [id]="'inst-el-'+i" [name]="'inst-el-'+i" [class.re-invalid]="!l.institucion && intentoGuardar"></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="l.cargo" [id]="'cargo-el-'+i" [name]="'cargo-el-'+i" [class.re-invalid]="!l.cargo && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="l.inicio" [id]="'ini-el-'+i" [name]="'ini-el-'+i" [class.re-invalid]="!l.inicio && intentoGuardar"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="l.termino" [id]="'ter-el-'+i" [name]="'ter-el-'+i" [class.re-invalid]="!l.termino && intentoGuardar"></td>
+                      <td><input type="file" class="re-file" accept="application/pdf" [id]="'file-el-'+i" [name]="'file-el-'+i" (change)="seleccionarArchivoExpLaboral($event, i)"></td>
+                      <td><button type="button" class="re-btn re-btn--danger re-btn--icon" (click)="eliminarItem(i, 'experienciaLaboral')"><i class="fa-solid fa-xmark"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                @if(divExperienciaLaboral){ <div class="re-empty-row">SIN DATOS DE EXPERIENCIA LABORAL</div> }
+              </div>
+            </div>
+
+            <div class="re-subtable mt-3">
+              <div class="re-subtable-header">Experiencia de Docencia</div>
+              <div class="re-table-toolbar">
+                <button type="button" class="re-btn re-btn--primary re-btn--sm" (click)="agregarDocencia()"><i class="fa-solid fa-plus"></i> Agregar</button>
+                <button type="button" class="re-btn re-btn--ghost re-btn--sm" (click)="sinDatosExperienciaDocencia()"><i class="fas fa-minus-circle"></i> Sin Datos</button>
+              </div>
+              <div class="re-table-wrap">
+                <table class="re-table">
+                  <thead><tr><th>Centro de Enseñanza</th><th>Curso Dictado</th><th>F.Inicio</th><th>F.Término</th><th>Doc.</th><th></th></tr></thead>
+                  <tbody>
+                    <tr *ngFor="let d of laborDocencia; let i = index" [hidden]="d.estado === '*'">
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="d.centro" [id]="'centro-ed-'+i" [name]="'centro-ed-'+i"></td>
+                      <td><input type="text" class="re-input re-input--sm" [(ngModel)]="d.curso" [id]="'curso-ed-'+i" [name]="'curso-ed-'+i"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="d.inicio" [id]="'ini-ed-'+i" [name]="'ini-ed-'+i"></td>
+                      <td><input type="date" class="re-input re-input--sm" [(ngModel)]="d.termino" [id]="'ter-ed-'+i" [name]="'ter-ed-'+i"></td>
+                      <td><input type="file" class="re-file" accept="application/pdf" [id]="'file-ed-'+i" [name]="'file-ed-'+i" (change)="seleccionarArchivoExpDocencia($event, i)"></td>
+                      <td><button type="button" class="re-btn re-btn--danger re-btn--icon" (click)="eliminarItem(i, 'laborDocencia')"><i class="fa-solid fa-xmark"></i></button></td>
+                    </tr>
+                  </tbody>
+                </table>
+                @if(divExperienciaDocencia){ <div class="re-empty-row">SIN DATOS DE EXPERIENCIA EN DOCENCIA</div> }
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin acordeones -->
+
+    <!-- ══ BOTONES DE ACCIÓN ════════════════════════════════════════════════ -->
+    <div class="re-actions">
+      <button type="button" class="re-btn re-btn--ghost re-btn--lg" routerLink="/legajo/informacion">
+        <i class="fa-solid fa-circle-arrow-left"></i> Regresar
+      </button>
+      <button type="button" class="re-btn re-btn--edit re-btn--lg" (click)="actualizarEmpleado()">
+        <i class="fa-solid fa-floppy-disk"></i> Actualizar Empleado
+      </button>
+    </div>
+
+  </app-loading>
 </div>
 
 <app-modal-tomar-foto (capturarImagen)="mandarImagen($event)"></app-modal-tomar-foto>

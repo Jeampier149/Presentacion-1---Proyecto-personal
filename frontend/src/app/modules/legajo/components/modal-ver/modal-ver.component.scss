@@ -1,163 +1,425 @@
-fieldset, legend {
-    all: revert;
- }
- .fa-magnifying-glass{
-    color: white;
- }
- .input-group-text{
-    background-color: #5156BE;
-    color: white;
- }
+// ─── Variables ────────────────────────────────────────────────────────────────
+$primary:    #5156BE;
+$primary-dk: #3d41a0;
+$teal:       #0F888D;
+$slate:      #474554;
+$activo:     #00999C;
+$border:     #e2e4f0;
+$surface:    #f7f8fc;
+$text:       #1e1e2e;
+$text-muted: #6e6e8a;
+$radius:     10px;
+$radius-sm:  6px;
+$transition: 0.18s ease;
 
-.bg-agg{
-background-color:#0F888D;
-color: white;
-}
-.bg-delete{
-   background-color: #474554;
-   color: white;
-}
-
-[data-title]:hover:after {
-   opacity: 1;
-   transition: all 0.1s ease 0.5s;
-   visibility: visible;
-}
-[data-title]:after {
-   content: attr(data-title);
-   background-color: #666666;
-   color: #fff;
-   font-size: 14px;
-   font-family: Raleway;
-   position: absolute;
-   padding: 3px 20px;
-   bottom: -1.6em;
-   left: 100%;
-   white-space: nowrap;
-   box-shadow: 1px 1px 3px #222222;
-   opacity: 0;
-   border: 1px solid #111111;
-   z-index: 99999;
-   visibility: hidden;
-   border-radius: 6px;
-   
-}
-[data-title] {
-   position: relative;
+// ─── Modal ────────────────────────────────────────────────────────────────────
+.mv-modal {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.18);
 }
 
-.d-personales{
-   width: 113px;
+// ─── Header ───────────────────────────────────────────────────────────────────
+.mv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 1rem 1.5rem;
+    background: $primary;
+    color: #fff;
+
+    &-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+    }
+
+    &-info {
+        min-width: 0;
+    }
+
+    &-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    &-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        overflow: hidden;
+        flex-shrink: 0;
+        background: rgba(255,255,255,0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgba(255,255,255,0.3);
+    }
 }
 
-/* app.component.css */
-.preview-container {
-   display: flex;
-   flex-wrap: wrap;
-   margin-top: 10px;
- }
- 
- .file-preview {
-   margin: 5px;
-   padding: 10px;
-   border: 1px solid #ddd;
-   border-radius: 4px;
- }
- 
- .preview-image {
+.mv-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-   max-width: 100%;
-   max-height: 100px;
- }
- .data-local{
-   font-size: 12px;
- }
- 
+.mv-avatar-placeholder {
+    font-size: 20px;
+    color: rgba(255,255,255,0.7);
+}
 
- .col-xl-2.col-8 {
-   position: relative;
- }
- 
- .col-xl-2.col-8 ngx-dropzone-image-preview {
-   width: 100%;
-   height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
- }
- 
- .col-xl-2.col-8 ngx-dropzone-image-preview img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover; /* La imagen cubrirá todo el contenedor sin distorsionarla */
- }
+.mv-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 340px;
+}
 
- .estado{
-   width: 140px;
-   padding: 6px;
- }
- 
- .bg-activo{
-   background-color: #00999C;
- }
- .bg-historico{
-   background-color: #474554;
- }
-  th,td{
+.mv-subtitle {
+    margin: 0;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+}
+
+.mv-icon-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: background $transition;
+
+    &:hover { background: rgba(255,255,255,0.28); }
+}
+
+// ─── Badge estado ─────────────────────────────────────────────────────────────
+.mv-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    &-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    &--activo {
+        background: rgba(0,200,184,0.18);
+        color: #a8fff7;
+        .mv-badge-dot { background: #00e5d4; box-shadow: 0 0 6px #00e5d4; }
+    }
+
+    &--historico {
+        background: rgba(255,255,255,0.12);
+        color: rgba(255,255,255,0.65);
+        .mv-badge-dot { background: rgba(255,255,255,0.4); }
+    }
+}
+
+// Contador en section headers
+.mv-badge-count {
+    margin-left: auto;
+    background: $primary;
+    color: #fff;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+// ─── Body ─────────────────────────────────────────────────────────────────────
+.mv-body {
+    padding: 1.25rem 1.5rem;
+    background: $surface;
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+// ─── Sections ─────────────────────────────────────────────────────────────────
+.mv-section {
+    background: #fff;
+    border: 1px solid $border;
+    border-radius: $radius;
+    overflow: hidden;
+
+    &-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0.65rem 1rem;
+        background: #f0f1fa;
+        border-bottom: 1px solid $border;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: $primary;
+        letter-spacing: 0.02em;
+
+        i { font-size: 13px; }
+    }
+
+    &-body {
+        padding: 1rem;
+    }
+}
+
+// ─── Subsections (dentro de secciones) ───────────────────────────────────────
+.mv-subsection {
+    margin-bottom: 1rem;
+
+    &:last-child { margin-bottom: 0; }
+
+    &-header {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: $text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 6px 0 8px;
+        border-bottom: 1px solid $border;
+        margin-bottom: 0;
+    }
+}
+
+// ─── Grid de campos ───────────────────────────────────────────────────────────
+.mv-grid {
+    display: grid;
+    gap: 8px 14px;
+
+    &--3 { grid-template-columns: repeat(3, 1fr); }
+
+    @media (max-width: 992px) {
+        &--3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+        &--3 { grid-template-columns: 1fr; }
+    }
+}
+
+// ─── Campo individual ────────────────────────────────────────────────────────
+.mv-field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    &--wide { grid-column: span 2; @media (max-width: 600px) { grid-column: span 1; } }
+    &--full { grid-column: 1 / -1; }
+}
+
+.mv-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: $text-muted;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.mv-value {
+    font-size: 0.83rem;
+    color: $text;
+    font-weight: 500;
+    padding: 5px 8px;
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    word-break: break-word;
+}
+
+.mv-text-muted {
+    font-size: 0.82rem;
+    color: $text-muted;
+}
+
+// ─── Tags (discapacidades) ────────────────────────────────────────────────────
+.mv-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.mv-tag {
+    background: #e8e9f8;
+    color: $primary;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+}
+
+.mv-empty-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $text-muted;
+    font-size: 0.82rem;
+
+    i { color: #6abf7b; }
+}
+
+// ─── Tabla ────────────────────────────────────────────────────────────────────
+.mv-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0 0 $radius-sm $radius-sm;
+}
+
+.mv-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.79rem;
+
+    thead tr { background: #f0f1fa; }
+
+    th {
+        padding: 8px 10px;
+        text-align: left;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: $primary;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        border-bottom: 1px solid $border;
+    }
+
+    td {
+        padding: 8px 10px;
+        color: $text;
+        border-bottom: 1px solid lighten($border, 4%);
+        vertical-align: middle;
+    }
+
+    tr {
+        transition: background $transition;
+        &:hover { background: #f7f8fc; }
+        &:last-child td { border-bottom: none; }
+    }
+}
+
+.mv-td-idx {
+    font-weight: 600;
+    color: $text-muted;
+    width: 32px;
     text-align: center;
-  }
-.fa-file-pdf{
-  
-  color: white;
-
-}
-.bg-descarga{
-  background-color: #296073;
-  color: white;
 }
 
-img{
-  border: 6px solid #ffffff; 
-  border-radius: 10px; 
-  box-shadow: 0 0 5px rgba(108, 82, 240, 0.3); 
-  overflow: hidden;
-}
-.img-perfil{
-  width: 100%; /* Ancho al 100% del contenedor */
-  height: auto; /* Alto al 100% del contenedor */
-  object-fit: cover; 
-  border-radius: 3px;
+.mv-td-date {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
 }
 
+.mv-empty {
+    text-align: center !important;
+    padding: 2rem 1rem !important;
+    color: $text-muted;
 
-
-
-@media screen and (max-width: 898px) {
-  .d-ancho{
-    width: 113px;
-  }
-
+    i { font-size: 1.6rem; display: block; margin-bottom: 6px; opacity: 0.3; }
+    p { margin: 0; font-size: 0.8rem; }
 }
 
-th{
-  text-align: center;
- }
-
-@media screen and (max-width: 1000px) {
-  .none{
-    display: none;
-  }
-  .mb-1, div{
-    padding-right: 1px;
-  }
-
+.mv-no-file {
+    color: lighten($text-muted, 20%);
+    font-size: 0.8rem;
 }
 
-@media screen and (max-width: 620px) {
-  .img{
-    width: 200px;
-    height: 200px;
-  }
-  
+// ─── Botones de archivo ───────────────────────────────────────────────────────
+.mv-file-actions {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+}
 
+.mv-file-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: $radius-sm;
+    border: none;
+    background: #296073;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background $transition;
+
+    &:hover { background: darken(#296073, 10%); }
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+.mv-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.5rem;
+    background: #fff;
+    border-top: 1px solid $border;
+    gap: 8px;
+}
+
+// ─── Botones generales ────────────────────────────────────────────────────────
+.mv-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    border-radius: $radius-sm;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all $transition;
+
+    i { font-size: 13px; }
+
+    &--ghost {
+        background: transparent;
+        color: $text-muted;
+        border: 1px solid $border;
+        &:hover { background: #f0f0f7; }
+    }
+
+    &--primary {
+        background: $primary;
+        color: #fff;
+        &:hover { background: $primary-dk; }
+    }
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 620px) {
+    .mv-title { max-width: 180px; font-size: 0.85rem; }
+    .mv-body { padding: 0.85rem; }
+    .mv-header { padding: 0.75rem 1rem; }
+    .mv-footer { padding: 0.75rem 1rem; }
 }

@@ -1,1054 +1,609 @@
 <div #modalDatos class="modal fade" tabIndex="-1" *teleportTo="'body'">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Informacion Detallada</h5>
-                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
-                </button>
+        <div class="modal-content mv-modal">
+
+            <!-- Header -->
+            <div class="mv-header">
+                <div class="mv-header-left">
+                    <div class="mv-header-avatar" *ngIf="fotoP; else iconFallback">
+                        <img [src]="fotoP" alt="foto empleado" class="mv-avatar-img" />
+                    </div>
+                    <ng-template #iconFallback>
+                        <div class="mv-header-avatar mv-avatar-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </ng-template>
+                    <div class="mv-header-info">
+                        <h5 class="mv-title">{{ nombres }} {{ aPaterno }} {{ aMaterno }}</h5>
+                        <p class="mv-subtitle">{{ numeroDocumento }} &nbsp;·&nbsp; {{ tipoDoc }}</p>
+                    </div>
+                </div>
+                <div class="mv-header-right">
+                    <span class="mv-badge" [ngClass]="estado === 'ACTIVO' ? 'mv-badge--activo' : 'mv-badge--historico'">
+                        <span class="mv-badge-dot"></span>{{ estado }}
+                    </span>
+                    <button class="mv-icon-btn" title="Imprimir" (click)="generarReporte()">
+                        <i class="fas fa-print"></i>
+                    </button>
+                    <button class="mv-icon-btn" title="Cerrar" (click)="closeModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
             </div>
-            <div class="modal-body">
+
+            <!-- Body -->
+            <div class="modal-body mv-body">
                 <app-loading [mostrar]="loading">
-                    <div class="row ps-4">
-                        <div class="col-xl-12">
-                            <div class="row pt-2">
-                                <div class="col-xl-12">
-                                    <div class="row w-100 d-block">
-                                        <div class="row  w-100 d-block">
-                                            <div class="row  d-flex justify-content-between ">
-                                                <div class="col-xl-4 d-flex justify-content-center justify-content-md-start">
-                                                    <span class="badge estado W-100 ms-xs-3" [ngClass]="estado === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{estado}}</span>
-                                                </div>
-                                                <div class="col-xl-2 ">
-                                                   <button class="btn btn-sm btn-primary" (click)="generarReporte()"><i class="fa-solid fa-print me-1"></i> Imprimir</button>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-4 d-flex align-items-center justify-content-center mb-2">
-                                                <div class="col-xl-2 col-md-3 col-sm-12 col-xs-12 img  mb-3 d-flex align-items-center justify-content-center" >
-                                                    <img [src]="fotoP" alt="imagen no encontrada"  class="img-fluid">
 
-                                                </div>
-                                                <div class="col-xl-10  col-md-9  col-sm-12 col-xs-12 ">
-                                                    <div class="row">   
-                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales ">
-                                                                    Tip Documento
-                                                                </div>
-                                                                <input type="text" class="form-control  text-uppercase"
-                                                                    id="tipDocumento" name="tipo" [(ngModel)]=" tipoDoc"
-                                                                    disabled>
-
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales ">
-                                                                    N° Documento
-                                                                </div>
-                                                                <input type="text"
-                                                                    class="form-control form-control-sm text-uppercase"
-                                                                    id="numeroDocumento" name="numeroDocumento" aria-label="Small"
-                                                                    [(ngModel)]="numeroDocumento" disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales">
-                                                                    Nacionalidad
-                                                                </div>
-                                                                <input type="text"
-                                                                    class="form-control form-control-sm text-uppercase"
-                                                                    id="nacionalidad" name="nacionalidad" aria-label="Small"
-                                                                    required [(ngModel)]="nacionalidad" disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1 ">
-                                                            <div class="input-group input-group-sm   ">
-                                                                <div class="input-group-text d-personales ">
-                                                                    Apll. Paterno
-                                                                </div>
-                                                                <input type="text" class="form-control  text-uppercase"
-                                                                    id="aPaterno" name="aPaterno" [(ngModel)]="aPaterno"
-                                                                    disabled>
-
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales ">
-                                                                    Apll. Materno
-                                                                </div>
-                                                                <input type="text"
-                                                                    class="form-control form-control-sm text-uppercase"
-                                                                    id="aMaterno" name="aMaterno" aria-label="Small"
-                                                                    [(ngModel)]="aMaterno" disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales">
-                                                                    Nombres
-                                                                </div>
-                                                                <input type="text"
-                                                                    class="form-control form-control-sm text-uppercase"
-                                                                    id="nombres" name="nombres" aria-label="Small"
-                                                                    disabled [(ngModel)]="nombres"
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-4 col-md-6 col-sm-6 col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales ">Sexo
-                                                                </div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                disabled aria-label="Small" [(ngModel)]="sexo"
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales">RUC
-                                                                    N°</div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    aria-label="Small" [(ngModel)]="ruc"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales ">F.
-                                                                    Nacimiento
-                                                                </div>
-                                                                <input type="date" class="form-control form-control-sm"
-                                                                    required aria-label="Small"
-                                                                    [(ngModel)]="fNacimiento"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales">
-                                                                    Telefono Fijo
-                                                                </div>
-                                                                <input type="number"
-                                                                    class="form-control form-control-sm"
-                                                                    aria-label="Small" [(ngModel)]="tFijo"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-md-6  col-sm-6  col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales">
-                                                                    Telefono Movil
-                                                                </div>
-                                                                <input type="number"
-                                                                    class="form-control form-control-sm"
-                                                                    aria-label="Small" [(ngModel)]="tMovil"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-md-6  col-sm-6 col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales ">
-                                                                    Correo E.</div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                   aria-label="Small" [(ngModel)]="correoE"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-
-                                                 
-                                                
-                                                        <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales"> G.
-                                                                    Sanguineo
-                                                                </div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    [(ngModel)]="gSanguineo" aria-label="Small"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales">
-                                                                    Enf./Alergias
-                                                                </div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    aria-label="Small" [(ngModel)]="enfAlergias"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4 col-md-6  col-sm-6 col-xs-6 mb-1">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales ">
-                                                                    Estado Civil
-                                                                </div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    aria-label="Small" [(ngModel)]="estadoCivil"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                  
-                                                </div>
-                                            </div>
-
-                                            <div class="card border mt-3">
-                                                <div class="card-header bg-transparent p-2">
-                                                    <h6 class="my-0 b-900">En caso de emergencia contactar a:
-                                                    </h6>
-                                                </div>
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-                                                        <div class="col-xl-5 mb-1 ps-0">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales ">Nombre 
-                                                                    contacto</div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    aria-label="Small" [(ngModel)]="nombreContacto"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3 ms-xl-4 mb-1 ps-0">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales">Parentesco</div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    aria-label="Small" [(ngModel)]="parentesco"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-3 ms-xl-4 mb-1 ps-0">
-                                                            <div class="input-group input-group-sm ">
-                                                                <div class="input-group-text d-personales">N° de contacto
-                                                                </div>
-                                                                <input type="text" class="form-control form-control-sm"
-                                                                    [(ngModel)]="numContacto" aria-label="Small" disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card border mt-3">
-                                                <div class="card-header bg-transparent p-2">
-                                                    <h6 class="my-0 b-900">Situacion Laboral Actual:
-                                                    </h6>
-                                                </div>
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-                                                       
-                                                            <div class="col-xl-3 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales ">
-                                                                        Condición
-                                                                    </div>
-                                                                    <input type="text" class="form-control form-control-sm"
-                                                                    [(ngModel)]="tipoEmp" aria-label="Small"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-4 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales ">
-                                                                        G.Ocupacional</div>
-                                                                        <input type="text" class="form-control form-control-sm"
-                                                                        [(ngModel)]="grupOcup" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-5 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales">
-                                                                        U.Organica/Dpto</div>
-                                                                        <input type="text" class="form-control form-control-sm"
-                                                                        [(ngModel)]="valorUnidad" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            
-                                                       
-                                                            
-                                                            <div class="col-xl-3 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales ">
-                                                                        Regimen</div>
-                                                                        <input type="text" class="form-control form-control-sm"
-                                                                        [(ngModel)]="valorRegimen" aria-label="Small" disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-4 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales ">
-                                                                        Tipo Regimen</div>
-                                                                        <input type="text" class="form-control form-control-sm"
-                                                                        [(ngModel)]="valortipRegimen" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-5 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales">
-                                                                        Servicio/Equipo</div>
-                                                                        <input type="text" class="form-control form-control-sm"
-                                                                        [(ngModel)]="valorServicio" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                           
-                                                 
-                                                            <div class="col-xl-3 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text  d-personales">
-                                                                       Codigo Airshp</div>
-                                                                        <input type="text" class="form-control form-control-sm"
-                                                                        [(ngModel)]="codigoAirhsp" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-4 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales">
-                                                                       Fecha Ingreso</div>
-                                                                        <input type="date" class="form-control form-control-sm"
-                                                                        [(ngModel)]="fechaIngreso" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-3 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales">Cargo</div>
-                                                                    <input type="text" class="form-control form-control-sm"
-                                                                    [(ngModel)]="valorCargo" aria-label="Small"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-2 mb-1 ps-0">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-ancho ">Nivel</div>
-                                                                    <input type="text" class="form-control form-control-sm"
-                                                                        [(ngModel)]="valorNivel" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card border mt-3">
-                                                <div class="card-header bg-transparent p-2">
-                                                    <h6 class="my-0 b-900">DISCAPACIDADES
-                                                    </h6>
-                                                </div>
-                                                <div class="card-body p-3">
-                                                  
-                                                         <div class="row">                 
-                                                             <div class="col-xl-12">
-                                                               @if(tipoDiscapacidad.length!==0){<p>Presenta Discapacidades de tipo:</p>}                                                                 
-                                                                 @for( dsp of tipoDiscapacidad; track dsp){                        
-                                                                       <span class="badge bg-secondary" style="font-size: 14px;margin-right: 10px;" >{{dsp.tipo}}</span>                                                                
-                                                                 }@empty {
-                                                                    <p class="text-center">NO PRESENTA DISCAPACIDADES</p>
-                                                                 }
-                                                             </div>                                                                                                        
-                                                         </div>
-                                                     
-                                                   
-                                                </div>
-                                            </div>
-                                            <div class="card border mt-3">
-                                                <div class="card-header bg-transparent p-2">
-                                                    <h6 class="my-0 b-900">DOMICILIO:
-                                                    </h6>
-                                                </div>
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-
-                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales ">
-                                                                        Departamento
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm"
-                                                                        [(ngModel)]="departamento" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales ">
-                                                                        Provincia</div>
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm"
-                                                                        [(ngModel)]="provincia" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm  ">
-                                                                    <div class="input-group-text d-ancho">Distrito
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm"
-                                                                        [(ngModel)]="distrito" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                    
-                                                    
-                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales ">
-                                                                        Tipo
-                                                                        de Via
-                                                                    </div>
-                                                                    <input type="text"
-                                                                    class="form-control form-control-sm"
-                                                                    [(ngModel)]="via" aria-label="Small"  disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales">
-                                                                        Nombre de la via
-                                                                    </div>
-                                                                    <input type="text" class="form-control"
-                                                                        [(ngModel)]="nombreVia" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-2 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-ancho ">Numero
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm"
-                                                                        [(ngModel)]="numeroVia" aria-label="Small" disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-2 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-ancho">Interior
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm"
-                                                                        [(ngModel)]="interiorVia" aria-label="Small"  disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                   
-                                                     
-                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales">
-                                                                        Tipo
-                                                                        de Zona
-                                                                    </div>
-                                                                    <input type="text"
-                                                                    class="form-control form-control-sm"
-                                                                    [(ngModel)]="zona" aria-label="Small" disabled
-                                                                    aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-xl-4 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text d-personales">
-                                                                        Nombre de Zona
-                                                                    </div>
-                                                                    <input type="text" class="form-control"
-                                                                        [(ngModel)]="nombreZona" aria-label="Small" disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-2 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm  ">
-                                                                    <div class="input-group-text d-ancho">Numero
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm"
-                                                                        [(ngModel)]="numeroZona" aria-label="Small" disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-2 col-md-6 col-sm-6  col-xs-6 mb-1">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text  d-ancho">Interior
-                                                                    </div>
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm"
-                                                                        [(ngModel)]="interiorZona" aria-label="Small" disabled
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-                                                 
-
-                                                      
-                                                            <div class="col-xl-12">
-                                                                <div class="input-group input-group-sm ">
-                                                                    <div class="input-group-text ">
-                                                                        Referencia</div>
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm"
-                                                                        [(ngModel)]="referenciaDomicilio"   disabled
-                                                                        aria-label="Small"
-                                                                        aria-describedby="inputGroup-sizing-sm">
-                                                                </div>
-                                                            </div>
-
-                                                     
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="card border mt-3">
-                                                <div class="card-header bg-transparent p-2">
-                                                    <h6 class="my-0 b-900">DATOS FAMILIARES:
-                                                    </h6>
-                                                </div>
-                                                <div class="card-body p-3">
-                                                    <div class="row table-responsive">
-                                                            <form>
-                                                                <table class="table table-responsive">
-                                                                    <thead  class="table-light">
-                                                                        <tr>
-                                                                            <th style="max-width:10px ;"  scope="col">#</th>
-                                                                            <th scope="col">TIPO DOC</th>
-                                                                            <th scope="col">N °DOC</th>
-                                                                            <th scope="col">NOMBRES</th>
-                                                                            <th scope="col">APELLIDOS</th>
-                                                                            <th scope="col">F. NACIMIENTO</th>                                                                       
-                                                                            <th scope="col">PARENTESCO</th>
-                                                                            <th scope="col">INSTITUCION LABORAL
-                                                                            </th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody class="table-group-divider">
-                                                                        @for( familiar of familiares ;track familiar ;let index=$index){
-                                                                            <tr>
-                                                                                <th scope="row" > {{index+1}}</th>
-                                                                                <td class="text-center"  [innerHTML]="familiar.tipoD"></td>
-                                                                                <td class="text-center"  [innerHTML]="familiar.dni"> </td>
-                                                                                <td class="text-center"  [innerHTML]="familiar.nombre"> </td>
-                                                                                <td class="text-center"  [innerHTML]="familiar.apellidos"> </td>
-                                                                                <td class="text-center"  [innerHTML]="familiar.fechaNacimiento"> </td>     
-                                                                                <td class="text-center"  [innerHTML]="familiar.parentesco"> </td>                                                                     
-                                                                                <td class="text-center"  [innerHTML]="familiar.centroLaboral"> </td>
-                                                                                
-                                                                            </tr>
-                                                                        }@empty {
-                                                                            <tr>
-                                                                                <td class="text-center" [colSpan]="8">
-                                                                                    <p class="text-center">NO HAY DATOS REGISTRADOS</p>
-                                                                                </td>
-                                                                            </tr>
-                                                                        }
-                                                                       
-                                                                    </tbody>
-                                                                </table>
-                                                            </form>                   
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card border mt-3">
-                                                <div class="card-header bg-transparent p-2">
-                                                    <h6 class="my-0 b-900">DATOS ESTUDIO SUPERIOR:
-                                                    </h6>
-                                                </div>
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-                                                        <div class="row d-block w-100 mt-3">
-                                                            <div class="row">
-                                                                <div class="col-xl-6 mb-1">
-                                                                    <div class="input-group input-group-sm ">
-                                                                        <div class="input-group-text  d-personales">
-                                                                            Profesion</div>
-                                                                        <input type="text"
-                                                                            class="form-control form-control-sm"
-                                                                            aria-label="Small" [(ngModel)]="profesion"disabled
-                                                                            aria-describedby="inputGroup-sizing-sm">
-                                                                    </div>
-                                                                </div>
-                                                                @if(lugarColeg!==''){
-                                                                    <div class="col-xl-6 mb-1">
-                                                                        <div class="input-group input-group-sm ">
-                                                                            <div class="input-group-text d-personales ">Lugar
-                                                                               
-                                                                                Colegiatura
-                                                                            </div>
-                                                                            <input type="text"
-                                                                                class="form-control form-control-sm"
-                                                                                aria-label="Small" [(ngModel)]="lugarColeg" disabled
-                                                                                aria-describedby="inputGroup-sizing-sm">
-                                                                        </div>
-                                                                    </div>
-    
-                                                                    <div class="col-xl-3 mb-1">
-                                                                        <div class="input-group input-group-sm ">
-                                                                            <div class="input-group-text d-personales">F. de
-                                                                                colegiatura
-                                                                            </div>
-                                                                            <input type="date"
-                                                                                class="form-control form-control-sm"
-                                                                                aria-label="Small" [(ngModel)]="fechColeg" disabled
-                                                                                aria-describedby="inputGroup-sizing-sm">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xl-3 mb-1">
-                                                                        <div class="input-group input-group-sm">
-                                                                            <div class="input-group-text d-personales">
-                                                                                F.Fin
-                                                                                habilitacion</div>
-                                                                            <input type="date"
-                                                                                class="form-control form-control-sm"
-                                                                                aria-label="Small"
-                                                                                [(ngModel)]="fechTerColeg" disabled
-                                                                                aria-describedby="inputGroup-sizing-sm">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-xl-3 mb-1">
-                                                                        <div class="input-group input-group-sm">
-                                                                            <div class="input-group-text d-personales">N°
-                                                                                Colegiatura
-                                                                            </div>
-                                                                            <input type="text"
-                                                                                class="form-control form-control-sm"
-                                                                                aria-label="Small" [(ngModel)]="numColeg" disabled
-                                                                                aria-describedby="inputGroup-sizing-sm">
-                                                                        </div>
-                                                                    </div>
-                                                                }
-                                                               
-                                                            </div>
-                                                                
-                                                  
-                                                            <div class="card border mt-3">
-                                                                <div class="card-header bg-transparent p-2">
-                                                                    <h6 class="my-0">ESTUDIOS SUPERIORES
-                                                                        (Universitarios
-                                                                        -
-                                                                        Tecnicos)
-                                                                    </h6>
-                                                                </div>
-                                                                <div class="card-body p-3">
-                                                                    <div class="row table-responsive">
-                                            
-                                                                            <table class="table table-responsive w-100">
-                                                                 
-                                                                                <thead class="table-light">
-                                                                                    <tr>
-                                                                                        <th scope="col">#</th>
-                                                                                        <th scope="col">TIPO</th>
-                                                                                        <th scope="col">CENTRO DE ESTUDIOS</th>
-                                                                                        <th scope="col">ESPECIALIDAD </th>
-                                                                                        <th scope="col">F.INICIO</th>
-                                                                                        <th scope="col">F.TERMINO</th>
-                                                                                        <th scope="col">NIVEL ALCANZADO</th>
-                                                                                        <th scope="col">DOCUMENTO</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    @for( super of estudioSuperior ;track super ;let index=$index){
-                                                                                        <tr>                                                                           
-                                                                                            <th scope="row" >{{index+1}}</th>
-                                                                                            <td class="text-center" [innerHTML]="super.tipo"></td>
-                                                                                            <td class="text-center" [innerHTML]="super.centro"></td>
-                                                                                            <td class="text-center" [innerHTML]="super.especialidad"></td>
-                                                                                            <td class="text-center" [innerHTML]="super.inicio"></td>
-                                                                                            <td class="text-center" [innerHTML]="super.termino"></td>   
-                                                                                            <td class="text-center"  [innerHTML]="super.nivel"></td>  
-                                                                                            @if(super.ruta!==''){
-                                                                                                <td class="text-center"> 
-                                                                                                    <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(super.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                                    <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(super.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                                </td>     
-                                                                                            }
-                                                                                                                                 
-                                                                                     </tr>
-                                                                                    }@empty {
-                                                                                        <tr>
-                                                                                            <td class="text-center" [colSpan]="8">
-                                                                                                <p class="text-center">NO HAY DATOS REGISTRADOS</p>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    }
-                                                                                   
-                                                                                </tbody>
-                                                                            </table>
-                                                                       
-                                                                          
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card border">
-                                                                <div class="card-header bg-transparent p-2">
-                                                                    <h6 class="my-0">ESTUDIOS POSTGRADO(
-                                                                        Maestria -
-                                                                        Doctorado)
-                                                                    </h6>
-                                                                </div>
-                                                                <div class="card-body p-3">
-                                                                    <div class="row table-responsive">
-                                                                            <table class="table table-responsive w-100">
-                                                                                @if(estudioPostgrado.length!=0){
-                                                                                    <thead class="table-light">
-                                                                                        <tr>
-                                                                                            <th scope="col">#</th>
-                                                                                            <th scope="col">TIPO</th>
-                                                                                            <th scope="col">CENTRO DE ESTUDIOS</th>
-                                                                                            <th scope="col">ESPECIALIDAD </th>
-                                                                                            <th scope="col">F.INICIO</th>
-                                                                                            <th scope="col">F.TERMINO</th>
-                                                                                            <th scope="col">NIVEL ALCANZADO</th>
-                                                                                            <th scope="col">DOCUMENTO</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                }                                                                              
-                                                                                <tbody>
-                                                                                    @for( postgrado of estudioPostgrado ;track postgrado ;let index=$index){
-                                                                                        <tr>                                                                           
-                                                                                            <th scope="row" >{{index+1}}</th>
-                                                                                            <td class="text-center" [innerHTML]="postgrado.tipo"></td>
-                                                                                            <td class="text-center" [innerHTML]="postgrado.centro"></td>
-                                                                                            <td class="text-center" [innerHTML]="postgrado.especialidad"></td>
-                                                                                            <td class="text-center" [innerHTML]="postgrado.inicio"></td>
-                                                                                            <td class="text-center" [innerHTML]="postgrado.termino"></td>   
-                                                                                            <td class="text-center"  [innerHTML]="postgrado.nivel"></td> 
-
-                                                                                            @if(postgrado.ruta!='') {
-                                                                                                <td class="text-center"> 
-                                                                                                    <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(postgrado.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                                    <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(postgrado.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                                </td>    
-                                                                                            }
-                                                                                                                                
-                                                                                        </tr>
-                                                                                    }@empty {
-                                                                                        <tr>
-                                                                                            <td class="text-center" [colSpan]="8">
-                                                                                                <p class="text-center">NO HAY DATOS REGISTRADOS</p>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    }
-                                                                                   
-                                                                                </tbody>
-                                                                            </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card border">
-                                                                <div class="card-header bg-transparent p-2">
-                                                                    <h6 class="my-0">ESPECIALIZACION - DIPLOMADOS</h6>
-                                                                </div>
-                                                                <div class="card-body p-3">
-                                                                    <div class="row table-responsive">
-                                                                            <table class="table table-responsive w-100">
-                                                                                @if(especializacion.length!=0){
-                                                                                    <thead class="table-light">
-                                                                                        <tr>
-                                                                                            <th scope="col">#</th>
-                                                                                            <th scope="col">TIPO</th>
-                                                                                            <th scope="col">CENTRO DE ESTUDIOS</th>
-                                                                                            <th scope="col">MATERIA </th>
-                                                                                            <th scope="col">F.INICIO</th>
-                                                                                            <th scope="col">F.TERMINO</th>
-                                                                                            <th scope="col">CERT. OBTENIDO</th>
-                                                                                            <th scope="col">DOCUMENTO</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                }                                                                      
-                                                                                <tbody>
-                                                                                    @for( especialidad of especializacion ;track especialidad ;let index=$index){
-                                                                                        <tr>                                                                           
-                                                                                            <th scope="row" >{{index+1}}</th>
-                                                                                            <td class="text-center" [innerHTML]="especialidad.tipo"></td>
-                                                                                            <td class="text-center" [innerHTML]="especialidad.centro"></td>
-                                                                                            <td class="text-center" [innerHTML]="especialidad.materia"></td>
-                                                                                            <td class="text-center" [innerHTML]="especialidad.inicio"></td>
-                                                                                            <td class="text-center" [innerHTML]="especialidad.termino"></td>   
-                                                                                            <td class="text-center"  [innerHTML]="especialidad.certificacion"></td>  
-                                                                                            @if(especialidad.ruta!=''){
-                                                                                                <td class="text-center">
-                                                                                                    <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(especialidad.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                                    <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(especialidad.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                                </td>    
-                                                                                            }
-                                                                                                                                  
-                                                                                     </tr>
-                                                                                    }@empty {
-                                                                                        <tr>
-                                                                                            <td class="text-center" [colSpan]="8">
-                                                                                                <p class="text-center">NO HAY DATOS REGISTRADOS</p>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    }
-                                                                                   
-                                                                                </tbody>
-                                                                            </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card border">
-                                                                <div class="card-header bg-transparent p-2">
-                                                                    <h6 class="my-0">CURSOS - SEMINARIOS</h6>
-                                                                </div>
-                                                                <div class="card-body p-3">
-                                                                    <div class="row table-responsive">
-                                                                        <table class="table table-responsive w-100">
-                                                                            @if(cursos.length!=0){
-                                                                                <thead class="table-light">
-                                                                                    <tr>
-                                                                                        <th scope="col">#</th>
-                                                                                        <th scope="col">TIPO</th>
-                                                                                        <th scope="col">CENTRO DE ESTUDIOS</th>
-                                                                                        <th scope="col">MATERIA </th>
-                                                                                        <th scope="col">F.INICIO</th>
-                                                                                        <th scope="col">F.TERMINO</th>
-                                                                                        <th scope="col">CERT. OBTENIDO</th>
-                                                                                        <th scope="col">DOCUMENTO</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                            }
-                                                                       
-                                                                            <tbody>
-                                                                             
-                                                                                @for( curso of cursos;track curso ;let index=$index){
-                                                                                    <tr>                                                                           
-                                                                                        <th scope="row" >{{index+1}}</th>
-                                                                                        <td class="text-center" [innerHTML]="curso.tipo"></td>
-                                                                                        <td class="text-center" [innerHTML]="curso.centro"></td>
-                                                                                        <td class="text-center" [innerHTML]="curso.materia"></td>
-                                                                                        <td class="text-center" [innerHTML]="curso.inicio"></td>
-                                                                                        <td class="text-center" [innerHTML]="curso.termino"></td>   
-                                                                                        <td class="text-center"  [innerHTML]="curso.certificacion"></td>  
-                                                                                        @if(curso.ruta!==''){
-                                                                                            <td class="text-center"> 
-                                                                                                <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(curso.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                                <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(curso.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                            </td>     
-                                                                                        }@else {
-                                                                                            <p>No hay archivo</p>
-                                                                                        }
-                                                                                                                            
-                                                                                 </tr>
-                                                                                }@empty {
-                                                                                    <tr>
-                                                                                        <td class="text-center" [colSpan]="8">
-                                                                                            <p class="text-center">NO HAY DATOS REGISTRADOS</p>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    
-                                                                                }
-                                                                          
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card border">
-                                                                <div class="card-header bg-transparent p-2">
-                                                                    <h6 class="my-0">IDIOMAS
-                                                                    </h6>
-                                                                </div>
-                                                                <div class="card-body p-3">
-                                                                    <div class="row table-responsive">
-                                                                        <table class="table table-responsive w-100">
-                                                                            @if(idiomas.length!=0){
-                                                                                <thead class="table-light">
-                                                                                    <tr>
-                                                                                        <th scope="col">#</th>
-                                                                                        <th scope="col">IDIOMA</th>
-                                                                                        <th scope="col">NIVEL</th>
-                                                                                        <th scope="col">DOCUMENTO</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                            }
-                                                                       
-                                                                            <tbody>
-                                                                                @for( idioma of idiomas;track idioma ;let index=$index){
-                                                                                    <tr>                                                                           
-                                                                                        <th scope="row" >{{index+1}}</th>
-                                                                                        <td class="text-center" [innerHTML]="idioma.lenguaE"></td>
-                                                                                        <td class="text-center" [innerHTML]="idioma.nivel"></td> 
-                                                                                        @if(idioma.ruta!==''){
-                                                                                            <td class="text-center"> 
-                                                                                                <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(idioma.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                                <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(idioma.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                            </td>   
-                                                                                        }
-                                                                                                                            
-                                                                                 </tr>
-                                                                                }@empty {
-                                                                                    <tr>
-                                                                                        <td class="text-center" [colSpan]="8">
-                                                                                            <p class="text-center">NO HAY DATOS REGISTRADOS</p>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                    
-                                                                                }
-                                                                               
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="card border mt-3">
-                                                <div class="card-header bg-transparent p-2">
-                                                    <h6 class="my-0 b-900">EXPERIENCIA:
-                                                    </h6>
-                                                </div>
-                                                <div class="card-body p-3">
-                                                    <div class="row">
-                                                        <div class="card border">
-                                                            <div class="card-header bg-transparent p-2">
-                                                                <h6 class="my-0">Experiencia Laboral
-                                                                </h6>
-                                                            </div>
-                                                            <div class="card-body p-3">
-                                                                <div class="row table-responsive">
-                                                                    <table class="table table-responsive w-100">
-                                                                        @if(experienciaLaboral.length!=0){
-                                                                            <thead class="table-light">
-                                                                                <tr>
-                                                                                    <th scope="col">#</th>
-                                                                                    <th scope="col">INSTITUCION/EMPRESA</th>
-                                                                                    <th scope="col">CARGO - ACTIVIDAD</th>
-                                                                                    <th scope="col">F. INICIO</th>
-                                                                                    <th scope="col">F.TERMINO</th>
-                                                                                    <th scope="col">DOCUMENTO</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                        }
-                                                                   
-                                                                        <tbody>
-                                                                            @for( labor of experienciaLaboral;track labor ;let index=$index){
-                                                                                <tr>                                                                           
-                                                                                    <th scope="row" >{{index+1}}</th>
-                                                                                    <td class="text-center" [innerHTML]="labor.institucion"></td>
-                                                                                    <td class="text-center" [innerHTML]="labor.cargo"></td>  
-                                                                                    <td class="text-center" [innerHTML]="labor.inicio"></td>  
-                                                                                    <td class="text-center" [innerHTML]="labor.termino"></td>  
-                                                                                    @if(labor.ruta !==''){
-                                                                                        <td class="text-center"> 
-                                                                                            <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(labor.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                            <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(labor.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                        </td>       
-                                                                                    }
-                                                                                                                        
-                                                                             </tr>
-                                                                            }@empty {
-                                                                                <tr>
-                                                                                    <td class="text-center" [colSpan]="8">
-                                                                                        <p class="text-center">NO HAY DATOS REGISTRADOS</p>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                
-                                                                            }
-                                                                           
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card border">
-                                                            <div class="card-header bg-transparent p-2">
-                                                                <h6 class="my-0">Experiencia de Docencia
-                                                                </h6>
-                                                            </div>
-                                                            <div class="card-body p-3">
-                                                                <div class="row table-responsive">
-                                                                    <table class="table table-responsive w-100">
-                                                                        @if(laborDocencia.length!=0){
-                                                                            <thead class="table-light">
-                                                                                <tr>
-                                                                                    <th scope="col">#</th>
-                                                                                    <th scope="col">INSTITUCION/EMPRESA</th>
-                                                                                    <th scope="col">CURSO</th>
-                                                                                    <th scope="col">F. INICIO</th>
-                                                                                    <th scope="col">F.TERMINO</th>
-                                                                                    <th scope="col">DOCUMENTO</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                        }
-                                                                   
-                                                                        <tbody>
-                                                                            @for( docencia of laborDocencia ;track docencia ;let index=$index){
-                                                                                <tr>                                                                           
-                                                                                    <th scope="row" >{{index+1}}</th>
-                                                                                    <td class="text-center" [innerHTML]="docencia.centro"></td>
-                                                                                    <td class="text-center" [innerHTML]="docencia.curso"></td>  
-                                                                                    <td class="text-center" [innerHTML]="docencia.inicio"></td>  
-                                                                                    <td class="text-center" [innerHTML]="docencia.termino"></td>  
-                                                                                    @if(docencia.ruta!==''){
-                                                                                        <td class="text-center"> 
-                                                                                            <button class="btn bg-descarga btn-sm" type="button" (click)="descargarArchivo(docencia.ruta,'ver')"><i class="fa-solid fa-eye"></i> </button>
-                                                                                            <button class="btn bg-descarga btn-sm ms-2" type="button" (click)="descargarArchivo(docencia.ruta,'descargar')"><i class="fa-solid fa-download"></i> </button>
-                                                                                        </td> 
-                                                                                    }
-                                                                                                                           
-                                                                                  
-
-                                                                                </tr>
-                                                                            }@empty {
-                                                                                <tr>
-                                                                                    <td class="text-center" [colSpan]="8">
-                                                                                        <p class="text-center">NO HAY DATOS REGISTRADOS</p>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                
-                                                                            }                                
-                                                                        </tbody>
-                                                                    </table>
-
-                                                                </div>
-                                                            </div>
-                                             
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- fin de datos genrales -->
-
-                                    </div>
+                    <!-- ── DATOS PERSONALES ── -->
+                    <div class="mv-section">
+                        <div class="mv-section-header">
+                            <i class="fas fa-id-card"></i>
+                            <span>Datos Personales</span>
+                        </div>
+                        <div class="mv-section-body">
+                            <div class="mv-grid mv-grid--3">
+                                <div class="mv-field">
+                                    <label class="mv-label">Tipo Documento</label>
+                                    <div class="mv-value">{{ tipoDoc || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">N° Documento</label>
+                                    <div class="mv-value">{{ numeroDocumento || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Nacionalidad</label>
+                                    <div class="mv-value">{{ nacionalidad || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Apellido Paterno</label>
+                                    <div class="mv-value">{{ aPaterno || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Apellido Materno</label>
+                                    <div class="mv-value">{{ aMaterno || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Nombres</label>
+                                    <div class="mv-value">{{ nombres || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Sexo</label>
+                                    <div class="mv-value">{{ sexo || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">RUC N°</label>
+                                    <div class="mv-value">{{ ruc || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Fecha de Nacimiento</label>
+                                    <div class="mv-value">{{ fNacimiento || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Teléfono Fijo</label>
+                                    <div class="mv-value">{{ tFijo || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Teléfono Móvil</label>
+                                    <div class="mv-value">{{ tMovil || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Correo Electrónico</label>
+                                    <div class="mv-value">{{ correoE || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Grupo Sanguíneo</label>
+                                    <div class="mv-value">{{ gSanguineo || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Enf. / Alergias</label>
+                                    <div class="mv-value">{{ enfAlergias || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Estado Civil</label>
+                                    <div class="mv-value">{{ estadoCivil || '—' }}</div>
                                 </div>
                             </div>
                         </div>
-
-                    </div> <!-- fin del acordtion datos profesioanles  -->
-                    
-                </app-loading>
-
-                <div class="modal-footer justify-content-between">
-
-                    <div>
-                        <button class="btn btn-danger waves-light waves-effect btn-label m-1" type="button"
-                            (click)="closeModal()">
-                            Salir &ensp;<i class="fas fa-door-open label-icon"></i></button>
                     </div>
-                </div>
+
+                    <!-- ── CONTACTO EMERGENCIA ── -->
+                    <div class="mv-section">
+                        <div class="mv-section-header">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>Contacto de Emergencia</span>
+                        </div>
+                        <div class="mv-section-body">
+                            <div class="mv-grid mv-grid--3">
+                                <div class="mv-field mv-field--wide">
+                                    <label class="mv-label">Nombre del Contacto</label>
+                                    <div class="mv-value">{{ nombreContacto || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Parentesco</label>
+                                    <div class="mv-value">{{ parentesco || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">N° de Contacto</label>
+                                    <div class="mv-value">{{ numContacto || '—' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── SITUACIÓN LABORAL ── -->
+                    <div class="mv-section">
+                        <div class="mv-section-header">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Situación Laboral Actual</span>
+                        </div>
+                        <div class="mv-section-body">
+                            <div class="mv-grid mv-grid--3">
+                                <div class="mv-field">
+                                    <label class="mv-label">Condición</label>
+                                    <div class="mv-value">{{ tipoEmp || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Grupo Ocupacional</label>
+                                    <div class="mv-value">{{ grupOcup || '—' }}</div>
+                                </div>
+                                <div class="mv-field mv-field--wide">
+                                    <label class="mv-label">Unidad Orgánica / Dpto.</label>
+                                    <div class="mv-value">{{ valorUnidad || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Régimen</label>
+                                    <div class="mv-value">{{ valorRegimen || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Tipo de Régimen</label>
+                                    <div class="mv-value">{{ valortipRegimen || '—' }}</div>
+                                </div>
+                                <div class="mv-field mv-field--wide">
+                                    <label class="mv-label">Servicio / Equipo</label>
+                                    <div class="mv-value">{{ valorServicio || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Código AIRHSP</label>
+                                    <div class="mv-value">{{ codigoAirhsp || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Fecha de Ingreso</label>
+                                    <div class="mv-value">{{ fechaIngreso || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Cargo</label>
+                                    <div class="mv-value">{{ valorCargo || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Nivel</label>
+                                    <div class="mv-value">{{ valorNivel || '—' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── DISCAPACIDADES ── -->
+                    <div class="mv-section">
+                        <div class="mv-section-header">
+                            <i class="fas fa-universal-access"></i>
+                            <span>Discapacidades</span>
+                        </div>
+                        <div class="mv-section-body">
+                            <ng-container *ngIf="tipoDiscapacidad.length > 0; else noDiscap">
+                                <p class="mv-text-muted mb-2">Presenta discapacidades de tipo:</p>
+                                <div class="mv-tags">
+                                    @for(dsp of tipoDiscapacidad; track dsp) {
+                                        <span class="mv-tag">{{ dsp.tipo }}</span>
+                                    }
+                                </div>
+                            </ng-container>
+                            <ng-template #noDiscap>
+                                <div class="mv-empty-inline">
+                                    <i class="fas fa-check-circle"></i>
+                                    No presenta discapacidades registradas
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                    <!-- ── DOMICILIO ── -->
+                    <div class="mv-section">
+                        <div class="mv-section-header">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Domicilio</span>
+                        </div>
+                        <div class="mv-section-body">
+                            <div class="mv-grid mv-grid--3">
+                                <div class="mv-field">
+                                    <label class="mv-label">Departamento</label>
+                                    <div class="mv-value">{{ departamento || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Provincia</label>
+                                    <div class="mv-value">{{ provincia || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Distrito</label>
+                                    <div class="mv-value">{{ distrito || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Tipo de Vía</label>
+                                    <div class="mv-value">{{ via || '—' }}</div>
+                                </div>
+                                <div class="mv-field mv-field--wide">
+                                    <label class="mv-label">Nombre de la Vía</label>
+                                    <div class="mv-value">{{ nombreVia || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Número</label>
+                                    <div class="mv-value">{{ numeroVia || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Interior</label>
+                                    <div class="mv-value">{{ interiorVia || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Tipo de Zona</label>
+                                    <div class="mv-value">{{ zona || '—' }}</div>
+                                </div>
+                                <div class="mv-field mv-field--wide">
+                                    <label class="mv-label">Nombre de Zona</label>
+                                    <div class="mv-value">{{ nombreZona || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Número Zona</label>
+                                    <div class="mv-value">{{ numeroZona || '—' }}</div>
+                                </div>
+                                <div class="mv-field">
+                                    <label class="mv-label">Interior Zona</label>
+                                    <div class="mv-value">{{ interiorZona || '—' }}</div>
+                                </div>
+                                <div class="mv-field mv-field--full">
+                                    <label class="mv-label">Referencia</label>
+                                    <div class="mv-value">{{ referenciaDomicilio || '—' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── DATOS FAMILIARES ── -->
+                    <div class="mv-section">
+                        <div class="mv-section-header">
+                            <i class="fas fa-users"></i>
+                            <span>Datos Familiares</span>
+                            <span class="mv-badge-count" *ngIf="familiares.length > 0">{{ familiares.length }}</span>
+                        </div>
+                        <div class="mv-section-body p-0">
+                            <div class="mv-table-wrap">
+                                <table class="mv-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th><th>Tipo Doc</th><th>N° Doc</th>
+                                            <th>Nombres</th><th>Apellidos</th>
+                                            <th>F. Nacimiento</th><th>Parentesco</th>
+                                            <th>Inst. Laboral</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for(familiar of familiares; track familiar; let i = $index) {
+                                            <tr>
+                                                <td class="mv-td-idx">{{ i+1 }}</td>
+                                                <td [innerHTML]="familiar.tipoD"></td>
+                                                <td [innerHTML]="familiar.dni"></td>
+                                                <td [innerHTML]="familiar.nombre"></td>
+                                                <td [innerHTML]="familiar.apellidos"></td>
+                                                <td class="mv-td-date" [innerHTML]="familiar.fechaNacimiento"></td>
+                                                <td [innerHTML]="familiar.parentesco"></td>
+                                                <td [innerHTML]="familiar.centroLaboral"></td>
+                                            </tr>
+                                        } @empty {
+                                            <tr><td colspan="8" class="mv-empty">
+                                                <i class="fas fa-inbox"></i><p>Sin registros</p>
+                                            </td></tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── ESTUDIOS ── -->
+                    <div class="mv-section">
+                        <div class="mv-section-header">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Datos de Estudio Superior</span>
+                        </div>
+                        <div class="mv-section-body">
+
+                            <!-- Profesión / Colegiatura -->
+                            <div class="mv-grid mv-grid--3 mb-3">
+                                <div class="mv-field mv-field--wide">
+                                    <label class="mv-label">Profesión</label>
+                                    <div class="mv-value">{{ profesion || '—' }}</div>
+                                </div>
+                                <ng-container *ngIf="lugarColeg">
+                                    <div class="mv-field mv-field--wide">
+                                        <label class="mv-label">Lugar de Colegiatura</label>
+                                        <div class="mv-value">{{ lugarColeg }}</div>
+                                    </div>
+                                    <div class="mv-field">
+                                        <label class="mv-label">F. Colegiatura</label>
+                                        <div class="mv-value">{{ fechColeg || '—' }}</div>
+                                    </div>
+                                    <div class="mv-field">
+                                        <label class="mv-label">F. Fin Habilitación</label>
+                                        <div class="mv-value">{{ fechTerColeg || '—' }}</div>
+                                    </div>
+                                    <div class="mv-field">
+                                        <label class="mv-label">N° Colegiatura</label>
+                                        <div class="mv-value">{{ numColeg || '—' }}</div>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <!-- Estudios Superiores -->
+                            <div class="mv-subsection">
+                                <div class="mv-subsection-header">Estudios Superiores (Universitarios - Técnicos)</div>
+                                <div class="mv-table-wrap">
+                                    <table class="mv-table">
+                                        <thead>
+                                            <tr><th>#</th><th>Tipo</th><th>Centro de Estudios</th><th>Especialidad</th><th>F.Inicio</th><th>F.Término</th><th>Nivel</th><th>Doc.</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            @for(s of estudioSuperior; track s; let i=$index) {
+                                                <tr>
+                                                    <td class="mv-td-idx">{{i+1}}</td>
+                                                    <td [innerHTML]="s.tipo"></td><td [innerHTML]="s.centro"></td>
+                                                    <td [innerHTML]="s.especialidad"></td>
+                                                    <td class="mv-td-date" [innerHTML]="s.inicio"></td>
+                                                    <td class="mv-td-date" [innerHTML]="s.termino"></td>
+                                                    <td [innerHTML]="s.nivel"></td>
+                                                    <td>
+                                                        <ng-container *ngIf="s.ruta; else noFile">
+                                                            <div class="mv-file-actions">
+                                                                <button class="mv-file-btn" title="Ver" (click)="descargarArchivo(s.ruta,'ver')"><i class="fa-solid fa-eye"></i></button>
+                                                                <button class="mv-file-btn" title="Descargar" (click)="descargarArchivo(s.ruta,'descargar')"><i class="fa-solid fa-download"></i></button>
+                                                            </div>
+                                                        </ng-container>
+                                                        <ng-template #noFile><span class="mv-no-file">—</span></ng-template>
+                                                    </td>
+                                                </tr>
+                                            } @empty {
+                                                <tr><td colspan="8" class="mv-empty"><i class="fas fa-inbox"></i><p>Sin registros</p></td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Postgrado -->
+                            <div class="mv-subsection">
+                                <div class="mv-subsection-header">Estudios Postgrado (Maestría - Doctorado)</div>
+                                <div class="mv-table-wrap">
+                                    <table class="mv-table">
+                                        <thead>
+                                            <tr><th>#</th><th>Tipo</th><th>Centro de Estudios</th><th>Especialidad</th><th>F.Inicio</th><th>F.Término</th><th>Nivel</th><th>Doc.</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            @for(p of estudioPostgrado; track p; let i=$index) {
+                                                <tr>
+                                                    <td class="mv-td-idx">{{i+1}}</td>
+                                                    <td [innerHTML]="p.tipo"></td><td [innerHTML]="p.centro"></td>
+                                                    <td [innerHTML]="p.especialidad"></td>
+                                                    <td class="mv-td-date" [innerHTML]="p.inicio"></td>
+                                                    <td class="mv-td-date" [innerHTML]="p.termino"></td>
+                                                    <td [innerHTML]="p.nivel"></td>
+                                                    <td>
+                                                        <ng-container *ngIf="p.ruta">
+                                                            <div class="mv-file-actions">
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(p.ruta,'ver')"><i class="fa-solid fa-eye"></i></button>
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(p.ruta,'descargar')"><i class="fa-solid fa-download"></i></button>
+                                                            </div>
+                                                        </ng-container>
+                                                    </td>
+                                                </tr>
+                                            } @empty {
+                                                <tr><td colspan="8" class="mv-empty"><i class="fas fa-inbox"></i><p>Sin registros</p></td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Especializaciones -->
+                            <div class="mv-subsection">
+                                <div class="mv-subsection-header">Especialización - Diplomados</div>
+                                <div class="mv-table-wrap">
+                                    <table class="mv-table">
+                                        <thead>
+                                            <tr><th>#</th><th>Tipo</th><th>Centro</th><th>Materia</th><th>F.Inicio</th><th>F.Término</th><th>Cert.</th><th>Doc.</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            @for(e of especializacion; track e; let i=$index) {
+                                                <tr>
+                                                    <td class="mv-td-idx">{{i+1}}</td>
+                                                    <td [innerHTML]="e.tipo"></td><td [innerHTML]="e.centro"></td>
+                                                    <td [innerHTML]="e.materia"></td>
+                                                    <td class="mv-td-date" [innerHTML]="e.inicio"></td>
+                                                    <td class="mv-td-date" [innerHTML]="e.termino"></td>
+                                                    <td [innerHTML]="e.certificacion"></td>
+                                                    <td>
+                                                        <ng-container *ngIf="e.ruta">
+                                                            <div class="mv-file-actions">
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(e.ruta,'ver')"><i class="fa-solid fa-eye"></i></button>
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(e.ruta,'descargar')"><i class="fa-solid fa-download"></i></button>
+                                                            </div>
+                                                        </ng-container>
+                                                    </td>
+                                                </tr>
+                                            } @empty {
+                                                <tr><td colspan="8" class="mv-empty"><i class="fas fa-inbox"></i><p>Sin registros</p></td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Cursos -->
+                            <div class="mv-subsection">
+                                <div class="mv-subsection-header">Cursos - Seminarios</div>
+                                <div class="mv-table-wrap">
+                                    <table class="mv-table">
+                                        <thead>
+                                            <tr><th>#</th><th>Tipo</th><th>Centro</th><th>Materia</th><th>F.Inicio</th><th>F.Término</th><th>Cert.</th><th>Doc.</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            @for(c of cursos; track c; let i=$index) {
+                                                <tr>
+                                                    <td class="mv-td-idx">{{i+1}}</td>
+                                                    <td [innerHTML]="c.tipo"></td><td [innerHTML]="c.centro"></td>
+                                                    <td [innerHTML]="c.materia"></td>
+                                                    <td class="mv-td-date" [innerHTML]="c.inicio"></td>
+                                                    <td class="mv-td-date" [innerHTML]="c.termino"></td>
+                                                    <td [innerHTML]="c.certificacion"></td>
+                                                    <td>
+                                                        <ng-container *ngIf="c.ruta; else noFileCurso">
+                                                            <div class="mv-file-actions">
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(c.ruta,'ver')"><i class="fa-solid fa-eye"></i></button>
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(c.ruta,'descargar')"><i class="fa-solid fa-download"></i></button>
+                                                            </div>
+                                                        </ng-container>
+                                                        <ng-template #noFileCurso><span class="mv-no-file">—</span></ng-template>
+                                                    </td>
+                                                </tr>
+                                            } @empty {
+                                                <tr><td colspan="8" class="mv-empty"><i class="fas fa-inbox"></i><p>Sin registros</p></td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Idiomas -->
+                            <div class="mv-subsection">
+                                <div class="mv-subsection-header">Idiomas</div>
+                                <div class="mv-table-wrap">
+                                    <table class="mv-table">
+                                        <thead>
+                                            <tr><th>#</th><th>Idioma</th><th>Nivel</th><th>Doc.</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            @for(id of idiomas; track id; let i=$index) {
+                                                <tr>
+                                                    <td class="mv-td-idx">{{i+1}}</td>
+                                                    <td [innerHTML]="id.lenguaE"></td>
+                                                    <td [innerHTML]="id.nivel"></td>
+                                                    <td>
+                                                        <ng-container *ngIf="id.ruta">
+                                                            <div class="mv-file-actions">
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(id.ruta,'ver')"><i class="fa-solid fa-eye"></i></button>
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(id.ruta,'descargar')"><i class="fa-solid fa-download"></i></button>
+                                                            </div>
+                                                        </ng-container>
+                                                    </td>
+                                                </tr>
+                                            } @empty {
+                                                <tr><td colspan="4" class="mv-empty"><i class="fas fa-inbox"></i><p>Sin registros</p></td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- ── EXPERIENCIA ── -->
+                    <div class="mv-section">
+                        <div class="mv-section-header">
+                            <i class="fas fa-history"></i>
+                            <span>Experiencia</span>
+                        </div>
+                        <div class="mv-section-body">
+
+                            <div class="mv-subsection">
+                                <div class="mv-subsection-header">Experiencia Laboral</div>
+                                <div class="mv-table-wrap">
+                                    <table class="mv-table">
+                                        <thead>
+                                            <tr><th>#</th><th>Institución / Empresa</th><th>Cargo / Actividad</th><th>F.Inicio</th><th>F.Término</th><th>Doc.</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            @for(l of experienciaLaboral; track l; let i=$index) {
+                                                <tr>
+                                                    <td class="mv-td-idx">{{i+1}}</td>
+                                                    <td [innerHTML]="l.institucion"></td>
+                                                    <td [innerHTML]="l.cargo"></td>
+                                                    <td class="mv-td-date" [innerHTML]="l.inicio"></td>
+                                                    <td class="mv-td-date" [innerHTML]="l.termino"></td>
+                                                    <td>
+                                                        <ng-container *ngIf="l.ruta">
+                                                            <div class="mv-file-actions">
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(l.ruta,'ver')"><i class="fa-solid fa-eye"></i></button>
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(l.ruta,'descargar')"><i class="fa-solid fa-download"></i></button>
+                                                            </div>
+                                                        </ng-container>
+                                                    </td>
+                                                </tr>
+                                            } @empty {
+                                                <tr><td colspan="6" class="mv-empty"><i class="fas fa-inbox"></i><p>Sin registros</p></td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="mv-subsection">
+                                <div class="mv-subsection-header">Experiencia Docente</div>
+                                <div class="mv-table-wrap">
+                                    <table class="mv-table">
+                                        <thead>
+                                            <tr><th>#</th><th>Institución / Empresa</th><th>Curso</th><th>F.Inicio</th><th>F.Término</th><th>Doc.</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            @for(d of laborDocencia; track d; let i=$index) {
+                                                <tr>
+                                                    <td class="mv-td-idx">{{i+1}}</td>
+                                                    <td [innerHTML]="d.centro"></td>
+                                                    <td [innerHTML]="d.curso"></td>
+                                                    <td class="mv-td-date" [innerHTML]="d.inicio"></td>
+                                                    <td class="mv-td-date" [innerHTML]="d.termino"></td>
+                                                    <td>
+                                                        <ng-container *ngIf="d.ruta">
+                                                            <div class="mv-file-actions">
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(d.ruta,'ver')"><i class="fa-solid fa-eye"></i></button>
+                                                                <button class="mv-file-btn" (click)="descargarArchivo(d.ruta,'descargar')"><i class="fa-solid fa-download"></i></button>
+                                                            </div>
+                                                        </ng-container>
+                                                    </td>
+                                                </tr>
+                                            } @empty {
+                                                <tr><td colspan="6" class="mv-empty"><i class="fas fa-inbox"></i><p>Sin registros</p></td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </app-loading>
             </div>
+
+            <!-- Footer -->
+            <div class="mv-footer">
+                <button class="mv-btn mv-btn--ghost" type="button" (click)="closeModal()">
+                    <i class="fas fa-door-open"></i> Salir
+                </button>
+                <button class="mv-btn mv-btn--primary" type="button" (click)="generarReporte()">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+            </div>
+
         </div>
     </div>
-    <app-modal-ver-archivo></app-modal-ver-archivo>
+</div>
+
+<app-modal-ver-archivo></app-modal-ver-archivo>

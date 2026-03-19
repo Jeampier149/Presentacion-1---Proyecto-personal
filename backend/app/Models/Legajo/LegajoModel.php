@@ -77,7 +77,7 @@ class LegajoModel extends Model
         try {
             // Iterar sobre los datos personales 
             try {
-                $resultado = DB::selectOne('EXEC dbo.pl_sp_insertar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                $resultado = DB::selectOne('EXEC dbo.pl_sp_insertar_personal ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
                     $datosPersonales['tipoDocumento'],
                     $datosPersonales['numeroDocumento'],
                     $datosPersonales['codigoAirhsp'],
@@ -99,7 +99,6 @@ class LegajoModel extends Model
                     $datosPersonales['enfAlergias'],
                     $datosPersonales['fechaIngreso'],
                     $datosPersonales['unidadOrganica'],
-                    $datosPersonales['servicio'],
                     $datosPersonales['rutaFoto'],
                     $datosPersonales['nacionalidad'],
                     $datosPersonales['cargo'],
@@ -465,13 +464,12 @@ class LegajoModel extends Model
 
             //editar situacion laboral
             try {
-                   DB::statement('EXEC dbo.pl_sp_editar_situacion_laboral ?,?,?,?,?,?,?,?,?,?,?,?,?,?', [
+                   DB::statement('EXEC dbo.pl_sp_editar_situacion_laboral ?,?,?,?,?,?,?,?,?,?,?,?,?', [
                     $datosSituacionLaboral['condicion']??'',
                     $datosSituacionLaboral['grupOcup']??'',
                     $datosSituacionLaboral['regimen']??'',
                     $datosSituacionLaboral['tipoRegimen']??'',
                     $datosSituacionLaboral['unidad']??'',
-                    $datosSituacionLaboral['servicio']??'',
                     $datosSituacionLaboral['cargo']??'',
                     $datosSituacionLaboral['nivelCargo']??'',
                     $datosSituacionLaboral['airhsp']??'',

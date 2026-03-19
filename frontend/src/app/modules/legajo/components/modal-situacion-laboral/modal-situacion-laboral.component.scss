@@ -1,151 +1,424 @@
-fieldset, legend {
-    all: revert;
- }
- .fa-magnifying-glass{
-    color: white;
- }
- .input-group-text{
-    background-color: #5156BE;
-    color: white;
- }
+// ─── Variables ─────────────────────────────────────────────────────────────
+$primary:    #5156BE;
+$primary-dk: #3d41a0;
+$teal:       #0F888D;
+$teal-dk:    #0a6b6f;
+$slate:      #474554;
+$slate-dk:   #333240;
+$activo:     #00999C;
+$historico:  #6b6880;
+$border:     #e2e4f0;
+$surface:    #f7f8fc;
+$text:       #1e1e2e;
+$text-muted: #6e6e8a;
+$radius:     10px;
+$radius-sm:  6px;
+$transition: 0.18s ease;
 
-.bg-agg{
-background-color:#0F888D;
-color: white;
-}
-.bg-delete{
-   background-color: #474554;
-   color: white;
-}
-
-[data-title]:hover:after {
-   opacity: 1;
-   transition: all 0.1s ease 0.5s;
-   visibility: visible;
-}
-[data-title]:after {
-   content: attr(data-title);
-   background-color: #666666;
-   color: #fff;
-   font-size: 14px;
-   font-family: Raleway;
-   position: absolute;
-   padding: 3px 20px;
-   bottom: -1.6em;
-   left: 100%;
-   white-space: nowrap;
-   box-shadow: 1px 1px 3px #222222;
-   opacity: 0;
-   border: 1px solid #111111;
-   z-index: 99999;
-   visibility: hidden;
-   border-radius: 6px;
-   
-}
-[data-title] {
-   position: relative;
+// ─── Modal base ────────────────────────────────────────────────────────────
+.sl-modal {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.18);
 }
 
-.d-personales{
-   width: 80px;
+// ─── Header ────────────────────────────────────────────────────────────────
+.sl-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background: $primary;
+    color: #fff;
+    gap: 12px;
 }
 
-/* app.component.css */
-.preview-container {
-   display: flex;
-   flex-wrap: wrap;
-   margin-top: 10px;
- }
- 
- .file-preview {
-   margin: 5px;
-   padding: 10px;
-   border: 1px solid #ddd;
-   border-radius: 4px;
- }
- 
- .preview-image {
-
-   max-width: 100%;
-   max-height: 100px;
- }
- .data-local{
-   font-size: 12px;
- }
- 
-
- .col-xl-2.col-8 {
-   position: relative;
- }
- 
- .col-xl-2.col-8 ngx-dropzone-image-preview {
-   width: 100%;
-   height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
- }
- 
- .col-xl-2.col-8 ngx-dropzone-image-preview img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover; /* La imagen cubrirá todo el contenedor sin distorsionarla */
- }
-
-
- 
- /* Estilo para el datalist */
- datalist {
-   display: none; /* Oculta el datalist por defecto */
- }
- 
- /* Estilo para mostrar las opciones */
- input[list]::-webkit-calendar-picker-indicator {
-   display: none;
- }
- 
- input[list] {
-   -webkit-appearance: menulist; /* Establece la apariencia como un menú desplegable */
-   -moz-appearance: menulist;
-   appearance: menulist;
- }
-
- .bg-activo{
-  background-color: #00999C;
-}
-.bg-historico{
-  background-color: #474554;
-}
-.ver{
-  opacity: 0;
+.sl-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-td,th{
-  text-align: center;
+.sl-header-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
 }
 
-.rsp{
-  width: 100px;
+.sl-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #fff;
 }
 
-.rspp{
-  width: 110px;
-}
-@media screen and (max-width: 1000px) {
-
-  .mb-1, div{
-    padding-right: 0;
-  }
-  .ancho{
-    width: 110px;
-  }
-  .estado-res{
-    width: 110px;
-  }
-
+.sl-subtitle {
+    margin: 0;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.75);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 260px;
 }
 
-ng-select {
-  height: 34px!important;
-  min-height: 34px!important;
+.sl-header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
+
+.sl-close-btn {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: background $transition;
+
+    &:hover { background: rgba(255,255,255,0.28); }
+}
+
+// ─── Badge de estado ────────────────────────────────────────────────────────
+.sl-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    .sl-badge-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    &--activo {
+        background: rgba(0,200,184,0.18);
+        color: #a8fff7;
+        .sl-badge-dot { background: #00e5d4; box-shadow: 0 0 6px #00e5d4; }
+    }
+
+    &--historico {
+        background: rgba(255,255,255,0.12);
+        color: rgba(255,255,255,0.65);
+        .sl-badge-dot { background: rgba(255,255,255,0.4); }
+    }
+}
+
+// Contador historial
+.sl-badge-count {
+    margin-left: auto;
+    background: $primary;
+    color: #fff;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+// ─── Body ──────────────────────────────────────────────────────────────────
+.sl-body {
+    padding: 1.25rem 1.5rem;
+    background: $surface;
+    overflow-y: auto;
+    max-height: calc(100vh - 220px);
+}
+
+// ─── Acciones ──────────────────────────────────────────────────────────────
+.sl-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+// ─── Botones ───────────────────────────────────────────────────────────────
+.sl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: $radius-sm;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all $transition;
+
+    i { font-size: 13px; }
+
+    &:disabled {
+        opacity: 0.42;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    &--danger {
+        background: $slate;
+        color: #fff;
+        &:hover:not(:disabled) { background: $slate-dk; }
+    }
+    &--primary {
+        background: $teal;
+        color: #fff;
+        &:hover:not(:disabled) { background: $teal-dk; }
+    }
+    &--secondary {
+        background: $primary;
+        color: #fff;
+        &:hover:not(:disabled) { background: $primary-dk; }
+    }
+    &--ghost {
+        background: transparent;
+        color: $text-muted;
+        border: 1px solid $border;
+        &:hover { background: #f0f0f7; }
+    }
+}
+
+// ─── Cards ──────────────────────────────────────────────────────────────────
+.sl-card {
+    background: #fff;
+    border: 1px solid $border;
+    border-radius: $radius;
+    overflow: hidden;
+
+    &-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0.65rem 1rem;
+        background: #f0f1fa;
+        border-bottom: 1px solid $border;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: $primary;
+        letter-spacing: 0.02em;
+    }
+
+    &-icon {
+        font-size: 13px;
+    }
+
+    &-body {
+        padding: 1rem;
+    }
+}
+
+// ─── Grid de campos ──────────────────────────────────────────────────────────
+.sl-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px 12px;
+
+    @media (max-width: 992px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.sl-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &--wide {
+        grid-column: span 2;
+
+        @media (max-width: 600px) {
+            grid-column: span 1;
+        }
+    }
+}
+
+// ─── Labels e inputs ────────────────────────────────────────────────────────
+.sl-label {
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: $text-muted;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.sl-input,
+.sl-select {
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    font-size: 0.82rem;
+    color: $text;
+    background: #fff;
+    transition: border-color $transition, box-shadow $transition;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+        border-color: $primary;
+        box-shadow: 0 0 0 3px rgba(81,86,190,0.12);
+    }
+
+    &:disabled {
+        background: #f4f4f8;
+        color: $text-muted;
+        cursor: not-allowed;
+    }
+
+    &--readonly {
+        background: #f4f4f8;
+        color: $text;
+        font-weight: 500;
+        cursor: default;
+    }
+}
+
+.sl-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e6e8a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 28px;
+
+    &:disabled {
+        background-color: #f4f4f8;
+    }
+}
+
+// ─── Nombre field ────────────────────────────────────────────────────────────
+.sl-field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+// ─── ng-select override ──────────────────────────────────────────────────────
+.sl-ngselect {
+    &.ng-select {
+        .ng-select-container {
+            height: 34px !important;
+            min-height: 34px !important;
+            border: 1px solid $border !important;
+            border-radius: $radius-sm !important;
+            font-size: 0.82rem !important;
+            transition: border-color $transition, box-shadow $transition;
+
+            &:hover { border-color: darken($border, 10%) !important; }
+        }
+
+        &.ng-select-focused .ng-select-container {
+            border-color: $primary !important;
+            box-shadow: 0 0 0 3px rgba(81,86,190,0.12) !important;
+        }
+
+        &.ng-select-disabled .ng-select-container {
+            background: #f4f4f8 !important;
+            cursor: not-allowed;
+        }
+
+        .ng-value-label { font-size: 0.82rem; }
+        .ng-placeholder { font-size: 0.82rem; color: #aaa; }
+    }
+}
+
+// ─── Tabla historial ─────────────────────────────────────────────────────────
+.sl-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.sl-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+
+    thead tr {
+        background: #f0f1fa;
+    }
+
+    th {
+        padding: 9px 12px;
+        text-align: left;
+        font-size: 0.71rem;
+        font-weight: 700;
+        color: $primary;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        border-bottom: 1px solid $border;
+    }
+
+    td {
+        padding: 9px 12px;
+        color: $text;
+        border-bottom: 1px solid lighten($border, 4%);
+        vertical-align: middle;
+    }
+
+    .sl-table-row {
+        transition: background $transition;
+        &:hover { background: #f7f8fc; }
+        &:last-child td { border-bottom: none; }
+    }
+}
+
+.sl-td-index {
+    font-weight: 600;
+    color: $text-muted;
+    width: 36px;
+}
+
+.sl-td-date {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.sl-empty {
+    text-align: center;
+    padding: 2.5rem 1rem !important;
+    color: $text-muted;
+
+    i {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 8px;
+        opacity: 0.3;
+    }
+
+    p { margin: 0; font-size: 0.82rem; }
+}
+
+// ─── Footer ──────────────────────────────────────────────────────────────────
+.sl-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.5rem;
+    background: #fff;
+    border-top: 1px solid $border;
+    gap: 8px;
+}
+
+// ─── Visibilidad (override del ver/mostrar) ───────────────────────────────────
+.ver { opacity: 0; }

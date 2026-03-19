@@ -42,3 +42,51 @@ P{
     box-shadow: 0 0 5px rgba(108, 82, 240, 0.3);
 
 }
+
+/* ─── FOOTER ─── */
+.pie-pagina {
+    width: 100%;
+    border-collapse: collapse;
+    border: none;
+}
+
+.pie-pagina td {
+    border: none;
+    padding: 3px 2px;
+    font-size: 6.5pt;
+    color: #888;
+}
+
+.pie-linea-top {
+    height: 1px;
+    background-color: #aed6f1;
+    border: none;
+    padding: 0;
+}
+
+.pie-izquierda {
+    width: 45%;
+    text-align: left;
+}
+
+.pie-centro {
+    width: 30%;
+    text-align: center;
+}
+
+.pie-derecha {
+    width: 25%;
+    text-align: right;
+}
+
+.pie-derecha b {
+    color: #154360;
+    font-weight: bold;
+}
+
+.pie-linea-bottom {
+    height: 3px;
+    background-color: #154360;
+    border: none;
+    padding: 0;
+}

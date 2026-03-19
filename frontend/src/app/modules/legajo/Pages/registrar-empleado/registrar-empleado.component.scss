@@ -1,138 +1,547 @@
-fieldset, legend {
-    all: revert;
- }
- .fa-magnifying-glass{
-    color: white;
- }
- .input-group-text{
-    background-color: #5156BE;
-    color: white;
- }
+// ─── Variables ────────────────────────────────────────────────────────────────
+$primary:    #5156BE;
+$primary-dk: #3d41a0;
+$primary-lt: #eceeff;
+$teal:       #0F888D;
+$teal-dk:    #0a6b6f;
+$slate:      #474554;
+$danger:     #e8354a;
+$border:     #dde1f0;
+$surface:    #f4f5fb;
+$bg:         #eef0f8;
+$text:       #1a1b2e;
+$text-muted: #6b6d8c;
+$radius:     10px;
+$radius-sm:  6px;
+$transition: 0.15s ease;
 
-.bg-agg{
-background-color:#0F888D;
-color: white;
-}
-.bg-delete{
-   background-color: #474554;
-   color: white;
-}
-
-[data-title]:hover:after {
-   opacity: 1;
-   transition: all 0.1s ease 0.5s;
-   visibility: visible;
-}
-[data-title]:after {
-   content: attr(data-title);
-   background-color: #666666;
-   color: #fff;
-   font-size: 14px;
-   font-family: Raleway;
-   position: absolute;
-   padding: 3px 20px;
-   bottom: -1.6em;
-   left: 100%;
-   white-space: nowrap;
-   box-shadow: 1px 1px 3px #222222;
-   opacity: 0;
-   border: 1px solid #111111;
-   z-index: 99999;
-   visibility: hidden;
-   border-radius: 6px;
-   
-}
-[data-title] {
-   position: relative;
+// ─── Page ─────────────────────────────────────────────────────────────────────
+.re-page {
+    padding: 0.75rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
 }
 
-.d-personales{
-   width: 113px;
+// ─── Page header ──────────────────────────────────────────────────────────────
+.re-page-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0.9rem 1.25rem;
+    background: $primary;
+    border-radius: $radius;
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(81,86,190,0.22);
 }
 
-/* app.component.css */
-.preview-container {
-   display: flex;
-   flex-wrap: wrap;
-   margin-top: 10px;
- }
- 
- .file-preview {
-   margin: 5px;
-   padding: 10px;
-   border: 1px solid #ddd;
-   border-radius: 4px;
- }
- 
- .preview-image {
-
-   max-width: 100%;
-   max-height: 100px;
- }
- .data-local{
-   font-size: 12px;
- }
- 
-
- .col-xl-2.col-8 {
-   position: relative;
- }
- 
- .col-xl-2.col-8 ngx-dropzone-image-preview {
-   width: 100%;
-   height: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
- }
- 
- .col-xl-2.col-8 ngx-dropzone-image-preview img {
-   width: 100%;
-   height: 100%;
-   object-fit: cover; /* La imagen cubrirá todo el contenedor sin distorsionarla */
- }
-
-
- 
- /* Estilo para el datalist */
- datalist {
-   display: none; /* Oculta el datalist por defecto */
- }
- 
- /* Estilo para mostrar las opciones */
- input[list]::-webkit-calendar-picker-indicator {
-   display: none;
- }
- 
- input[list] {
-   -webkit-appearance: menulist; /* Establece la apariencia como un menú desplegable */
-   -moz-appearance: menulist;
-   appearance: menulist;
- }
-
-/* mediaqueries */
-@media screen and (max-width: 898px) {
-  .d-ancho{
-    width: 113px;
-  }
-
+.re-page-header--edit {
+    background: $teal;
+    box-shadow: 0 3px 12px rgba(15,136,141,0.22);
 }
 
-th{
-  text-align: center;
+.re-page-header-icon {
+    width: 42px;
+    height: 42px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
 }
 
-@media screen and (max-width: 1000px) {
-  .none{
-    display: none;
-  }
-  .mb-1, div{
-    padding-right: 0;
-  }
+.re-page-title    { margin: 0; font-size: 1rem; font-weight: 700; color: #fff; }
+.re-page-subtitle { margin: 0; font-size: 0.76rem; color: rgba(255,255,255,0.75); }
 
+// ─── Sections ─────────────────────────────────────────────────────────────────
+.re-section {
+    background: #fff;
+    border: 1px solid $border;
+    border-radius: $radius;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(81,86,190,0.06);
+
+    &-header {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 0.55rem 1rem;
+        background: linear-gradient(90deg, #eceeff 0%, $surface 100%);
+        border-bottom: 1px solid $border;
+        border-left: 4px solid $primary;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: $primary;
+        letter-spacing: 0.03em;
+        i { font-size: 12px; }
+    }
+
+    &-body { padding: 0.9rem 1.1rem; }
 }
 
-ng-select {
-  height: 34px!important;
-  min-height: 34px!important;
+// ─── Grid ─────────────────────────────────────────────────────────────────────
+.re-grid {
+    display: grid;
+    gap: 8px 12px;
+
+    &--3 { grid-template-columns: repeat(3, 1fr); }
+    &--4 { grid-template-columns: repeat(4, 1fr); }
+
+    @media (max-width: 1200px) { &--4 { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 992px)  { &--3, &--4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 576px)  { &--3, &--4 { grid-template-columns: 1fr; } }
 }
+
+.re-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    &--wide { grid-column: span 2; @media (max-width: 576px) { grid-column: span 1; } }
+    &--full  { grid-column: 1 / -1; }
+}
+
+// ─── Labels ───────────────────────────────────────────────────────────────────
+.re-label {
+    font-size: 0.67rem;
+    font-weight: 700;
+    color: $text-muted;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1;
+    user-select: none;
+}
+.re-required { color: $danger; }
+
+// ─── Inputs & Selects ─────────────────────────────────────────────────────────
+.re-input,
+.re-select {
+    height: 34px;
+    padding: 0 10px;
+    border: 1.5px solid #d0d4e8;
+    border-radius: $radius-sm;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: $text;
+    background: #fafbff;
+    transition: border-color $transition, box-shadow $transition, background $transition;
+    width: 100%;
+
+    &::placeholder { color: #b0b3cc; font-weight: 400; }
+
+    &:focus {
+        outline: none;
+        border-color: $primary;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(81,86,190,0.12);
+    }
+
+    &:hover:not(:focus) { border-color: #b3b8d4; background: #fff; }
+    &--upper { text-transform: uppercase; }
+    &--sm    { height: 30px; font-size: 0.77rem; padding: 0 8px; }
+}
+
+.re-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%236b6d8c' d='M5 7L0.5 2.5h9z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 9px center;
+    padding-right: 26px;
+    cursor: pointer;
+    &--sm { height: 28px; font-size: 0.76rem; }
+}
+
+.re-invalid {
+    border-color: $danger !important;
+    box-shadow: 0 0 0 3px rgba(232,53,74,0.1) !important;
+}
+
+// ─── Input group ──────────────────────────────────────────────────────────────
+.re-input-group {
+    display: flex;
+
+    .re-input, .re-input--sm {
+        border-radius: $radius-sm 0 0 $radius-sm;
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+.re-input-btn {
+    height: 34px;
+    width: 36px;
+    border: none;
+    border-radius: 0 $radius-sm $radius-sm 0;
+    background: $primary;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background $transition;
+    &:hover { background: $primary-dk; }
+}
+
+// ─── File input ───────────────────────────────────────────────────────────────
+.re-file {
+    height: 32px;
+    padding: 3px 7px;
+    border: 1.5px solid $border;
+    border-radius: $radius-sm;
+    font-size: 0.76rem;
+    background: #fff;
+    width: 100%;
+    cursor: pointer;
+    color: $text-muted;
+
+    &::-webkit-file-upload-button {
+        height: 22px;
+        padding: 0 9px;
+        border: none;
+        border-radius: 4px;
+        background: $primary;
+        color: #fff;
+        font-size: 0.7rem;
+        cursor: pointer;
+        margin-right: 7px;
+        transition: background $transition;
+        &:hover { background: $primary-dk; }
+    }
+}
+
+// ─── ng-select override ───────────────────────────────────────────────────────
+.re-ngselect {
+    &.ng-select {
+        .ng-select-container {
+            height: 34px !important;
+            min-height: 34px !important;
+            border: 1.5px solid #d0d4e8 !important;
+            border-radius: $radius-sm !important;
+            font-size: 0.82rem !important;
+            background: #fafbff !important;
+            transition: border-color $transition, box-shadow $transition !important;
+
+            &:hover { border-color: #b3b8d4 !important; background: #fff !important; }
+        }
+        &.ng-select-focused .ng-select-container {
+            border-color: $primary !important;
+            background: #fff !important;
+            box-shadow: 0 0 0 3px rgba(81,86,190,0.12) !important;
+        }
+        .ng-value-label  { font-size: 0.82rem; font-weight: 500; }
+        .ng-placeholder  { font-size: 0.82rem; color: #b0b3cc; }
+    }
+}
+
+// ─── Toggle ───────────────────────────────────────────────────────────────────
+.re-toggle-row { display: flex; align-items: center; gap: 10px; }
+
+.re-toggle {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+    flex-shrink: 0;
+    input { opacity: 0; width: 0; height: 0; }
+}
+
+.re-toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: #c4c6d8;
+    border-radius: 22px;
+    cursor: pointer;
+    transition: background $transition;
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        left: 3px;
+        bottom: 3px;
+        background: #fff;
+        border-radius: 50%;
+        transition: transform $transition;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+}
+
+.re-toggle input:checked + .re-toggle-slider {
+    background: $teal;
+    &::before { transform: translateX(20px); }
+}
+
+.re-toggle-label { font-size: 0.81rem; color: $text; font-weight: 500; }
+
+// ─── Personal layout (foto + campos) ──────────────────────────────────────────
+.re-personal-layout {
+    display: grid;
+    grid-template-columns: 175px 1fr;
+    gap: 1.25rem;
+    align-items: start;
+
+    @media (max-width: 768px) { grid-template-columns: 1fr; }
+}
+
+.re-personal-fields { min-width: 0; }
+
+.re-foto-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    ngx-dropzone-image-preview {
+        border-radius: $radius !important;
+        overflow: hidden;
+    }
+}
+
+// ─── Dropzone ─────────────────────────────────────────────────────────────────
+.re-dropzone {
+    width: 100% !important;
+    min-height: 160px !important;
+    height: auto !important;
+    border: 2px dashed #c4c8e0 !important;
+    border-radius: $radius !important;
+    background: $surface !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 8px !important;
+    gap: 4px;
+    transition: border-color $transition, background $transition !important;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        border-color: $primary !important;
+        background: $primary-lt !important;
+    }
+
+    // Placeholder visual — círculo de avatar cuando no hay imagen
+    &:not(:has(ngx-dropzone-image-preview))::before {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #d8daf0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a0a3c0'%3E%3Cpath d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 36px;
+        margin-bottom: 6px;
+    }
+
+    ngx-dropzone-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.7rem;
+        color: $text-muted;
+        text-align: center;
+        pointer-events: none;
+    }
+
+    ngx-dropzone-image-preview {
+        width: 100% !important;
+        height: 140px !important;
+        border-radius: $radius-sm !important;
+        overflow: hidden;
+        margin: 0 !important;
+
+        img { width: 100%; height: 100%; object-fit: cover; }
+    }
+}
+
+.re-dropzone-icon { font-size: 1.6rem; color: $primary; opacity: 0.3; }
+
+// ─── Accordion ────────────────────────────────────────────────────────────────
+.re-accordion-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: none !important;
+}
+
+.re-accordion-item {
+    border: 1px solid $border !important;
+    border-radius: $radius !important;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(81,86,190,0.04);
+}
+
+.re-accordion-btn {
+    background: $surface !important;
+    color: $primary !important;
+    font-size: 0.81rem !important;
+    font-weight: 700 !important;
+    padding: 0.6rem 1rem !important;
+    gap: 8px;
+    border: none !important;
+    box-shadow: none !important;
+    letter-spacing: 0.01em;
+
+    i { font-size: 12px; width: 14px; text-align: center; }
+    &::after { filter: invert(26%) sepia(70%) saturate(800%) hue-rotate(210deg); }
+
+    &:not(.collapsed) {
+        background: $primary !important;
+        color: #fff !important;
+        &::after { filter: invert(1); }
+    }
+
+    &:focus { box-shadow: none !important; }
+}
+
+.re-accordion-body { padding: 0.9rem 1rem; background: #fff; }
+
+// ─── Subtable ─────────────────────────────────────────────────────────────────
+.re-subtable {
+    background: #fff;
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    overflow: hidden;
+
+    &-header {
+        padding: 5px 9px;
+        background: $surface;
+        border-bottom: 1px solid $border;
+        font-size: 0.68rem;
+        font-weight: 700;
+        color: $text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+}
+
+.re-table-toolbar {
+    display: flex;
+    gap: 7px;
+    padding: 7px 9px;
+    border-bottom: 1px solid $border;
+    background: #fafbff;
+}
+
+.re-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.re-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.76rem;
+
+    thead tr { background: $surface; }
+
+    th {
+        padding: 6px 7px;
+        text-align: left;
+        font-size: 0.67rem;
+        font-weight: 700;
+        color: $primary;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        border-bottom: 1px solid $border;
+    }
+
+    td {
+        padding: 4px 4px;
+        border-bottom: 1px solid lighten($border, 3%);
+        vertical-align: middle;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td      { background: #f7f8fe; }
+}
+
+.re-empty-row {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: $text-muted;
+    background: $surface;
+    letter-spacing: 0.04em;
+
+    &--hint { color: lighten($text-muted, 18%); font-weight: 400; font-style: italic; }
+}
+
+// ─── Buttons ──────────────────────────────────────────────────────────────────
+.re-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 13px;
+    border-radius: $radius-sm;
+    font-size: 0.79rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all $transition;
+    text-decoration: none;
+
+    i { font-size: 11px; }
+
+    &--primary  { background: $primary; color: #fff; &:hover { background: $primary-dk; } }
+    &--secondary{ background: $teal;    color: #fff; &:hover { background: $teal-dk; } }
+    &--success  { background: $teal;    color: #fff; &:hover { background: $teal-dk; } }
+    &--edit     { background: $primary; color: #fff; &:hover { background: $primary-dk; } }
+    &--danger   { background: $slate;   color: #fff; &:hover { background: darken($slate, 10%); } }
+    &--ghost {
+        background: #fff;
+        color: $text-muted;
+        border: 1.5px solid $border;
+        &:hover { background: $surface; }
+    }
+
+    &--sm   { padding: 4px 9px; font-size: 0.74rem; }
+    &--lg   { padding: 9px 22px; font-size: 0.85rem; }
+    &--full { width: 100%; justify-content: center; }
+    &--icon { width: 28px; height: 28px; padding: 0; justify-content: center; }
+}
+
+// ─── Actions bar ──────────────────────────────────────────────────────────────
+.re-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 0 0.25rem;
+    gap: 12px;
+    border-top: 1px solid $border;
+    margin-top: 0.25rem;
+}
+
+// ─── Disc footer & subsection label ───────────────────────────────────────────
+.re-disc-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px solid $border;
+}
+
+.re-subsection-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 8px 0;
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 620px) {
+    .re-page    { padding: 0.75rem 0.75rem 2rem; }
+    .re-actions { flex-direction: column-reverse; }
+    .re-btn--lg { width: 100%; justify-content: center; }
+}
+
+datalist { display: none; }
+input[list]::-webkit-calendar-picker-indicator { display: none; }

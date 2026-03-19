@@ -611,7 +611,6 @@ tieneColegiatura  = false;
       enfAlergias:       this.enfAlergias,
       fechaIngreso:      this.fechaIngreso,
       unidadOrganica:    this.valorUnidad,
-      servicio:          this.valorServicio,
       rutaFoto:          this.rutaFoto,
       nacionalidad:      this.nacionalidad,
       cargo:             this.valorCargo,

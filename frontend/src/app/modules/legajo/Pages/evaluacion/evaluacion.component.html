@@ -1,173 +1,163 @@
 <app-breadcrumb [rutas]="rutas" [titulo]="'Evaluación'"></app-breadcrumb>
-<div class="row">
-    <div class="col-xl-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row  ">
 
-                    <div class="col-xl-4 col-md-auto col-sm-auto d-flex ">
-                        @if(accesos?.includes(1)){
-                            <button class="btn  btn-sm btn-primary waves-light waves-effect btn-label me-1" style="width: 190px;"
-                          (click)="nuevoDocumento()" >
-                        <i class="fa fa-file label-icon"></i> Nuevo Documento
+<div class="cp-page">
+
+    <!-- ── TOOLBAR ──────────────────────────────────────────────────────────── -->
+    <div class="cp-toolbar">
+        <div class="cp-toolbar-left">
+            @if(accesos?.includes(1)) {
+                <button class="cp-btn cp-btn--primary" (click)="nuevoDocumento()">
+                    <i class="fa fa-file"></i> Nuevo Documento
                 </button>
-                <button class="btn  btn-sm btn-primary waves-light waves-effect btn-label" style="width: 150px;"
-                (click)="exportarCarpeta()" >
-                            <i class="fa-solid fa-download label-icon"></i> Exportar
+                <button class="cp-btn cp-btn--ghost" (click)="exportarCarpeta()">
+                    <i class="fa-solid fa-download"></i> Exportar
                 </button>
-                        }
-                        
-                    </div>
-                </div>
-                <div class="row pt-2">
-                    <div class="col-xl-12">
-                        <app-loading [mostrar]="loading">
-                            <div class="row mb-4 mt-3">                     
-                            
-                                <div class="col-7">
-                                    <div class="row g-3 align-items-center">
-                                        <div class="col-auto">
-                                          <label for="inputPassword6" class="col-form-label" style="font-size: 12px;">APELLIDOS Y NOMBRES:</label>
-                                        </div>
-                                        <div class="col">
-                                            <ng-select                                                          
-                                              [items]="emp"
-                                              bindLabel ="nombreC" 
-                                              bindValue ="NUMERO_DOCUMENTO"    
-                                              [(ngModel)]="filtroDni" 
-                                              (change)="changeEmp()"                                 
-                                       > 
-                                       </ng-select >
-                                        </div>
-                                       
-                                      </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-sm">
-                                            <thead>
-                                            <tr>
-                                                <th *ngFor="let cabecera of cabeceras;" class="{{cabecera.clase}}"
-                                                   [style]="cabecera.estilo">{{ cabecera.nombre }}
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th class="limpiar" style="text-align: center;">
-                                                    <button
-                                                        class="btn  btn-sm btn-danger waves-effect waves-light w-50 "
-                                                        (click)="limpiarCampos()"><i class="fa-solid fa-trash-can"></i>
-                                                    </button>
-                                                </th>
-                                                                                              
-                                               
-                                                <th>
-                                                    <input
-                                                        inputmode="text"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="filtroDocumento"
-                                                        [(ngModel)]="filtroDni"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th>
-                                                    <input #inpFocus
-                                                           inputmode="text"
-                                                           class="form-control form-control-sm text-uppercase"
-                                                           name="filtroTipo" [(ngModel)]="filtroTipo"
-                                                           (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th>
-                                                    <input
-                                                        inputmode="text"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="filtroDocumento"
-                                                        [(ngModel)]="filtroDocumento"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th>
-                                                    <input
-                                                        inputmode="text"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="filtroDocumento"
-                                                        [(ngModel)]="filtroDesDocumento"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th>
-                                                    <input
-                                                        inputmode="text"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="filtroAsunto"
-                                                        [(ngModel)]="filtroAsunto"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th>
-                                                    <input
-                                            
-                                                        type="date"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="filtroFecha"
-                                                        [(ngModel)]="filtroFecha"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                             
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <ng-template [ngIf]="datos.length !== 0" [ngIfElse]="vacio">
-                                                <tr *ngFor="let dato of datos">
-                                                    <td>
-                                                        <div class="d-flex gap-1 flex-wrap justify-content-center">
-                                                                                                                        
-                                                             @if(accesos?.includes(2)){
-                                                                <button [bsTooltip]="'Editar'"
-                                                                class="btn btn-sm waves-light waves-effect btn-primary"
-                                                                (click)="editarDocumento(dato.id)"
-                                                          
-                                                               >
-                                                            <i class="fa fa-pencil"></i></button>
-                                                             }
-                                                         
-                                                                <button [bsTooltip]="'ver'"  
-                                                                class="btn btn-sm waves-light waves-effect  btn-dark"
-                                                                (click)="descargarArchivo(dato.ruta)" >
-                                                                 <i class="fa fa-eye"></i></button>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-center">{{ dato.numeroDocumento}}</td>
-                                                    <td class="text-center">{{ dato.documento}}</td>
-                                                    <td class="text-center">{{ dato.tipo}}</td>
-                                                    <td class="text-center">{{ dato.descripcion_doc}}</td>
-                                                    <td class="text-center">{{ dato.asunto }}</td>
-                                                    <td class="text-center">{{ dato.fecha }}</td>
-                                                    <!-- <td  class="text-center">
-                                                        <span class="badge estado W-100" [ngClass]="dato.estado === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{ dato.estado}}</span>    
-                                                                                           
-                                                    </td> -->
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template #vacio>
-                                                <tr>
-                                                    <td class="text-center" [colSpan]="cabeceras.length">No hay
-                                                        resultados
-                                                    </td>
-                                             </tr>
-                                            </ng-template>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <app-paginado [datos]="datos" [(longitud)]="longitud" [pagina]="pagina"
-                                          (cambioVer)="filtrarEmpleado()"
-                                          [ver]="true" (cambioPagina)="cambioPagina($event)"></app-paginado>
-                        </app-loading>
-                    </div>
-                </div>
+            }
+        </div>
+        <div class="cp-toolbar-right">
+            <div class="cp-search-emp">
+                <label class="cp-search-label">
+                    <i class="fas fa-user"></i> Empleado
+                </label>
+                <ng-select
+                    [items]="emp"
+                    bindLabel="nombreC"
+                    bindValue="NUMERO_DOCUMENTO"
+                    [(ngModel)]="filtroDni"
+                    (change)="changeEmp()"
+                    placeholder="Buscar por apellidos y nombres..."
+                    class="cp-ngselect">
+                </ng-select>
             </div>
         </div>
     </div>
+
+    <!-- ── CARD TABLA ────────────────────────────────────────────────────────── -->
+    <div class="cp-card">
+        <app-loading [mostrar]="loading">
+
+            <div class="cp-filter-bar">
+                <div class="cp-filter-bar-left">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Filtros activos</span>
+                </div>
+                <button class="cp-btn cp-btn--danger cp-btn--sm" (click)="limpiarCampos()">
+                    <i class="fa-solid fa-trash-can"></i> Limpiar filtros
+                </button>
+            </div>
+
+            <div class="cp-table-wrap">
+                <table class="cp-table">
+                    <thead>
+                        <tr class="cp-thead-labels">
+                            <th *ngFor="let cab of cabeceras"
+                                [ngClass]="cab.clase"
+                                [style]="cab.estilo">
+                                {{ cab.nombre }}
+                            </th>
+                        </tr>
+                        <tr class="cp-thead-filters">
+                            <th></th>
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="filtroDocumento" [(ngModel)]="filtroDni"
+                                    placeholder="DNI..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input #inpFocus inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="filtroTipo" [(ngModel)]="filtroTipo"
+                                    placeholder="Tipo..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="filtroDocumento2" [(ngModel)]="filtroDocumento"
+                                    placeholder="Documento..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="filtroDesDocumento" [(ngModel)]="filtroDesDocumento"
+                                    placeholder="Descripción..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="filtroAsunto" [(ngModel)]="filtroAsunto"
+                                    placeholder="Asunto..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input type="date"
+                                    class="cp-filter-input"
+                                    name="filtroFecha" [(ngModel)]="filtroFecha"
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-template [ngIf]="datos.length !== 0" [ngIfElse]="vacio">
+                            <tr *ngFor="let dato of datos" class="cp-row">
+                                <td>
+                                    <div class="cp-row-actions">
+                                        @if(accesos?.includes(2)) {
+                                            <button class="cp-action-btn cp-action-btn--edit"
+                                                [bsTooltip]="'Editar'"
+                                                (click)="editarDocumento(dato.id)">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        }
+                                        <button class="cp-action-btn cp-action-btn--view"
+                                            [bsTooltip]="'Ver archivo'"
+                                            (click)="descargarArchivo(dato.ruta)">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="cp-td-center cp-td-mono">{{ dato.numeroDocumento }}</td>
+                                <td class="cp-td-center">{{ dato.documento }}</td>
+                                <td class="cp-td-center">
+                                    <span class="cp-type-badge">{{ dato.tipo }}</span>
+                                </td>
+                                <td class="cp-td-center">{{ dato.descripcion_doc }}</td>
+                                <td class="cp-td-asunto">{{ dato.asunto }}</td>
+                                <td class="cp-td-center cp-td-date">{{ dato.fecha }}</td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #vacio>
+                            <tr>
+                                <td [colSpan]="cabeceras.length" class="cp-empty">
+                                    <i class="fas fa-inbox"></i>
+                                    <p>Sin resultados para los filtros aplicados</p>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cp-pagination">
+                <app-paginado
+                    [datos]="datos"
+                    [(longitud)]="longitud"
+                    [pagina]="pagina"
+                    (cambioVer)="filtrarEmpleado()"
+                    [ver]="true"
+                    (cambioPagina)="cambioPagina($event)">
+                </app-paginado>
+            </div>
+
+        </app-loading>
+    </div>
+
 </div>
+
 <app-modal-evaluacion></app-modal-evaluacion>
 <app-modal-ver-compensacion></app-modal-ver-compensacion>
 <app-modal-exportar></app-modal-exportar>

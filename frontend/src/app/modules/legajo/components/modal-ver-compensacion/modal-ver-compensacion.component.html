@@ -1,31 +1,39 @@
 <div #modalVerCompensacion class="modal fade" tabIndex="-1" *teleportTo="'body'">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Informacion Detallada</h5>
-                <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()">
-                </button>
-            </div>
-            <div class="modal-body">
-                <app-loading [mostrar]="loading">
-                    <div class="row ">
-                   
-                                <div class="col-xl-12 px-0">
-                                    <div class="row w-100 d-block">
-                                         <embed [src]="prevArchivo"  style="height:70vh;" > 
-                                    </div>
-                                </div>
-                  </div>
-                </app-loading>
-                <div class="modal-footer justify-content-between">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-lg-down" role="document">
+        <div class="modal-content mvc-modal">
 
+            <!-- Header -->
+            <div class="mvc-header">
+                <div class="mvc-header-left">
+                    <div class="mvc-header-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
                     <div>
-                        <button class="btn btn-danger waves-light waves-effect btn-label m-1" type="button"
-                            (click)="closeModal()">
-                            Salir &ensp;<i class="fas fa-door-open label-icon"></i></button>
+                        <h5 class="mvc-title">Vista de Documento</h5>
+                        <p class="mvc-subtitle">Previsualización del archivo adjunto</p>
                     </div>
                 </div>
+                <button class="mvc-close-btn" type="button" aria-label="Cerrar" (click)="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+
+            <!-- Body -->
+            <div class="modal-body mvc-body">
+                <app-loading [mostrar]="loading">
+                    <div class="mvc-viewer">
+                        <embed [src]="prevArchivo" class="mvc-embed">
+                    </div>
+                </app-loading>
+            </div>
+
+            <!-- Footer -->
+            <div class="mvc-footer">
+                <button class="mvc-btn mvc-btn--ghost" type="button" (click)="closeModal()">
+                    <i class="fas fa-door-open"></i> Salir
+                </button>
+            </div>
+
         </div>
     </div>
-
+</div>

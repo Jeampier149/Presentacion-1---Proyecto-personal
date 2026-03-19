@@ -7,19 +7,19 @@ import {
     errorAlerta,
     successAlerta,
     warningAlerta,
-    errorAlertaValidacion,
 } from '@shared/utils';
 import { finalize } from 'rxjs';
 import { SituacionLaboralService } from '@services/legajo/situacion-laboral.service';
 import { ModalDarTerminoComponent } from '../modal-dar-termino/modal-dar-termino.component';
+
 @Component({
     selector: 'app-modal-situacion-laboral',
     templateUrl: './modal-situacion-laboral.component.html',
     styleUrl: './modal-situacion-laboral.component.scss',
 })
 export class ModalSituacionLaboralComponent {
-    loading: boolean = false;
-    nombre:any=''
+    loading = false;
+    nombre = '';
     tipoEmpleado: any[] = [];
     tipoGrupo: any[] = [];
     regimen: any[] = [];
@@ -28,14 +28,15 @@ export class ModalSituacionLaboralComponent {
     nivelCargo: any[] = [];
     unidadOrganica: any[] = [];
     servicioE: any[] = [];
-    agregable: boolean = false;
-    idHistorial: string = '';
-    mostrar: boolean = false;
-    numeroDocumento:string="";
-    situacionHistorial:any[]=[]
+    agregable = false;
+    idHistorial = '';
+    mostrar = false;
+    numeroDocumento = '';
+    situacionHistorial: any[] = [];
+
     @ViewChild('modalSituacionLaboral') modalSituacion!: any;
-    @ViewChild(ModalDarTerminoComponent)
-    modalTermino?: ModalDarTerminoComponent;
+    @ViewChild(ModalDarTerminoComponent) modalTermino?: ModalDarTerminoComponent;
+
     valSituacionLaboral!: FormGroup;
     valDatos!: FormGroup;
 
@@ -45,7 +46,6 @@ export class ModalSituacionLaboralComponent {
     ) {
         this.inicializarVariables();
         this.listarSelects();
-   
     }
 
     ngAfterViewInit() {
@@ -56,11 +56,12 @@ export class ModalSituacionLaboralComponent {
     }
 
     openModal(numDoc: string) {
+        this.resetFormulario();
+        this.numeroDocumento = numDoc;
+        this.loading = true;
         this.modalSituacion.show();
-        this.numeroDocumento=numDoc;
-        this.loading=true
         this.listarSituacion(numDoc);
-        this.listarSituacionHistorial(numDoc)
+        this.listarSituacionHistorial(numDoc);
     }
 
     inicializarVariables() {
@@ -77,150 +78,124 @@ export class ModalSituacionLaboralComponent {
             valorEstado: new FormControl(''),
             motivo: new FormControl(''),
             tipoEmp: new FormControl(''),
-           
         });
-        this.valDatos=new FormGroup({
-            nombre:new FormControl({ value: '', disabled: true }),
-        })
+        this.valDatos = new FormGroup({
+            nombre: new FormControl({ value: '', disabled: true }),
+        });
+    }
 
+    /** Limpia el formulario antes de cargar nuevos datos */
+    resetFormulario() {
+        this.valSituacionLaboral.reset();
+        this.valDatos.reset();
+        this.situacionHistorial = [];
+        this.nombre = '';
+        this.idHistorial = '';
+        this.tipoRegimen = [];
+        this.servicioE = [];
     }
 
     listarSituacion(numDoc: string) {
         this.DatoSituacionService$.listarSituacion(numDoc)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
+            .pipe(finalize(() => (this.loading = false)))
             .subscribe(({ estado, mensaje, datos }) => {
                 if (estado) {
-                    datos.length > 0
-                        ? (this.agregable = false)
-                        : (this.agregable = true);
-                    this.setDatosSituacion(datos[0]);
+                    this.agregable = datos.length === 0;
+                    if (datos.length > 0) {
+                        this.setDatosSituacion(datos[0]);
+                    }
                 } else {
                     errorAlerta('Error', mensaje).then();
                 }
             });
     }
+
     listarSituacionHistorial(numDoc: string) {
-      this.DatoSituacionService$.listarSituacionHistorial(numDoc)
-          .pipe(
-              finalize(() => {
-                  this.loading = false;
-              })
-          )
-          .subscribe(({ estado, mensaje, datos }) => {
-              if (estado) {
-                  datos.length > 0
-                      ? (this.agregable = false)
-                      : (this.agregable = true);
-                  this.situacionHistorial=datos
-              } else {
-                  errorAlerta('Error', mensaje).then();
-              }
-          });
-  }
+        this.DatoSituacionService$.listarSituacionHistorial(numDoc)
+            .pipe(finalize(() => (this.loading = false)))
+            .subscribe(({ estado, mensaje, datos }) => {
+                if (estado) {
+                    this.situacionHistorial = datos ?? [];
+                } else {
+                    errorAlerta('Error', mensaje).then();
+                }
+            });
+    }
 
     cambioTipo() {
-        let id = this.valSituacionLaboral.controls['valorRegimen'].value;
-        if (id.length > 0) {
+        const id = this.valSituacionLaboral.get('valorRegimen')?.value;
+        if (id) {
+            this.tipoRegimen = [];
+            this.valSituacionLaboral.get('valorTipRegimen')?.setValue('');
             this.listarTipoRegimen(id);
         } else {
-            warningAlerta('Atención!', 'Elija primero un regimen ');
+            warningAlerta('Atención', 'Elija primero un régimen.');
         }
     }
 
     listarSelects() {
         this.DatoGeneralesService$.listarSelects()
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
+            .pipe(finalize(() => (this.loading = false)))
             .subscribe(({ estado, mensaje, datos }) => {
                 if (estado) {
-                    datos.length > 0
-                        ? (this.agregable = false)
-                        : (this.agregable = true);
                     this.tipoEmpleado = datos.tipoEmpleado;
                     this.tipoGrupo = datos.grupo;
                     this.regimen = datos.regimen;
                     this.nivelCargo = datos.nivel;
                     this.cargo = datos.cargo;
                     this.unidadOrganica = datos.unidadOrganica;
-
                 } else {
                     errorAlerta('Error', mensaje).then();
                 }
             });
     }
-    listarServicio(id: any) {
-        this.DatoGeneralesService$.listarServicio(id)
-          .pipe(
-            finalize(() => {
-              this.loading = false;
-            })
-          )
-          .subscribe(({ estado, mensaje, datos }) => {
-            if (estado) {
-              datos.length > 0 ? this.agregable = false : this.agregable = true;
-              console.log(estado)
-              this.servicioE = datos;
-            } else {
-              errorAlerta('Error', mensaje).then();
-            }
-          });
 
-      }
-      cambioUnidad(){
-        let id = this.valSituacionLaboral.get('valorUnidad')?.value
-        
-        if (id.length > 0) {
-          this.listarServicio(id)
-        } else {
-          warningAlerta('Atención!', 'Elija primero una unidad organica ')
-        }
-      }
+
+
 
 
     setDatosSituacion(datos: any) {
-        this.valSituacionLaboral.controls['tipoEmp'].setValue( datos.idCondicion );
-        this.valSituacionLaboral.controls['grupOcup'].setValue(datos.idGrupO);
-        this.valSituacionLaboral.controls['valorRegimen'].setValue(datos.idRegimen );
-        this.listarTipoRegimen(datos.idRegimen);
-        this.valSituacionLaboral.controls['valorTipRegimen'].setValue( datos.idTipoRegimen);
-        this.valSituacionLaboral.controls['valorCargo'].setValue(datos.idCargo);
-        this.valSituacionLaboral.controls['valorNivel'].setValue(datos.nivel);
-        this.valSituacionLaboral.controls['valorUnidad'].setValue(datos.idUnidadOrganica);
-        this.listarServicio(datos.idUnidadOrganica);
-        this.valSituacionLaboral.controls['valorServicio'].setValue(datos.idServicio);
-        this.valSituacionLaboral.controls['valorEstado'].setValue(datos.estado);
-        this.valSituacionLaboral.controls['codigoAirhsp'].setValue( datos.codigoAirhsp);
-        this.valSituacionLaboral.controls['fechaIngreso'].setValue(datos.fechaIngreso);
-        this.idHistorial = datos.idHistorial;
-        if (  this.valSituacionLaboral.controls['valorEstado'].value == 'ACTIVO' ) {
-            this.valSituacionLaboral.disable();
-        } else {
-          this.valSituacionLaboral.enable(); }
+        if (!datos) return;
 
-        this.valDatos.controls['nombre'].setValue( datos.nombreC);
-        this.idHistorial = datos.idHistorial;
-        this.nombre=datos.nombreC
+        // Primero cargar los dependientes en cascada
+        if (datos.idRegimen) this.listarTipoRegimen(datos.idRegimen);
+      
+
+        this.valSituacionLaboral.patchValue({
+            tipoEmp: datos.idCondicion ?? '',
+            grupOcup: datos.idGrupO ?? '',
+            valorRegimen: datos.idRegimen ?? '',
+            valorTipRegimen: datos.idTipoRegimen ?? '',
+            valorCargo: datos.idCargo ?? '',
+            valorNivel: datos.nivel ?? '',
+            valorUnidad: datos.idUnidadOrganica ?? '',
+            valorServicio: datos.idServicio ?? '',
+            valorEstado: datos.estado ?? '',
+            codigoAirhsp: datos.codigoAirhsp ?? '',
+            fechaIngreso: datos.fechaIngreso ?? '',
+        });
+
+        this.valDatos.controls['nombre'].setValue(datos.nombreC ?? '');
+        this.nombre = datos.nombreC ?? '';
+        this.idHistorial = datos.idHistorial ?? '';
+
+        // Bloquear edición si está ACTIVO (sólo los campos editables, no el estado)
+        const esActivo = datos.estado === 'ACTIVO';
+        const campos = ['grupOcup','valorRegimen','valorTipRegimen','valorUnidad',
+                        'valorServicio','valorCargo','valorNivel','codigoAirhsp',
+                        'fechaIngreso','motivo','tipoEmp'];
+        campos.forEach(campo => {
+            esActivo
+                ? this.valSituacionLaboral.get(campo)?.disable()
+                : this.valSituacionLaboral.get(campo)?.enable();
+        });
     }
 
     listarTipoRegimen(id: any) {
         this.DatoGeneralesService$.listarTipoRegimen(id)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
+            .pipe(finalize(() => (this.loading = false)))
             .subscribe(({ estado, mensaje, datos }) => {
                 if (estado) {
-                    datos.length > 0
-                        ? (this.agregable = false)
-                        : (this.agregable = true);
                     this.tipoRegimen = datos;
                 } else {
                     errorAlerta('Error', mensaje).then();
@@ -233,55 +208,62 @@ export class ModalSituacionLaboralComponent {
     }
 
     darTermino(id: string) {
-        this.modalTermino?.openModal(id,this.nombre);
+        this.modalTermino?.openModal(id, this.nombre);
         this.modalSituacion.hide();
     }
-    actualizar() {    
-        this.DatoSituacionService$.actualizarSituacion(
-        this.numeroDocumento,
-        this.valSituacionLaboral.get('grupOcup')?.value,
-        this.valSituacionLaboral.get('valorRegimen')?.value,
-        this.valSituacionLaboral.get('valorTipRegimen')?.value,
-        this.valSituacionLaboral.get('valorUnidad')?.value,
-        this.valSituacionLaboral.get('valorServicio')?.value,
-        this.valSituacionLaboral.get('valorCargo')?.value,
-        this.valSituacionLaboral.get('valorNivel')?.value,
-        this.valSituacionLaboral.get('codigoAirhsp')?.value,
-        this.valSituacionLaboral.get('fechaIngreso')?.value,
-        this.valSituacionLaboral.get('tipoEmp')?.value
 
-      )
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
+    actualizar() {
+        const f = this.valSituacionLaboral;
+
+        // Validación básica antes de enviar
+        const camposRequeridos = ['tipoEmp','valorRegimen','valorUnidad','fechaIngreso'];
+        const incompleto = camposRequeridos.some(c => !f.get(c)?.value);
+        if (incompleto) {
+            warningAlerta('Atención', 'Complete los campos obligatorios antes de actualizar.');
+            return;
+        }
+
+        this.loading = true;
+        this.DatoSituacionService$.actualizarSituacion(
+            this.numeroDocumento,
+            f.get('grupOcup')?.value,
+            f.get('valorRegimen')?.value,
+            f.get('valorTipRegimen')?.value,
+            f.get('valorUnidad')?.value,
+            f.get('valorServicio')?.value,
+            f.get('valorCargo')?.value,
+            f.get('valorNivel')?.value,
+            f.get('codigoAirhsp')?.value,
+            f.get('fechaIngreso')?.value,
+            f.get('tipoEmp')?.value,
+        )
+            .pipe(finalize(() => (this.loading = false)))
             .subscribe(({ estado, mensaje, datos }) => {
                 if (estado) {
-                  if(datos=='1'){
-                    successAlerta('Éxito', mensaje);
-                   }else{
-                    warningAlerta('Alerta',mensaje)
-                   }
+                    datos === '1'
+                        ? successAlerta('Éxito', mensaje)
+                        : warningAlerta('Alerta', mensaje);
+                    // Recargar datos tras actualizar
+                    this.listarSituacion(this.numeroDocumento);
                 } else {
                     errorAlerta('Error', mensaje).then();
                 }
             });
     }
-    generarReporteHistorial(){
+
+    generarReporteHistorial() {
+        this.loading = true;
         this.DatoSituacionService$.generarPdf(this.numeroDocumento)
-            .pipe(
-                finalize(() => {
-                  this.loading = false;
-                })
-            )
-            .subscribe((response:Blob) => {
+            .pipe(finalize(() => (this.loading = false)))
+            .subscribe((response: Blob) => {
                 const fileURL = URL.createObjectURL(response);
-                const downloadLink = document.createElement('a');
-                downloadLink.href = fileURL;
-                downloadLink.download =this.numeroDocumento;
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
+                const a = document.createElement('a');
+                a.href = fileURL;
+                a.download = `historial_${this.numeroDocumento}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(fileURL);
             });
     }
 }

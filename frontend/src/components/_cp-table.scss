@@ -1,17 +1,17 @@
-// ─── Variables ────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// _cp-table.scss  —  Sistema de tabla con filtros inline
+// Uso: @use 'path/to/shared/_cp-table' as *;
+// Componentes que usan este parcial:
+//   compensaciones, meritos-sanciones, relaciones-laborales, evaluacion
+// ─────────────────────────────────────────────────────────────────────────────
+
 $primary:    #5156BE;
 $primary-dk: #3d41a0;
 $primary-lt: #eceeff;
 $teal:       #0F888D;
-$teal-dk:    #0a6b6f;
 $slate:      #474554;
-$slate-dk:   #333240;
 $danger:     #e8354a;
 $danger-dk:  #c42a3d;
-$activo:     #00999C;
-$activo-lt:  #e0f7f7;
-$historico:  #474554;
-$historico-lt: #edeef2;
 $border:     #dde1f0;
 $surface:    #f4f5fb;
 $text:       #1a1b2e;
@@ -35,34 +35,52 @@ $transition: 0.15s ease;
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
-    padding: 0.5rem 0;
+    padding: 0.6rem 0;
 
     @media (max-width: 768px) { flex-direction: column; align-items: stretch; }
+
+    &-left  { display: flex; align-items: center; gap: 8px; }
+    &-right { flex: 1; max-width: 480px; min-width: 260px; @media (max-width: 768px) { max-width: 100%; } }
 }
 
-.cp-toolbar-left  { display: flex; align-items: center; gap: 8px; }
-.cp-toolbar-right { display: flex; align-items: center; }
-
-.cp-filter-info {
+// ─── Search empleado ──────────────────────────────────────────────────────────
+.cp-search-emp {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.74rem;
+    gap: 8px;
+}
+
+.cp-search-label {
+    font-size: 0.72rem;
+    font-weight: 700;
     color: $text-muted;
-
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     i { font-size: 11px; }
+}
 
-    kbd {
-        display: inline-flex;
-        align-items: center;
-        padding: 1px 6px;
-        background: $surface;
-        border: 1px solid $border;
-        border-radius: 4px;
-        font-size: 0.68rem;
-        font-family: monospace;
-        color: $text-muted;
-        box-shadow: 0 1px 0 $border;
+.cp-ngselect {
+    flex: 1;
+    &.ng-select {
+        .ng-select-container {
+            height: 34px !important;
+            min-height: 34px !important;
+            border: 1.5px solid #d0d4e8 !important;
+            border-radius: $radius-sm !important;
+            font-size: 0.82rem !important;
+            background: #fafbff !important;
+            transition: border-color $transition, box-shadow $transition !important;
+        }
+        &.ng-select-focused .ng-select-container {
+            border-color: $primary !important;
+            box-shadow: 0 0 0 3px rgba(81,86,190,0.12) !important;
+        }
+        .ng-placeholder { font-size: 0.8rem; color: #b0b3cc; }
+        .ng-value-label  { font-size: 0.82rem; font-weight: 500; }
     }
 }
 
@@ -84,7 +102,7 @@ $transition: 0.15s ease;
     i { font-size: 11px; }
 
     &--primary { background: $primary; color: #fff; &:hover { background: $primary-dk; } }
-    &--ghost   { background: #fff; color: $text-muted; border: 1.5px solid $border; &:hover { background: $surface; } }
+    &--ghost   { background: #fff; color: $text-muted; border: 1.5px solid $border; &:hover { background: $surface; color: $text; } }
     &--danger  { background: $danger; color: #fff; &:hover { background: $danger-dk; } }
     &--sm      { padding: 4px 10px; font-size: 0.75rem; }
 }
@@ -103,7 +121,7 @@ $transition: 0.15s ease;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
+    padding: 0.55rem 1rem;
     background: linear-gradient(90deg, #eceeff 0%, $surface 100%);
     border-bottom: 1px solid $border;
     border-left: 4px solid $primary;
@@ -112,7 +130,7 @@ $transition: 0.15s ease;
         display: flex;
         align-items: center;
         gap: 7px;
-        font-size: 0.75rem;
+        font-size: 0.76rem;
         font-weight: 700;
         color: $primary;
         i { font-size: 12px; }
@@ -134,7 +152,7 @@ $transition: 0.15s ease;
         padding: 9px 10px;
         background: $surface;
         border-bottom: 1px solid $border;
-        font-size: 0.67rem;
+        font-size: 0.68rem;
         font-weight: 700;
         color: $primary;
         letter-spacing: 0.06em;
@@ -162,19 +180,21 @@ $transition: 0.15s ease;
     }
 }
 
-.cp-td-center  { text-align: center; }
-.cp-td-mono    { font-variant-numeric: tabular-nums; font-size: 0.77rem; color: $text-muted; }
-.cp-td-name    { font-weight: 500; white-space: nowrap; }
-.cp-td-org     { font-size: 0.78rem; color: $text-muted; max-width: 200px; }
+.cp-td-center { text-align: center; }
+.cp-td-mono   { font-variant-numeric: tabular-nums; font-size: 0.78rem; color: $text-muted; }
+.cp-td-date   { white-space: nowrap; font-size: 0.78rem; }
+.cp-td-asunto { max-width: 260px; }
+.cp-td-name   { font-weight: 500; white-space: nowrap; }
+.cp-td-org    { font-size: 0.78rem; color: $text-muted; max-width: 200px; }
 
 // ─── Filter inputs ────────────────────────────────────────────────────────────
 .cp-filter-input {
     width: 100%;
-    height: 27px;
-    padding: 0 7px;
+    height: 28px;
+    padding: 0 8px;
     border: 1.5px solid $border;
     border-radius: $radius-sm;
-    font-size: 0.75rem;
+    font-size: 0.76rem;
     color: $text;
     background: #fff;
     transition: border-color $transition, box-shadow $transition;
@@ -188,20 +208,20 @@ $transition: 0.15s ease;
     &--upper { text-transform: uppercase; }
 }
 
-// ─── Type badge ───────────────────────────────────────────────────────────────
+// ─── Badges ───────────────────────────────────────────────────────────────────
 .cp-type-badge {
     display: inline-block;
-    padding: 2px 8px;
+    padding: 2px 9px;
     background: $primary-lt;
     color: $primary;
-    border-radius: 10px;
-    font-size: 0.68rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
-// ─── Estado badge (con dot pulsante para ACTIVO) ──────────────────────────────
 .cp-estado-badge {
     display: inline-flex;
     align-items: center;
@@ -214,17 +234,8 @@ $transition: 0.15s ease;
     text-transform: uppercase;
     white-space: nowrap;
 
-    &--activo {
-        background: $activo-lt;
-        color: darken($activo, 5%);
-        .cp-estado-dot { background: $activo; animation: cp-pulse 2s infinite; }
-    }
-
-    &--historico {
-        background: $historico-lt;
-        color: $historico;
-        .cp-estado-dot { background: #999aaa; }
-    }
+    &--activo   { background: #e0f7f7; color: darken(#00999C, 5%); .cp-estado-dot { background: #00999C; animation: cp-pulse 2s infinite; } }
+    &--historico{ background: #edeef2; color: #474554; .cp-estado-dot { background: #999aaa; } }
 }
 
 .cp-estado-dot {
@@ -259,21 +270,9 @@ $transition: 0.15s ease;
     cursor: pointer;
     transition: all $transition;
 
-    &--situacion {
-        background: #e0f7f7;
-        color: $teal;
-        &:hover { background: $teal; color: #fff; }
-    }
-    &--edit {
-        background: $primary-lt;
-        color: $primary;
-        &:hover { background: $primary; color: #fff; }
-    }
-    &--view {
-        background: #e2eaf6;
-        color: #006FCE;
-        &:hover { background: #006FCE; color: #fff; }
-    }
+    &--situacion { background: #e0f7f7; color: $teal;    &:hover { background: $teal;    color: #fff; } }
+    &--edit      { background: $primary-lt; color: $primary; &:hover { background: $primary; color: #fff; } }
+    &--view      { background: #e2eaf6; color: #006FCE;  &:hover { background: #006FCE;  color: #fff; } }
 }
 
 // ─── Empty state ──────────────────────────────────────────────────────────────
@@ -282,7 +281,7 @@ $transition: 0.15s ease;
     text-align: center;
     color: $text-muted;
 
-    i { font-size: 2.2rem; display: block; margin-bottom: 10px; opacity: 0.22; }
+    i { font-size: 2.2rem; display: block; margin-bottom: 10px; opacity: 0.25; }
     p { margin: 0; font-size: 0.82rem; }
 }
 
@@ -291,6 +290,28 @@ $transition: 0.15s ease;
     padding: 0.6rem 0.75rem;
     border-top: 1px solid $border;
     background: $surface;
+}
+
+// ─── Hint teclado (info bar) ──────────────────────────────────────────────────
+.cp-filter-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.74rem;
+    color: $text-muted;
+    i { font-size: 11px; }
+    kbd {
+        display: inline-flex;
+        align-items: center;
+        padding: 1px 6px;
+        background: $surface;
+        border: 1px solid $border;
+        border-radius: 4px;
+        font-size: 0.68rem;
+        font-family: monospace;
+        color: $text-muted;
+        box-shadow: 0 1px 0 $border;
+    }
 }
 
 // ─── Responsive ───────────────────────────────────────────────────────────────

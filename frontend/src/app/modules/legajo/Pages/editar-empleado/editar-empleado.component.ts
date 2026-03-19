@@ -80,7 +80,7 @@ export class EditarEmpleadoComponent implements OnInit {
   discapacidades:      string[] = [];
   arrayDiscapacidad:   any[]    = [];
 
-  // ✅ FIX TOGGLE: propiedades booleanas para detección de cambios inmediata
+  // FIX TOGGLE: propiedades booleanas para detección de cambios inmediata
   // Las variables de template (#ref) causan que Angular no detecte el cambio
   // hasta el siguiente ciclo (click en otro lado). Usando props del componente
   // con (change)="prop = !prop" el @if se actualiza en el mismo evento.
@@ -98,7 +98,7 @@ export class EditarEmpleadoComponent implements OnInit {
   datos:              any[] = [];
   tipoEmpleado:       any[] = [];
   tipoGrupo:          any[] = [];
-  regimenList:        any[] = []; // ✅ renombrado para evitar colisión con formControlName="regimen"
+  regimenList:        any[] = []; // renombrado para evitar colisión con formControlName="regimen"
   tipoRegimen:        any[] = [];
   tipoSexo:           any[] = [];
   tipoGrupoSanguineo: any[] = [];
@@ -111,7 +111,7 @@ export class EditarEmpleadoComponent implements OnInit {
   tipoVia:            any[] = [];
   tipoZona:           any[] = [];
   unidadOrganica:     any[] = [];
-  servicioE:          any[] = [];
+
 
   // ── Tablas ────────────────────────────────────────────────────────────────
   familiares:         Familiar[]           = [];
@@ -257,7 +257,7 @@ export class EditarEmpleadoComponent implements OnInit {
         this.laborDocencia      = datos.datosExperienciaDocencia    ?? [];
         this.arrayDiscapacidad  = datos.datosDiscapacidad           ?? [];
 
-        // ✅ FIX: map() en lugar de forEach+push para evitar acumulación en recargas
+        // FIX: map() en lugar de forEach+push para evitar acumulación en recargas
         this.discapacidades    = this.arrayDiscapacidad.map((t: any) => t.tipo);
         this.tieneDiscapacidad = this.discapacidades.length > 0;
       });
@@ -296,7 +296,7 @@ export class EditarEmpleadoComponent implements OnInit {
       grupOcup:     datos.idGrupO,
       regimen:      datos.idRegimen,
       tipoRegimen:  datos.idTipoRegimen,
-      unidad:       datos.idUnidadOrganica,
+      unidad:       datos.idServicio,
       servicio:     datos.idServicio,
       cargo:        datos.idCargo,
       nivelCargo:   datos.nivel,
@@ -304,7 +304,7 @@ export class EditarEmpleadoComponent implements OnInit {
       fechaIngreso: datos.fechaIngreso,
     });
     if (datos.idRegimen)        { this.listarTipoRegimen(datos.idRegimen); }
-    if (datos.idUnidadOrganica) { this.listarServicio(datos.idUnidadOrganica); }
+
   }
 
   private setDatosContactoEmergencia(datos: any): void {
@@ -347,7 +347,7 @@ export class EditarEmpleadoComponent implements OnInit {
       fechTerColeg: datos.fechaTermino,
       numColeg:     datos.numeroCole,
     });
-    // ✅ inicializa el toggle según datos existentes al cargar
+    //  inicializa el toggle según datos existentes al cargar
     this.tieneColegiatura = !!(datos.numeroCole || datos.lugar);
   }
 
@@ -503,12 +503,7 @@ export class EditarEmpleadoComponent implements OnInit {
       : warningAlerta('Atención!', 'Elija primero un régimen.');
   }
 
-  cambioUnidad(): void {
-    const id = this.valSituacionLaboral.get('unidad')?.value;
-    id?.length > 0
-      ? this.listarServicio(id)
-      : warningAlerta('Atención!', 'Elija primero una unidad orgánica.');
-  }
+  
 
   // ─── Servicios de listado ──────────────────────────────────────────────────
 
@@ -545,15 +540,7 @@ export class EditarEmpleadoComponent implements OnInit {
       });
   }
 
-  private listarServicio(id: any): void {
-    this.datosGeneralesService.listarServicio(id)
-      .pipe(finalize(() => { this.loading = false; }))
-      .subscribe(({ estado, mensaje, datos }) => {
-        if (!estado) { errorAlerta('Error', mensaje); return; }
-        this.agregable = datos.length === 0;
-        this.servicioE = datos;
-      });
-  }
+  
 
   // ─── Agregar filas ─────────────────────────────────────────────────────────
 
@@ -667,7 +654,7 @@ export class EditarEmpleadoComponent implements OnInit {
 
   // ─── Guardar / Actualizar ──────────────────────────────────────────────────
 
-  actualizarEmpleado(): void {
+actualizarEmpleado(): void {
  this.intentoGuardar = true;
   // Validar tablas dinámicas
   const { valido, errores } = this.validarTablasDinamicas();

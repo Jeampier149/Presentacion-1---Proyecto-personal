@@ -1,158 +1,176 @@
 <app-breadcrumb [rutas]="rutas" [titulo]="'Datos Generales'"></app-breadcrumb>
-<div class="row">
-    <div class="col-xl-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-xl-auto col-md-auto col-sm-auto">
-                        @if(accesos?.includes(1)){
-                            <button class="btn w-100 btn-sm btn-primary waves-light waves-effect btn-label"
-                            routerLink="/legajo/agregarEmpleado">
-                        <i class="fa fa-file label-icon"></i> Nuevo Personal
-                </button>
-                        }
-                        
-                    </div>
-                </div>
-                <div class="row pt-2">
-                    <div class="col-xl-12">
-                        <app-loading [mostrar]="loading">
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-sm">
-                                            <thead>
-                                            <tr>
-                                                <th *ngFor="let cabecera of cabeceras;" class="{{cabecera.clase}}"
-                                                   [style]="cabecera.estilo">{{ cabecera.nombre }}
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th class="limpiar">
-                                                    <button
-                                                        class="btn w-50 btn-sm btn-danger waves-effect waves-light "
-                                                        (click)="limpiarCampos()"><i class="fa-solid fa-trash-can"></i>
-                                                    </button>
-                                                </th>
-                                                <th>
-                                                    <input #inpFocus
-                                                           inputmode="text"
-                                                           class="form-control form-control-sm text-uppercase"
-                                                           name="filtroDocumento" [(ngModel)]="filtroDocumento"
-                                                           (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th></th>
-                                                <th>
-                                                    <input
-                                                        inputmode="text"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="appPaternoFiltro"
-                                                        [(ngModel)]="filtroAppPaterno"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th>
-                                                    <input
-                                                        inputmode="text"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="appMaternoFiltro"
-                                                        [(ngModel)]="filtroAppMaterno"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th>
-                                                    <input
-                                                        inputmode="text"
-                                                        class="form-control form-control-sm text-uppercase"
-                                                        name="nombresFiltro"
-                                                        [(ngModel)]="filtroNombres"
-                                                        (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                    
-                                                <th><input
-                                                    inputmode="text"
-                                                    type="text" class="form-control form-control-sm text-center"
-                                                    name="filtroUnidadOrganica" [(ngModel)]="filtroUnidadOrganica"
-                                                    (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th><input
-                                                    inputmode="text"
-                                                    type="text" class="form-control form-control-sm text-center"
-                                                    name="filtroServicioEquipo" [(ngModel)]="filtroServicioEquipo"
-                                                    (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                                <th><input
-                                                    inputmode="text"
-                                                    type="text" class="form-control form-control-sm text-center"
-                                                    name="filtroEstado" [(ngModel)]="filtroEstado"
-                                                    (keydown.enter)="filtrarEmpleado()">
-                                                </th>
-                                           
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <ng-template [ngIf]="datos.length !== 0" [ngIfElse]="vacio">
-                                                <tr *ngFor="let dato of datos">
-                                                    <td>
-                                                        <div class="d-flex gap-1 flex-wrap justify-content-center">
-                                                              @if(accesos?.includes(3)){
-                                                                <button [bsTooltip]="'SItuacion Laboral'"
-                                                                class="btn btn-sm waves-light waves-effect btn-primary"
-                                                                (click)="situacionLaboral(dato.numeroDocumento)"
-                                                                >
-                                                              <i class="fa fa-user"></i></button>
-                                                              } 
-                                                              
-                                                             @if(accesos?.includes(2)){
-                                                                <button [bsTooltip]="'Editar'"
-                                                                class="btn btn-sm waves-light waves-effect btn-primary"
-                                                                 (click)="editarEmpleado(dato.numeroDocumento)"
-                                                               >
-                                                            <i class="fa fa-pencil"></i></button>
-                                                             }
-                                                         
-                                                                <button [bsTooltip]="'ver'"
-                                                                class="btn btn-sm waves-light waves-effect bg-secundary-new"
-                                                                (click)="verDatos(dato.numeroDocumento)"
-                                                               
-                                                                >
-                                                                 <i class="fa fa-eye"></i></button>
 
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-center">{{ dato.numeroDocumento}}</td>
-                                                    <td class="text-center">{{ dato.tipoDocumento}}</td>
-                                                    <td>{{ dato.apellidoPaterno }}</td>
-                                                    <td>{{ dato.apellidoMaterno }}</td>
-                                                    <td>{{ dato.nombres }}</td>
-                                                    <td >{{ dato.unidadOrganica }}</td>
-                                                    <td >{{ dato.servicio}}</td>
-                                                    <td  class="text-center">
-                                                        <span class="badge estado W-100" [ngClass]="dato.estado === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{ dato.estado}}</span>    
-                                                    
-                                                    
-                                                    </td>
-                                                </tr>
-                                            </ng-template>
-                                            <ng-template #vacio>
-                                                <tr>
-                                                    <td class="text-center" [colSpan]="cabeceras.length">No hay
-                                                        resultados
-                                                    </td>
-                                                </tr>
-                                            </ng-template>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <app-paginado [datos]="datos" [(longitud)]="longitud" [pagina]="pagina"
-                                          (cambioVer)="filtrarEmpleado()"
-                                          [ver]="true" (cambioPagina)="cambioPagina($event)"></app-paginado>
-                        </app-loading>
-                    </div>
-                </div>
+<div class="cp-page">
+
+    <!-- ── TOOLBAR ──────────────────────────────────────────────────────────── -->
+    <div class="cp-toolbar">
+        <div class="cp-toolbar-left">
+            @if(accesos?.includes(1)) {
+                <button class="cp-btn cp-btn--primary" routerLink="/legajo/agregarEmpleado">
+                    <i class="fa fa-user-plus"></i> Nuevo Personal
+                </button>
+            }
+        </div>
+        <div class="cp-toolbar-right">
+            <div class="cp-filter-info">
+                <i class="fas fa-keyboard"></i>
+                <span>Filtra escribiendo en las celdas y presiona <kbd>Enter</kbd></span>
             </div>
         </div>
     </div>
+
+    <!-- ── CARD TABLA ────────────────────────────────────────────────────────── -->
+    <div class="cp-card">
+        <app-loading [mostrar]="loading">
+
+            <!-- Barra de filtros -->
+            <div class="cp-filter-bar">
+                <div class="cp-filter-bar-left">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Filtros activos</span>
+                </div>
+                <button class="cp-btn cp-btn--danger cp-btn--sm" (click)="limpiarCampos()">
+                    <i class="fa-solid fa-trash-can"></i> Limpiar filtros
+                </button>
+            </div>
+
+            <div class="cp-table-wrap">
+                <table class="cp-table">
+                    <thead>
+                        <!-- Cabeceras -->
+                        <tr class="cp-thead-labels">
+                            <th *ngFor="let cab of cabeceras"
+                                [ngClass]="cab.clase"
+                                [style]="cab.estilo">
+                                {{ cab.nombre }}
+                            </th>
+                        </tr>
+                        <!-- Filtros inline -->
+                        <tr class="cp-thead-filters">
+                            <th></th><!-- acciones -->
+                            <th>
+                                <input #inpFocus inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="filtroDocumento" [(ngModel)]="filtroDocumento"
+                                    placeholder="DNI..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th></th><!-- tipo doc — sin filtro -->
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="appPaternoFiltro" [(ngModel)]="filtroAppPaterno"
+                                    placeholder="Paterno..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="appMaternoFiltro" [(ngModel)]="filtroAppMaterno"
+                                    placeholder="Materno..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="nombresFiltro" [(ngModel)]="filtroNombres"
+                                    placeholder="Nombres..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="filtroUnidadOrganica" [(ngModel)]="filtroUnidadOrganica"
+                                    placeholder="Unidad..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="filtroServicioEquipo" [(ngModel)]="filtroServicioEquipo"
+                                    placeholder="Servicio..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                            <th>
+                                <input inputmode="text"
+                                    class="cp-filter-input cp-filter-input--upper"
+                                    name="filtroEstado" [(ngModel)]="filtroEstado"
+                                    placeholder="Estado..."
+                                    (keydown.enter)="filtrarEmpleado()">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-template [ngIf]="datos.length !== 0" [ngIfElse]="vacio">
+                            <tr *ngFor="let dato of datos" class="cp-row">
+                                <td>
+                                    <div class="cp-row-actions">
+                                        @if(accesos?.includes(3)) {
+                                            <button class="cp-action-btn cp-action-btn--situacion"
+                                                [bsTooltip]="'Situación Laboral'"
+                                                (click)="situacionLaboral(dato.numeroDocumento)">
+                                                <i class="fa fa-user"></i>
+                                            </button>
+                                        }
+                                        @if(accesos?.includes(2)) {
+                                            <button class="cp-action-btn cp-action-btn--edit"
+                                                [bsTooltip]="'Editar'"
+                                                (click)="editarEmpleado(dato.numeroDocumento)">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        }
+                                        <button class="cp-action-btn cp-action-btn--view"
+                                            [bsTooltip]="'Ver detalle'"
+                                            (click)="verDatos(dato.numeroDocumento)">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="cp-td-center cp-td-mono">{{ dato.numeroDocumento }}</td>
+                                <td class="cp-td-center">
+                                    <span class="cp-type-badge">{{ dato.tipoDocumento }}</span>
+                                </td>
+                                <td class="cp-td-name">{{ dato.apellidoPaterno }}</td>
+                                <td class="cp-td-name">{{ dato.apellidoMaterno }}</td>
+                                <td class="cp-td-name">{{ dato.nombres }}</td>
+                                <td class="cp-td-org">{{ dato.unidadOrganica }}</td>
+                                <td class="cp-td-org">{{ dato.servicio }}</td>
+                                <td class="cp-td-center">
+                                    <span class="cp-estado-badge"
+                                        [ngClass]="dato.estado === 'ACTIVO' ? 'cp-estado-badge--activo' : 'cp-estado-badge--historico'">
+                                        <span class="cp-estado-dot"></span>
+                                        {{ dato.estado }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template #vacio>
+                            <tr>
+                                <td [colSpan]="cabeceras.length" class="cp-empty">
+                                    <i class="fas fa-users"></i>
+                                    <p>Sin resultados para los filtros aplicados</p>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cp-pagination">
+                <app-paginado
+                    [datos]="datos"
+                    [(longitud)]="longitud"
+                    [pagina]="pagina"
+                    (cambioVer)="filtrarEmpleado()"
+                    [ver]="true"
+                    (cambioPagina)="cambioPagina($event)">
+                </app-paginado>
+            </div>
+
+        </app-loading>
+    </div>
+
 </div>
+
 <app-modal-ver></app-modal-ver>
 <app-modal-situacion-laboral></app-modal-situacion-laboral>

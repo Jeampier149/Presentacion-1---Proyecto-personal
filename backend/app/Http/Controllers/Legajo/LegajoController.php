@@ -81,7 +81,6 @@ class LegajoController extends JSONResponseController
             'enfAlergias' => 'string|nullable',
             'fechaIngreso' => 'string',
             'unidadOrganica' => 'required',
-            'servicio' => 'required',
             'nacionalidad' => 'required',
             'tipoEmpleado' => 'required'
 

@@ -1,0 +1,156 @@
+// Reutiliza el sistema cp- de compensaciones íntegramente.
+// Si el archivo de compensaciones está en la misma carpeta o en shared,
+// reemplaza la ruta del @import según la estructura del proyecto.
+// Por ahora se duplican las variables mínimas necesarias para autonomía:
+
+$primary:    #5156BE;
+$primary-dk: #3d41a0;
+$primary-lt: #eceeff;
+$teal:       #0F888D;
+$slate:      #474554;
+$danger:     #e8354a;
+$danger-dk:  #c42a3d;
+$border:     #dde1f0;
+$surface:    #f4f5fb;
+$text:       #1a1b2e;
+$text-muted: #6b6d8c;
+$radius:     10px;
+$radius-sm:  6px;
+$transition: 0.15s ease;
+
+// Si compensaciones está en shared/styles, usar:
+// @import 'path/to/compensaciones.component';
+// y borrar todo lo que sigue.
+
+.cp-page {
+    padding: 0.75rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cp-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 0.6rem 0;
+    @media (max-width: 768px) { flex-direction: column; align-items: stretch; }
+}
+.cp-toolbar-left  { display: flex; align-items: center; gap: 8px; }
+.cp-toolbar-right { flex: 1; max-width: 480px; min-width: 260px; @media (max-width: 768px) { max-width: 100%; } }
+
+.cp-search-emp    { display: flex; align-items: center; gap: 8px; }
+.cp-search-label  {
+    font-size: 0.72rem; font-weight: 700; color: $text-muted;
+    letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap;
+    display: flex; align-items: center; gap: 5px;
+    i { font-size: 11px; }
+}
+
+.cp-ngselect {
+    flex: 1;
+    &.ng-select {
+        .ng-select-container {
+            height: 34px !important; min-height: 34px !important;
+            border: 1.5px solid #d0d4e8 !important;
+            border-radius: $radius-sm !important;
+            font-size: 0.82rem !important; background: #fafbff !important;
+        }
+        &.ng-select-focused .ng-select-container {
+            border-color: $primary !important;
+            box-shadow: 0 0 0 3px rgba(81,86,190,0.12) !important;
+        }
+        .ng-placeholder { font-size: 0.8rem; color: #b0b3cc; }
+        .ng-value-label  { font-size: 0.82rem; font-weight: 500; }
+    }
+}
+
+.cp-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: $radius-sm;
+    font-size: 0.8rem; font-weight: 600;
+    cursor: pointer; border: none; transition: all $transition; white-space: nowrap;
+    i { font-size: 11px; }
+    &--primary { background: $primary; color: #fff; &:hover { background: $primary-dk; } }
+    &--ghost   { background: #fff; color: $text-muted; border: 1.5px solid $border; &:hover { background: $surface; color: $text; } }
+    &--danger  { background: $danger; color: #fff; &:hover { background: $danger-dk; } }
+    &--sm      { padding: 4px 10px; font-size: 0.75rem; }
+}
+
+.cp-card {
+    background: #fff; border: 1px solid $border;
+    border-radius: $radius; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(81,86,190,0.07);
+}
+
+.cp-filter-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.55rem 1rem;
+    background: linear-gradient(90deg, #eceeff 0%, $surface 100%);
+    border-bottom: 1px solid $border; border-left: 4px solid $primary;
+    &-left { display: flex; align-items: center; gap: 7px; font-size: 0.76rem; font-weight: 700; color: $primary; i { font-size: 12px; } }
+}
+
+.cp-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.cp-table {
+    width: 100%; border-collapse: collapse; font-size: 0.8rem;
+
+    .cp-thead-labels th {
+        padding: 9px 10px; background: $surface; border-bottom: 1px solid $border;
+        font-size: 0.68rem; font-weight: 700; color: $primary;
+        letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; text-align: center;
+    }
+    .cp-thead-filters th { padding: 5px 6px; background: #fafbff; border-bottom: 2px solid $border; }
+
+    .cp-row {
+        transition: background $transition;
+        &:hover td { background: #f5f6fe; }
+        td { padding: 7px 10px; border-bottom: 1px solid lighten($border, 3%); color: $text; vertical-align: middle; }
+        &:last-child td { border-bottom: none; }
+    }
+}
+
+.cp-td-center { text-align: center; }
+.cp-td-mono   { font-variant-numeric: tabular-nums; font-size: 0.78rem; color: $text-muted; }
+.cp-td-date   { white-space: nowrap; font-size: 0.78rem; }
+.cp-td-asunto { max-width: 260px; }
+
+.cp-filter-input {
+    width: 100%; height: 28px; padding: 0 8px;
+    border: 1.5px solid $border; border-radius: $radius-sm;
+    font-size: 0.76rem; color: $text; background: #fff;
+    transition: border-color $transition, box-shadow $transition;
+    &::placeholder { color: #b5b8cc; }
+    &:focus { outline: none; border-color: $primary; box-shadow: 0 0 0 3px rgba(81,86,190,0.1); }
+    &--upper { text-transform: uppercase; }
+}
+
+.cp-type-badge {
+    display: inline-block; padding: 2px 9px;
+    background: $primary-lt; color: $primary;
+    border-radius: 12px; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap;
+}
+
+.cp-row-actions { display: flex; align-items: center; justify-content: center; gap: 4px; }
+
+.cp-action-btn {
+    width: 28px; height: 28px; border: none; border-radius: $radius-sm;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; cursor: pointer; transition: all $transition;
+    &--edit { background: $primary-lt; color: $primary; &:hover { background: $primary; color: #fff; } }
+    &--view { background: #e8e9f0; color: $slate; &:hover { background: $slate; color: #fff; } }
+}
+
+.cp-empty {
+    padding: 3rem 1rem !important; text-align: center; color: $text-muted;
+    i { font-size: 2.2rem; display: block; margin-bottom: 10px; opacity: 0.25; }
+    p { margin: 0; font-size: 0.82rem; }
+}
+
+.cp-pagination { padding: 0.6rem 0.75rem; border-top: 1px solid $border; background: $surface; }
+
+@media (max-width: 620px) { .cp-page { padding: 0.5rem 0 1.5rem; } }
