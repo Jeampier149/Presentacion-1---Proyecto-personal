@@ -135,7 +135,7 @@
             <div class="re-field re-field--wide">
               <label class="re-label">Tipo de Discapacidad</label>
               <ng-select [(ngModel)]="discapacidades" [multiple]="true" [items]="tipoDiscapacidad"
-                bindLabel="tipo" bindValue="tipo" placeholder="Seleccionar tipos..." class="re-ngselect">
+                [appendTo]="'body'"  bindLabel="tipo" bindValue="tipo" placeholder="Seleccionar tipos..." class="re-ngselect"   [appendTo]="'body'">
               </ng-select>
             </div>
             <div class="re-field">
@@ -179,7 +179,7 @@
                 </select>
               </div>
               <div class="re-field re-field--wide"><label class="re-label">Área / Unidad Orgánica</label>
-                <ng-select formControlName="unidad" [items]="unidadOrganica" bindLabel="unidad" bindValue="id" placeholder="Seleccionar..." class="re-ngselect"></ng-select>
+                <ng-select formControlName="unidad" [items]="unidadOrganica"   [appendTo]="'body'" bindLabel="unidad" bindValue="id" placeholder="Seleccionar..." class="re-ngselect"></ng-select>
               </div>
               <div class="re-field"><label class="re-label">Régimen</label>
                 <select class="re-select" formControlName="regimen" (change)="cambioTipo()">
@@ -196,10 +196,10 @@
               <div class="re-field"><label class="re-label">Código AIRHSP</label><input type="text" class="re-input" formControlName="airhsp"></div>
               <div class="re-field"><label class="re-label">Fecha de Ingreso</label><input type="date" class="re-input" formControlName="fechaIngreso"></div>
               <div class="re-field re-field--wide"><label class="re-label">Cargo</label>
-                <ng-select formControlName="cargo" [items]="cargo" bindLabel="descripcion" bindValue="codigo" placeholder="Buscar cargo..." class="re-ngselect"></ng-select>
+                <ng-select formControlName="cargo" [items]="cargo" bindLabel="descripcion" bindValue="codigo" placeholder="Buscar cargo..." class="re-ngselect"   [appendTo]="'body'"></ng-select>
               </div>
               <div class="re-field"><label class="re-label">Nivel</label>
-                <ng-select formControlName="nivelCargo" [items]="nivelCargo" bindLabel="nivel" bindValue="nivel" placeholder="Nivel..." class="re-ngselect"></ng-select>
+                <ng-select formControlName="nivelCargo" [items]="nivelCargo"    [appendTo]="'body'" bindLabel="nivel" bindValue="nivel"   [appendTo]="'body'" placeholder="Nivel..." class="re-ngselect"></ng-select>
               </div>
             </div>
           </div>
@@ -224,7 +224,7 @@
             </div>
             <div class="re-grid re-grid--3">
               <div class="re-field"><label class="re-label">Tipo de Vía</label>
-                <ng-select formControlName="via" [items]="tipoVia" bindLabel="tipo" bindValue="tipo" placeholder="Seleccionar..." class="re-ngselect"></ng-select>
+                <ng-select formControlName="via"    [appendTo]="'body'"[items]="tipoVia" bindLabel="tipo" bindValue="tipo" placeholder="Seleccionar..." class="re-ngselect"   [appendTo]="'body'"></ng-select>
               </div>
               @if(valDatosDomicilio.get('via')?.value) {
                 <div class="re-field re-field--wide"><label class="re-label">Nombre de la Vía</label><input type="text" class="re-input" formControlName="nombreVia" maxlength="150"></div>
@@ -232,7 +232,7 @@
                 <div class="re-field"><label class="re-label">Interior</label><input type="text" class="re-input" formControlName="interiorVia"></div>
               }
               <div class="re-field"><label class="re-label">Tipo de Zona</label>
-                <ng-select formControlName="zona" [items]="tipoZona" bindLabel="tipo" bindValue="tipo" placeholder="Seleccionar..." class="re-ngselect"></ng-select>
+                <ng-select formControlName="zona"    [appendTo]="'body'"[items]="tipoZona" bindLabel="tipo" bindValue="tipo" placeholder="Seleccionar..."   [appendTo]="'body'" class="re-ngselect"></ng-select>
               </div>
               @if(valDatosDomicilio.get('zona')?.value) {
                 <div class="re-field re-field--wide"><label class="re-label">Nombre de Zona</label><input type="text" class="re-input" formControlName="nombreZona" maxlength="150"></div>

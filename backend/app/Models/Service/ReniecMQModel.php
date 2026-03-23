@@ -329,7 +329,7 @@ class ReniecMQModel
         $equipo = strtoupper(preg_replace('/(.sbdomain.local)/', "", gethostbyaddr($ip)));
         $url = $_SERVER["HTTP_REFERER"] ?? $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 
-        $smtp = DB::connection('sighos')
+        $smtp = DB::connection('personal')
             ->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.gral_sp_insupd_rm_consultas_dni ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $this->numDNI);
         $smtp->bindParam(2, $this->digVerificacion);

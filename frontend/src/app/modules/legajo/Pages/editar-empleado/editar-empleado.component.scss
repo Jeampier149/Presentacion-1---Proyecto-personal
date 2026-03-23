@@ -31,3 +31,7 @@
     letter-spacing: 0.06em;
     margin: 0 0 8px 0;
 }
+
+.ng-dropdown-panel {
+  z-index: 9999 !important;
+}
