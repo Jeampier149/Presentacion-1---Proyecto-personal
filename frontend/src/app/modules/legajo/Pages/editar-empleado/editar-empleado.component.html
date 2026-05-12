@@ -194,7 +194,9 @@
                 </select>
               </div>
               <div class="re-field"><label class="re-label">Código AIRHSP</label><input type="text" class="re-input" formControlName="airhsp"></div>
-              <div class="re-field"><label class="re-label">Fecha de Ingreso</label><input type="date" class="re-input" formControlName="fechaIngreso"></div>
+              <div class="re-field"><label class="re-label">Fecha de Ingreso (Regimen Actual)</label><input type="date" class="re-input" formControlName="fechaIngreso"></div>
+               <div class="re-field"><label class="re-label">Fecha de Ingreso (Institucion)</label><input type="date" class="re-input" formControlName="fechaIngresoInstitucion"></div>
+              
               <div class="re-field re-field--wide"><label class="re-label">Cargo</label>
                 <ng-select formControlName="cargo" [items]="cargo" bindLabel="descripcion" bindValue="codigo" placeholder="Buscar cargo..." class="re-ngselect"   [appendTo]="'body'"></ng-select>
               </div>
@@ -414,7 +416,7 @@
                   <thead><tr><th>Tipo</th><th>Centro</th><th>Materia</th><th>F.Inicio</th><th>F.Término</th><th>Certificación</th><th>Doc.</th><th></th></tr></thead>
                   <tbody>
                     <tr *ngFor="let c of cursos; let i = index" [hidden]="c.estado === '*'">
-                      <td><select class="re-select re-select--sm" [(ngModel)]="c.tipo" [id]="'tipo-cur-'+i" [name]="'tipo-cur-'+i"><option value="CURSO">Curso</option><option value="SEMINARIO">Seminario</option></select></td>
+                      <td><select class="re-select re-select--sm" [(ngModel)]="c.tipo" [id]="'tipo-cur-'+i" [name]="'tipo-cur-'+i"><option value="CURSO">Curso</option><option value="SEMINARIO">Seminario</option><option value="CONFERENCIA">Conferencia</option><option value="TALLER">Taller</option></select></td>
                       <td><input type="text" class="re-input re-input--sm" [(ngModel)]="c.centro" [id]="'centro-cur-'+i" [name]="'centro-cur-'+i" [class.re-invalid]="!c.centro && intentoGuardar"></td>
                       <td><input type="text" class="re-input re-input--sm" [(ngModel)]="c.materia" [id]="'materia-cur-'+i" [name]="'materia-cur-'+i" [class.re-invalid]="!c.materia && intentoGuardar"></td>
                       <td><input type="date" class="re-input re-input--sm" [(ngModel)]="c.inicio" [id]="'ini-cur-'+i" [name]="'ini-cur-'+i" [class.re-invalid]="!c.inicio && intentoGuardar"></td>

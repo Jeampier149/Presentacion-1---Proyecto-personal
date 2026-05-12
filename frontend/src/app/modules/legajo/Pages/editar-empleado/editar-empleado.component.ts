@@ -657,13 +657,12 @@ export class EditarEmpleadoComponent implements OnInit {
 actualizarEmpleado(): void {
  this.intentoGuardar = true;
   // Validar tablas dinámicas
-  const { valido, errores } = this.validarTablasDinamicas();
-  console.log(valido)
-  if (!valido) {
-    console.log('entroo')
-  warningAlerta('Alerta','Datos incompletos ');
-    return;
-  }
+  // const { valido, errores } = this.validarTablasDinamicas();
+  // console.log(valido)
+  // if (!valido) {
+  // warningAlerta('Alerta','Datos incompletos ');
+  //   return;
+  // }
     this.loading = true;
     this.datosGeneralesService.editarDatosEmpleado(
       this.valDatosPersonales.getRawValue(),

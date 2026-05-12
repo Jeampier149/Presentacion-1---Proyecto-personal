@@ -67,4 +67,32 @@ export class SituacionLaboralService {
         })
         .pipe(shareReplay(1));
     }
+
+agregarHistorial(
+    numDoc: string,
+    condicion: any,
+    grupOcup: any,
+    valorUnidad: any,
+    valorRegimen: any,
+    valorTipRegimen: any,
+    valorCargo: any,
+    valorNivel: any,
+    fechaIngreso: any,
+    fechaTermino: any,
+    motivo: any,
+    sueldo: any,
+    resolucionIngreso: any,  // 👈
+    resolucionTermino: any,  // 👈
+) {
+    return this.http
+        .post<HttpResponseApi>(
+            '/api/situacion/agregarHistorial',
+            { numDoc, condicion, grupOcup, valorUnidad, valorRegimen,
+              valorTipRegimen, valorCargo, valorNivel, fechaIngreso,
+              fechaTermino, motivo, sueldo, 
+              resolucionIngreso, resolucionTermino },  // 👈
+            { responseType: 'json' }
+        )
+        .pipe(shareReplay(1));
+}
 }

@@ -47,12 +47,12 @@ Route::controller(LegajoController::class)->group(function () {
     Route::post('legajo/editar-discapacidad', 'editarDiscapacidad');
 });
 
-Route::controller(ResumenController::class)->group(function () {
-    Route::get('remmuneraciones/listar-resumen', 'listarResumen'); 
-    Route::get('remuneraciones/generar-resumen', 'generarResumen');
- //   Route::post('remmuneraciones/editar-empleado', 'editarEmpleado');
-  //  Route::post('remmuneraciones/editar-discapacidad', 'editarDiscapacidad');
-});
+// Route::controller(ResumenController::class)->group(function () {
+//     Route::get('remmuneraciones/listar-resumen', 'listarResumen'); 
+//     Route::get('remuneraciones/generar-resumen', 'generarResumen');
+//  //   Route::post('remmuneraciones/editar-empleado', 'editarEmpleado');
+//   //  Route::post('remmuneraciones/editar-discapacidad', 'editarDiscapacidad');
+// });
 
 Route::controller(CompensacionController::class)->group(function () {   
     Route::post('compensacion/registrarCompensacion', 'registrarCompensacion');
@@ -109,6 +109,8 @@ Route::controller(SituacionLaboralController::class)->group(function () {
     Route::post('situacion/registrarTermino', 'registrarTermino');
     Route::post('situacion/actualizarSituacion', 'actualizarSituacion');
     Route::post('situacion/datosSituacionHistorial', 'listarSituacionLaboralHistorial');
+    // routes/api.php
+Route::post('situacion/agregarHistorial', [SituacionLaboralController::class, 'agregarHistorial']);  
     
 });
 Route::controller(ReporteDatosController::class)->group(function () {

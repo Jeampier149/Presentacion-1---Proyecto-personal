@@ -149,9 +149,16 @@
                         <div class="sl-card-header">
                             <i class="fas fa-history sl-card-icon"></i>
                             <span>Historial</span>
+                            <!-- En el card-header del Historial -->
+
                             <span class="sl-badge-count" *ngIf="situacionHistorial.length > 0">
                                 {{ situacionHistorial.length }}
                             </span>
+                            <button type="button" class="sl-btn sl-btn--primary sl-btn--sm"
+                            (click)="abrirAgregarHistorial()">
+                            <i class="fas fa-plus"></i>
+                            <span>Agregar</span>
+                        </button>
                         </div>
                         <div class="sl-card-body p-0">
                             <div class="sl-table-wrapper">
@@ -213,3 +220,6 @@
 </div>
 
 <app-modal-dar-termino></app-modal-dar-termino>
+<app-modal-agregar-historial
+    (guardado)="listarSituacionHistorial(numeroDocumento)">
+</app-modal-agregar-historial>

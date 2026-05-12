@@ -1,0 +1,23 @@
+// modal-agregar-historial.component.scss
+@import '../modal-situacion-laboral/modal-situacion-laboral.component.scss';
+.sl-required {
+    color: #e05;
+    margin-left: 2px;
+}
+
+// Grid override para este modal (2 columnas en lugar de 3)
+.sl-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.sl-field--wide {
+    grid-column: span 2;
+
+    @media (max-width: 600px) {
+        grid-column: span 1;
+    }
+}

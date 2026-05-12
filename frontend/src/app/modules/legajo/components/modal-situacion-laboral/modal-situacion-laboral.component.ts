@@ -11,6 +11,7 @@ import {
 import { finalize } from 'rxjs';
 import { SituacionLaboralService } from '@services/legajo/situacion-laboral.service';
 import { ModalDarTerminoComponent } from '../modal-dar-termino/modal-dar-termino.component';
+import { ModalAgregarHistorialComponent } from '../modal-agregar-historial/modal-agregar-historial.component';
 
 @Component({
     selector: 'app-modal-situacion-laboral',
@@ -36,6 +37,7 @@ export class ModalSituacionLaboralComponent {
 
     @ViewChild('modalSituacionLaboral') modalSituacion!: any;
     @ViewChild(ModalDarTerminoComponent) modalTermino?: ModalDarTerminoComponent;
+    @ViewChild(ModalAgregarHistorialComponent) modalAgregar?: ModalAgregarHistorialComponent;
 
     valSituacionLaboral!: FormGroup;
     valDatos!: FormGroup;
@@ -266,4 +268,7 @@ export class ModalSituacionLaboralComponent {
                 URL.revokeObjectURL(fileURL);
             });
     }
+abrirAgregarHistorial() {
+  this.modalAgregar?.openModal(this.numeroDocumento, this.nombre);
+}
 }

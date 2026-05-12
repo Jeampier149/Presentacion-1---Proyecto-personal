@@ -1,0 +1,140 @@
+<div #modalAgregarHistorial class="modal fade" tabindex="-1" *teleportTo="'body'">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content sl-modal">
+
+      <div class="sl-header">
+        <div class="sl-header-left">
+          <div class="sl-header-icon">
+            <i class="fas fa-plus-circle"></i>
+          </div>
+          <div>
+            <h5 class="sl-title">Agregar al Historial</h5>
+            <p class="sl-subtitle" *ngIf="nombre">{{ nombre }}</p>
+          </div>
+        </div>
+        <div class="sl-header-right">
+          <button type="button" class="sl-close-btn" (click)="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body sl-body" [formGroup]="form">
+        <app-loading [mostrar]="loading">
+       <div class="sl-grid">
+
+    <div class="sl-field">
+        <label class="sl-label">Condición</label>
+        <select class="sl-select" formControlName="condicion">
+            <option value="">Seleccionar</option>
+            <option *ngFor="let t of tipoEmpleado" [value]="t.idTipo">{{ t.tipo }}</option>
+        </select>
+    </div>
+
+    <div class="sl-field">
+        <label class="sl-label">Grupo Ocupacional</label>
+        <select class="sl-select" formControlName="grupOcup">
+            <option value="">Seleccionar</option>
+            <option *ngFor="let g of tipoGrupo" [value]="g.id">{{ g.tipoG }}</option>
+        </select>
+    </div>
+
+    <div class="sl-field sl-field--wide">
+        <label class="sl-label">Área <span class="sl-required">*</span></label>
+        <select class="sl-select" formControlName="valorUnidad">
+            <option value="">Seleccionar</option>
+            <option *ngFor="let u of unidadOrganica" [value]="u.id">{{ u.unidad }}</option>
+        </select>
+    </div>
+
+    <div class="sl-field">
+        <label class="sl-label">Régimen <span class="sl-required">*</span></label>
+        <select class="sl-select" formControlName="valorRegimen" (change)="cambioRegimen()">
+            <option value="">Seleccionar</option>
+            <option *ngFor="let r of regimen" [value]="r.id">{{ r.regimen }}</option>
+        </select>
+    </div>
+
+    <div class="sl-field">
+        <label class="sl-label">Tipo de Régimen</label>
+        <select class="sl-select" formControlName="valorTipRegimen">
+            <option value="">Seleccionar</option>
+            <option *ngFor="let t of tipoRegimen" [value]="t.id">{{ t.tipoRegimen }}</option>
+        </select>
+    </div>
+
+    <div class="sl-field sl-field--wide">
+        <label class="sl-label">Cargo</label>
+        <ng-select formControlName="valorCargo" [items]="cargo"
+            bindLabel="descripcion" bindValue="codigo"
+            placeholder="Buscar cargo..." class="sl-ngselect">
+        </ng-select>
+    </div>
+
+    <div class="sl-field">
+        <label class="sl-label">Nivel</label>
+        <ng-select formControlName="valorNivel" [items]="nivelCargo"
+            bindLabel="nivel" bindValue="nivel"
+            placeholder="Seleccionar nivel" class="sl-ngselect">
+        </ng-select>
+    </div>
+
+    <div class="sl-field">
+        <label class="sl-label">Sueldo</label>
+        <input type="number" class="sl-input" formControlName="sueldo"
+            placeholder="0.00" min="0" step="0.01" />
+    </div>
+
+    <div class="sl-field">
+        <label class="sl-label">Fecha de Ingreso <span class="sl-required">*</span></label>
+        <input type="date" class="sl-input" formControlName="fechaIngreso" />
+    </div>
+<div class="sl-field">
+    <label class="sl-label">Resolución de Ingreso</label>
+    <div class="sl-input-prefix">
+
+        <input type="text" class="sl-input sl-input--prefixed"
+            formControlName="resolucionIngreso"
+            placeholder="023-DG-HSB" />
+    </div>
+</div>
+
+<div class="sl-field">
+    <label class="sl-label">Resolución de Término</label>
+    <div class="sl-input-prefix">
+
+        <input type="text" class="sl-input sl-input--prefixed"
+            formControlName="resolucionTermino"
+            placeholder="023-DG-HSB" />
+    </div>
+</div>
+
+    <div class="sl-field">
+        <label class="sl-label">Fecha de Término</label>
+        <input type="date" class="sl-input" formControlName="fechaTermino" />
+    </div>
+
+    <div class="sl-field sl-field--wide">
+        <label class="sl-label">Motivo</label>
+        <input type="text" class="sl-input" formControlName="motivo"
+            placeholder="Motivo del registro histórico" />
+    </div>
+
+</div>
+        </app-loading>
+      </div>
+
+      <div class="sl-footer">
+        <button class="sl-btn sl-btn--ghost" type="button" (click)="closeModal()">
+          <i class="fas fa-times"></i>
+          <span>Cancelar</span>
+        </button>
+        <button class="sl-btn sl-btn--primary" type="button" (click)="guardar()">
+          <i class="fas fa-save"></i>
+          <span>Guardar</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

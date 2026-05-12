@@ -28,6 +28,7 @@ import { ModalReconocimientoSancionComponent } from './components/modal-reconoci
 import { ModalExportarComponent } from './components/modal-exportar/modal-exportar.component';
 import { RelacionesLaboralesComponent } from './Pages/relaciones-laborales/relaciones-laborales.component';
 import { ModalRelacionesLaboralesComponent } from './components/modal-relaciones-laborales/modal-relaciones-laborales.component';
+import { ModalAgregarHistorialComponent } from './components/modal-agregar-historial/modal-agregar-historial.component';
 
 
 
@@ -52,7 +53,8 @@ import { ModalRelacionesLaboralesComponent } from './components/modal-relaciones
     ModalReconocimientoSancionComponent,
     ModalExportarComponent,
     RelacionesLaboralesComponent,
-    ModalRelacionesLaboralesComponent
+    ModalRelacionesLaboralesComponent,
+    ModalAgregarHistorialComponent
     
   
   ],

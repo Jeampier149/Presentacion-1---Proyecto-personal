@@ -38,4 +38,11 @@ class SituacionLaboralModel extends Model
         /** @lang SQL */
         'EXEC dbo.pl_sp_situacion_laboral_actualizar ?,?,?,?,?,?,?,?,?,?,?,?,?,?', [$numDoc,$grupOcup,$regimen,$tipoRegimen,$unidad,$servicio,$cargo,$nivel,$codAir,$fechaIngreso,$condicion,$usuario,$equipo,$perfil]);
     }
+public function agregarHistorial($numDoc, $condicion, $grupOcup, $unidad, $regimen, $tipoRegimen, $cargo, $nivel, $fechaIngreso, $fechaTermino, $motivo, $sueldo, $resolucionIngreso, $resolucionTermino, $usuario, $equipo, $perfil)
+{
+    return $this->conexion->selectOne(
+    /** @lang SQL */
+    'EXEC dbo.pl_sp_situacion_laboral_agregar_historial ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?',
+    [$numDoc, $condicion, $grupOcup, $unidad, $regimen, $tipoRegimen, $cargo, $nivel, $fechaIngreso, $fechaTermino, $motivo, $sueldo, $resolucionIngreso, $resolucionTermino, $usuario, $equipo, $perfil]);
+}
 }
